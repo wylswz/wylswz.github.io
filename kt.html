@@ -78,26 +78,37 @@
 <li><a href="#unsupervised">Unsupervised</a></li>
 </ul>
 </li>
+<li><a href="#testing-strategy">Testing strategy</a>
+<ul>
+<li><a href="#bias-and-variance">Bias and variance</a></li>
+</ul>
+</li>
 <li><a href="#evaluation-metrics">Evaluation Metrics</a>
 <ul>
 <li><a href="#information-retrieval">Information retrieval</a></li>
 <li><a href="#classification">Classification</a></li>
 </ul>
 </li>
-<li><a href="#clustering">Clustering</a></li>
-<li><a href="#classifying">Classifying</a>
-<ul>
-<li><a href="#testing-strategy">Testing strategy</a>
-<ul>
-<li><a href="#bias-and-variance">Bias and variance</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li><a href="#recommendation-system">Recommendation System</a>
 <ul>
 <li><a href="#content-bases">Content bases</a></li>
 <li><a href="#collaborative-filtering">Collaborative Filtering</a></li>
+</ul>
+</li>
+<li><a href="#rule-mining">Rule mining</a>
+<ul>
+<li><a href="#approaches">Approaches</a>
+<ul>
+<li><a href="#brute-force-prohibitive">Brute-force (prohibitive)</a></li>
+<li><a href="#two-step-approach">Two-step approach</a></li>
+</ul>
+</li>
+<li><a href="#techniques">Techniques</a>
+<ul>
+<li><a href="#apriori">Apriori</a></li>
+<li><a href="#generate-hash-tree">Generate Hash Tree</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -431,10 +442,10 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <h2 id="machine-learning">Machine Learning</h2>
 <h3 id="supervised">Supervised</h3>
 <ul>
-<li>
-<p><strong>Classification</strong></p>
+<li><strong>Classification</strong>
 <ul>
-<li>Decision Tree
+<li>
+<p>Decision Tree</p>
 <ul>
 <li>Best split (Check out Tao Lu)</li>
 <li>Parameters: Total number of nodes, depth, minimum number of data points for a split</li>
@@ -442,7 +453,8 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <li>Random forest: train multiple trees on random subset of samples, decision via majority voting (Can be subset of record, subset of attr)</li>
 </ul>
 </li>
-<li>SVM
+<li>
+<p>SVM</p>
 <ul>
 <li>Find hyperplane that maximises the margin (find w and b)</li>
 <li>Lagrange multiplier applied to get dual problem: Solve <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathit" style="margin-right:0.0037em;">α</span></span></span></span></li>
@@ -452,6 +464,68 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <li>One-vs-one: One classifier per pair, choose class selected by most classifiers</li>
 </ul>
 </li>
+<li>
+<p>KNN</p>
+<p>Select K nearest neighbours and look at their label</p>
+</li>
+<li>
+<p><strong>Naive Bayes</strong></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>=</mo><mi>a</mi><mi>r</mi><mi>g</mi><mi>m</mi><mi>a</mi><msub><mi>x</mi><mi>c</mi></msub><mi>P</mi><mo>(</mo><mi>c</mi><mo>)</mo><mo>∏</mo><mi>P</mi><mo>(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">c = argmax_cP(c)\prod P(x|c)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathit">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∏</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mord">∣</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span></span></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="unsupervised">Unsupervised</h3>
+<ul>
+<li>Association</li>
+<li>Clustering</li>
+<li>Reinforcement learning</li>
+<li>Recommender system</li>
+<li>Anomaly dection</li>
+</ul>
+<h2 id="testing-strategy">Testing strategy</h2>
+<h3 id="bias-and-variance">Bias and variance</h3>
+<ul>
+<li>
+<p><strong>(Training) bias</strong> is the average distance between expected value and estimated value</p>
+</li>
+<li>
+<p><strong>(Testing) variance</strong> is the standard deviation between the estimated value and the average estimated value(Inconsistency of decision)</p>
+</li>
+<li>
+<p><strong>Holdout</strong> Fixed training and testing set</p>
+<ul>
+<li>+ Simple</li>
+<li>+ High reproducibility</li>
+<li>- Tradeoff: more training or testong</li>
+<li>- Representativeness of the training the test data</li>
+</ul>
+</li>
+<li>
+<p><strong>Random subsampling</strong> Multiple iterations, randomly selecting training and test data</p>
+<ul>
+<li>+ Reduce bias and variance</li>
+<li>- Reproducability</li>
+</ul>
+</li>
+<li>
+<p><strong>Leave one out</strong> Train N times, 1 test instance each time. Measure average performance</p>
+<ul>
+<li>+  No sampling bias</li>
+<li>+ Higher accuracy</li>
+<li>- Expensive</li>
+</ul>
+</li>
+<li>
+<p><strong>M-fold cross validation</strong></p>
+<ul>
+<li>+ Only train M times</li>
+<li>+ Can measure stability of the system</li>
+<li>- Sampling bias</li>
+<li>- Results varies unless partition identically</li>
+<li>- Slightly low acc</li>
+<li>- Not suitable for small dataset</li>
 </ul>
 </li>
 <li>
@@ -506,14 +580,6 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathit" style="margin-right:0.10903em;">M</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.463782em;vertical-align:-1.413777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.8723309999999997em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">i</span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mathit mtight">a</span><span class="mpunct mtight">,</span><span class="mord accent mtight"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.56778em;"><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mathit mtight">a</span></span><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mtight">ˉ</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.413777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.8723309999999997em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mathit mtight">c</span><span class="mpunct mtight">,</span><span class="mord accent mtight"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.56778em;"><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mathit mtight">c</span></span><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mtight">ˉ</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.413777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathit" style="margin-right:0.10903em;">M</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mclose">)</span></span></span></span></span></p>
 </li>
 </ul>
-<h3 id="unsupervised">Unsupervised</h3>
-<ul>
-<li>Association</li>
-<li>Clustering</li>
-<li>Reinforcement learning</li>
-<li>Recommender system</li>
-<li>Anomaly dection</li>
-</ul>
 <h2 id="evaluation-metrics">Evaluation Metrics</h2>
 <h3 id="information-retrieval-1">Information retrieval</h3>
 <ul>
@@ -535,59 +601,6 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 </li>
 <li><strong>ROC(Receiver Operating Characteristics)</strong> Best prediction yields upper left corner.</li>
 <li><strong>AUC(Area Under the Curve)</strong> Probability that a classifier will rank a randomly chosen instance higher than a randomly chosen negative one.</li>
-</ul>
-<h2 id="clustering">Clustering</h2>
-<h2 id="classifying">Classifying</h2>
-<ul>
-<li><strong>KNN</strong> Select K nearest neighbours and look at their label</li>
-<li><strong>Naive Bayes</strong><p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>=</mo><mi>a</mi><mi>r</mi><mi>g</mi><mi>m</mi><mi>a</mi><msub><mi>x</mi><mi>c</mi></msub><mi>P</mi><mo>(</mo><mi>c</mi><mo>)</mo><mo>∏</mo><mi>P</mi><mo>(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">c = argmax_cP(c)\prod P(x|c)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathit">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∏</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mord">∣</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span></span></p>
-</li>
-</ul>
-<h3 id="testing-strategy">Testing strategy</h3>
-<h4 id="bias-and-variance">Bias and variance</h4>
-<ul>
-<li>
-<p><strong>(Training) bias</strong> is the average distance between expected value and estimated value</p>
-</li>
-<li>
-<p><strong>(Testing) variance</strong> is the standard deviation between the estimated value and the average estimated value(Inconsistency of decision)</p>
-</li>
-<li>
-<p><strong>Holdout</strong> Fixed training and testing set</p>
-<ul>
-<li>+ Simple</li>
-<li>+ High reproducibility</li>
-<li>- Tradeoff: more training or testong</li>
-<li>- Representativeness of the training the test data</li>
-</ul>
-</li>
-<li>
-<p><strong>Random subsampling</strong> Multiple iterations, randomly selecting training and test data</p>
-<ul>
-<li>+ Reduce bias and variance</li>
-<li>- Reproducability</li>
-</ul>
-</li>
-<li>
-<p><strong>Leave one out</strong> Train N times, 1 test instance each time. Measure average performance</p>
-<ul>
-<li>+  No sampling bias</li>
-<li>+ Higher accuracy</li>
-<li>- Expensive</li>
-</ul>
-</li>
-<li>
-<p><strong>M-fold cross validation</strong></p>
-<ul>
-<li>+ Only train M times</li>
-<li>+ Can measure stability of the system</li>
-<li>- Sampling bias</li>
-<li>- Results varies unless partition identically</li>
-<li>- Slightly low acc</li>
-<li>- Not suitable for small dataset</li>
-</ul>
-</li>
 </ul>
 <h2 id="recommendation-system">Recommendation System</h2>
 <h3 id="content-bases">Content bases</h3>
@@ -634,6 +647,81 @@ M1001 80H400000v40H1013z'/></svg></span></span></span><span class="vlist-s">​<
 <li>Compute similarity between each neighbour and target item</li>
 <li>Select k most similar neighbours</li>
 <li>Predict ratings for the target item</li>
+</ul>
+</li>
+</ul>
+<h2 id="rule-mining">Rule mining</h2>
+<ul>
+<li>
+<p><strong>Itemset</strong> is a collection of one or more items, like {A,B,C}.</p>
+</li>
+<li>
+<p><strong>k-itemset</strong> contains k items.</p>
+</li>
+<li>
+<p><strong>Support count</strong> (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathit" style="margin-right:0.03588em;">σ</span></span></span></span>) is freq of occurrance of itemset</p>
+</li>
+<li>
+<p><strong>Support</strong> is fraction of transactions that contain an itemset</p>
+</li>
+<li>
+<p><strong>Frequest Itemset</strong> is an itemset whose support is greater than or equal to a minsup threshold</p>
+</li>
+<li>
+<p>Association Rule
+An implication expression of form <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>→</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \rightarrow B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathit">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span></span> where A and B are itemsets</p>
+<ul>
+<li>Support: Fraction of transactions that contain both A and B</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>(</mo><mi>A</mi><mo>→</mo><mi>B</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>σ</mi><mo>(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>)</mo></mrow><mrow><mi>σ</mi><mo>(</mo><mo>∗</mo><mo>)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">s(A\rightarrow B) = \frac{\sigma(A\cup B)}{\sigma(*)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathit">s</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord">∗</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∪</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<ul>
+<li>Confidence: Measure how often item in A appear in transactions that contain B</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>(</mo><mi>A</mi><mo>→</mo><mi>B</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>σ</mi><mo>(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>)</mo></mrow><mrow><mi>σ</mi><mo>(</mo><mi>A</mi><mo>)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">c(A\rightarrow B) = \frac{\sigma(A\cup B)}{\sigma(A)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathit">c</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∪</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+</li>
+</ul>
+<h3 id="approaches">Approaches</h3>
+<h4 id="brute-force-prohibitive">Brute-force (prohibitive)</h4>
+<ul>
+<li>List all possible rules</li>
+<li>Compute support and confidence</li>
+<li>Prune rules that fail the minsup and minconf</li>
+</ul>
+<h4 id="two-step-approach">Two-step approach</h4>
+<ul>
+<li>Frequent itemset generation
+<ul>
+<li>Reduce candidate (Apriori)</li>
+<li>Reduce transaction</li>
+<li>Reduce number of comparisons</li>
+</ul>
+</li>
+<li>Rule generation (Generate Hash Tree)</li>
+</ul>
+<h3 id="techniques">Techniques</h3>
+<h4 id="apriori">Apriori</h4>
+<p>Subset always have higher support</p>
+<ul>
+<li>Let k=1</li>
+<li>Generate frequent itemsets of length 1</li>
+<li>Repeat until no new frequent itemsets are identified
+<ul>
+<li>Prune candidate itemsets containing subset of length k that are infreq</li>
+<li>Count support of each candidate by scanning database</li>
+<li>Eliminate infreq candidates</li>
+<li>Generate length k+1 candidate itemsets from length k itemsets</li>
+</ul>
+</li>
+</ul>
+<h4 id="generate-hash-tree">Generate Hash Tree</h4>
+<p>Accelerates counting support count for candidates</p>
+<ul>
+<li>Build up an hashtree by hashing items in candidate itemsets</li>
+<li>Given a transaction, start from 1th layer, recursively:
+<ul>
+<li>At <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>k</mi><mrow><mi>t</mi><mi>h</mi></mrow></msup></mrow><annotation encoding="application/x-tex">k^{th}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">t</span><span class="mord mathit mtight">h</span></span></span></span></span></span></span></span></span></span></span></span> layer, hash <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>k</mi><mrow><mi>t</mi><mi>h</mi></mrow></msup><mo separator="true">,</mo><mi>k</mi><mo>+</mo><msup><mn>1</mn><mrow><mi>t</mi><mi>h</mi></mrow></msup><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>k</mi><mo>+</mo><msup><mi>n</mi><mrow><mi>t</mi><mi>h</mi></mrow></msup></mrow><annotation encoding="application/x-tex">k^{th}, k+1^{th}...k+n^{th}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.043548em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">t</span><span class="mord mathit mtight">h</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.932438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">t</span><span class="mord mathit mtight">h</span></span></span></span></span></span></span></span></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathit">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">t</span><span class="mord mathit mtight">h</span></span></span></span></span></span></span></span></span></span></span></span> items at current node, until the leaf of the tree. Then Compare the transaction with candidates at leaf node.</li>
 </ul>
 </li>
 </ul>
