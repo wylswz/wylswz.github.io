@@ -326,7 +326,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <li>Be ready to consider a doc even if the terminology is completely different</li>
 </ul>
 <h3 id="boolean-querying">Boolean querying</h3>
-<p>Documents match if they contain the terms and don't contain the NOT terms. There is no ordering, only yes/no</p>
+<p>Documents match if they contain the terms and don't contain the NOT terms. There is no ordering, only yes/no (Start with least frequent terms to reduce cost)</p>
 <h3 id="ranking">Ranking</h3>
 <p>By looking for evidence in the document that it is on the same topic as the query</p>
 <ul>
@@ -448,7 +448,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <p>How to find the pages in which the words occur as a phrase</p>
 <p>Strategies:</p>
 <ul>
-<li>Process as bag of words, then post-process</li>
+<li>Process as bag of words, then post-process (Can be slow, start with most infrequent terms to speed up)</li>
 <li>Add position to index entries</li>
 <li>Use some form of phrase index of word-pair index so that they can be directly indetified without using inverted index</li>
 </ul>
@@ -622,6 +622,10 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 </li>
 </ul>
 <h2 id="evaluation-metrics">Evaluation Metrics</h2>
+<ul>
+<li><strong>Generalise</strong> when it learns the target function well, rather than specifics of the training set.</li>
+<li><strong>Overfitting</strong> when the classifier fails to generalise(describe training set very well, but does not describe the test data well)</li>
+</ul>
 <h3 id="information-retrieval-1">Information retrieval</h3>
 <ul>
 <li>
