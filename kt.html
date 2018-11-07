@@ -110,6 +110,7 @@
 <li><a href="#generate-hash-tree">Generate Hash Tree</a></li>
 </ul>
 </li>
+<li><a href="#further-issues">Further Issues</a></li>
 </ul>
 </li>
 </ul>
@@ -122,12 +123,15 @@
 <li><a href="#using-ig">Using IG</a></li>
 <li><a href="#using-gain-ratio">Using Gain Ratio</a></li>
 <li><a href="#using-gini-splite">Using GINI-Splite</a></li>
-<li><a href="#accumulator">Accumulator</a></li>
-<li><a href="#acc-limiting-approach">Acc limiting approach</a></li>
-<li><a href="#acc-threshold-approach">Acc threshold approach</a></li>
-<li><a href="#calculate-evaluation-matrics-for-classifier">Calculate Evaluation Matrics for <strong>Classifier</strong></a></li>
 </ul>
 </li>
+<li><a href="#accumulator">Accumulator</a>
+<ul>
+<li><a href="#acc-limiting-approach">Acc limiting approach</a></li>
+<li><a href="#acc-threshold-approach">Acc threshold approach</a></li>
+</ul>
+</li>
+<li><a href="#calculate-evaluation-matrics-for-classifier">Calculate Evaluation Matrics for <strong>Classifier</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -467,8 +471,16 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <p>How to set params? Cross-validation</p>
 </li>
 <li>
-<p>Random forest: train multiple trees on random subset of samples, decision via majority voting (Can be subset of record, subset of attr)</p>
+<p>Continuous attributes: Discretization at the beginning or find ranges by equal interval bucketing</p>
 </li>
+</ul>
+</li>
+<li>
+<p>Random forest: train multiple trees on random subset of samples, decision via majority voting (Can be subset of record, subset of attr)</p>
+<ul>
+<li>Num of trees</li>
+<li>Use bagging to come up with different training dataset for each tree</li>
+<li>When building our tree, at each node, we only consider a random sample of attributes.</li>
 </ul>
 </li>
 <li>
@@ -476,6 +488,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <ul>
 <li>Find hyperplane that maximises the margin (find w and b)</li>
 <li>Lagrange multiplier applied to get dual problem: Solve <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathit" style="margin-right:0.0037em;">α</span></span></span></span></li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> with non-zero <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>α</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\alpha_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> will be support vectors</li>
 <li>Softmargin introduces parameters to tradeoff the relative importance of maximizing the margin and fitting the data</li>
 <li>Use kernel function for non-linear SVM</li>
 <li>One-vs-all multi-class strategy: Build M classifiers for M classes, choose class with largest margin for test data</li>
@@ -490,6 +503,16 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <p><strong>Naive Bayes</strong></p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>=</mo><mi>a</mi><mi>r</mi><mi>g</mi><mi>m</mi><mi>a</mi><msub><mi>x</mi><mi>c</mi></msub><mi>P</mi><mo>(</mo><mi>c</mi><mo>)</mo><mo>∏</mo><mi>P</mi><mo>(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">c = argmax_cP(c)\prod P(x|c)
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathit">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∏</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mord">∣</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span></span></p>
+</li>
+<li>
+<p>NN</p>
+<ul>
+<li>Define E</li>
+<li>Forward pass: calculate hidden <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>H</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">H_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and output <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>O</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">O_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> values</li>
+<li>Calculate error for each layer</li>
+<li>Update weight using gradient descent</li>
+<li>Until converge</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -792,6 +815,24 @@ An implication expression of form <span class="katex"><span class="katex-mathml"
 </ul>
 </li>
 </ul>
+<h3 id="further-issues">Further Issues</h3>
+<ul>
+<li>Correlation vs causation
+<ul>
+<li>May be wrong direction</li>
+<li>Causation with unseen intermediary</li>
+<li>Unseen cause of both events</li>
+<li>Coincidental</li>
+</ul>
+</li>
+<li>Data mining
+<ul>
+<li>Valid: Data has support for the pattern</li>
+<li>Non-trivial: The pattern isn't self-evident from the data</li>
+<li>Previously unknown</li>
+</ul>
+</li>
+</ul>
 <h1 id="tao-lu">Tao Lu</h1>
 <h2 id="calculating-document-ranking-for-query">Calculating document ranking for query</h2>
 <ul>
@@ -822,22 +863,22 @@ An implication expression of form <span class="katex"><span class="katex-mathml"
 <li>Calculate weighted sum of GINI of different values of the attr</li>
 <li>Substract to get GS value of the attr</li>
 </ul>
-<p>GINI is the sum of probability square</p>
-<h3 id="accumulator">Accumulator</h3>
+<p>GINI is the 1- sum of probability square</p>
+<h2 id="accumulator">Accumulator</h2>
 <ul>
 <li>Init accumulator for each doc</li>
 <li>For each query term t
 <ul>
-<li>Add weight inner product to corresponding accumulator for doc in inverted list</li>
+<li>Add weight product <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mrow><mi>q</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><msub><mi>w</mi><mrow><mi>d</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">w_{q,t}w_{d,t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.28055599999999997em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight" style="margin-right:0.03588em;">q</span><span class="mpunct mtight">,</span><span class="mord mathit mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">d</span><span class="mpunct mtight">,</span><span class="mord mathit mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> to corresponding accumulator for doc in inverted list</li>
 </ul>
 </li>
 <li>Take max</li>
 </ul>
 <h3 id="acc-limiting-approach">Acc limiting approach</h3>
-<p>Limiting the size of accumulators, if hit the limit, stop creating accumulators</p>
+<p>Limiting the size of accumulators, if hit the limit, stop creating accumulators. (order query terms by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mrow><mi>q</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">w_{q,t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.28055599999999997em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight" style="margin-right:0.03588em;">q</span><span class="mpunct mtight">,</span><span class="mord mathit mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>)</p>
 <h3 id="acc-threshold-approach">Acc threshold approach</h3>
-<p>If inner prod is smaller than threshold, do not create accumulator</p>
-<h3 id="calculate-evaluation-matrics-for-classifier">Calculate Evaluation Matrics for <strong>Classifier</strong></h3>
+<p>If inner prod is smaller than threshold, do not create accumulator.(order query terms by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mrow><mi>q</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">w_{q,t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.28055599999999997em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight" style="margin-right:0.03588em;">q</span><span class="mpunct mtight">,</span><span class="mord mathit mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>)</p>
+<h2 id="calculate-evaluation-matrics-for-classifier">Calculate Evaluation Matrics for <strong>Classifier</strong></h2>
 <ul>
 <li>Look at the confusion matrix, the diagonal elements are correctly classified item counts.</li>
 <li>Accuracy is calculated once per classification, summing up diagonal divided by total item count</li>
