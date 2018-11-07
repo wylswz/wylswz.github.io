@@ -66,6 +66,7 @@
 </li>
 <li><a href="#web-search">Web Search</a>
 <ul>
+<li><a href="#add-on-technologies">Add-on technologies</a></li>
 <li><a href="#web-crawler">Web crawler</a></li>
 <li><a href="#inverted-list">Inverted list</a></li>
 <li><a href="#phrase-queries">Phrase queries</a></li>
@@ -124,6 +125,7 @@
 <li><a href="#accumulator">Accumulator</a></li>
 <li><a href="#acc-limiting-approach">Acc limiting approach</a></li>
 <li><a href="#acc-threshold-approach">Acc threshold approach</a></li>
+<li><a href="#calculate-evaluation-matrics-for-classifier">Calculate Evaluation Matrics for <strong>Classifier</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -349,7 +351,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <li><strong>Indexing</strong> Data structure build to allow search to take place efficiently</li>
 <li><strong>Querying</strong> The data structures must be processed in response to queries</li>
 </ul>
-<p>Add-on technologies</p>
+<h3 id="add-on-technologies">Add-on technologies</h3>
 <ul>
 <li>
 <p>Snippet generation</p>
@@ -390,7 +392,15 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 </ul>
 </li>
 <li>
-<h2 id="ranked-querying">Ranked querying</h2>
+<p>Ranked querying</p>
+</li>
+<li>
+<p>Link analysis</p>
+<p>A string piece of evidence for a page's importance is given by links, how many pages have links to this page</p>
+</li>
+<li>
+<p>Pagerank</p>
+<p>Use random walks to calculate the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>π</mi><mo>(</mo><mi>d</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\pi(d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathit" style="margin-right:0.03588em;">π</span><span class="mopen">(</span><span class="mord mathit">d</span><span class="mclose">)</span></span></span></span> value for page, with assumption that each page has same probability of being the start point and probabilities of visiting outgoing links are equal.</p>
 </li>
 </ul>
 <h3 id="web-crawler">Web crawler</h3>
@@ -447,10 +457,18 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <li>
 <p>Decision Tree</p>
 <ul>
-<li>Best split (Check out Tao Lu)</li>
-<li>Parameters: Total number of nodes, depth, minimum number of data points for a split</li>
-<li>How to set params? Cross-validation</li>
-<li>Random forest: train multiple trees on random subset of samples, decision via majority voting (Can be subset of record, subset of attr)</li>
+<li>
+<p>Best split (Check out Tao Lu)</p>
+</li>
+<li>
+<p>Parameters: Total number of nodes, depth, minimum number of data points for a split</p>
+</li>
+<li>
+<p>How to set params? Cross-validation</p>
+</li>
+<li>
+<p>Random forest: train multiple trees on random subset of samples, decision via majority voting (Can be subset of record, subset of attr)</p>
+</li>
 </ul>
 </li>
 <li>
@@ -583,24 +601,68 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <h2 id="evaluation-metrics">Evaluation Metrics</h2>
 <h3 id="information-retrieval-1">Information retrieval</h3>
 <ul>
-<li><strong>Precision</strong> Fraction of correct responses among attempted responses</li>
-<li><strong>Recall</strong> Proportion of words with a correct response</li>
+<li>
+<p><strong>Precision</strong> Fraction of correct responses among attempted responses</p>
+</li>
+<li>
+<p><strong>Recall</strong> Proportion of words with a correct response</p>
+</li>
+<li>
+<p><strong>Precision at k(P@k)</strong> Fraction of number of returned relevant results in top k</p>
+</li>
+<li>
+<p><strong>Average Precision</strong>
+A single number that characterizes the performance instead of comparing curves.</p>
+<p>This is basically integrating precision pver recall from 0 to 1. Descretize the calculation to single samples to get the following form:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>P</mi><mo>=</mo><mfrac><mn>1</mn><mi>R</mi></mfrac><munder><mo>∑</mo><mrow><mi>k</mi><mi mathvariant="normal">∣</mi><mi>d</mi><mo>(</mo><mi>k</mi><mo>)</mo><mi>i</mi><mi>s</mi><mi>r</mi><mi>e</mi><mi>l</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow></munder><mi>P</mi><mi mathvariant="normal">@</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">AP=\frac{1}{R}\sum_{k|d(k)isrelevent}P@k
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathit">A</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.8374449999999998em;vertical-align:-1.516005em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.00773em;">R</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.808995em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight" style="margin-right:0.03148em;">k</span><span class="mord mtight">∣</span><span class="mord mathit mtight">d</span><span class="mopen mtight">(</span><span class="mord mathit mtight" style="margin-right:0.03148em;">k</span><span class="mclose mtight">)</span><span class="mord mathit mtight">i</span><span class="mord mathit mtight">s</span><span class="mord mathit mtight" style="margin-right:0.02778em;">r</span><span class="mord mathit mtight">e</span><span class="mord mathit mtight" style="margin-right:0.01968em;">l</span><span class="mord mathit mtight">e</span><span class="mord mathit mtight" style="margin-right:0.03588em;">v</span><span class="mord mathit mtight">e</span><span class="mord mathit mtight">n</span><span class="mord mathit mtight">t</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516005em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord">@</span><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span></span></p>
+<p>Where R is total num of relevant docs for query</p>
+</li>
 </ul>
 <h3 id="classification">Classification</h3>
 <ul>
-<li><strong>Accuracy</strong> Proportion of correctly classified instance among all instances<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>C</mi><mi>C</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">ACC=\frac{TP + TN}{TP + FP + TN + FN}
+<li>
+<p><strong>Accuracy</strong> Proportion of correctly classified instance among all instances</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>C</mi><mi>C</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">ACC=\frac{TP + TN}{TP + FP + TN + FN}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathit">A</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 </li>
-<li><strong>Precision</strong> Proportion of correct positive predictions<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>i</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">Precision=\frac{TP}{TP + FP}
+<li>
+<p><strong>Error Rate</strong> 1-ACC</p>
+</li>
+<li>
+<p><strong>Error Rate Reduction</strong></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>R</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mi>E</mi><msub><mi>R</mi><mn>0</mn></msub><mo>−</mo><mi>E</mi><mi>R</mi></mrow><mrow><mi>E</mi><msub><mi>R</mi><mn>0</mn></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">ERR = \frac{ER_0-ER}{ER_0}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.19633em;vertical-align:-0.8360000000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.3139999999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord mathit" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8360000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><msub><mi>R</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">ER_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is baseline ER</p>
+</li>
+<li>
+<p><strong>Precision</strong> Proportion of correct positive predictions</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>i</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">Precision=\frac{TP}{TP + FP}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">c</span><span class="mord mathit">i</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 </li>
-<li><strong>Recall</strong> Proportion of correctly predicted positive instances among all actual positive instances</li>
-<li><strong>Specificity</strong> Proportion of correctly predicted negative instances among all actual negative instances.</li>
-<li><strong>F-score</strong> Gives an overall performance<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mi>s</mi><mi>c</mi><mi>o</mi><mi>r</mi><mi>e</mi><mo>=</mo><mo>(</mo><mn>1</mn><mo>+</mo><msup><mi>β</mi><mn>2</mn></msup><mo>)</mo><mfrac><mrow><mi>P</mi><mi>R</mi></mrow><mrow><mi>R</mi><mo>+</mo><msup><mi>β</mi><mn>2</mn></msup><mi>P</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">Fscore = (1+\beta^2)\frac{PR}{R + \beta^2P}
+<li>
+<p><strong>Recall</strong> Proportion of correctly predicted positive instances among all actual positive instances</p>
+</li>
+<li>
+<p><strong>Specificity</strong> Proportion of correctly predicted negative instances among all actual negative instances.</p>
+</li>
+<li>
+<p><strong>F-score</strong> Gives an overall performance</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mi>s</mi><mi>c</mi><mi>o</mi><mi>r</mi><mi>e</mi><mo>=</mo><mo>(</mo><mn>1</mn><mo>+</mo><msup><mi>β</mi><mn>2</mn></msup><mo>)</mo><mfrac><mrow><mi>P</mi><mi>R</mi></mrow><mrow><mi>R</mi><mo>+</mo><msup><mi>β</mi><mn>2</mn></msup><mi>P</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">Fscore = (1+\beta^2)\frac{PR}{R + \beta^2P}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mord mathit">s</span><span class="mord mathit">c</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.2407700000000004em;vertical-align:-0.8804400000000001em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathit" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathit" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804400000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 </li>
-<li><strong>ROC(Receiver Operating Characteristics)</strong> Best prediction yields upper left corner.</li>
-<li><strong>AUC(Area Under the Curve)</strong> Probability that a classifier will rank a randomly chosen instance higher than a randomly chosen negative one.</li>
+<li>
+<p><strong>ROC(Receiver Operating Characteristics)</strong> Best prediction yields upper left corner.</p>
+</li>
+<li>
+<p><strong>AUC(Area Under the Curve)</strong> Probability that a classifier will rank a randomly chosen instance higher than a randomly chosen negative one.</p>
+</li>
+<li>
+<p><strong>Micro-averaging</strong> Summing up numerator and denominator for each class</p>
+</li>
+<li>
+<p><strong>Macro-averaging</strong> Summing up the results then divide by number of classes</p>
+</li>
 </ul>
 <h2 id="recommendation-system">Recommendation System</h2>
 <h3 id="content-bases">Content bases</h3>
@@ -680,6 +742,11 @@ An implication expression of form <span class="katex"><span class="katex-mathml"
 </ul>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>(</mo><mi>A</mi><mo>→</mo><mi>B</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>σ</mi><mo>(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>)</mo></mrow><mrow><mi>σ</mi><mo>(</mo><mi>A</mi><mo>)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">c(A\rightarrow B) = \frac{\sigma(A\cup B)}{\sigma(A)}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathit">c</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∪</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<ul>
+<li>Useful: High quality, actionable information</li>
+<li>Trivial: Already known to anyone familiar with the context</li>
+<li>Inexplicable: This which have no apparent explanation</li>
+</ul>
 </li>
 </ul>
 <h3 id="approaches">Approaches</h3>
@@ -747,7 +814,7 @@ An implication expression of form <span class="katex"><span class="katex-mathml"
 <h3 id="using-gain-ratio">Using Gain Ratio</h3>
 <ul>
 <li>Gain ratio is obtained by dividing IG using SI</li>
-<li>SI (Split information) is the entropy of attr value distribution</li>
+<li>SI (Split information) is the entropy of attr count distribution</li>
 </ul>
 <h3 id="using-gini-splite">Using GINI-Splite</h3>
 <ul>
@@ -755,6 +822,7 @@ An implication expression of form <span class="katex"><span class="katex-mathml"
 <li>Calculate weighted sum of GINI of different values of the attr</li>
 <li>Substract to get GS value of the attr</li>
 </ul>
+<p>GINI is the sum of probability square</p>
 <h3 id="accumulator">Accumulator</h3>
 <ul>
 <li>Init accumulator for each doc</li>
@@ -769,6 +837,13 @@ An implication expression of form <span class="katex"><span class="katex-mathml"
 <p>Limiting the size of accumulators, if hit the limit, stop creating accumulators</p>
 <h3 id="acc-threshold-approach">Acc threshold approach</h3>
 <p>If inner prod is smaller than threshold, do not create accumulator</p>
+<h3 id="calculate-evaluation-matrics-for-classifier">Calculate Evaluation Matrics for <strong>Classifier</strong></h3>
+<ul>
+<li>Look at the confusion matrix, the diagonal elements are correctly classified item counts.</li>
+<li>Accuracy is calculated once per classification, summing up diagonal divided by total item count</li>
+<li>Precision and Recall are calculated once per class. The sum along actual except the diagonal element of a class is FN(because they are incorrect, and negative). Sum along classified except diagonal ones is FP because they are incorrect, and should be positive</li>
+<li>Then use the formula to calculate the god damn values</li>
+</ul>
 
     </body>
     </html>
