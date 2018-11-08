@@ -61,6 +61,7 @@
         - [Acc limiting approach](#acc-limiting-approach)
         - [Acc threshold approach](#acc-threshold-approach)
     - [Calculate Evaluation Matrics for **Classifier**](#calculate-evaluation-matrics-for-classifier)
+    - [Calculate user-based/item-based recommendation system](#calculate-user-baseditem-based-recommendation-system)
 
 ## Basic Concepts
 
@@ -576,6 +577,12 @@ Strategies:
     - Compute similarity between each neighbour and target item
     - Select k most similar neighbours
     - Predict ratings for the target item
+- **Challenges**
+    - Few data each user
+    - Too many items to choose from
+    - New user no data
+    - Few recommendation to propose
+    - Large dataset
 
 
 ## Rule mining
@@ -691,3 +698,6 @@ If inner prod is smaller than threshold, do not create accumulator.(order query 
 - Precision and Recall are calculated once per class. The sum along actual except the diagonal element of a class is FN(because they are incorrect, and negative). Sum along classified except diagonal ones is FP because they are incorrect, and should be positive
 - Then use the formula to calculate the god damn values
 
+
+## Calculate user-based/item-based recommendation system 
+Fuck it. Jeremy, if you want me to lose marks, exam this, I won't remember any single character of the formula. I think remembering this formula is the only motherfucking thing that takes time to do in this subject. I paid my tuition fee to learn something, not this kind of easy shit :).
