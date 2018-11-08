@@ -39,6 +39,7 @@
     - [Evaluation Metrics](#evaluation-metrics)
         - [Information retrieval](#information-retrieval)
         - [Classification](#classification)
+        - [Clustering](#clustering)
     - [Recommendation System](#recommendation-system)
         - [Content bases](#content-bases)
         - [Collaborative Filtering](#collaborative-filtering)
@@ -333,17 +334,17 @@ Strategies:
 
 ### Supervised
 - **Classification**
-    - Decision Tree
+    - **Decision Tree**
         - Best split (Check out Tao Lu)
         - Parameters: Total number of nodes, depth, minimum number of data points for a split
 
         - How to set params? Cross-validation
         - Continuous attributes: Discretization at the beginning or find ranges by equal interval bucketing
-    - Random forest: train multiple trees on random subset of samples, decision via majority voting (Can be subset of record, subset of attr)
+    - **Random forest**: train multiple trees on random subset of samples, decision via majority voting (Can be subset of record, subset of attr)
         - Num of trees
         - Use bagging to come up with different training dataset for each tree
         - When building our tree, at each node, we only consider a random sample of attributes. 
-    - SVM
+    - **SVM**
         - Find hyperplane that maximises the margin (find w and b)
         - Lagrange multiplier applied to get dual problem: Solve $\alpha$
         - $x_i$ with non-zero $\alpha_i$ will be support vectors
@@ -351,13 +352,37 @@ Strategies:
         - Use kernel function for non-linear SVM
         - One-vs-all multi-class strategy: Build M classifiers for M classes, choose class with largest margin for test data
         - One-vs-one: One classifier per pair, choose class selected by most classifiers
-    - KNN 
+
+        How to derive
+        
+        Write down the margin by calculating the distance between 2 aprallel lines
+        $$(b-1) + x_0w_0 + x_1w_1 + ... = 0$$
+         and
+        $$(b+1) + x_0w_0 + x_1w_1 + ... = 0$$ 
+
+        Distance between parallel lines is given by 
+        $$d = \frac{ax_1+by + c}{\sqrt{a^2 + b^2}}$$ 
+        where $x_1$ and $y_1$ are points on one line and $ax+by+c=0$ is another line.
+
+        Then maximize the margin using constraint optimization with Lagrange multiplier $\alpha$. Write all the parameter in form of $\alpha$, then solve the dual problem, which is dead easy.
+
+        For soft margin, trade off the width of margin and how many points have to be moded around. The margin can be smaller than 1 for a point $x_i$ by setting $\xi_i>0$ but pay penalty of $C\xi_i$ in the minimization objective, i.e., minimize 
+        $$
+        w^Tw + C\sum_i\xi_i
+        $$
+        st
+        $$
+        y_i(w^Tx_i + b) >= 1-\xi_i
+        $$
+
+
+    - **KNN** 
   
         Select K nearest neighbours and look at their label
     - **Naive Bayes**
          $$c = argmax_cP(c)\prod P(x|c)$$
 
-    - NN
+    - **NN**
         - Define E
         - Forward pass: calculate hidden $H_i$ and output $O_j$ values
         - Calculate error for each layer
@@ -372,6 +397,29 @@ Strategies:
 ### Unsupervised
 - Association
 - Clustering
+    - **K-means**
+        - Init clusters
+        - Assign cluster
+        - Recalculate cluster center
+        - Reassign cluster ...
+        - \+ Efficient
+        - \+ Cane be extended to hierarchical clustering
+        - \- Local minimum
+        - \- Need k in advance
+        - \- Unable to handle un-convex
+        - \- Ill defined "mean"
+        - \- Data contains outliers
+    - **Buttom-up**
+        - Start with single-instance clusters
+        - Iteratively merge closest two
+    - **Top-down**
+        - Start with one 
+        - Find two partitioning clusters
+        - Proceed recursively on each subset
+    - **Cluster dist measurement**
+        - MIN (single link) use two closest points in clusters
+        - MAX (complete link) Use two farthest points in clusters
+        - Group average Use average dist between all points
 - Reinforcement learning
 - Recommender system
 - Anomaly dection
@@ -484,6 +532,11 @@ Strategies:
 - **Macro-averaging** Summing up the results then divide by number of classes
 
 
+### Clustering  
+- **Unsupervised** Check the cohesion and separation of the clusters.
+- **Supervised** Compare the cluster structure with external structure. For example entropy in a cluster is the measurement of the purity of instances.
+- **Relative** Compares different clusterings with either unsupervised or supervised evaluation strategy.
+- **SSE** Sum of squared error. Sum of the square of distance of each instance to the center of cluster for all the clusters.
 
 
 
