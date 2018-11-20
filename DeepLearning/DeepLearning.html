@@ -36,11 +36,15 @@
 <li><a href="#building-blocks-of-deep-networks">Building blocks of Deep Networks</a></li>
 <li><a href="#some-architectures">Some architectures</a>
 <ul>
-<li><a href="#deep-belief-networks">Deep belief networks</a>
+<li><a href="#deep-belief-networks-overtaken-by-cnn">Deep belief networks (Overtaken by CNN)</a>
 <ul>
 <li><a href="#feature-extraction-with-rbm-layers">Feature extraction with RBM Layers</a></li>
+<li><a href="#initializing-the-feed-forward-network">Initializing the feed-forward network</a></li>
+<li><a href="#gentle-bp">Gentle bp</a></li>
 </ul>
 </li>
+<li><a href="#generative-adversarial-networks">Generative Adversarial Networks</a></li>
+<li><a href="#cnn">CNN</a></li>
 </ul>
 </li>
 </ul>
@@ -116,10 +120,35 @@ Used to learn compressed representations of dataset(Reduce the dimension). The o
 </li>
 </ul>
 <h3 id="some-architectures">Some architectures</h3>
-<h4 id="deep-belief-networks">Deep belief networks</h4>
+<h4 id="deep-belief-networks-overtaken-by-cnn">Deep belief networks (Overtaken by CNN)</h4>
 <p>DBNs are composed of layers of RBMs for the pretrain phase and then a feed-forward network for the fine-tuning phase.</p>
 <h5 id="feature-extraction-with-rbm-layers">Feature extraction with RBM Layers</h5>
 <p>We ask RBM to reconstruct, it generates something pretty close to the original input vector. (Machine dream about data)</p>
+<p>This is to learn these high level featues of a dataset in an unsupervised training fashion.</p>
+<h5 id="initializing-the-feed-forward-network">Initializing the feed-forward network</h5>
+<p>We then use these layers of features as initial weights in a traditional bp driven feed-forward NN. These initializations help training algorithms guide the parameters of the traditional NN towards better regions of parameter search space. This phase is known as fine-tune phase.</p>
+<h5 id="gentle-bp">Gentle bp</h5>
+<h4 id="generative-adversarial-networks">Generative Adversarial Networks</h4>
+<p>GANs are an example of a network that uses unsupervised learning to train two models in parallel. A key aspect of GANs is how they use a parameter count that is significantly smaller than normal wrt the amount of data on which they're training the network. The network is forced to efficiently represent the training data, making it more efficient data similar to the training data.</p>
+<p>Given a large corpus of training images, we could build a generative NN that outputs images. We'd consider these generated output images to be samples from the model. The generative model in GANs generages such images while a secondary discriminiator network tries to classify these generated images.</p>
+<p>The discriminator network is typically a standard CNN. Using a secondary NN as discriminator network allows GAN to train both NN in parallel in an unsupervised fashion. These discriminator networks takes images as input and output a classification.</p>
+<p>The generative network in GANs generates data with a special kind of layer called deconvolutional layer. During training, use BP on both net. The goal is to update the generative net's parameters such that it fools the discrinimator net, because the output is so realistic compared to the real images.</p>
+<h4 id="cnn">CNN</h4>
+<p>Three major groups:</p>
+<ul>
+<li>
+<p>Input layer</p>
+</li>
+<li>
+<p>Feature-extraction layers</p>
+<p>Repeated pattern of:
+- Convolution layer
+- Pooling layer</p>
+</li>
+<li>
+<p>Classification layer</p>
+</li>
+</ul>
 
     </body>
     </html>
