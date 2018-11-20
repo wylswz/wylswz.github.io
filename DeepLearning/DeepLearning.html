@@ -16,13 +16,38 @@
         <style>
             body {
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
-                font-size: 14px;
+                font-size: 18px;
                 line-height: 1.6;
             }
         </style>
     </head>
     <body>
         <h1 id="deep-learning">Deep Learning</h1>
+<ul>
+<li><a href="#deep-learning">Deep Learning</a>
+<ul>
+<li><a href="#background">Background</a>
+<ul>
+<li><a href="#what-is-deep-learning">What is deep learning?</a></li>
+<li><a href="#some-typical-architectures">Some typical architectures</a></li>
+<li><a href="#applications">Applications</a></li>
+<li><a href="#building-blocks">Building blocks</a></li>
+<li><a href="#optimization-mathods">Optimization mathods</a></li>
+<li><a href="#building-blocks-of-deep-networks">Building blocks of Deep Networks</a></li>
+<li><a href="#some-architectures">Some architectures</a>
+<ul>
+<li><a href="#deep-belief-networks">Deep belief networks</a>
+<ul>
+<li><a href="#feature-extraction-with-rbm-layers">Feature extraction with RBM Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="background">Background</h2>
 <h3 id="what-is-deep-learning">What is deep learning?</h3>
 <ul>
@@ -48,6 +73,53 @@
 <li>RBMS</li>
 <li>Autoencoders</li>
 </ul>
+<h3 id="optimization-mathods">Optimization mathods</h3>
+<ul>
+<li>
+<p><strong>First order</strong> Calculates the Jacobian matrix. The Jacobian has one partial derivative per parameter, other parameters are treated as constants. The algorithm then takes one step in the direction specified by the Jacobian.</p>
+<p>This takes the partial derivatives of each parameter (calculate the gradient at each step) to determine which direction to go next.</p>
+<p>Noisy gradient descent(SGD) is easy to implement and quick processing large dataset. You can adjust SGD by adapting the learning rate or using second order information. SGD is also a porpular algorithm for training neural networks due to its robustness in the face of noisy updates. That is, it helps you build models that generalize well.</p>
+</li>
+<li>
+<p><strong>Second order</strong> Methods calculate the derivative of the Jacobian by approximating the Hessian. This takes into account interdependencies between parameters when choosing how much to modify each paramter.</p>
+<p><a href="https://en.wikipedia.org/wiki/Hessian_matrix">Hessian</a> is like derivative of Jacobian. That is, a matrix of second-order partial derivatives. The Hessian' job is to describe the curvature of each point of the Jacobian.</p>
+<ul>
+<li>L-BFGS which is also called quasi-Newton method, and it limits how much gradient is stored in the memory. It does not compute full Hessian matrix which is quite expensive.</li>
+<li>Conjugate gradient guides the direction of line search process based on conjugate information. Conjugate gradient methods focus on minimizing the conjugate L2 norm. Conjugate gradient is quite similar to gradient descent in that  it performs line search. The major difference is that conjugate gradient requires each successive step in the line search process to be conjugate to one another with respect to direction.</li>
+<li>Hessian free.</li>
+</ul>
+</li>
+</ul>
+<p>Second order methods can take better steps, however, each step will take longer to calculate</p>
+<h3 id="building-blocks-of-deep-networks">Building blocks of Deep Networks</h3>
+<p>Deep netowrks combine smaller networks as building blocks. Here are some building blocks:</p>
+<ul>
+<li>
+<p>Feed-forward multilayer neural networks</p>
+</li>
+<li>
+<p>RBMs (Restricted Boltzmann Machines)</p>
+<ul>
+<li>Ristrict means that connections between nodes of same layer are prohibited. No visible-visible or hidden-hidden connection.</li>
+<li>RBMs are also a type of autoencoder</li>
+<li></li>
+</ul>
+</li>
+<li>
+<p>Autoencoders
+Used to learn compressed representations of dataset(Reduce the dimension). The output of the auto encoder network is a reconstruction of the input data in the most efficient form.</p>
+<p>It differs from multi-layer perceptrons is that autoencoder has input and output layer with same size. It builds a compressed version of data. Autoencoder uses unlabeled data in unsupervised learning.</p>
+<ul>
+<li><strong>Compression autoencoder</strong> The network input must pass through the bottleneck region before being expanded into output</li>
+<li><strong>Denoising autoencoder</strong> Given corrupted data, network learns uncorrupted data.</li>
+</ul>
+</li>
+</ul>
+<h3 id="some-architectures">Some architectures</h3>
+<h4 id="deep-belief-networks">Deep belief networks</h4>
+<p>DBNs are composed of layers of RBMs for the pretrain phase and then a feed-forward network for the fine-tuning phase.</p>
+<h5 id="feature-extraction-with-rbm-layers">Feature extraction with RBM Layers</h5>
+<p>We ask RBM to reconstruct, it generates something pretty close to the original input vector. (Machine dream about data)</p>
 
     </body>
     </html>

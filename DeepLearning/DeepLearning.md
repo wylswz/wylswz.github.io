@@ -1,4 +1,25 @@
+
+
+
 # Deep Learning
+
+
+
+- [Deep Learning](#deep-learning)
+    - [Background](#background)
+        - [What is deep learning?](#what-is-deep-learning)
+        - [Some typical architectures](#some-typical-architectures)
+        - [Applications](#applications)
+        - [Building blocks](#building-blocks)
+        - [Optimization mathods](#optimization-mathods)
+        - [Building blocks of Deep Networks](#building-blocks-of-deep-networks)
+        - [Some architectures](#some-architectures)
+            - [Deep belief networks (Overtaken by CNN)](#deep-belief-networks-overtaken-by-cnn)
+                - [Feature extraction with RBM Layers](#feature-extraction-with-rbm-layers)
+                - [Initializing the feed-forward network](#initializing-the-feed-forward-network)
+                - [Gentle bp](#gentle-bp)
+            - [Generative Adversarial Networks](#generative-adversarial-networks)
+            - [CNN](#cnn)
 
 ## Background
 
@@ -44,3 +65,56 @@
 Second order methods can take better steps, however, each step will take longer to calculate
 
 ### Building blocks of Deep Networks
+Deep netowrks combine smaller networks as building blocks. Here are some building blocks:
+
+- Feed-forward multilayer neural networks
+- RBMs (Restricted Boltzmann Machines)
+    - Ristrict means that connections between nodes of same layer are prohibited. No visible-visible or hidden-hidden connection.
+    - RBMs are also a type of autoencoder
+    - 
+- Autoencoders
+  Used to learn compressed representations of dataset(Reduce the dimension). The output of the auto encoder network is a reconstruction of the input data in the most efficient form.
+
+    It differs from multi-layer perceptrons is that autoencoder has input and output layer with same size. It builds a compressed version of data. Autoencoder uses unlabeled data in unsupervised learning.
+
+    - **Compression autoencoder** The network input must pass through the bottleneck region before being expanded into output
+    - **Denoising autoencoder** Given corrupted data, network learns uncorrupted data.
+
+
+### Some architectures
+
+#### Deep belief networks (Overtaken by CNN)
+DBNs are composed of layers of RBMs for the pretrain phase and then a feed-forward network for the fine-tuning phase.
+
+##### Feature extraction with RBM Layers
+We ask RBM to reconstruct, it generates something pretty close to the original input vector. (Machine dream about data)
+
+This is to learn these high level featues of a dataset in an unsupervised training fashion.
+
+##### Initializing the feed-forward network
+We then use these layers of features as initial weights in a traditional bp driven feed-forward NN. These initializations help training algorithms guide the parameters of the traditional NN towards better regions of parameter search space. This phase is known as fine-tune phase.
+
+##### Gentle bp
+
+
+#### Generative Adversarial Networks
+
+GANs are an example of a network that uses unsupervised learning to train two models in parallel. A key aspect of GANs is how they use a parameter count that is significantly smaller than normal wrt the amount of data on which they're training the network. The network is forced to efficiently represent the training data, making it more efficient data similar to the training data.
+
+Given a large corpus of training images, we could build a generative NN that outputs images. We'd consider these generated output images to be samples from the model. The generative model in GANs generages such images while a secondary discriminiator network tries to classify these generated images.
+
+The discriminator network is typically a standard CNN. Using a secondary NN as discriminator network allows GAN to train both NN in parallel in an unsupervised fashion. These discriminator networks takes images as input and output a classification.
+
+The generative network in GANs generates data with a special kind of layer called deconvolutional layer. During training, use BP on both net. The goal is to update the generative net's parameters such that it fools the discrinimator net, because the output is so realistic compared to the real images.
+
+
+#### CNN
+Three major groups:
+- Input layer
+- Feature-extraction layers
+    
+    Repeated pattern of:
+        - Convolution layer
+        - Pooling layer
+- Classification layer
+
