@@ -20,6 +20,8 @@
                 - [Gentle bp](#gentle-bp)
             - [Generative Adversarial Networks](#generative-adversarial-networks)
             - [CNN](#cnn)
+                - [ReLU](#relu)
+                - [Activation Map](#activation-map)
 
 ## Background
 
@@ -117,4 +119,16 @@ Three major groups:
         - Convolution layer
         - Pooling layer
 - Classification layer
+
+
+##### ReLU
+Why use ReLU in CNN?
+
+ReLU (Rectified Linear Unit) crop the value at 0. It is easy to calculate and can accelerate the convergence due to linear property. But the train can die due to large gradient flow.
+
+Leaky ReLU introduce a very small slope when $x<0$
+
+
+##### Activation Map
+Also referred to as feature map, calculated by sliding the kernel.
 
