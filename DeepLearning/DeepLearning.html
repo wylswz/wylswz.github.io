@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Deep Learning</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 26px; line-height: 22px; word-wrap: break-word; } #code-csp-warning { position: fixed; top: 0; right: 0; color: white; margin: 16px; text-align: center; font-size: 12px; font-family: sans-serif; background-color:#444444; cursor: pointer; padding: 6px; box-shadow: 1px 1px 1px rgba(0,0,0,.25); } #code-csp-warning:hover { text-decoration: none; background-color:#007acc; box-shadow: 2px 2px 2px rgba(0,0,0,.25); } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-light.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-dark.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before { border-left: none; } img { max-width: 100%; max-height: 100%; } a { text-decoration: none; } a:hover { text-decoration: underline; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left-width: 5px; border-left-style: solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } pre:not(.hljs), pre.hljs code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ pre code { color: var(--vscode-editor-foreground); } .vscode-light pre:not(.hljs), .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark pre:not(.hljs), .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast pre:not(.hljs), .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } 
+</style>
+<style>
+/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
+</style>
+<style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 18px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="deep-learning">Deep Learning</h1>
+<ul>
+<li><a href="#deep-learning">Deep Learning</a>
+<ul>
+<li><a href="#background">Background</a>
+<ul>
+<li><a href="#what-is-deep-learning">What is deep learning?</a></li>
+<li><a href="#some-typical-architectures">Some typical architectures</a></li>
+<li><a href="#applications">Applications</a></li>
+<li><a href="#building-blocks">Building blocks</a></li>
+<li><a href="#optimization-mathods">Optimization mathods</a></li>
+<li><a href="#building-blocks-of-deep-networks">Building blocks of Deep Networks</a></li>
+<li><a href="#some-architectures">Some architectures</a>
+<ul>
+<li><a href="#deep-belief-networks-overtaken-by-cnn">Deep belief networks (Overtaken by CNN)</a>
+<ul>
+<li><a href="#feature-extraction-with-rbm-layers">Feature extraction with RBM Layers</a></li>
+<li><a href="#initializing-the-feed-forward-network">Initializing the feed-forward network</a></li>
+<li><a href="#gentle-bp">Gentle bp</a></li>
+</ul>
+</li>
+<li><a href="#generative-adversarial-networks">Generative Adversarial Networks</a></li>
+<li><a href="#cnn">CNN</a>
+<ul>
+<li><a href="#relu">ReLU</a></li>
+<li><a href="#activation-map">Activation Map</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="background">Background</h2>
+<h3 id="what-is-deep-learning">What is deep learning?</h3>
+<ul>
+<li>More neurons</li>
+<li>More complex ways of connecting layers</li>
+<li>&quot;Cambrian explosion&quot; of computing power in training</li>
+<li>Auto feature extraction</li>
+</ul>
+<h3 id="some-typical-architectures">Some typical architectures</h3>
+<ul>
+<li>Unsupervised pretrained networks</li>
+<li>CNN</li>
+<li>Recurrent neural networks</li>
+<li>Recursive neural networks</li>
+</ul>
+<h3 id="applications">Applications</h3>
+<ul>
+<li><strong>Inceptionsim</strong> is a technique in which a trained CNN is taken with its layers in reverse order and given an input image coupled with a prior constraint. The images are modified iteratively to enhance the output in a manner that could be described as hallucinative.</li>
+<li><strong>Modelling artistic style</strong> CNN extracts the artist's style into networks' parameters which can later be applied to arbitrary images</li>
+</ul>
+<h3 id="building-blocks">Building blocks</h3>
+<ul>
+<li>RBMS</li>
+<li>Autoencoders</li>
+</ul>
+<h3 id="optimization-mathods">Optimization mathods</h3>
+<ul>
+<li>
+<p><strong>First order</strong> Calculates the Jacobian matrix. The Jacobian has one partial derivative per parameter, other parameters are treated as constants. The algorithm then takes one step in the direction specified by the Jacobian.</p>
+<p>This takes the partial derivatives of each parameter (calculate the gradient at each step) to determine which direction to go next.</p>
+<p>Noisy gradient descent(SGD) is easy to implement and quick processing large dataset. You can adjust SGD by adapting the learning rate or using second order information. SGD is also a porpular algorithm for training neural networks due to its robustness in the face of noisy updates. That is, it helps you build models that generalize well.</p>
+</li>
+<li>
+<p><strong>Second order</strong> Methods calculate the derivative of the Jacobian by approximating the Hessian. This takes into account interdependencies between parameters when choosing how much to modify each paramter.</p>
+<p><a href="https://en.wikipedia.org/wiki/Hessian_matrix">Hessian</a> is like derivative of Jacobian. That is, a matrix of second-order partial derivatives. The Hessian' job is to describe the curvature of each point of the Jacobian.</p>
+<ul>
+<li>L-BFGS which is also called quasi-Newton method, and it limits how much gradient is stored in the memory. It does not compute full Hessian matrix which is quite expensive.</li>
+<li>Conjugate gradient guides the direction of line search process based on conjugate information. Conjugate gradient methods focus on minimizing the conjugate L2 norm. Conjugate gradient is quite similar to gradient descent in that  it performs line search. The major difference is that conjugate gradient requires each successive step in the line search process to be conjugate to one another with respect to direction.</li>
+<li>Hessian free.</li>
+</ul>
+</li>
+</ul>
+<p>Second order methods can take better steps, however, each step will take longer to calculate</p>
+<h3 id="building-blocks-of-deep-networks">Building blocks of Deep Networks</h3>
+<p>Deep netowrks combine smaller networks as building blocks. Here are some building blocks:</p>
+<ul>
+<li>
+<p>Feed-forward multilayer neural networks</p>
+</li>
+<li>
+<p>RBMs (Restricted Boltzmann Machines)</p>
+<ul>
+<li>Ristrict means that connections between nodes of same layer are prohibited. No visible-visible or hidden-hidden connection.</li>
+<li>RBMs are also a type of autoencoder</li>
+<li></li>
+</ul>
+</li>
+<li>
+<p>Autoencoders
+Used to learn compressed representations of dataset(Reduce the dimension). The output of the auto encoder network is a reconstruction of the input data in the most efficient form.</p>
+<p>It differs from multi-layer perceptrons is that autoencoder has input and output layer with same size. It builds a compressed version of data. Autoencoder uses unlabeled data in unsupervised learning.</p>
+<ul>
+<li><strong>Compression autoencoder</strong> The network input must pass through the bottleneck region before being expanded into output</li>
+<li><strong>Denoising autoencoder</strong> Given corrupted data, network learns uncorrupted data.</li>
+</ul>
+</li>
+</ul>
+<h3 id="some-architectures">Some architectures</h3>
+<h4 id="deep-belief-networks-overtaken-by-cnn">Deep belief networks (Overtaken by CNN)</h4>
+<p>DBNs are composed of layers of RBMs for the pretrain phase and then a feed-forward network for the fine-tuning phase.</p>
+<h5 id="feature-extraction-with-rbm-layers">Feature extraction with RBM Layers</h5>
+<p>We ask RBM to reconstruct, it generates something pretty close to the original input vector. (Machine dream about data)</p>
+<p>This is to learn these high level featues of a dataset in an unsupervised training fashion.</p>
+<h5 id="initializing-the-feed-forward-network">Initializing the feed-forward network</h5>
+<p>We then use these layers of features as initial weights in a traditional bp driven feed-forward NN. These initializations help training algorithms guide the parameters of the traditional NN towards better regions of parameter search space. This phase is known as fine-tune phase.</p>
+<h5 id="gentle-bp">Gentle bp</h5>
+<h4 id="generative-adversarial-networks">Generative Adversarial Networks</h4>
+<p>GANs are an example of a network that uses unsupervised learning to train two models in parallel. A key aspect of GANs is how they use a parameter count that is significantly smaller than normal wrt the amount of data on which they're training the network. The network is forced to efficiently represent the training data, making it more efficient data similar to the training data.</p>
+<p>Given a large corpus of training images, we could build a generative NN that outputs images. We'd consider these generated output images to be samples from the model. The generative model in GANs generages such images while a secondary discriminiator network tries to classify these generated images.</p>
+<p>The discriminator network is typically a standard CNN. Using a secondary NN as discriminator network allows GAN to train both NN in parallel in an unsupervised fashion. These discriminator networks takes images as input and output a classification.</p>
+<p>The generative network in GANs generates data with a special kind of layer called deconvolutional layer. During training, use BP on both net. The goal is to update the generative net's parameters such that it fools the discrinimator net, because the output is so realistic compared to the real images.</p>
+<h4 id="cnn">CNN</h4>
+<p>Three major groups:</p>
+<ul>
+<li>
+<p>Input layer</p>
+</li>
+<li>
+<p>Feature-extraction layers</p>
+<p>Repeated pattern of:
+- Convolution layer
+- Pooling layer</p>
+</li>
+<li>
+<p>Classification layer</p>
+</li>
+</ul>
+<h5 id="relu">ReLU</h5>
+<p>Why use ReLU in CNN?</p>
+<p>ReLU (Rectified Linear Unit) crop the value at 0. It is easy to calculate and can accelerate the convergence due to linear property. But the train can die due to large gradient flow.</p>
+<p>Leaky ReLU introduce a very small slope when <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x&lt;0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathit">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></p>
+<h5 id="activation-map">Activation Map</h5>
+<p>Also referred to as feature map, calculated by sliding the kernel.</p>
+
+    </body>
+    </html>
