@@ -2,9 +2,6 @@
 
 
 # Deep Learning
-
-
-
 - [Deep Learning](#deep-learning)
     - [Background](#background)
         - [What is deep learning?](#what-is-deep-learning)
@@ -25,7 +22,7 @@
     - [Start doing deep learning](#start-doing-deep-learning)
         - [CNN](#cnn-1)
         - [Estimator in tensorflow](#estimator-in-tensorflow)
-
+  
 ## Background
 
 ### What is deep learning?
@@ -135,7 +132,6 @@ Leaky ReLU introduce a very small slope when $x<0$
 ##### Activation Map
 Also referred to as feature map, calculated by sliding the kernel.
 
-<<<<<<< HEAD
 
 
 ## Start doing deep learning
