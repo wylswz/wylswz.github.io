@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <head>
 
     
@@ -20,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="stylesheet" href="/assets/css/style.css?v=0d4beb2af7b0541766342485e01009323f853aac">
+    <link rel="stylesheet" href="/assets/css/style.css?v=86b26a9bc73ec8ac393d17082d6973f031b1a886">
   </head>
   <body>
     <a id="skip-to-content" href="#content">Skip to the content.</a>
@@ -123,15 +124,7 @@
 <h3 id="value-iteration">Value Iteration</h3>
 <ul>
   <li>Given $\gamma$</li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>$V_{i+1}(s) = max_{a}\sum P(s’</td>
-          <td>s)[r(s,a,s’) + \gamma V_i(s’)]$</td>
-        </tr>
-      </tbody>
-    </table>
+  <li>$V_{i+1}(s) = max_{a}\sum P(s’|s)[r(s,a,s’) + \gamma V_i(s’)]$
     <ul>
       <li>For each action, calculate the reward for next iteration</li>
       <li>Select the highest reward</li>
@@ -169,10 +162,7 @@
   <li>
     <p>N-Step SARSA
 replace original $r + \gamma Q$ with
-$$
-r1 + \gamma r_2 + … + \gamma^{n-1}r_n + \gamma^{n}Q</p>
-
-    <p>$$</p>
+<script type="math/tex">r1 + \gamma r_2 + ... + \gamma^{n-1}r_n + \gamma^{n}Q</script></p>
 
     <p>Where all the rs and Qs are given in the problem statement</p>
   </li>
@@ -189,3 +179,12 @@ r1 + \gamma r_2 + … + \gamma^{n-1}r_n + \gamma^{n}Q</p>
     </main>
   </body>
 </html>
+<script>
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    
+    processEscapes: true
+  }
+});
+</script>

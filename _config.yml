@@ -1,3 +1,5 @@
 theme: jekyll-theme-cayman
 title: IT Taolu
 descryption: Some Taolus
+markdown: kramdown
+math: true

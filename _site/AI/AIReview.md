@@ -71,7 +71,7 @@ When MDP is known, we can use value iteration or policy iteration to work out th
 
 ### Value Iteration
 - Given $\gamma$
-- $V_{i+1}(s) = max_{a}\sum P(s'|s)[r(s,a,s') + \gamma V_i(s')]$
+- $V_{i+1}(s) = max_{a}\sum P(s'\|s)[r(s,a,s') + \gamma V_i(s')]$
     - For each action, calculate the reward for next iteration
     - Select the highest reward
 
@@ -97,10 +97,7 @@ Q-Learning differs from SARSA that it has the assumption that the next state is 
 
 - N-Step SARSA
   replace original $r + \gamma Q$ with
-  $$
-  r1 + \gamma r_2 + ... + \gamma^{n-1}r_n + \gamma^{n}Q
-
-  $$
+  $$r1 + \gamma r_2 + ... + \gamma^{n-1}r_n + \gamma^{n}Q$$
 
   Where all the rs and Qs are given in the problem statement
 

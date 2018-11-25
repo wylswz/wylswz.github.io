@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <head>
 
     {% if site.google_analytics %}
+
       <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
@@ -46,3 +48,12 @@
     </main>
   </body>
 </html>
+<script>
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    
+    processEscapes: true
+  }
+});
+</script>
