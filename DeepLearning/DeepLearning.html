@@ -421,6 +421,7 @@ blockquote {
 <ul>
 <li><a href="#cnn-1">CNN</a></li>
 <li><a href="#estimator-in-tensorflow">Estimator in tensorflow</a></li>
+<li><a href="#how-to-use-estimator">How to use Estimator</a></li>
 </ul>
 </li>
 </ul>
@@ -566,7 +567,105 @@ Used to learn compressed representations of dataset(Reduce the dimension). The o
 </ul>
 <h3 id="estimator-in-tensorflow">Estimator in tensorflow</h3>
 <p>In tensorflow you can use either pre-made estimators, which are fully baked, or customized estimators, which can be instanciated by overriding some functions. In particular, the only difference between pre-made estimator and customized ones is that you will need to write the model function.</p>
-<p>There are three modes to be handled in a model function, which are TRAIN, PREDICT and EVALUATE. The function must reuturn corresponding EstimatorSpec for each case.</p>
+<p>There are three methodes to be handled in a model function, which are TRAIN, PREDICT and EVALUATE. The function must reuturn corresponding EstimatorSpec for each case.</p>
+<h3 id="how-to-use-estimator">How to use Estimator</h3>
+<p>This section uses training phase for example.</p>
+<p>Basically there are two functions we are going to define. First one is the model function. The model function is where we define the logic of the model, say the computational graph. We will have features, labels and mode as input and define layers, loss function and optimizers in this function.</p>
+<p>Here is an example of a simplest CNN model function in the training phase</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cnn_model_fn</span><span class="hljs-params">(features, labels, mode)</span>:</span>
+    input_layer = tf.reshape(features, [<span class="hljs-number">-1</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, <span class="hljs-number">1</span>])
+    conv1 = tf.layers.conv2d(
+        inputs=input_layer,
+        filters=<span class="hljs-number">32</span>,
+        kernel_size=(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>),
+        padding=<span class="hljs-string">'same'</span>,
+        activation=tf.nn.relu
+    )
+    <span class="hljs-comment"># Define the first convolutional layer</span>
+    pool1 = tf.layers.max_pooling2d(inputs=conv1,
+                                    pool_size=(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>),
+                                    strides=<span class="hljs-number">2</span>,
+                                    )
+    <span class="hljs-comment"># Do max pooling</span>
+    conv2 = tf.layers.conv2d(
+        inputs=pool1,
+        filters=<span class="hljs-number">32</span>,
+        kernel_size=(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>),
+        padding=<span class="hljs-string">'same'</span>,
+        activation=tf.nn.relu
+    )
+
+    pool2 = tf.layers.max_pooling2d(
+        inputs=conv2,
+        pool_size=(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>),
+        strides=<span class="hljs-number">2</span>
+    )
+
+    pool2flat = tf.reshape(pool2, (<span class="hljs-number">-1</span>, <span class="hljs-number">32</span>*<span class="hljs-number">32</span>*<span class="hljs-number">32</span>))
+    <span class="hljs-comment"># Flatten the pooling layer to on dimentional tensor</span>
+
+
+    dense = tf.layers.dense(
+        inputs=pool2flat,
+        units=<span class="hljs-number">1024</span>,
+        activation=tf.nn.relu
+    )
+    dropout = tf.layers.dropout(
+        inputs=dense,
+        rate=<span class="hljs-number">0.4</span>,
+        training=mode == tf.estimator.ModeKeys.TRAIN)
+    <span class="hljs-comment"># Define the unit dropping out</span>
+    logits = tf.layers.dense(inputs=dropout, units=<span class="hljs-number">10</span>)
+    <span class="hljs-comment"># One hot class representation at the output layer</span>
+
+    labels = tf.convert_to_tensor(np.array([<span class="hljs-number">1</span>]))
+    loss = tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
+    <span class="hljs-comment"># Define the loss function</span>
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate=<span class="hljs-number">0.001</span>)
+    <span class="hljs-comment"># Put loss function into the optimizer</span>
+    train_op = optimizer.minimize(
+        loss=loss,
+        global_step=tf.train.get_global_step())
+    <span class="hljs-keyword">return</span> tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
+    <span class="hljs-comment"># Every model function must return EstimatorSpec for each phase</span>
+</div></code></pre>
+<p>The second function is the input function. This function returns a tuple which is (features_dictionary, target), where target can be a feature. Tensorflow has some built-in input function, for example, <a href="https://www.tensorflow.org/api_docs/python/tf/estimator/inputs/numpy_input_fn">numpy_input_fn</a>, which accpets the features, target, batch-size, number of epoches... and returns a input function instance.</p>
+<p>In this section, we will use an example of image training dataset streamed from a very large .tar file, which is impossible to fit into computer memory.</p>
+<p>First of all, we have to implement a generator which streams data from tar file. Click <a href="http://www.robots.ox.ac.uk/~vgg/data/vgg_face2/">here</a> for dataset</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">stream_tar_dataset</span><span class="hljs-params">(filename)</span>:</span>
+    t = tarfile.open(filename,
+                 mode=<span class="hljs-string">'r|*'</span>)
+
+    <span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:
+        m = t.next()
+        <span class="hljs-keyword">if</span> m <span class="hljs-keyword">is</span> <span class="hljs-keyword">None</span>:
+            <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">if</span> m.isfile():
+            name = m.name
+            <span class="hljs-comment"># Name in the form of test/personid/imagename</span>
+            name_structure = name.split(<span class="hljs-string">'/'</span>)
+            person_id = name_structure[<span class="hljs-number">1</span>]
+            image = t.extractfile(m)
+            im0 = Image.open(image)
+            im0 = im0.resize((<span class="hljs-number">128</span>, <span class="hljs-number">128</span>), Image.ANTIALIAS).convert(<span class="hljs-string">"L"</span>)
+            im0 = np.array(list(im0.getdata()))
+            <span class="hljs-keyword">yield</span> tuple(im0) + (person_id,)
+</div></code></pre>
+<p>On thing we should notice here is that streaming dataset in tensorflow does not support any array types. For example, if we stream a 128*128 image out, the output must be converted to a tuple of length 16384. Then we can utilize this function to build up out input function:</p>
+<pre class="hljs"><code><div>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">input_func_gen</span><span class="hljs-params">()</span>:</span>
+
+    stream_data = tf.data.Dataset.from_generator(
+        generator=generator,
+        output_types=(tf.float32,) * <span class="hljs-number">16384</span> + (tf.string,),
+    )
+
+    line = stream_data.make_one_shot_iterator().get_next()
+    f = line[:<span class="hljs-number">16384</span>]
+    l = line[<span class="hljs-number">-1</span>]
+    <span class="hljs-keyword">return</span> f, l
+</div></code></pre>
+<p>This is a simplest input function which only output one data instance at one time. If techniques like minibatch is used, some advanced operations must be done here.</p>
 
 </body>
 </html>
