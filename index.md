@@ -12,3 +12,4 @@ layout: default
 - [Distributed Systems](./DistributedSystems/full-semester-notes.pdf)
 - [Cloud Computing](#)
 - [Software Management](./SPM/SPM.xmind)
+- [Machine Learning Face Detection](./FaceDetection/FaceDetection.md)
