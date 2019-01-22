@@ -62,7 +62,64 @@ The limitation of YOLO is that when there are overlapping between objects or mul
 
 ### NN shit
 
-#### Gradient descend
+#### Gradient descent
+
+Gradient descent method are usually applied to perform iterative optimization of linear or non-linear (using jacobian method). The main idea is keeping taking stepin the direction of opposite to the gradient at current point, where we need to calculate the partial derivative of the less function with respect to each variable. 
+
+#### Back propagation
+The main idea of this section comes from [wikipedia](https://en.wikipedia.org/wiki/Backpropagation)
+
+Back propagation is when we apply gradient descent method to a neural network. In this method, we start from the output layer and move backward, which is why it's called back propagation. The variable part of the NN is weight, thus we calculate the partial derivative of less function with respect to the weights of incoming edges of current layer. That is, 
+
+$$\frac{\partial E}{\partial w_{i,j}}$$
+
+However, this is quite hard to compute directly. Therefore we apply chain rule to the equation above:
+
+$$\frac{\partial E}{\partial w_{i,j}} = \frac{\partial E}{\partial o_j}\frac{\partial o_j}{\partial net_j}\frac{\partial net_j}{\partial w_{i,j}}$$
+
+, where $w_{i,j}$ is the weight of the edge connection neuron $i$ and $j$, $o_j$ is the output of neuron $j$ abd $net_j$ is the sum of neuron $j$, which is the sum of all incoming edges times the output of the neuron tge edge comes from.
+
+From the last term of the equation above, we can find that
+
+$$\frac{\partial net_j}{\partial w_{i,j}} = \frac{1}{\partial w_{i,j}}(\sum_{k=1}^{n}w_{k,j}o_{k}) = \frac{1}{\partial w_{i,j}}w_{i,j}o_{i} = o_i$$
+
+This is because only one term in the sum expression above depends on the weight $w_{i,j}$.
+
+For the second term,
+
+$$\frac{\partial o_j}{\partial net_j} = \frac{1}{\partial net_j} \varphi(net_j) = \varphi(net_j)(1-\varphi(net_j))$$
+
+Where the term $\varphi(...)$ is the activation function of the neuron, this is why we prefer a differentiable activation function for many cases.
+
+The first term partial derivative is given by:
+
+$$\frac{\partial E}{\partial o_j} = \frac{\partial E}{\partial y} = \frac{1}{\partial y} \frac{1}{2}(t-y)^2 = y - t$$
+
+But if the partial derivative of the loss function is not so obvious, we need to take [total derivative](https://en.wikipedia.org/wiki/Total_derivative):
+
+$$
+\frac{\partial E}{\partial o_j} =\sum_{i\in L}( \frac{\partial E}{\partial net_l}\frac{\partial net_l}{\partial o_j})
+ = \sum_{i\in L}(\frac{\partial E}{\partial o_l}\frac{\partial o_l}{\partial net_l}w_{j,l})
+$$
+
+Where $x_l$ variables are from the next layer (the layer close to th output layer), which are available from previous iterations.
+
+Putting everything together, we have:
+
+$$\frac{\partial E}{\partial w_{i,j}} = \delta_jo_j$$
+, where 
+
+$$\delta_j = \frac{\partial E}{\partial o_l}\frac{\partial o_l}{\partial net_l} = 
+\begin{cases}
+(o_j - t_j)o_j(1-o_j), j=outputlayer\\
+(\sum_{l\in L}w_{j,l}\delta_l)o_j(1-o_j), otherwise
+\end{cases}
+ $$
+
+ so 
+
+ $$\Delta w_{i,j} = -\eta\delta_jo_i$$
+
 
 #### Regularization
 
@@ -170,5 +227,5 @@ def input_func_gen():
     return dset
 ```
 
-In the code above, the Dataset instance is firstly instanciated using from_generator method, followed by a mapping method. The parse function is used to map path to the actual image. The parse function accepts the parameters which are exact same as data yielded fro mthe streamer, and return the data of image. The data is the feature parameter of model function.
+In the code above, the Dataset instance is firstly instanciated using from_generator method, followed by a mapping method. The parse function is used to map path to the actual image. The parse function accepts the parameters which are exact same as data yielded fro mthe streamer, and return the data of image. The data is the feature parameter of model function
 
