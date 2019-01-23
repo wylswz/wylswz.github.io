@@ -123,6 +123,28 @@ $$\delta_j = \frac{\partial E}{\partial o_l}\frac{\partial o_l}{\partial net_l} 
 
 #### Regularization
 
+Idea of this section is from [here](https://towardsdatascience.com/regularization-in-machine-learning-76441ddcf99a)
+
+Regularization is used to improve the ability generalize on unseen data. Empirical learning of classification is underdetermined because it attempts to infer a function of any x given only data samples. This means models can suffer from over-fitting.
+
+We can apply regularization on loss functions to reduce the effect of over-fitting. the idea is similar to occam razor, which states that when multiple solutions are available to describe a model, simpler ones are more likely to be correct. Regularization tries to simplify the model by reducing coefficients. In order to do this, we just introduce a new term to represent the penalty in the loss function.
+
+For example, we have a residual sum of square loss function 
+
+$$RSS = \sum_{i=1}^n(y_i - \beta_0 - \sum_{j=1}^p\beta_jx_{i,j})$$
+
+For Ridge Regression Regularization, we add a term like this
+
+$$RSS + \lambda\sum_{j=1}^p\beta_j^2$$
+, which is also called L2 Norm.
+
+In Lasso Regularization, the penalty term is given by:
+
+$$RSS + \lambda\sum_{j=1}^p|\beta_j|$$
+
+Large $\lambda$ indicates high impact of penalty term, so if $\lambda \rightarrow \infty$, all the coefficients are temd to be 0.
+
+
 #### Optimizers
 
 ### CNN
