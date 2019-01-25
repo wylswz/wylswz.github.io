@@ -144,20 +144,44 @@ $$RSS + \lambda\sum_{j=1}^p|\beta_j|$$
 
 Large $\lambda$ indicates high impact of penalty term, so if $\lambda \rightarrow \infty$, all the coefficients are temd to be 0.
 
+In order to find a suitable $\lambda$ value, cross validation can be applied.
+
 
 #### Optimizers
 
+Optimizer is a tensorflow module where the optimization algorithms are implemented. It automatically calculate the gradient for each coefficient given data samples from loss and topology of forward connected graph by applying chain rule, which is introduced in Back propagation section.
+
+Whenever optimization is required, the instance of subclass of Optimizer is created, each of them has its implementation of minimize() function.
+
+When the optimizer optimize the model, following operations are taken in order:
+
+- **Calculating the gradient:** The mothod compute_gradients() is invoked, calculating the gradients following the policy specified.
+- **Process the gradient:** Clip or weight gradients in this stage to prevent gradient vanish or explode.
+- **Apply the gradient:** Apply the gradient to the model coefficients after processing.
+
+
 ### CNN
-
+CNN processes images by applying convolution, pooling, fully connect and normalization.
 #### Convolution
-
+Applying convolution to an image with a certain amount of conv kernels. We may specift the kernel size, kernel number, stride, padding ...
 #### Pooling
+Pooling layer is applied to convolved image by taking a operation to a S by S grid, for example, max pooling take the max value of the cells.
+
+#### Spatial Pyramid Pooling
+
+Neural networks require a fixed size at output layer, which means the input image must be resized by cropping or wrapping. But such operations may affect some of the features in the image, therefore another method called Spatial Pyramid Pooling(SPP) can be applied after the convolution layer.
+
+SSP layer maintains spatial information by pooling in local spatial bins. Bin sizes are proportional to image input size. The last pooling layer of CNN is replaced by a SPP layer. In each spatial bin, we apply pooling.
 
 #### Fully connect
-
+Fully connected layer is used to convert the feature map to the normal neural network layer(logits or propability distribution in classification problems).
 #### Convolution implementation of fully connect 
+The old implementation of fully connected layer is a little bit slow, therefore we can use convolutional implementation. For example, we have a feature map of size $N\times N \times L$, convolution kernels with size $N\times N$ with input channel $L$ can be applied, then the number of kernels is equivalent to the size of fully connected layer.
 
-## Designing
+#### Siamese Net
+
+
+## Design
 
 
 ### Model and estimator
