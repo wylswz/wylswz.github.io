@@ -147,3 +147,51 @@ a = fmap (+) (Just 3)
 fmap (\f -> f 5) a
 ```
 Well, that looks really bad. You are using two lines of codes and an anonymous function in order for a task as simple as adding two numbers! That's where `Applicative Functor` comes in.
+
+In `Applicative Functor`, two new terms are introduced, which are `pure` and `<*>`. These two terms are not defined by default, the developer who defines the data type should implement them. The `Applicative` class can be defined as 
+
+```haskell
+class (Functor f) => Applicative f where
+    pure :: a -> f a
+    (<*>) :: f (a -> b) -> f a -> f b
+```
+It's quite obvious from the class definition is that in order to be an instanve of `Applicative`, a variable need to be `Functor` first. The `pure` function takes a value of any type as parameter and return an applicative functor with the value in it. (Put the value in some sort of default context -- a minimal context that still yields the value). The `(<*>)` extracts the function from the first functor and map over the second one.
+
+For instance, the `Maybe` is a kind of `Applicative Functor`, which is defined as 
+```haskell
+instance Applicative Maybe where
+    pure = Just
+    Nothing <*> _ = Nothing
+    Just f <*> something = f <$> something
+```
+
+With normal functor, you can only map a function over a functor without being able to get the result out of it or manipulate it. While `Applicative Functor` allows you to operate on several functors with a single function. Look at the following example:
+
+```haskell
+pure (+) <*> Just 3 <*> Just 5
+Just (3 +) <*> Just 5
+```
+The first line can be aggregated to the second one by paritally apply the plus to `Just 3`. Thanks to the unwrapping capability of `<*>` function, the wrapped function is easily unwrapped and applied. The good thing is that the second line has almost identical structure with the first one: Partially applying a wrapped function still yields a wrapped function, that why we can easily cascade multiple `<*>` functions. 
+
+If we generalize the usage of `Applicative Functor`, that becomes the following form
+
+```haskell
+pure f <*> x <*> y <*> ...
+```
+Again, the strength of `Applicative Functor` over normal `Functor` is that it support function with any number of inputs and is able to cascade values in a fairly elegant manner.
+
+The `<*>` has the pre-condition that the function is wrapped, which is not always necessary, say, if we just want to apply a function to a couple of wrapped values, there is no need to wrap the function up explicitly, that's why the `Applicative` module introduces another function called `<$>`, which is exact same as `fmap` but has more elegant form when applied.
+
+```haskell
+(<$>) :: Functor f => (a -> b) -> f a -> f b
+```
+
+For instance, if we want to apply `(+)` to `Just 3` and `Just 5`, now we can simply write 
+```haskell
+(+) <$> Just 3 <*> Just 5
+```
+which is quite intuitive.
+
+I think that's some basic knowledge a beginner should know about Haskell before he actually start doing codes. In the following sections, I'll talk about Haskell `IO`, datatypes, monads, something like that.
+
+## I/O
