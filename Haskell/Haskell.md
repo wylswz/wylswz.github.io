@@ -1,4 +1,7 @@
 # Brief Intro to Haskell
+Note: Some codes in this article may not be legal haskell codes, they are only used to explain some facts.
+
+Haskell is a declarative (functional) programming language. You know what is functional programming, so I'll skip that part. This introduction will start with Functor.
 
 ## Functors
 Functor class in Haskell simply means something that can be mapped over with a function. Any instance of Functor must implement the `fmap` function
@@ -12,6 +15,29 @@ Differnt instances of functor have their implementations for `fmap`, for example
 fmap (1+) [1,2,3]
 map (1+) [1,2,3]
 ```
+
+### Why functor? 
+When we use a programming language to interact with pieces of data to produce something that is useful, it's hard to make sure everything is in the same data structure. Data is organized in different ways in differnt scenarios in order to achieve higher runtime or development efficiency. In order to manipulate all these different types of data, we want the programming language to gerneralize well, that is, we can perform similar actions to different types with a unified interface (Like Abstract Class and  Interface in Java). 
+
+Think about the following scenario, we have a datatype constructed from a `Tuple`
+
+```haskell
+data Student = Student {
+    id :: Int,
+    mark :: Int
+}
+
+buildFromTuple :: (Int, Int) -> Student
+buildFromTuple (id, mark) = Student id mark
+```
+
+Then we want to create a list of `Student` type values from a list of tuples, we have
+
+```haskell
+map buildFromTuple [(1,20),(2,57)]
+```
+which is intuitive. But what if the tuples are stored in other data structures like `Vector`? With the help of functor, we can simply unify the interface with fmap.
+
 
 ### Type constructor being an instance of Functor
 Type constructors can be functors. For instance, the `Maybe` type can be defined as 
@@ -37,7 +63,7 @@ Function is first class citizen in Haskell so it makes sense for it to be an ins
 instance Functor ((->) r) where
     fmap f g = (\x -> f (g x))
 ```
-In another word, `fmap f g` returns a function which takes a value x, apply `g` to it and apply `f` to the result. In order to explain why does this happen, we need to look at the original definition of `fmap` function 
+In another word, `fmap f g` returns a function which takes a value x, apply `g` to it and apply `f` to the result. In order to explain why does this happen, we need to go back to the original definition of `fmap` function 
 ```haskell
 fmap :: Functor f => (a -> b) -> f a -> f b
 ```
@@ -62,3 +88,39 @@ a . b
 (.) a b
 \x -> a $ b x
 ```
+
+### Functor Laws
+In the above sessions, we discussed about the "Instance of Functor" instead of functor directly. The reason is that in order for an instance of Functor to be a functor, it need to obey functor rules which ensures calling a functor only maps a function over it without doing anything more. Here are the two rules
+
+- If we map id function over a functor, the functor we get back should be the exact same one.
+- Composing two functions and then map it over a functor is same as mapping one over it and then mapping another
+
+`Maybe` is a functor, let's see how it obeys the functor laws.
+```haskell
+-- Law 1
+fmap id Nothing = Nothing -- trivial
+fmap id (Just x) = Just (id x) = Just x
+
+-- Law 2
+fmap (f . g) Nothing = Nothing
+fmap (f . g) (Just x) 
+    = Just (f $ g x)
+    = fmap f Just (g x)
+    = fmap f (fmap g (Just x))
+    = (fmap f) (fmap g (Just x))
+``` 
+There also examples that a type construct is an instance of a functor but isn't an actual functor. Consider a data type with a counter which increases by one everytime fmap is applied to it.
+
+```haskell
+data CtrMaybe a = CtrNothing
+                | CtrJust Int a
+                deriving (Show)
+
+instance Functor CtrMaybe where 
+    fmap _ CtrNothing = CtrNothing
+    fmap f $ CtrJust ctr x = CtrJust $ ctr + 1 $ f x
+```
+
+In this case, everytime the `id` function is mapped over the structure, the counter has increased by 1, which is not identical to previous one anymore (side effect). Therefore, this is not a functor.
+
+## Applicative Functors
