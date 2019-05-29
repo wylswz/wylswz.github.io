@@ -1,6 +1,15 @@
 # Brief Intro to Haskell
 Note: Some codes in this article may not be legal haskell codes, they are only used to explain some facts.
 
+This article is not originally written by me, I just read some Haskell articles online and put them together:
+
+[Real World Haskell](http://book.realworldhaskell.org/)
+
+[Learn You a Haskell for Great Good!](http://learnyouahaskell.com/chapters)
+
+[Monday Morning Haskell](https://mmhaskell.com/)
+
+
 Haskell is a declarative (functional) programming language. You know what is functional programming, so I'll skip that part. This introduction will start with Functor.
 
 ## Functors
