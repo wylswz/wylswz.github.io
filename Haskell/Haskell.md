@@ -124,3 +124,26 @@ instance Functor CtrMaybe where
 In this case, everytime the `id` function is mapped over the structure, the counter has increased by 1, which is not identical to previous one anymore (side effect). Therefore, this is not a functor.
 
 ## Applicative Functors
+In the cases we discussed above, we map a function that takes one paramter and produces one result over an instance of `Functor` to yield the exact same wrapper but with the value changed.
+
+What if we have a function that accepts more than one parameter, for example `(+)` which takes two `Num` type values and add them together.
+
+```haskell
+fmap (+) (Just 3) = Just ( (+) 3 )
+```
+We have a partially applied function wrapped in `Just`~ Let's think about how we gonna use it. What everyone can simple see is that it is a functor, so one intuitive way of using it is to map a function over it. What can we do to a function with another function, well, simply apply the function in another function that takes a function as parameter.
+
+```haskell
+fmap (\f -> f 3) a
+-- For value wrapped in a, apply it to value 3
+```
+
+This sounds like trivial, but it does have some fancy usages in Haskell with the `Applicative` class.
+
+Suppose that we have two numbers wrapped by a functor, `Just 3` and `Just 5`, how do we add them together? As we previously discussed, we can use fmap with (+) to produce a functor wrapped function, then map over it with another value.
+
+```haskell
+a = fmap (+) (Just 3)
+fmap (\f -> f 5) a
+```
+Well, that looks really bad. You are using two lines of codes and an anonymous function in order for a task as simple as adding two numbers! That's where `Applicative Functor` comes in.
