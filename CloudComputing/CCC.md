@@ -1,6 +1,6 @@
 # Revision 
 
-## L3
+## Parallelization
 
 ### Computation Scaling Up
 - **Single machine multiple cores**
@@ -96,4 +96,69 @@ Message passing interface (MPI) is widely adoped approach for message passing in
 - **Mapping**: Assigning tasks to processors such that job completion time is minimized and resource utilization is maximized.
 
 In master-slave model, master decomposes the problem into small tasks and distributes to workers and gather partial results to produce final result.
+
+
+### Shared memory parallelism
+Multi-threading is one type of shared memory parallelism. A master forks a number of sub threads and diveide tasks between them. One implementation is OpenMP, which is limited to single instance.
+
+### Distributed memory parallelism
+Programs are parallelized by sending messages between processes.
+
+## Cloud
+
+### Definition
+Cloud computing is a model for enabling ubiqutous convenient, on demand network access to a pool of configurable computing resources that can be repidly provisioned and released with minimal management effort and provider interaction.
+
+### Public cloud
+Pros:
+- Cost efficient
+- Focus on core business
+- Right sizing
+- Democratisation of computing
+
+Cons
+- Security
+- Loss of control
+- Lock in
+- Depends on cloud provider
+
+
+### Private cloud
+Pros:
+- More control
+- Secure
+- Consolidation of resource
+- Trust
+
+Cons:
+- Management & maintenance overhead
+- Relevant to core business>?
+- Hardware obsolescence
+- Over/under utilization
+
+### SOAP vs ReST
+| SOAP | ReST |
+|------|------|
+|Built upon RPC| About resources and the way they can be manipulated remotely|
+|Stack of protocols that covers every aspect of using a remote service|A style of using HTTP|
+
+### WSDL (Web service description language)
+- XML based, machine readable
+- Key components
+  - **Definition**: what it does?
+  - **Target Namespace**: context of naming
+  - **Data Types**: Data structure of input/output
+  - **Messages**: Messages & structures exchanged between client/server
+  - **Port type**: Encapsulate input/output messages into one logical operation(abstract)
+  - **Bindings**: bind operations to port types (Concrete operatiosn)
+  - **Service**: Name of service
+
+### Safe/Idempotent methods
+A method is safe if does not change anything. (N calls == 0 call). A method is idempotent if (N calls = 0 call)
+
+|Method|Safety|
+|------|------|
+|GET, OPTION, HEAD| Safe|
+|PUT, DELETE|Idempotent|
+|POST|Neither|
 
