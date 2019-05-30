@@ -10,7 +10,40 @@ This article is not originally written by me, I just read some Haskell articles 
 [Monday Morning Haskell](https://mmhaskell.com/)
 
 
-Haskell is a declarative (functional) programming language. You know what is functional programming, so I'll skip that part. This introduction will start with Functor.
+Haskell is a declarative (functional) programming language. You know what is functional programming, so I'll skip that part. This introduction will start with some basic stuff like data type.
+
+## `type`, `data` and `newtype` 
+At the beginning of this article, let's make sure we don't mess up some of the terminologies in Haskell in terms of data types. When we manipulate data types, there are three keywords that we might use, `type`, `data` and `newtype`.
+
+The `type` keyword is nothing more than defining type synonyms for existing types, that is, you take a type, add a new name referring to it, then you can use the new name and original name interchangably.
+
+```haskell
+type IntList = [Int]
+let a = [1,2,3] :: IntList
+let b = [1,2,3] :: [Int]
+a == b
+
+> True
+```
+
+The `data` keyword is used to create you own data types, which is quite straightforward:
+```haskell
+type ID = Int
+type Name = String
+type DEAD = ()
+data Person = Person ID Name
+            | Dead
+``` 
+
+The `newtype` keyword is to wrap an existing type in a new defined type. The difference between `type` and `newtype` is that the `type` produces a synonym fro existing type, which means the new type is identical to original one, while `newtype` produces a new type. In fact, `newtype` is like a special kind of `data` which has only one constructor with only one field, but not exactly (There are differences in efficiency and lazyness).
+
+### `newtype` efficiency and lazyness
+
+`newtype` is more efficient than `data` in terms of wrapping types. With `data` keyword, you create a new data type, which brings overhead for wrapping and unwrapping operations. While with `newtype`, the Haskell knows the underlying type that you have wrapped, therefore the wrapped data can directly be referred to without extra overhead.
+
+The `newtype` also has extra lazyness in it. Because Haskell has known the wrapped type and there is only one constructor with one fixed field, sometimes the construction is not necessarily evaluated in some cases (like pattern matching with wildcards). While using `data`, construction is evaluated everytime because there might be different constructors with unfixed fields, Haskell need to figure out which one to go with.
+
+Now that we have understood some confusing terminologies, let's dive into one of most things in Haskell, which is Functor.
 
 ## Functors
 Functor class in Haskell simply means something that can be mapped over with a function. Any instance of Functor must implement the `fmap` function
@@ -204,3 +237,80 @@ which is quite intuitive.
 I think that's some basic knowledge a beginner should know about Haskell before he actually start doing codes. In the following sections, I'll talk about Haskell `IO`, datatypes, monads, something like that.
 
 ## I/O
+Haskell strictly separate pure codes and non-pure ones, which may cause the world to change. Therefore, a complete isolation of side-effects is provided from the language level, which is a nice feature that helps improve program stability, because many bugs in programs are caused by unanticipated side-effects.
+
+Haskell I/O is a subset of those actions that might have side effect. Here are some examples of I/O functions
+
+### IO actions
+
+```haskell
+putStrLn :: String -> IO ()
+-- This writes out a string to standard output which an end-of-line char
+
+getLine :: IO String
+-- This gets a string from the standard input
+```
+
+Anything with `IO Something` in it is an IO action, which can be stored in a variable and evaluated later (because they are functions). They can also be glued toghther to form a larger block of action using `do`, like this
+```haskell
+myblock = do
+    putStrLn "Please type something"
+    myStr <- getLine
+```
+
+Any IO action has an underlying data type bound to it, for example, the `getLine` function has a `IO String` in the type definition, which means it has a `String` value bound to it. Using `<-` when calling IO actions can get the underlying value and store it in a variable. The value of action block is the value of the last action in that block.
+
+Some actions have `IO ()` in their type definitions, which means there is nothing (called 'unit') bound to it. The `()` is simply an empty tuple, indicating there is nothing (Like `void` in C++). Consider following code:
+```haskell
+let writefoo = putStrLn "foo"
+writefoo
+
+-- we get foo in console
+```
+We have "foo" printed in the console, but that's not the value of writefoo statement, instead, that's caused by the side effect of IO action, which write a string to the standard output handle.
+
+So what the fuck is IO action? Here are the ideas
+- It has the type of `IO t` where `t` is the data type of the value it yields
+- It is first-class value and can be seamlessly fit into Haskell's type system
+- It produces side effect when performed (called by something outside the IO context)
+- Performaing IO action yields a value of type associalted to it.
+
+### Handles, Standard Input, Output and Error
+File I/O is another kind of IO in Haskell, which differs from standard IO in that File IO operates on file Handles which are get from opening a file.
+
+```haskell
+openFile :: filePath -> IOMode -> IO Handle
+-- IOMode can be WriteMode, ReadMode, ReadWriteMode, AppendMode
+
+hPutStr :: Handle -> String -> IO ()
+```
+In order to use it, we simple to the following operations
+```haskell
+myHandle <- openFile "a.txt" WriteMode
+hPutStr myHandle "This is a string"
+```
+We may find that for each standard IO function, there is a File IO function associated to it, with a 'h' at the front of the function name, which is True. In fact, the non-h functions are just the result of partially applying the h functions to a pre-defined handle (Standard IO handles defined in `System.IO`). Which is, 
+
+```haskell
+import System.IO
+getLine = hGetLine stdin
+putStrLn = hPutStrLn stdout
+...
+```
+Some operating systems let you redirect file handlers to come from or go to different places (files, devices or other programs). For example
+```sh
+echo John | runghc callingpure.hs
+```
+It doesn't read input from keyboard, instead, it receives the output from echo command.
+
+### Lazy IO
+We know that Haskell is lazy; Variables in Haskell are not evaluated until it is necessary to do so. IO actions also have lazyness to them, One typical example is `hGetContents`. This is an IO action which is used to read all the contents in a `Handle` in the form of `String`. It has type of 
+```haskell
+hGetContents :: Handle -> IO String
+``` 
+
+In some other languages, thing such as "reading everything into memory" can crash the program because the file is way too large. In Haskell, this is avoided because of lazy evaluation. Data in the file (`Char`s) is only read into memory when they are processed (Like converting to upper case). The data that is nolonger used is automatically collected by Haskell Garbage Collector. The good thing is that Haskell has shielded all these facts from programmers, so the result of `hGetContent` is just like a `String` from the developers' point of views. They can pass it to any pure function that takes String as parameter without eating up all the memory.
+
+(If you do need to read the whole file into memory for later use, Haskell is not able to save you.)
+
+## Monad
