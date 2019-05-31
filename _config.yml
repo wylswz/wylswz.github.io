@@ -1,5 +1,7 @@
 theme: jekyll-theme-cayman
 title: IT Taolu
-descryption: Some Taolus
+descryption: Read best Taolus of IT industry
 markdown: kramdown
+google_analytics: UA-141212522-1
+
 math: true
