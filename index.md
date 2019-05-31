@@ -6,7 +6,9 @@ layout: default
 
 ![xm](/assets/xmcover.png)
 
-XMBSMDSJ is a philosophy of XM BSs. What is XM? and what is BS? BS mean Bishen, which is the output of 
+XMBSMDSJ is a philosophy of XM BSs. What is XM? and what is BS? BS mean Bishen, which is the output of  bijing dashen. 
+
+
 ```haskell
 
 bijing :: Person -> Person -> Maybe Dashen
