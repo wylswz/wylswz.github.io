@@ -2,7 +2,6 @@
 layout: default
 ---
 
-# Read best Taolus of IT industry
 
 ![xm](/assets/xmcover.png)
 
