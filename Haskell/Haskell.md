@@ -10,7 +10,7 @@ This article is not originally written by me, I just read some Haskell articles 
 [Monday Morning Haskell](https://mmhaskell.com/)
 
 
-Haskell is a declarative (functional) programming language. You know what is functional programming, so I'll skip that part. This introduction will start with some basic stuff like data type.
+Haskell is a declarative (functional) programming language. You know what is functional programming, how to use functions as first class values, writing recursive programs, doing function composition and currying/uncurrying, so I'll skip that part. This introduction will start with some basic stuff like data type.
 
 ## `type`, `data` and `newtype` 
 At the beginning of this article, let's make sure we don't mess up some of the terminologies in Haskell in terms of data types. When we manipulate data types, there are three keywords that we might use, `type`, `data` and `newtype`.
@@ -312,5 +312,199 @@ hGetContents :: Handle -> IO String
 In some other languages, thing such as "reading everything into memory" can crash the program because the file is way too large. In Haskell, this is avoided because of lazy evaluation. Data in the file (`Char`s) is only read into memory when they are processed (Like converting to upper case). The data that is nolonger used is automatically collected by Haskell Garbage Collector. The good thing is that Haskell has shielded all these facts from programmers, so the result of `hGetContent` is just like a `String` from the developers' point of views. They can pass it to any pure function that takes String as parameter without eating up all the memory.
 
 (If you do need to read the whole file into memory for later use, Haskell is not able to save you.)
+
+## Associative Behavior, Monoid and Foldable
+Some of the operations in programming languages has the property of "Associativity", that is, however you group a sequence of operations, the result remains the same. For example 
+
+```haskell
+a ++ (b ++ c)
+(a ++ b) ++ c
+-- they are the same
+```
+
+### Monoid
+A monoid is when you have an associative binary funciton and a corresponding value which acts like an identity with respect to the function. The term "act like an identity with respect to the function" means, when this function is applied to this value and some other value, the result is always that "other value". That is
+
+```haskell
+myFunc identity other = other
+```
+For list, the binary function is `++` and the identity w.r.t it is `[]`, and for `Num`, the function can be `+` and the identity is `0`. So we can define the Monoid as following 
+```haskell
+class Monoid m where:
+    mempty :: m
+    mappend :: m -> m -> m
+    mconcat :: [m] -> m
+    mconcat = foldr mappend mempty
+
+    -- mempty represent the identity value
+    -- mappend is associative binary function
+```
+As we can see in the difinition, if something is an instance of `Monoid`, it must be a concrete type, because the `m` in the definition above does not accept any parameters. For example, it can be `[Int]` while `Maybe` is not valid.
+
+The `mappend` function implies that we are append one value to another, but in fact, this is not necessarily true. For example, `*` is not appending two things, instead, it's the product of two Numbers.  `mconcat` has a default implementation so there is no need to worry about implementing that.
+
+### Monoid Laws
+Typically, `Monoid` obeys some laws which guarantees that the existance of `Monoid` makes sense. Designing the types by carefully checking these laws helps take the advantage of associative behavior of `Monoids`, but that's not compulsury(Haskell doesn't check that)
+
+```haskell
+mempty `mappend` x = x
+x `mappend` mempty = x
+(x `mappend` y) `mappend` z = 
+    x `mappend` (y `mappend` z)
+```
+
+### Lists are Monoids
+Intuitively, `List`s are Monoids. The definition is
+
+```haskell
+instance Monoid [a] where
+    mempty = []
+    mappend = (++)
+```
+If we need to use `mempty`, it is necessary to specify the type, for example 
+```haskell
+let a = mempty :: [Int]
+```
+otherwise the GHCi has no way to figure out which instance to use.
+
+### Other Monoids
+As we mentioned above, `+` and `*` both have associative behaviors which can potentially make `Monoid`, but both of operations work on `Num`... How do we make an instance of `Num` the instance of two `Monoid`s at the same time? Sounds wierd, but there is a way of doing this. We introduced `newtype` at the very beginning of this article, which wrap a existing type and produce a new type referring to it without suffering from performance loss due to wrapping and unwrapping operation. We can actually wrap a type multiple times to produce different types but with exact same underlying content.
+
+Now we want to make two monoids which supports addition and product, respectively. First of all, we are going to wrap the instance of `Num` for two times
+```haskell
+newtype Product a = Product {getProduct :: a}
+newtype Sum a = Sum {getSum :: a}
+
+instance Num a => Monoid (Product a) where 
+    mempty = Product 1
+    mappend (Product x)  (Product y) = Product (x * y)
+
+instance Num a => Monoid (Sum a) where
+    mempty = Sum 0
+    mappend (Sum x) (Sum y) = Sum (x + y)
+
+-- The values wrapped by Product and Sum are extracted using pattern matching
+-- Product and Sum are instances of Monoid as long as a belongs to type class Num
+```
+
+Maybe can be `Monoid` as well. There are multiples ways for `Maybe a` to be an isntance of `Monoid` as well. This is also done by type wrapping. 
+
+One of the intuitive way is to assume the content in Maybe type is a `Monoid`, then we can extract the values, apply `mappend` to them and wrap them back.
+
+```haskell
+instance Monoid a => Monoid (Maybe a) where 
+    mempty = Nothing
+    Nothing `mappend` m = m
+    m `mappend` Nothing = Nothing
+    Just m1 `mappend` Just m2 = Just (m1 `mappend` m2)
+```
+However, in another cases, the value in Maybe type isn't necessarily a Monoid, or we have no idea what it is. In this case, there is no way we can rely on behaviors of underlying types. Another simple way of doing this is to discard one of the two params. For instance, we can take the first one if it is `Just something`.
+
+```haskell
+newtype First a = First {getFirst :: Maybe a}
+    deriving (Show, Ord, Read, Eq)
+instance Monoid (First a) where
+    mempty = First Nothing
+    First (Just x) `mappend` _ = First (Just a)
+    First Nothing 
+```
+
+First can be used to check if any of the item is not `Nothing` when we have a bunch of `Maybe` items.
+
+```haskell
+getFirst . mconcat . map First $ [Nothing, Just 3, Just 4]
+-- Map over the list to wrap everthing into First
+-- Now we have a list of Monoids
+-- Apply mconcat to perform aggregation
+-- Unwrap the type
+```
+
+### Folding Data Structures with Monoid
+Many data structures work with fold. For example, we can reduce a list with some function to produce a single value by fold it, or serialize a Tree by folding over it. Therefore in Haskell, Foldable is abstracted to a class that as long as we provide certain implementations, we can fold the data structure. Like `Functor` which represents things that can be mapped over, `Foldable` represents anything that can be folded up.  
+
+```haskell
+Foldable.foldr :: (Foldable.Foldable t) => (a -> b -> b) -> b -> t a -> b
+```
+In order to make a type a `Foldable`, we can either implement the `foldr` function directly or implement `foldMap` and get `foldr` for free. The latter approach is usually easier than the former one.
+
+```haskell
+foldMap :: (Monoid m, Foldable t) => (a -> m) -> t a -> m 
+```
+Let's explain the function. The first paramter is a function that converts a value to Monoid, which is not defined by us. It is passed to `foldMap` automatically as long as we decide where and how to join up things. The second argument is the `Foldable` with type `a`. The function behaves like this:
+
+- It maps the function over `Foldable` structure to produce a `Foldable` of `Monoid`s
+- The values are joined up with `mappend` of the `Monoid`s
+
+We'll end the introduction of `Monoid` by doing a serialization of binary tree. Which is fiarly simple 
+```haskell
+import Data.Monoid
+import Data.Foldable as F
+
+-- Define a Tree
+data Tree a = Empty
+            | Node a (Tree a) (Tree a)
+            deriving(Show, Read, Eq)
+
+-- Create an instance for that Tree
+a  = Node 3 (Node 4 (Node 5 Empty Empty) Empty) (Node 6 (Empty) (Node 8 (Empty)(Empty)))
+
+{-
+    Here we define three wrappers of Tree which indicate three
+    traversal behaviors, Pre-order, Post-order and In-order
+    They have exact same underlying data structure, but slightly 
+    different in folding
+-}
+newtype PreOrderTree a = PreOrderTree {getPreOrderTree :: Tree a} deriving(Show, Read, Eq)
+newtype PostOrderTree a = PostOrderTree {getPostOrderTree :: Tree a} deriving(Show, Read, Eq)
+newtype InOrderTree a = InOrderTree {getInOrderTree :: Tree a} deriving(Show, Read, Eq)
+
+preA = PreOrderTree a
+postA = PostOrderTree a
+inA = InOrderTree a
+{-
+    Simply define different Folding behaviors for three
+    wrappers. (Different order in recursive traversal)
+-}
+instance F.Foldable PreOrderTree where 
+    foldMap f (PreOrderTree Empty) = mempty
+    foldMap f (PreOrderTree (Node x l r)) = 
+        f x `mappend`
+        F.foldMap f (PreOrderTree l) `mappend`
+        F.foldMap f (PreOrderTree r)
+
+instance F.Foldable PostOrderTree where 
+    foldMap f (PostOrderTree Empty) = mempty
+    foldMap f (PostOrderTree (Node x l r)) = 
+        F.foldMap f (PostOrderTree l) `mappend`
+        F.foldMap f (PostOrderTree r) `mappend`
+        f x 
+        
+instance F.Foldable InOrderTree where
+    foldMap f (InOrderTree Empty) = mempty
+    foldMap f (InOrderTree (Node x l r)) = 
+        F.foldMap f (InOrderTree r) `mappend`
+        f x `mappend`
+        F.foldMap f (InOrderTree l) 
+
+
+{-
+    Create an aggregation function that takes a string and 
+    anything which is an instance of Show type class, and 
+    we keep push the string version of it to the base string
+    and return the result
+-}
+serializeApp :: Show a => String -> a  -> String
+serializeApp cache val = 
+    cache ++ (show val)
+
+-- Do some tests
+test = foldl serializeApp "" preA
+test = foldl serializeApp "" postA
+test = foldl serializeApp "" inA
+```
+
+Note that this is NOT an efficient way of doing Binary Tree serialization... You can see that we defined three types of wrapper and we implemented `foldMap` function for each of them, so we end up with 60 lines of code. This is just done to show you some simple usage of `Monoid` and `Foldable`
+
+In the following section, I'll start discuss `Monad`. 
 
 ## Monad
