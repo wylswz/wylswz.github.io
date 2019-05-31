@@ -29,6 +29,8 @@ Tao Lu is a advanced unsupervised learning model. It requires non-deterministic 
 - Training: Train the model using questions. If the process halt detected, feedback the signal into the model and query the keyword in lecture slides
 - Testing: Select some qustions as testing set
 - Non-blocking real time evaluation: Check out 大佬's conversation in wechat group and look for something that the model has not seen before, feed back into the system and re-update the weights
+
+
 ## Technical Taolus
 
 | |
