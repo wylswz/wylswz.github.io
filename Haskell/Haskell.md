@@ -508,3 +508,67 @@ Note that this is NOT an efficient way of doing Binary Tree serialization... You
 In the following section, I'll start discuss `Monad`. 
 
 ## Monad
+Monad is a nature extension of `Applicative` in Haskell. Think about this question: If you have a value with context, how would you apply a function that takes a normal value and return a value with context to it? Monad has provided something like that. 
+
+```haskell
+>>= :: Monad m => m a -> (a -> m b) -> m b
+```
+but how would you feed the value into that function? It's quite eazy if we just have a normal value `a` and a function `a -> b`, but when a is wrapped, we need a little bit work around. This is the main question we always think about when we are dealing with `Monads`. `Monads` are simply `Applicatives` that support `>>=` operation. This seems to be abstract, let's start with some concrete types.
+
+### Maybe is a Monad
+`Maybe a` is a value of type `a` with potential possibility of failure. When we look at it as a `Functor`, what we do is simply mapping the function over the value if it's `Just sth`, otherwize, we get `Nothing`. As an `Applicative Functor`, pretty much the same story except the function is wrapped in context. 
+`>>=` takes in a `Monad` value, a function that takes a normal value and give a `Monad` value, and return another `Monad` value, of which the underlying value is the result of applying the function on value in first parameter.
+In the context of `Maybe`, the function is like
+```haskell
+f :: a -> Maybe b
+```
+and we apply this function to a `Maybe` value with `applyMaybe` function.
+```haskell
+applyMaybe :: Maybe a -> (a -> Maybe b) -> Maybe b
+applyMaybe Nothing _ = Nothing
+applyMaybe (Just a) f = f a
+```
+Fairly straightforward, if the first value is `Just something`, `f` is directly applied to that `something` using patter matching. Let's look at the definition of the class
+
+```haskell
+class Monad m where
+    return :: a -> m a
+    (>>=) :: m a -> (a -> m b) -> m b
+    >> :: m a -> m b -> m b
+    x >> y = x >>= \_ -> y
+    fail :: String -> m a
+    fail msg = error msg
+```
+
+We assume that all `Monads` are instances of `Applicative` even though there is no explicit requirement in the class definition. 
+
+The `return` function is like `pure` we previously used in `Applicative`, which wraps a value in the minimum context. For example, `return` in IO is used to yield a value without doing anything else. Unlike other languages, return does not end the function, but in many cases, it is placed at the end of `do` block. 
+`>>=` is like function application except that it takes `Monad` values. `>>` is merely implemented as it comes with a default implementation. `fail` is never used by us explicitly in programs. It's used by Haskell to enable failure in a special syntactic. 
+
+Now let's look at `Monad` definition of `Maybe`
+
+```haskell
+instance Monad Maybe where 
+    return x = Just x
+    Nothing >>= f = Nothing
+    Just x >>= f = f x
+    fail _ = Nothing
+```
+ 
+```haskell
+Just 9 >>= \x -> (Just x * 3)
+
+> Just 27
+```
+We can see that after we apply some function to a `Just` value, it returns another `Just` value, which means we can apply more functions and chain them together with `>>=` function. Like
+```haskell
+prod2 :: Num a => a -> Just a
+prod2 a = Just (2 * a)
+
+Just 2 >>= prod2 >>= prod2 >>= prod2
+
+> Just 16
+```
+Such feature frees us from writing disgusting nested pattern matchings when we are dealing with chained computations which may potentially produce `Nothing`.
+
+### Lists as Monads
