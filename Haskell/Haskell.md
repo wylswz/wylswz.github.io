@@ -572,3 +572,23 @@ Just 2 >>= prod2 >>= prod2 >>= prod2
 Such feature frees us from writing disgusting nested pattern matchings when we are dealing with chained computations which may potentially produce `Nothing`.
 
 ### Lists as Monads
+`List` is a great type for representing non-deterministic values. For example, a single integer, like 5, is a deterministic value, because it has a value and we know exactly what it is. While a `List`, say [1,2,3], has multiple values in it, but we can still view it as a single value that can be multiple values at the same time. Using `List` as `Applicative` showcases this non-deterministic nicely. For example
+```haskell
+(*) <$> [1,2,3] <*> [2,3,4]
+
+> [2,3,4,4,6,8,6,9,12]
+``` 
+
+The context of non-deteministic translates to `Monad` nicely
+```haskell
+instance Mondd [] where
+    return x = [x]
+    xs >>= f = concat (map f xs)
+```
+
+`>>=` in the code above takes a `Monad` value and convert it to another `Monad` value with another underlying type, in this case is `List` because the output of `f` is the same `Monad` with first parameter. Therefore, we get a `List` of `List` after map, that's why a `concat` is applied to it. One concrete example is 
+```haskell
+[3,4,5] >>= (\x -> [x, -x])
+
+> [3, -3, 4, -4, 5, -5]
+``` 
