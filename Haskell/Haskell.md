@@ -592,3 +592,29 @@ instance Mondd [] where
 
 > [3, -3, 4, -4, 5, -5]
 ``` 
+
+### Monads are Monoids
+Before we get into comparing `Monad` and `Monoid`, we have to take a look at Monad Laws which all the `Monad` instances have to obey.
+
+```haskell
+return a >>= f <=> f a -- Left identity law
+m >>= return <=> m -- Right identity law
+(m >>= f) >>= g <=> m >>= (\n -> f n >>= g)
+```
+The rules above looks quite confusing cuz it's nothing like identity and assiciative shit... But if we re-write the expressions above by introducing a new function `>=>`
+
+```haskell
+(>=>) :: Monad m => (a -> m b) => (b -> m c) -> a -> m c
+(m >>= n) x = do
+                y <- m x
+                n y
+```
+The function `>=>` is a function that takes two functions which take a normal value and return a `Monad` and return another function which take a normal value and return a `Monad`. Then the laws become
+
+```haskell
+return >=> g <=> g -- Left identity law
+f >=> return <=> f -- right identity law
+(f >=> g) >=> h <=> f >=> (g >=> h) -- Associative law  
+```
+
+It can be easily seen that `return` is an identity with respect to the function `>=>` and the associative law has been satisfied, which means `Monad` is just a `Monoid` in the category of endofunctors. 
