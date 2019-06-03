@@ -7,19 +7,6 @@ layout: default
 
 XMBSMDSJ is a philosophy of XM BSs. What is XM? and what is BS? BS mean Bishen, which is the output of  bijing dashen. 
 
-
-```haskell
-
-bijing :: Person -> Person -> Maybe Dashen
-dashen :: Person
-
-bishen = bijing dashen
-msg <- xm bishen
-putStrLn msg
-
-> Xian mu bi shen men de shi jie
-
-```
 Bishen is like kind of qualification of Dashen. If a dashen or a person is un-qualified, it's always evaluated as `Nothing` in most of function implementations related to Dashen class. XM is like an I/O function which informed verified dashens of the fact that they are qualified and has gained high reputation. While un-qualified dashens (渣渣s like me) will also be used as the param of XM, but there is no underlying message delivered to them.
 
 IT is quite hard to learn, especially for 渣渣 like me. The lecture at unimleb sucks, and the slides are pretty hard to read. Therefore we will need some new technique to learn the subjects, which is called Tao Lu.
