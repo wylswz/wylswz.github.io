@@ -1,6 +1,6 @@
 # Revision 
 
-## Parallelization
+## Parallelization (L3)
 
 ### Computation Scaling Up
 - **Single machine multiple cores**
@@ -98,16 +98,42 @@ Message passing interface (MPI) is widely adoped approach for message passing in
 In master-slave model, master decomposes the problem into small tasks and distributes to workers and gather partial results to produce final result.
 
 
-### Shared memory parallelism
+### Shared memory parallelism (MP)
 Multi-threading is one type of shared memory parallelism. A master forks a number of sub threads and diveide tasks between them. One implementation is OpenMP, which is limited to single instance.
 
-### Distributed memory parallelism
-Programs are parallelized by sending messages between processes.
+### Distributed memory parallelism (MPI)
+Programs are parallelized by sending messages between processes. Some functions in MPI are:
+- **Bcast**: Broadcast same piece of data to all processes
+- **Scatter**: Send a part of data from one process to all the processes (each process get different pieces of data)
+- **Gather**: Gather data from all processes
+- **Reduce**: Perform a reduce operation, return the result to root.
 
-## Cloud
+### Parallism Patterns
+- **Master-Slave**: Master decomposes problem to smaller tasks, distribute them to workers and gather the results. Many ways to do it: Threading, Web service workflow ...
+- **Single Process Multiple Data**: Each process executes same piece of code but on different parts of data. Data is splitted among available processors
+- **Data Pipelining**: Includ multiple stages of execution, that typically operate on large number of dataset
+- **Divide & Conquer**: Divide problem into sub-problems which can be independently solved. Master-worker is like divide & conquer with master doing split and join operation.
+- **Look ahead execution**: C depends on P for some output value V,  then C predict V. If that's correct, there's a performance gain, otherwise restart the task with correct V.
+
+
+
+
+
+
+## Cloud (L5)
 
 ### Definition
-Cloud computing is a model for enabling ubiqutous convenient, on demand network access to a pool of configurable computing resources that can be repidly provisioned and released with minimal management effort and provider interaction.
+Cloud computing is a model for enabling ubiqutous convenient, on demand network access to a pool of configurable computing resources that can be repidly provisioned and released with minimal management effort and provider interaction. Cloud computing has following characteristics:
+- On-demand self-service
+- Broad network access
+- Resource pooling
+- Rapid elasticity
+- Measured service
+
+### How to attach a volume
+- Create mounting point in fs
+- Format the volume (for nectar cloud, it's in /dev/vdb)
+- Mount the volume to the mounting point
 
 ### Public cloud
 Pros:
@@ -136,6 +162,8 @@ Cons:
 - Hardware obsolescence
 - Over/under utilization
 
+## Web Service (L6)
+
 ### SOAP vs ReST
 | SOAP | ReST |
 |------|------|
@@ -153,6 +181,52 @@ Cons:
   - **Bindings**: bind operations to port types (Concrete operatiosn)
   - **Service**: Name of service
 
+### SOA (Service-Oriented Architecture) Design Principle
+- **Standardized Service Contract**: Services adhere to a communication aggrement
+- **Loose Coupling**: Minimized dependency; Only maintain an awareness of each other
+- **Abstraction**: The information published is limited to what is required to effectively utilize the service.
+- **Reusability**: Logic is divided into services for reuse
+- **Autonomy**: Service cannot contain logics that depends on anything external.
+- **Statelessness**: Separate services with their state data whenever possible. Data management delegated to separated service.
+- **Discoverablility**: Communicative meta-data by which they can be discovered/interpreted
+- **Composability**: Services are effective compisition participants, regardless size/complexity
+- **Granularity**: Services are at right ganular level
+- **Normalization**: Minimized redundancy (by decompising/consolidation)
+- **Service Optimization**: Prefer high quality specific purpose services over low quality general purpose ones
+- **Service Relevance**: At a ganular level such that it's meaningful to users
+- **Encapsulation**: Hidden inner work
+
+### ReST design best practice
+- Short URI
+- URI discovered by following links, instead of constructed by clients
+- Use nouns instead of verbs
+- Use links in response
+- Minimize query string
+- Use HTTP status code
+
+### ReST principles
+- Addressability
+- Uniform interface
+- Resources and representations instead of RPC
+- HATEOAS
+
+### Uniform interface
+- All important resources are identified by one resource identifier mechanism
+- Resource has different representations (application/json, text/html, ...)
+- Requests contain headers describing how the content should be processed
+
+### HATEOAS (Hyper Media As the Engine of App)
+- Link to identify resources
+- Navigate through resources
+- Navigate instead of calling
+
+### ReST 2.0
+- Everything as a service
+- Vast number of entities and services
+- Link services to create workflows
+- Extend API to web Apps
+- API Hub to facilitate the sharing and usage of service among developers, users, ...
+
 ### Safe/Idempotent methods
 A method is safe if does not change anything. (N calls == 0 call). A method is idempotent if (N calls = 0 call)
 
@@ -162,3 +236,55 @@ A method is safe if does not change anything. (N calls == 0 call). A method is i
 |PUT, DELETE|Idempotent|
 |POST|Neither|
 
+
+### Virtualization vs Containerization
+Virtualization has advantages like containment and horizontal scalability, but requires more resources. Guest OS and binaries might be duplicated, wasting resources.
+
+Containerization allows virtual instances to share a single host OS, binaries, drivers and libraries to reduce waste.
+
+|Paraleter|VM|Container|
+|---------|--|---------|
+|Guest OS|Has their own kernel|Share same kernel| 
+|Comm|Eth|Pipes, sockets| 
+|Security|Depends on Hypervisor|Requires close scrutiny| 
+|Performance|Small overhead when translating instructions|Near native| 
+|Isolation|FS and lib not shared|Shared lib, fs can be shared| 
+|Startup|Slow|Fast|
+|Storage|Large|Small|
+
+### Container Orchestration
+Manage containers at scale
+
+Features:
+- Networking
+- Scaling
+- Service discovery and load balancing
+- Health check and self-healing
+- Security
+- Rolling updates
+
+Goals
+- Simplify container management process
+- Help manage availability and scaling
+
+### Docker
+It uses resource isolation features of Linux Kernel to allow independent containers to run within a single Linux instance. Can also be installed on Macos and windows, integrated with Hypervisor in maxOS and Hyper-V in windows.
+
+Data can be persisted when container is deleted using docker volumes or bind mounts. Docker volumes are managed by docker, in `/var/lib/docker/volumes`, while bindmount is managed by user.
+
+## Big Data (L7)
+4 Vs
+- **Volume**
+- **Velocity**
+- **Veracity**
+- **Variety**
+
+### MongoDB vs CouchDB
+MongoDB clusters are more complex, more consistent and less available. The sharding is on the replicaset level. Routers must be embedded in application servers. Only master node accept queries (depending on configurations) 
+
+CouchDB cluster is simpler, more available. Accepts HTTP requests. All the nodes accept requests. If data unavailable, it fetch from other node and return to user.
+
+### CAP theorem
+- **Consistency**: Every client receives the same answer from all nodes in the cluster.
+- **Availability**: Every client receives an answer from any node in cluster
+- **Partition-tolerance**: The cluster keeps on operating when one or more nodes cannot communicate with rest of the cluster.

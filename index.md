@@ -22,8 +22,7 @@ Tao Lu is a advanced unsupervised learning model. It requires non-deterministic 
 ## Technical Taolus
 
 |Articles |
-|--|
-| [Deep Learning](./DeepLearning/DeepLearning.md) |
+|:--:|
 |[Knowledge Technology](./KnowledgeTechnology/KTReview.md)|
 |[AI](./AI/AIReview.md)|
 |[Distributed Systems](./DistributedSystems/full-semester-notes.pdf)|
@@ -32,3 +31,9 @@ Tao Lu is a advanced unsupervised learning model. It requires non-deterministic 
 |[Machine Learning Face Detection](./FaceDetection/FaceDetection.md)|
 |[Haskell](./Haskell/Haskell.md)|
 |[Prolog](./Prolog/Prolog.md)|
+
+<style>
+table {
+    width:100%;
+}
+</style>
