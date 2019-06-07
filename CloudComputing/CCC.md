@@ -279,12 +279,162 @@ Data can be persisted when container is deleted using docker volumes or bind mou
 - **Veracity**
 - **Variety**
 
+Why use document-oriented DBMS for big data?
+
+Relational database model implied fine-grained data, which are less conductive to partition-tolerance than coarse-grained data.
+
 ### MongoDB vs CouchDB
 MongoDB clusters are more complex, more consistent and less available. The sharding is on the replicaset level. Routers must be embedded in application servers. Only master node accept queries (depending on configurations) 
 
 CouchDB cluster is simpler, more available. Accepts HTTP requests. All the nodes accept requests. If data unavailable, it fetch from other node and return to user.
 
+CouchDB cluster uses MVCC, while MongoDB uses a mix of two-phase commit for consistency and Paxos-like algorithm for leader election.
+
+### CouchDB Views
+- Definition of MapReduce jobs that are updated as new data comes in
+- Grouped into design documetns
+- Passed the level of aggregation
+- May return only a subset of keys
+- Computed once they're called. Update everytime document changed
+- Persist on disk. Adding entire doc in view uses a lot of disk space
+- Add type to docs to make it handier
+- Not influenced by system state
+- Ensures consistency of result
+
 ### CAP theorem
 - **Consistency**: Every client receives the same answer from all nodes in the cluster.
 - **Availability**: Every client receives an answer from any node in cluster
 - **Partition-tolerance**: The cluster keeps on operating when one or more nodes cannot communicate with rest of the cluster.
+
+Consistency and availability are at odds when a Partition happens. Traditional databasrs are not concerned with network partitions, since all data were supposed to be in a small co-located cluster of servers.
+
+**Consistency and Availability: Two-phase commit**
+It enforces consistency by:
+- Lock data within transaction scope
+- Perform transaction on write-ahead logs
+- Commit only when all nodes have performed the transaction
+- Abort when partition detected
+
+Commit request phase:
+- Coordinator sends a query to commit msg to all participants, wait until reply
+- Participant execute the transaction up to the point where they will be asked to commit. They write an entry to undo log and redo log
+- Each participant votes yes if success, or no if execution fail.
+
+Commit phase:
+The commit is success if all participants agree to commit. It fails if any of them vote "No".
+- Coordinator sends commit/rollback to all participants
+- The participants finish commit or undo it, then release lock.
+- Participants send ACK to coordinator
+- Coordinator complete-abort transaction after recving all ACKs
+
+**Availability and Partition Tolerance: MVCC**
+- Commit updates without locks 
+- Transaction that completes last has larger revision number
+- When partition is solved, same rev number may cause conflict
+- Couchdb returns a list of current conflicts to be solved by application.
+
+**Consistency and Partition Tolerance: Paxos**
+
+Paxos ensures no matter what if data is written, it eventually propagate to all nodes. There will never be different nodes that think that some index contains different value.
+
+Some assumptions:
+- Message contents don't change after sent
+- No bugs or hackers
+- Storage persistant if system is down
+
+Building blocks
+- Leader election protocol
+- Consensus on a single log entry (Synod) that preserves safety
+- Protocol to manage the entire log
+
+The alg orithm overview
+- Continuously run leader election algorithm, making sure all nodes know who's in charge.
+- When leader receives a request to add ITEM to log, it selects next empty log index, and initiate a consensus on adding data to log (Ballot)
+- When consensus initiated, all nodes participate in it, eventually aggreeing that item was added to log as INDEX.
+
+## Big data processing (L8)
+
+Challenges of big data analysis:
+- Need to read and write distributed datasets
+- Preserve data in the presence of fail node\
+- Execute map reduce tasks
+- Fault-tolerant (nodes that fail computing only slow down the process instead of stop it)
+- Coordinating task execution across a cluster
+
+### Hadoop
+
+Hadoop HDFS uses 128MB block for smaller metadata, higher network efficiency and reduce need for seek operation. It is quite efficient when most data of a block is processed.
+
+Hadoop uses YARN (Yet Another Resource Negotiator). Resource Manger is located on master node while Node Managers are on slave nodes. Everytime a MR job is initiated, an Application Master is started to negotiate resource with Resource Manager and start containers on slave node.
+
+YARN core components:
+
+- **Resource Manage**
+  - **Scheduler** allocates resource to running Apps, subject to constraints of capacities, queues. It does not monitor or tract tasks, doesn't ensure restart failed tasks. The schedule is based on resource requirement. It has a pluggable policy plug in, which can be Capacitor Shceduler or Fair Scheduler
+  - **Application Manager** accepting job submissions and negotiate first container from RM for app-specific App Master. It also manages running App Master in cluster and provide services for restarting.
+- **Node Manager** takes care of individual nodes, jobs and workflows in a single node
+- **Application Master** is unique for each application. It coordinate execution in the cluster and manage fault. It negotiate resources from RM, works with node manager to execute and monitor tasks and also send heart beat to RM to affirm its health and update its record of resource demand.
+  
+### Spark
+Why Spark?
+- Hadoop only performs simple tasks on large datasets
+- Data need to be cached for comples operations
+- Need fine grained control on executions
+- Low latency
+- Operate with hadoop architecture
+
+Spark components
+- Job: Data processing to be performed on a dataset
+- Task: A single operation on dataset
+- Executor: The process in which tasks are executed
+- Cluster Manager: Process that assigning tasks to executors
+- Driver Program: Main logic of the program
+- Spark Application: Driver + Executor
+- Spark Context: General configuration
+
+Spark RDD (Resilient Distributed Dataset).
+Resilient means Data is stored with redundancy. Failing node does not effect integrity. It has following properties
+
+- Immutable: Once defined, not changed
+- Transient: Used only once, then discarded
+- Lazy-evaluated: Data process only happens when data cannot not be kept in RDD (Transormations don't evaluate RDD)
+
+Some RDD Transformations:
+- **distinct()**
+- **uniun(rdd)**
+- **intersect(rdd)**
+- **substract(rdd)**
+- **cartesian(rdd)**
+
+Key-value Transormations
+- **map(lambda)**
+- **flatmap(lambda)**
+- **reduceByKey(lambda)**
+- **join(rdd)**: Merge key-value pairs
+
+Actions (Evaluation happens)
+- **collect()**: Return all elements in an RDD
+- **count()**
+- **reduce(lambda)** (different from reduce by key)
+- **foreach(lambda)**: apply lambda to all elems 
+
+## Virtualization (L9)
+
+**VMM** or **Hypervisor** is a piece of software that provide the abstraction of a virtual machine. When looking at the virtual environment provided by VMM, there are three properties of interest:
+- **Fidelity**: Programs running under VMM exhibit identical behavior to running on an equivalent physical machine.
+- **Safety**: VMM is in complete control over virtual resources
+- **Performance**: Dominant fraction of instructions must be executed without VMM intervention
+
+Popek and Goldberg describe characteristics that ISA (Instruction Set Architecture) of physical machine must possess to run VMM with 3 properties above. There is a classification of instructions of an ISO into 3 different groups:
+
+- **Privileged instructions**: Those that trap if the processor is in user mode and do not trap if it is in system mode
+- **Control sensitive instructions**: Those that attempt to change the configuration of resource in the system
+- **Behavior sensitive instructions**: Those whose behavior or result depends on the configuration of resources (the content of the relocation register or the processor's mode)
+
+### Theorem 1
+For any conventional third-gen computer, an effective VMM may be constructed if the set of sensitive instruction for that computer is a subset of the set of privileged instructions.
+
+This indicates that in order to build a VMM it is sufficient that all instructions that could affect the correct functioning of the VMM always trap and pass control to the VMM. This guarantees the resource control property. None privileged instructions must instead be executed natively.
+
+This theorem also provides a simple technique for implementing a VMM, called trap-and-emulate virtualization, more recently called classic virtualization: because all sensitive instructions behave nicely, all the VMM has to do is trap and emulate every one of them
+
