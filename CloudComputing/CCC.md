@@ -431,10 +431,60 @@ Popek and Goldberg describe characteristics that ISA (Instruction Set Architectu
 - **Control sensitive instructions**: Those that attempt to change the configuration of resource in the system
 - **Behavior sensitive instructions**: Those whose behavior or result depends on the configuration of resources (the content of the relocation register or the processor's mode)
 
-### Theorem 1
+### Theorem
 For any conventional third-gen computer, an effective VMM may be constructed if the set of sensitive instruction for that computer is a subset of the set of privileged instructions.
 
 This indicates that in order to build a VMM it is sufficient that all instructions that could affect the correct functioning of the VMM always trap and pass control to the VMM. This guarantees the resource control property. None privileged instructions must instead be executed natively.
 
 This theorem also provides a simple technique for implementing a VMM, called trap-and-emulate virtualization, more recently called classic virtualization: because all sensitive instructions behave nicely, all the VMM has to do is trap and emulate every one of them
 
+
+### Virtual machine extensions
+x86 is not originally virtualizable. VT-x (Intel) and SVM (AMD) are introduced to satisfy popek-goldberg theorem permit entering/exiting virtual execution mode where guestOS perceives itself as running with full privilege, but host OS remains protected.
+
+VMM should support following features:
+
+- **De-privilege**
+  - VMM emulates the effect on system/hardware resources of privileged instructions whose execution traps into VMM (This is achieved by running GuestOS at lower priority level than VMM)
+  - Problematic on some architectures where privileged instructions do not trap when executed at de-priveleged level.
+- **Primary/Shadow structures**: VMM maintains shadow copy of critical structures whose primary versions are manipulated by GuestOS e.g. memory page table. Primary copies need to ensure correct versions are visible to Guest OS
+- **Memory traces**: 
+  - Control access to memory so that the shadow and primary structure remain coherent
+  - The common strategy is write-protect primary copy so that updates which cause page fault can be caught, interpreted and addressed
+
+
+### Full virtualization vs Para-virtualization
+Full virtualization allow na unmodified guest OS to run in isolation by simulating full hardware. Guest OS has no idea it is virtualized.
+
+With Para-virtualization, VMM exposes special interfaces to guest OS for better performance. It requires a modified/hypervisor aware Guest OS (Xen). This can optimise systems to use this interface since not all instructions need to be trapped/dealt with
+
+### Software based virtualization vs Hardware assisted virtualization
+
+In software based (CPU) virtualization, Guest application code runs directly on CPU. Privileged codes are translated to run on CPU. Translated codes are larger and slightly slower.
+
+In hardware assisted virtualization, the processor provides hardware assistant for CPU virtualization. Guests can use a separated mode called Guest Mode (Both applications and privileged codes are running in guest mode). On certain events, the processor exit guest mode and enter root mode. Hypervisor executes in root mode, determing reason for exit and restart guest in guest mode. With hardware assist, system calls and trap intensive workloads run close to native performance. Tasks that lead to large number of exitting guest mode may affect the performance. 
+
+## Openstack Services (L9.2)
+- **Nova (Compute Service)**
+  - Nova-api: Accepts end user API calls
+  - Nova-compute: Create/terminate VMs through Hypervisor APIs
+  - Nova-conductor: Interact between compute service and other components
+- **Swift (Object Storage)**
+  - Arbitrary unstructured data object storage via ReSTful APIs
+  - Fault tolerant by replicating across a cluster
+  - Can be used withou Nova
+- **Clinder (Block Storage)**: Block storage to VM. Supports creation and management of block storage devices
+  - Cinder-api: Route req to cinder-volume
+  - Cinder-volume: Interact with block storage sercice and scheduler to read/write requests. Interact with multiple flavors of storage
+  - Cinder-scheduler: Select optimal storage provider node to create volume
+  - Cinder-backup: Privide backup to any types of volumes to backup storage provider
+- **Glance (Image Service)**： Accepts request for disk/server image and their associated metadata. Retrieve and install.
+- **Neutron (Network)**
+  - Networking
+  - APIs for defining, attaching networks (switches, routers)
+  - Support multiple network venders
+- **Horizon (Dashboard)**
+  - Web-based portal
+  - Based on Django
+  - mod-wsgi
+  - Requires Nova, Keystone, Glance and Neutron
