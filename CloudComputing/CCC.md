@@ -488,3 +488,6 @@ In hardware assisted virtualization, the processor provides hardware assistant f
   - Based on Django
   - mod-wsgi
   - Requires Nova, Keystone, Glance and Neutron
+- **Head (Orchestration)**
+  - Template based
+  - Can be integrated with automation tools like ansible
