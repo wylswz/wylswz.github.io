@@ -83,7 +83,7 @@ Message passing interface (MPI) is widely adoped approach for message passing in
 - Transport cost
 - Heterogeneous networks
 - Time is not synchronized
-  
+
 
 ### How to design a parallel system?
 
@@ -161,6 +161,16 @@ Cons:
 - Relevant to core business>?
 - Hardware obsolescence
 - Over/under utilization
+
+### Hybrid Cloud
+
+Pros:
+- Cloud-bursting: Use private cloud but burst into public cloud when needed
+
+Cons:
+- How do you move data 
+- Decide what data go to public
+
 
 ## Web Service (L6)
 
@@ -491,3 +501,65 @@ In hardware assisted virtualization, the processor provides hardware assistant f
 - **Head (Orchestration)**
   - Template based
   - Can be integrated with automation tools like ansible
+
+
+## Security (L12)
+
+### Motivations and challenges
+Why Security? Otherwise
+- Large communities will not engage
+- Expensive to repeat some experiments
+- Legal and ethical issues
+- Trust problem
+
+Challenges of security
+- Grids and clouds allow user to compile ecodes that do stuff to machines. Need more security facility. Need scalable tech to meet wide variety of application
+- Generic security solutions, avoid organizations from re-inventing incompatible solutions
+- Clouds allow scenarios that stretch inter-organizational security
+
+Technical Challenges of Security
+- **Authentication**
+  - Propagate user identity in the system (Only check who is it)
+- **Authorization**
+  - Centraolized vs Decentralized
+  - Group based (GBAC)
+  - Role based (RBAC)
+  - Identity based (IBAC)
+  - Attribute based (ABAC)
+- **Audit/accounting**
+  - Logging, intrusion detection, auditing of security in external computer facilities
+- **Confidentiality**
+- **Privacy**
+- **Fabric management**
+- **Trust**
+
+Single Sign-on
+
+
+
+Certification Authority (CA) has following responsibilities:
+- Policy and procedure
+  - Howto, dos don'ts of using certificate
+  - Process to follow
+- Issuing certificates
+  - Often need to delegate to local Registration Authority
+- Revoking certificates
+  - Certificate Revokation List for expired/compromised certificates
+- Storing, archiving
+  - Keep track of existing certificates
+
+To issue a certificate
+- User request certificate and generate a private key
+- CA checks details of request with RA
+- RA check with user
+- Download and install certificate in browser
+- Download and install CRL
+- Export cert to various formats
+
+
+
+## Exam Questions
+
+### Erroneous assumptions made in designing large-scale distributed system
+
+### Cloud computing do not solve many key challenges of large scale distributed systems
