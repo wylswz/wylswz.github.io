@@ -31,6 +31,7 @@ Tao Lu is a advanced unsupervised learning model. It requires non-deterministic 
 |[Machine Learning Face Detection](./FaceDetection/FaceDetection.md)|
 |[Haskell](./Haskell/Haskell.md)|
 |[Prolog](./Prolog/Prolog.md)|
+|[ParallelDecoderFromScratch](./ParallelDecoder/ParallelDecoder.md)|
 
 <style>
 table {
