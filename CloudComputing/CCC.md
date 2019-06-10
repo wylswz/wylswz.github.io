@@ -1,5 +1,23 @@
 # Revision 
 
+## History of Cloud Computing
+
+- Internet
+- Standards (Services, protocols, inter-operability, ...)
+- More standards
+  - Open distributed processing
+  - less rigorous compliance demands
+  - Distributed computing environments
+
+- Mid 90s: focus on transparency and heterogeneity of computer-computer interaction
+- 1993: Enter web era
+- P2P processing
+- Grid computing
+  - Information systems (available resources like servers, CPU, memory, storage, queue, OS, ...)
+  - Monitoring and discovery systems (Status of these resources)
+  - Job scheduling/resource brokering
+  - Virtual organization support
+
 ## Parallelization (L3)
 
 ### Computation Scaling Up
@@ -116,6 +134,29 @@ Programs are parallelized by sending messages between processes. Some functions 
 - **Look ahead execution**: C depends on P for some output value V,  then C predict V. If that's correct, there's a performance gain, otherwise restart the task with correct V.
 
 
+## Cluster Computing (L4)
+
+### Concepts
+Supercomputer is a single computer system that has exceptiona; processing power for its time. One metric is the number of floating-point operation per second (FLOPS).
+
+High-performance computing (HPC) is any computer system whose architecture allows for above average performance. 
+
+Clustered computing is when two or more computers servce a single resource (improved performance and redundancy). A collection of smaller computers strapped together with a high-speed local network. 
+
+Research computing is the software application used by research comminity to aod research. THis skill gap is a major problem and must be addresed because as datasets grow, the researchers will need to able to process the data.
+
+### HPC
+
+The HPC cluster architecture is like this
+![](./L4/HPC_arch.png)
+Queueing system and scheduler are placed at management node whiel user access are via logon node.
+
+Supercomputers use Linux because:
+- Powerful and efficient command-line interface
+- Scalable
+- Reliable
+- Free and open source system and software
+- Compile open source software
 
 
 
@@ -171,27 +212,18 @@ Cons:
 - How do you move data 
 - Decide what data go to public
 
+### Automation 
+- Config & manage computers and make them reach a desired state
+- Provide a record what you did
+- Codifies knowledge about the system
+- Make process repeatable
+- Makes it programmable
 
 ## Web Service (L6)
 
-### SOAP vs ReST
-| SOAP | ReST |
-|------|------|
-|Built upon RPC| About resources and the way they can be manipulated remotely|
-|Stack of protocols that covers every aspect of using a remote service|A style of using HTTP|
+### SOA (Service-Oriented Architecture) 
 
-### WSDL (Web service description language)
-- XML based, machine readable
-- Key components
-  - **Definition**: what it does?
-  - **Target Namespace**: context of naming
-  - **Data Types**: Data structure of input/output
-  - **Messages**: Messages & structures exchanged between client/server
-  - **Port type**: Encapsulate input/output messages into one logical operation(abstract)
-  - **Bindings**: bind operations to port types (Concrete operatiosn)
-  - **Service**: Name of service
-
-### SOA (Service-Oriented Architecture) Design Principle
+Design principles:
 - **Standardized Service Contract**: Services adhere to a communication aggrement
 - **Loose Coupling**: Minimized dependency; Only maintain an awareness of each other
 - **Abstraction**: The information published is limited to what is required to effectively utilize the service.
@@ -205,6 +237,27 @@ Cons:
 - **Service Optimization**: Prefer high quality specific purpose services over low quality general purpose ones
 - **Service Relevance**: At a ganular level such that it's meaningful to users
 - **Encapsulation**: Hidden inner work
+
+
+### SOAP vs ReST
+
+| SOAP | ReST |
+|------|------|
+|Built upon RPC| About resources and the way they can be manipulated remotely|
+|Stack of protocols that covers every aspect of using a remote service| A style of using HTTP|
+
+### WSDL (Web service description language)
+- XML based, machine readable
+- Key components
+  - **Definition**: what it does?
+  - **Target Namespace**: context of naming
+  - **Data Types**: Data structure of input/output
+  - **Messages**: Messages & structures exchanged between client/server
+  - **Port type**: Encapsulate input/output messages into one logical operation(abstract)
+  - **Bindings**: bind operations to port types (Concrete operatiosn)
+  - **Service**: Name of service
+
+
 
 ### ReST design best practice
 - Short URI
@@ -294,11 +347,21 @@ Why use document-oriented DBMS for big data?
 Relational database model implied fine-grained data, which are less conductive to partition-tolerance than coarse-grained data.
 
 ### MongoDB vs CouchDB
-MongoDB clusters are more complex, more consistent and less available. The sharding is on the replicaset level. Routers must be embedded in application servers. Only master node accept queries (depending on configurations) 
+
 
 CouchDB cluster is simpler, more available. Accepts HTTP requests. All the nodes accept requests. If data unavailable, it fetch from other node and return to user.
 
 CouchDB cluster uses MVCC, while MongoDB uses a mix of two-phase commit for consistency and Paxos-like algorithm for leader election.
+
+When a CouchDB cluster is partitioned and two nodes receive two different updates of the same document, two different revisions are added. However, only one of these is returned as the current version.
+
+![CouchDB Architecture](./L7/couch.png)
+
+When partitioning happens in MongoDB which separate a primary into a partition with a minority of nodes, when primary detects that it can only see a minority of nodes, it steps down and a members in majority oartition holds election to become the new primary
+
+MongoDB clusters are more complex, more consistent and less available. The sharding is on the replicaset level. Routers must be embedded in application servers. Only master node accept queries (depending on configurations) 
+
+![MongoDB Architecture](./L7/mongo.png)
 
 ### CouchDB Views
 - Definition of MapReduce jobs that are updated as new data comes in
