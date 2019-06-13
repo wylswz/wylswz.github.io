@@ -33,6 +33,12 @@ Tao Lu is a advanced unsupervised learning model. It requires non-deterministic 
 |[Prolog](./Prolog/Prolog.md)|
 |[ParallelDecoderFromScratch](./ParallelDecoder/ParallelDecoder.md)|
 
+## Thug life
+
+|Contents |
+|:--:|
+|[Thug life in Chengdu](./Travel/Chengdu/Chengdu.md)|
+
 <style>
 table {
     width:100%;

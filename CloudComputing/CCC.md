@@ -444,7 +444,7 @@ Hadoop uses YARN (Yet Another Resource Negotiator). Resource Manger is located o
 YARN core components:
 
 - **Resource Manage**
-  - **Scheduler** allocates resource to running Apps, subject to constraints of capacities, queues. It does not monitor or tract tasks, doesn't ensure restart failed tasks. The schedule is based on resource requirement. It has a pluggable policy plug in, which can be Capacitor Shceduler or Fair Scheduler
+  - **Scheduler** allocates resource to running Apps, subject to constraints of capacities, queues. It does not monitor or track tasks, doesn't ensure restart failed tasks. The schedule is based on resource requirement. It has a pluggable policy plug in, which can be Capacitor Shceduler or Fair Scheduler
   - **Application Manager** accepting job submissions and negotiate first container from RM for app-specific App Master. It also manages running App Master in cluster and provide services for restarting.
 - **Node Manager** takes care of individual nodes, jobs and workflows in a single node
 - **Application Master** is unique for each application. It coordinate execution in the cluster and manage fault. It negotiate resources from RM, works with node manager to execute and monitor tasks and also send heart beat to RM to affirm its health and update its record of resource demand.
