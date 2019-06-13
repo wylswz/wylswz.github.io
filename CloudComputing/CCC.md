@@ -227,6 +227,7 @@ Design principles:
 - **Standardized Service Contract**: Services adhere to a communication aggrement
 - **Loose Coupling**: Minimized dependency; Only maintain an awareness of each other
 - **Abstraction**: The information published is limited to what is required to effectively utilize the service.
+- **Encapsulation**: Hidden inner work
 - **Reusability**: Logic is divided into services for reuse
 - **Autonomy**: Service cannot contain logics that depends on anything external.
 - **Statelessness**: Separate services with their state data whenever possible. Data management delegated to separated service.
@@ -236,7 +237,7 @@ Design principles:
 - **Normalization**: Minimized redundancy (by decompising/consolidation)
 - **Service Optimization**: Prefer high quality specific purpose services over low quality general purpose ones
 - **Service Relevance**: At a ganular level such that it's meaningful to users
-- **Encapsulation**: Hidden inner work
+
 
 
 ### SOAP vs ReST
