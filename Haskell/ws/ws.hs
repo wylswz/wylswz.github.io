@@ -138,11 +138,22 @@ data WS4_Tree a = WS4_Leaf |
 ws4_insert :: Ord a => WS4_Tree a -> a -> WS4_Tree a
 ws4_insert WS4_Leaf a = WS4_Node a (WS4_Leaf) (WS4_Leaf)
 ws4_insert (WS4_Node v left right) a 
-    | if a < v = WS4_Node v (ws4_insert left a) right
-    | if a < v = WS4_Node v (ws4_insert left a) right
+    | a < v = WS4_Node v (ws4_insert left a) right
+    | a >= v = WS4_Node v left (ws4_insert right a)
 
 ws4_insert_all :: Ord a => WS4_Tree a -> [a] -> WS4_Tree a
 ws4_insert_all t [] = t
+ws4_insert_all t (x:xs) = 
+    ws4_insert_all t1 xs where 
+        t1 = ws4_insert t x
+ws4_traverse :: WS4_Tree a -> [a]
+ws4_traverse WS4_Leaf = []
+ws4_traverse (WS4_Node v left right) = 
+    ws4_traverse left ++ [v] ++ ws4_traverse right
+
 
 ws4_treeSort :: Ord a => [a] -> [a]
 ws4_treeSort [] = []
+ws4_treeSort l = 
+    ws4_traverse tree where
+        tree = ws4_insert_all WS4_Leaf l
