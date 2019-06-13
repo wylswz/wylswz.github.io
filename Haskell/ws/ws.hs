@@ -103,9 +103,9 @@ ws3_sameShape (Node _ _ _ _) Leaf = False
 ws3_sameShape (Node _ _ ta tb) (Node _ _ tc td)
     = ws3_sameShape ta tc && ws3_sameShape tb td
 
--- Q7 
+-- Q7 Evaluation expression
 
-data WS3_Varialbe = WS3_A | WS3_B
+data WS3_Variable = WS3_A | WS3_B
 data WS3_Expression 
          = WS3_Var WS3_Variable
          | WS3_Num Integer
@@ -113,3 +113,16 @@ data WS3_Expression
          | WS3_Minus  WS3_Expression WS3_Expression
          | WS3_Times  WS3_Expression WS3_Expression
          | WS3_Div  WS3_Expression WS3_Expression
+
+ws3_eval :: Integer -> Integer -> WS3_Expression -> Integer
+ws3_eval a _ (WS3_Var WS3_A) = a
+ws3_eval _ b (WS3_Var WS3_B) = b
+ws3_eval _ _ (WS3_Num n) = n
+ws3_eval a b (WS3_Plus e1 e2) = 
+    ws3_eval a b  e1 + ws3_eval a b e2
+ws3_eval a b (WS3_Minus e1 e2) = 
+    ws3_eval a b  e1 - ws3_eval a b e2
+ws3_eval a b (WS3_Times e1 e2) = 
+    ws3_eval a b  e1 * ws3_eval a b e2
+ws3_eval a b (WS3_Div e1 e2) = 
+    ws3_eval a b  e1 `quot` ws3_eval a b e2
