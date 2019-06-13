@@ -94,13 +94,13 @@ ws3_qsort (pivot:xs) =
               greater = filter (>= pivot) xs
 
 -- Q6 If two trees have same shape
-data Tree k v = Leaf |
-                Node k v (Tree k v) (Tree k v)
-ws3_sameShape :: Tree a b -> Tree c d -> Bool
-ws3_sameShape Leaf Leaf = True
-ws3_sameShape Leaf (Node _ _ _ _) = False
-ws3_sameShape (Node _ _ _ _) Leaf = False
-ws3_sameShape (Node _ _ ta tb) (Node _ _ tc td)
+data WS3_Tree k v = WS3_Leaf |
+    WS3_Node k v (WS3_Tree k v) (WS3_Tree k v)
+ws3_sameShape :: WS3_Tree a b -> WS3_Tree c d -> Bool
+ws3_sameShape WS3_Leaf WS3_Leaf = True
+ws3_sameShape WS3_Leaf (WS3_Node _ _ _ _) = False
+ws3_sameShape (WS3_Node _ _ _ _) WS3_Leaf = False
+ws3_sameShape (WS3_Node _ _ ta tb) (WS3_Node _ _ tc td)
     = ws3_sameShape ta tc && ws3_sameShape tb td
 
 -- Q7 Evaluation expression
@@ -132,5 +132,17 @@ ws3_eval a b (WS3_Div e1 e2) =
 -- Q1 Haskell version of tree sort algorithm
 -- Insert data into a Tree
 -- In order traverse
-data Ord a => Tree a = Leaf |
-                    Node a (Tree a) (Tree a)
+data WS4_Tree a = WS4_Leaf |
+    WS4_Node a (WS4_Tree a) (WS4_Tree a)
+
+ws4_insert :: Ord a => WS4_Tree a -> a -> WS4_Tree a
+ws4_insert WS4_Leaf a = WS4_Node a (WS4_Leaf) (WS4_Leaf)
+ws4_insert (WS4_Node v left right) a 
+    | if a < v = WS4_Node v (ws4_insert left a) right
+    | if a < v = WS4_Node v (ws4_insert left a) right
+
+ws4_insert_all :: Ord a => WS4_Tree a -> [a] -> WS4_Tree a
+ws4_insert_all t [] = t
+
+ws4_treeSort :: Ord a => [a] -> [a]
+ws4_treeSort [] = []
