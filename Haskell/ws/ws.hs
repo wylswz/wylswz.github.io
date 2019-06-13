@@ -126,3 +126,11 @@ ws3_eval a b (WS3_Times e1 e2) =
     ws3_eval a b  e1 * ws3_eval a b e2
 ws3_eval a b (WS3_Div e1 e2) = 
     ws3_eval a b  e1 `quot` ws3_eval a b e2
+
+-- Workshop 4
+
+-- Q1 Haskell version of tree sort algorithm
+-- Insert data into a Tree
+-- In order traverse
+data Ord a => Tree a = Leaf |
+                    Node a (Tree a) (Tree a)
