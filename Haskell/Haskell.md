@@ -618,3 +618,7 @@ f >=> return <=> f -- right identity law
 ```
 
 It can be easily seen that `return` is an identity with respect to the function `>=>` and the associative law has been satisfied, which means `Monad` is just a `Monoid` in the category of endofunctors. 
+
+# Appendix
+
+## Some high order functions to remember
