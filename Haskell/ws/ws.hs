@@ -157,3 +157,21 @@ ws4_treeSort [] = []
 ws4_treeSort l = 
     ws4_traverse tree where
         tree = ws4_insert_all WS4_Leaf l
+
+-- Q2 Transpose a matrix
+
+ws4_transpose :: [[a]] -> [[a]]
+ws4_transpose m
+    | length (head m) == 0 = []
+    | otherwise = [head x | x <- m] : (ws4_transpose [tail x| x <- m])
+
+-- Q3 take a list of number, return (len, sum, sum_of_square)
+-- Do with three traversal and single traversal
+
+ws4_support_accum :: Num a => (Integer, a, a) -> (Integer, a, a) -> (Integer, a, a)
+ws4_support_accum (cnt, sum, ssum) (cnt', sum', ssum') = 
+    (cnt + cnt', sum + sum', ssum + ssum')
+
+ws4_listsum :: Num a => [a] -> (Integer, a, a)
+ws4_listsum [] = (0,0,0)
+ws4_listsum (x:xs) = ws4_support_accum (1, x, x^2) $ ws4_listsum xs
