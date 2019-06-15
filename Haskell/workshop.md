@@ -1,3 +1,6 @@
+# Haskell Workshop (1 to 5)
+
+```haskell
 {-
     Revision of Haskell workshops
     Author: Yunluw@student.unimelb.edu.au
@@ -228,3 +231,5 @@ ws5_sqrt_filter l =
         pl = filter (>0) l
 
 -- I'll skip the easy part
+
+```

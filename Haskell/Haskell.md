@@ -1,4 +1,7 @@
 # Brief Intro to Haskell
+
+If you wanna checkout the workshop, it's [Here](./workshop.md)
+
 Note: Some codes in this article may not be legal haskell codes, they are only used to explain some facts.
 
 This article is not originally written by me, I just read some Haskell articles online and put them together:
