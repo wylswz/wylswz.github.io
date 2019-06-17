@@ -39,8 +39,10 @@ Tao Lu is a advanced unsupervised learning model. It requires non-deterministic 
 |:--:|
 |[Thug life in Chengdu](./Travel/Chengdu/Chengdu.md)|
 
+
 <style>
 table {
     width:100%;
+    
 }
 </style>
