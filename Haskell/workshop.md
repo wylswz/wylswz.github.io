@@ -1,4 +1,4 @@
-# Haskell Workshop (1 to 5)
+## Haskell Workshop (1 to 5)
 
 ```haskell
 {-
@@ -231,5 +231,11 @@ ws5_sqrt_filter l =
         pl = filter (>0) l
 
 -- I'll skip the easy part
+
+```
+
+## Haskell Workshop 10
+
+```haskell
 
 ```
