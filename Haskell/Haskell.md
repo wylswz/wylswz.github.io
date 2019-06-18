@@ -664,6 +664,20 @@ The `return` function simply provide a minimum context for the value `x`, which 
   f :: a -> State s a
   ```
 - What the fuck happens? 
+  
+  ![](./img/state_h.png)
+
+  Look at this fucking diagram. It is actually the visualization of the `Static h` in the definition above. The directed graph in the box is the stateful computation function which is wrapped. What it does in the definition is that the `h` is extrated using pattern matching and applied to the input state `s` to get a new state, which is `s'`  in the graph above. Then the `f` after `>>=` is applied to the value get from the output of `h` and end up with another stateful computation `g`, which is them applied to new state. Just like following diagram.
+
+  ![](./img/statemonad.jpg)
+
+  This diagram shows 2 sequential applications of `>>=` for a state monad, which is like:
+
+  ```haskell
+  State h >>= f1 >>= f2
+  ```
+  It can be seen that no matter how many functions are applied to it, it's always in the form of taking a state and return a new state along with a value.
+
 
  
 
