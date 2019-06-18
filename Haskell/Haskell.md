@@ -622,6 +622,49 @@ f >=> return <=> f -- right identity law
 
 It can be easily seen that `return` is an identity with respect to the function `>=>` and the associative law has been satisfied, which means `Monad` is just a `Monoid` in the category of endofunctors. 
 
-# Appendix
+## More on monads
 
-## Some high order functions to remember
+### Where the fuck are we right now?
+
+In previous sections we have mobbed with Monad, which provides a way of applying a function that takes a plain value and return wrapped value to a wrapped value with `>>=` operator. We have seen the `do` notation which helps us focusing on the value without worry about handling the context (Sequential IO operations). We have looked at how `Maybe Monad` models the behavior of possible computational failure and how `List Monad` provides an abstraction of non-determinism. In this section, we are going to explore a little bit more in `Monads` by looking at few more examples.
+
+### State Monad
+
+`State Monad` is useful for stateful computations which need to thread information throughtout the execution. it allows such information to be transparently passed around a computation, accessed and replaced when needed. It addresses the problem of stateful computation while keeping everything pure and simple.
+
+A stateful computation is denoted as 
+```haskell
+h :: s -> (a, s)
+```
+where s is the type of state and a is the type of the result of this computation. `State` is defined such that 
+
+```haskell
+newtype State s a = State {runState :: s -> (a,s)}
+```
+The Monad definition is 
+
+```haskell
+instance Monad (State s) where
+    return x = State $ \s -> (x, s)
+    (State h) >>= f = State $ \s -> let (a, newState) = h s
+                                        (State g) = f a
+                                        in g newState
+```
+
+The `return` function simply provide a minimum context for the value `x`, which is a stateful computation which return `x` as a result without changing the state. 
+
+`>>=`: The result of feeding a stateful computation to a function with `>>=` is a stateful computation with different underlying value (That's what `Monad` does). Let's look at those components in `>>=` defininition:
+
+- What the fuck is `State h` ? `State h` is actually a `State` wrapper for h with `newtype` definition, where `h` is a stateful computation function with type
+  ```haskell
+  h :: s -> (a, s)
+  ```
+- What the fuck is `f` ? `f` is a function that takes a plain value `a` and returns a stateful computation wrapped by `State`.
+  ```haskell
+  f :: a -> State s a
+  ```
+- What the fuck happens? 
+
+ 
+
+
