@@ -19,3 +19,8 @@ incList' (x:xs) = do
 {-
 
 -}
+
+type Stack = [Int]
+
+pop :: State Stack Int
+pop = State $ \(x:xs) -> (x, xs)

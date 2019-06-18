@@ -624,6 +624,34 @@ It can be easily seen that `return` is an identity with respect to the function 
 
 ## More on monads
 
+### Converting bind, then and do block
+
+Before get into any further topics, it is necessary to make few things clear, which are then (`>>`) bind (`>>=`) and `do` block. 
+
+The `>>` operator is quite straight forward. It is defined as 
+```haskell
+(>>) :: Monad m => m a -> m b -> m b
+```
+This works almost identically as do block as 
+```haskell
+do 
+    action1
+    action2
+    action3
+```
+is equivalent to 
+```haskell
+action1 >> action2 >> action3
+```
+is also equivalent to 
+```haskell
+action1 >>
+do {
+    action2
+    action3
+}
+```
+
 ### Where the fuck are we right now?
 
 In previous sections we have mobbed with Monad, which provides a way of applying a function that takes a plain value and return wrapped value to a wrapped value with `>>=` operator. We have seen the `do` notation which helps us focusing on the value without worry about handling the context (Sequential IO operations). We have looked at how `Maybe Monad` models the behavior of possible computational failure and how `List Monad` provides an abstraction of non-determinism. In this section, we are going to explore a little bit more in `Monads` by looking at few more examples.
