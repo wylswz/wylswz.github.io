@@ -652,6 +652,32 @@ do {
 }
 ```
 
+`>>=` is little bit more complicated to be translated. It is defined as 
+```haskell
+(>>=) :: Monad m => m a => a -> m b -> m b
+```
+
+The `do` block expression 
+```haskell
+do {
+    x1 <- action1
+    x2 <- action2
+    action3 x1 x2
+}
+```
+
+is equivalent to 
+```haskell
+action1
+    >>= 
+        (\ x1 -> action2
+            >>= (
+                \ x2 -> action3 x1 x2
+            )
+        )
+```
+What `bind` doe is taking the `Monad` from left hand side and apply an action that take a value and produce a `Monad` to it. In the example above, the result of `action1` and `action2` are eventually passed to `action3` by 2 binding operations. In `do` block mode, we don't care much about data types when chaining functions, instead, we just focus on the data itself, pretty much like imperative programming. 
+
 ### Where the fuck are we right now?
 
 In previous sections we have mobbed with Monad, which provides a way of applying a function that takes a plain value and return wrapped value to a wrapped value with `>>=` operator. We have seen the `do` notation which helps us focusing on the value without worry about handling the context (Sequential IO operations). We have looked at how `Maybe Monad` models the behavior of possible computational failure and how `List Monad` provides an abstraction of non-determinism. In this section, we are going to explore a little bit more in `Monads` by looking at few more examples.
