@@ -733,6 +733,18 @@ The `return` function simply provide a minimum context for the value `x`, which 
   It can be seen that no matter how many functions are applied to it, it's always in the form of taking a state and return a new state along with a value.
 
 
+The `Control.Monad.State` module also provides a type class called `MonadState` with two useful functions, which are `get` and `put`. The `get` is defined as 
+```haskell
+get = State $ \s -> (s, s)
+```
+which returns the `State` with current state as its value. The `put` is defined as 
+```haskell
+put newState = State $ \s -> ((), newState)
+```
+
+But how does these shits work in an imperative looking do block with `State Monad`? If we look at the definition of `>>=` for `State Monad`, the chained function actually apply to the value of previous result and return a stateful computation that is applied to previous state. This means that things chained after `get` function are going to use the value returned by the function wrapped by `get`, in this case, the value is current state. The put is pretty much similar. Functions chained after put will see the new state set by the `put` function.
+
+
  
 
 
