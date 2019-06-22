@@ -154,3 +154,21 @@ fact(N, F, C) :-
 
 ```
 Then this is tail recursive.
+
+### All solution
+If we wanna bring together all solutions to a goal, Prolog's all solution predicates do exactly this. The definition is 
+```prolog
+setof(Template, Goal, List).
+```
+
+The `Template` is like how you wanna present the result. For example, if you wanna display the parent relation of two people, you could use
+```prolog
+setof(P-C, parent(P,C), List).
+bagof(P-C, parent(P,C), List). % This is for unsorted solutions
+```
+
+Existential quantification can be used with `^`. Like following predicate
+```prolog
+setof(P, C^parent(P,C), Parents)
+```
+This predicate means, put all the solutions in list `Parents`. The solutions satisfy that "There exist C such that P is the parent of C", which means find parent of any children.
