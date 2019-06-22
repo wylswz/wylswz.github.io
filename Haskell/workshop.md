@@ -188,10 +188,17 @@ ws4_support_accum :: Num a => (Integer, a, a) -> (Integer, a, a) -> (Integer, a,
 ws4_support_accum (cnt, sum, ssum) (cnt', sum', ssum') = 
     (cnt + cnt', sum + sum', ssum + ssum')
 
+{- Legacy Method
 ws4_listsum :: Num a => [a] -> (Integer, a, a)
 ws4_listsum [] = (0,0,0)
 ws4_listsum (x:xs) = ws4_support_accum (1, x, x^2) $ ws4_listsum xs
+-}
 
+-- More declarative approach using foldl
+ws4_accAll :: Num a => a -> (Int, a, a) -> (Int, a, a)
+ws4_accAll a (len, sum, sums) = (len + 1, sum + a, sums + a^2)
+ws4_listsum :: Num a => [a] -> (Int, a, a)
+ws4_listsum = foldr ws4_accAll (0,0,0)
 
 -- Workshop 5
 
@@ -229,9 +236,7 @@ ws5_support_sqrtPM x
     | otherwise = []
 
 ws5_allSqrts :: (Floating a, Ord a) => [a] -> [a]
-ws5_allSqrts [] = []
-ws5_allSqrts l = foldl (++) [] mapped where
-    mapped = (map ws5_support_sqrtPM l)
+ws5_allSqrts = (foldl (++) []) . (map ws5_support_sqrtPM)
 
 -- Q5 
 -- Filter out negative number and sqrt on remain integers
@@ -239,12 +244,9 @@ ws5_allSqrts l = foldl (++) [] mapped where
 -- b. Don't use high order functions
 
 ws5_sqrt_filter :: (Floating a, Ord a) => [a] -> [a]
-ws5_sqrt_filter l = 
-    map sqrt pl where 
-        pl = filter (>0) l
+ws5_sqrt_filter= (map sqrt) . (filter (>0))
 
 -- I'll skip the easy part
-
 
 ```
 
