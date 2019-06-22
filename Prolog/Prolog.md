@@ -115,4 +115,42 @@ When a goal fails, Prolog backtracks to the most recent choicepoint, removing al
 ### Index
 Index improves Prolog performance because it allows the Prolog to jump to match clauses directly by creating indexes for clauses with distinct constant or functors. SWI Prolog makes indices for arguments other than the first one. For example, `parent/2`, SWIpl index on both args, so finding the children of a parent or parent of a child both speeds up.
 
-### Tail Recursion
+### Tail Recursion, TRO and choicepoint
+A predicate is tail recursive if and only if the recursive call on any execution of that predicate is the last code executed before returning to the caller. Prolog applied tail recursion optimization (TRO) to prevent recursions from eating up stack. For example, a called b, b called c, there will be three frames on stack storing all the variables so that the routine can be restored after the sub routine returned. TRO is made such that if returning the result of c is the last execution of b, then the variables in be can be released in advance, so the stack can be saved. But if there's a choice point in b, the program isn't tail recursive because Prolog need to backtrack to the choicepoint later on. 
+
+### Write tail recursive code by adding accumulate
+Look at this example.
+
+```prolog
+{-
+    fact/2 
+    fact(N, F) holds if F is the factorial of N
+-}
+
+fact(N, F) :- 
+    (
+        N =:= 0 -> 
+        F=1;
+        N>0,
+        N1 is N - 1,
+        fact(N1, F1),
+        F is F1 * N
+    ).
+
+```
+This is not tail recursive because the last excution is multiplication and substitution. But however we can make it tail recursive by introducing an accumulator, just like this
+
+```prolog
+
+fact(N, F, C) :- 
+    (
+        N =:= 0 -> 
+        F = C;
+        N > 0,
+        N1 is N - 1,
+        C1 is C * N,
+        fact(N1, F, C1)
+    ).
+
+```
+Then this is tail recursive.
