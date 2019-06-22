@@ -1,5 +1,6 @@
 ## Haskell Workshop (1 to 5)
 
+
 ```haskell
 {-
     Revision of Haskell workshops
@@ -8,6 +9,8 @@
         wsx_prefix_variableName
         WSX_ClassName
 -}
+
+
 
 -- Workshop 1
 
