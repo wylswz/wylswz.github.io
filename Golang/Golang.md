@@ -22,6 +22,8 @@
   - [Stringer](#Stringer)
   - [Error](#Error)
   - [Channel](#Channel)
+  - [Select](#Select)
+  - [Mutex](#Mutex)
 ## Learning Golang
 
 This is not a tutorial, and I'm not expecting anyone to learning Go by reading this because I'm a novice as well. This is somewhere I write down some notes as I learn.
@@ -408,3 +410,51 @@ func (e *MyErr) Error() string {
 ```
 
 ### Channel
+```go
+ch <- v // Send v to channel
+v := <- ch // Recv val from channel
+
+ch := make(chan int)
+// Create the chennel
+
+ch := make(chan int, 100)
+// buffered channel, blocks
+
+for i := range c {
+    //recv value repeatedly until closed
+}
+
+close(ch) // close channel
+
+v, ok := <- ch
+// Ok is false if channel closed
+
+```
+
+### Select
+```go
+select {
+    case c <- x:
+        ops
+    default:
+        wait
+}
+// Block until some case can run
+// Randomly select one if multiple are ready
+```
+
+### Mutex
+```go
+type Counter struct {
+    v int
+    mux sync.Mutex
+}
+
+c:= Counter{v:1}
+func (c *Counter) {
+    c.mux.Lock()
+    defer c.mux.Unlock()
+    c.v = 3 
+}
+
+```
