@@ -33,6 +33,7 @@ Tao Lu is a advanced unsupervised learning model. It requires non-deterministic 
 |[Prolog](./Prolog/Prolog.md)|
 |[ParallelDecoderFromScratch](./ParallelDecoder/ParallelDecoder.md)|
 |[Learning Golang](./Golang/Golang.md)|
+|[Basics of Statistics](./Statistics/Statistics.md)|
 
 ## Thug life
 
