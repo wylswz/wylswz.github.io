@@ -107,7 +107,7 @@ Before we get into that, let's look at couple of facts that is helpful later on.
 <!-- \lim_{x\rightarrow\infin} -->
 
 $$
-\lim_{x\rightarrow\infin} (1+\frac{a}{x})^x = e^a
+\lim_{x\rightarrow\infty} (1+\frac{a}{x})^x = e^a
 $$
 Prove:
 
@@ -118,5 +118,5 @@ $$
 Our probability is written as
 
 $$
-P(X=k) = \lim_{n\rightarrow\infin} {n\choose k}(\frac{\lambda}{n})^k(1-\frac{\lambda}{n})^{n-k}
+P(X=k) = \lim_{n\rightarrow\infty} {n\choose k}(\frac{\lambda}{n})^k(1-\frac{\lambda}{n})^{n-k}
 $$
