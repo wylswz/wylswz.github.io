@@ -104,19 +104,36 @@ But the problem is that there might be multiple cars passing by in one minute, w
 
 Before we get into that, let's look at couple of facts that is helpful later on.
 
-<!-- \lim_{x\rightarrow\infin} -->
+<!-- \lim_{x\rightarrow\infty} -->
 
 $$
 \lim_{x\rightarrow\infty} (1+\frac{a}{x})^x = e^a
 $$
-Prove:
+It is quite straightforward to get this, simply let 
+$$
+\frac{x}{a} = n
+$$
+Then the equation becomes 
+$$
+\lim_{n\rightarrow\infty} ((1+\frac{1}{n})^n)^a = e^a
+$$
+
+
 
 $$
 \frac{x!}{(x-k)!} = x(x-1)(x-2)...(x-k+1)
-$$
+$$  
 
 Our probability is written as
 
 $$
-P(X=k) = \lim_{n\rightarrow\infty} {n\choose k}(\frac{\lambda}{n})^k(1-\frac{\lambda}{n})^{n-k}
+\begin{aligned}
+    P(X=k) & = \lim_{n\rightarrow\infty} {n\choose k}(\frac{\lambda}{n})^k(1-\frac{\lambda}{n})^{n-k} \\
+    & = \lim_{n\rightarrow\infty} \frac{n!}{k!(n-k)!}(\frac{\lambda}{n})^k(1-\frac{\lambda}{n})^n(1-\frac{\lambda}{n})^{-k}\\
+
+    &=\lim_{n\rightarrow\infty}\frac{1}{k!}n(n-1)...(n-k+1)e^{-\lambda}(\frac{\lambda}{n})^k \\
+    &= \lim_{n\rightarrow\infty}\frac{1}{k!}\frac{\lambda^k(n^k + ...)}{n^k}e^{-\lambda}\\
+    &= \frac{\lambda^k}{k!}e^{-\lambda }
+\end{aligned}
+
 $$
