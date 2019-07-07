@@ -137,3 +137,54 @@ $$
 \end{aligned}
 
 $$
+
+### Bernoulli Distribution
+Bernoulli is a special case of Binomial distribution with one single trial. For example, we have a random variable $X$ which represents the result of flipping a coin, which can either be Head or Tail. 
+
+$$
+x = 
+\begin{cases}
+1 & Head\\
+0 & Tail
+
+\end{cases}
+$$
+
+Then the pdf of the distribution is simply 
+
+$$
+P(X) = p^k(1-p)^{1-k}
+$$
+where $k$ can either be $0$ or $1$.
+
+### Frequentist Approach vs Bayesian Approach
+The difference between frequentist and Bayesian approach is that the assumption of variation of data and parameter. The frequentist assumes that the parameters are fixed in a certain problem, for example, in flipping coin trial, the parameter $p$ which represents the probability of Head is always 0.5. The infrerences are done by applying mathematics to the fixed parameters directly.
+
+While the bayesian approach assumes that the data is fixed and the parameters can vary. In the case of flipping a coin, the probability of having a Head may related to some priors, for example, the gravity, the angle of the coin... As long as these parameters are fixed, we will always have same result. The uncertainty is introduced by the initial condition.
+
+### Bayes' rule
+The Bayes' rule states the the posterior of parameter of a given distribution is given by
+$$
+P(\theta|x) = \frac{P(x|\theta)P(\theta)}{P(x)}
+$$
+
+where the $P(x|\theta)$ is the likelihood and $P(\theta)$ is the prior distribution. Because of the assumption of certainty of invarient data, the posterior is proportional to likelihood multiplied by the prior
+
+$$
+P(\theta|x) \propto P(\theta)P(x|\theta)
+$$
+
+This relationship is quite useful if we assume the prior to be uniformly distributed, because we can maximize the posterior by maximizing the likelihood.
+
+### Likelihood isn't a distribution
+The likelihood $P(x|\theta)$ can also be written as $L(\theta|x)$.
+We can figure out that
+$$
+\int L(\theta|x) dx = 1
+$$
+but in bayesian approach, the data is fixed, and the parameters are variables. If we integrate the likelihood 
+$$
+\int P(x|\theta) d\theta
+$$
+
+we are actually summing up the probability of data given parameter for all possible parameters. If the $\theta$ is from $-\infty$ to $\infty$, the integral can potentially be $-\infty$ to $\infty$, which does not satisfy the property of a distribution.
