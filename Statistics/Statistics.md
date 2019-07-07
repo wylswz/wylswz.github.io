@@ -157,6 +157,24 @@ P(X) = p^k(1-p)^{1-k}
 $$
 where $k$ can either be $0$ or $1$.
 
+### Beta distribution
+The probability distribution of beta distribution is simply given by
+
+$$
+Beta(a,b) = \frac{\theta^{a-1}(1-\theta)^{b-1}}{B(a,b)}
+$$
+
+$$
+B(a,b) = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}
+$$
+
+where $\theta$ is a random variable of which the value is from $0$ to $1$. The demoninator is a normalization function of $a$ and $b$ in order to make sure the integration of pdf over random variable is 1.
+
+The following graph indicates different pdf shapes when $a$ and $b$ have different value combinations.
+
+
+![](./img/beta.png)
+
 ### Frequentist Approach vs Bayesian Approach
 The difference between frequentist and Bayesian approach is that the assumption of variation of data and parameter. The frequentist assumes that the parameters are fixed in a certain problem, for example, in flipping coin trial, the parameter $p$ which represents the probability of Head is always 0.5. The infrerences are done by applying mathematics to the fixed parameters directly.
 
@@ -187,4 +205,45 @@ $$
 \int P(x|\theta) d\theta
 $$
 
-we are actually summing up the probability of data given parameter for all possible parameters. If the $\theta$ is from $-\infty$ to $\infty$, the integral can potentially be $-\infty$ to $\infty$, which does not satisfy the property of a distribution.
+we are actually summing up the probability of data given parameter for all possible parameters. If the $\theta$ is from $-\infty$ to $\infty$, the integral can potentially be $-\infty$ to $\infty$, which does not satisfy the property of a distribution. That's why we always say likelihood function instead of likelihood distribution.
+
+
+### Conjugate Distribution
+If prior and posterior distributions are of the same probability distribution family, and the prior is called the conjugate prior to the likelihood function. 
+
+For example, Beta distribution is conjugate to Bernoulli/Binomial distribution. In order to understand this, we'll need to introduce the Gamma function. Gamma function is like factorial defined on Real numbers. For an non-negative integer $\alpha$, we have
+
+$$
+\Gamma(\alpha + 1) = \alpha!
+$$
+
+Therefore, we can write choose function into the form of Gamma function
+
+$$
+{N \choose x} = \frac{\Gamma(N+1)}{\Gamma(N-x+1)\Gamma(x+1)}
+$$
+
+Now we have a posterior distribution
+$$
+P(\theta|x) \propto P(x|\theta)P(\theta)
+$$
+
+where
+$$
+P(\theta) \sim Beta(a,b)
+$$
+
+From Binomial distribution, we have
+$$P(x|\theta) \propto \theta^z(1-\theta)^{N-z}$$
+
+and from Beta distribution we have 
+$$P(\theta) \propto \theta^{a-1}(1-\theta)^{b-1}$$
+
+let $a' = a + z$ and $b' = N+b-z$, we can simply get 
+
+$$
+P(\theta|x) \sim Beta(a', b')
+$$
+
+
+
