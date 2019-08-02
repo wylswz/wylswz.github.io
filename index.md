@@ -23,6 +23,7 @@ layout: default
 |[ParallelDecoderFromScratch](./ParallelDecoder/ParallelDecoder.md)|
 |[Learning Golang](./Golang/Golang.md)|
 |[Basics of Statistics](./Statistics/Statistics.md)|
+|[Cryptography](./Crypto/Crypto.md)|
 
 ## Thug life
 
