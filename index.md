@@ -24,17 +24,16 @@ layout: default
 |[Learning Golang](./Golang/Golang.md)|
 |[Basics of Statistics](./Statistics/Statistics.md)|
 |[Cryptography](./Crypto/Crypto.md)|
+|[Parallel and Multicore Computing](./ParallelComputing/ParallelComputing.md)|
 
-## Thug life
 
-|Contents |
-|:--:|
-|[Thug life in Chengdu](./Travel/Chengdu/Chengdu.md)|
 
+## Resume
+
+[enUS](./resume/enUS.md)
 
 <style>
-table {
-    width:100%;
-    
-}
+    table {
+        width:100%;    
+    }
 </style>
