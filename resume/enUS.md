@@ -54,11 +54,13 @@
 
 
 # Skills
-- Java SE, Python, Golang
-- Machine Learning
-- Docker, Ansible
+- Familiar with Java SE and Python
+- Familiar with distributed computing (socket, MPI)
+- Familiar with container (docker, docker swarm) and automation tools (Ansible)
+- Experience in building web app using Django and MySQL
+- Knowledge in machine learning
 
 
 # Appendix
-- **Personal Blog:** http://taolu.xmbsmdsj.com
+- **Personal Blog:** http://taolu.xmbsmdsj.com 
 - **Github:** https://www.github.com/wylswz
