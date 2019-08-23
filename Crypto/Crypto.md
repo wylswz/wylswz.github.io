@@ -31,4 +31,60 @@ The problem of DH key exchange is man-in-the-middle attack. Someone may pretent 
 RSA is one of the public key cryptography algorithm which allows encoding and decoding in both direction, that is, the message can either be encrypted with public key or private key. In RSA, the plain text and cipher text are integers between 0 to n-1, where n is 1024 typically. This integer is treated as one block.
 
 The main idea of RSA is that given a message $M$, and a key $e$, the cipher text $M^e \mod n$ can be calculated given another key 
-$d$ by $(M^e)^d \mod n$.
+$d$ by $(M^e)^d \mod n$. This holds under the condition that $e$ and $d$ are inverse mod $\phi(n)$ where $\phi(n)$ is the Euler totient function which indicates the number of integers up to $n$ that are relatively prime to $n$. If $p$ and $q$ are prime, we have
+
+$$\phi(pq) = (p-1)(q-1)$$
+
+Before getting into that, we need some introduction on number theory.
+
+
+### Euclid's Algorithm and Inverse Modulo
+Euclid's algorithm is an important algorithm used to find GCD (Greatest Common Divisior). One of the most useful theorem is that given integers $a$, $b$, $q$ and $r$, we have
+$$
+GCD(a, b) = GCD(b, r)
+$$
+ where
+$$
+a = b q + r
+$$
+
+This theorem can be applied repeatedly until $r=0$, then the $GCD$ is b. This can be simply written into the form of linear system
+
+$$
+\begin{bmatrix}
+a_r\\
+a_{r+1}
+\end{bmatrix} = \begin{bmatrix}
+0 & 1 \\
+1 & -q_r
+\end{bmatrix} \begin{bmatrix}
+a_{r-1}\\
+a_r
+\end{bmatrix} 
+$$
+
+where $q = a_{r-1} // a_r$, $a_0 = a$, $a_1 = b$. The matrix dot production is applied repeatedly until $a_{r+1} = 0$. The final form is 
+$$
+\begin{bmatrix}
+a_n \\ 0 
+\end{bmatrix} = 
+\begin{bmatrix}
+A_{00} & A_{01} \\
+A_{10} & A_{11} \\
+\end{bmatrix} 
+\begin{bmatrix}
+a\\
+b
+\end{bmatrix}  
+$$
+which is equivalent to
+$$
+GCD = X\times a + Y \times b
+$$
+where $X=A_{00}$ and $Y=A_{01}$
+
+From this equation we can simply find inverse of $a$ mod $b$ by simply applying modulo on both side
+$$
+aX = 1 \mod b
+$$
+### RSA algorithm
