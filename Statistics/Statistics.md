@@ -246,4 +246,28 @@ P(\theta|x) \sim Beta(a', b')
 $$
 
 
+# Machine Learning Basics
+
+## Regression as Probabilistic Model
+
+Suppose that we have a linear model with Gaussian noise, given by
+
+$$
+Y =\bold{X'w} + \sigma
+$$
+
+$$
+\sigma \sim \mathcal{N}(0, \sigma^2)
+$$
+with
+$$
+\mathcal{N}(x;\mu \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}exp(-\frac{(x-\mu)^2}{2\sigma^2})
+$$
+
+## Logistic Regression
+
+## Perceptron Learning Algorithm
+
+## Multi-layer perceptron and back propagation
+
 
