@@ -249,7 +249,7 @@ $$
 # Machine Learning Basics
 
 ## Regression as Probabilistic Model
-
+### Linear Regression with Gaussian Noise
 Suppose that we have a linear model with Gaussian noise, given by
 
 $$
@@ -264,6 +264,31 @@ $$
 \mathcal{N}(x;\mu \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}exp(-\frac{(x-\mu)^2}{2\sigma^2})
 $$
 
+Combining the linear and Gaussian distribution, we get the equivalent posterior
+
+$$
+P(y|x) \sim \mathcal{N}(\bold{X'w},\sigma^2)
+$$
+
+$$
+P(y|x) = \frac{1}{\sqrt{2\pi\sigma^2}}exp(-\frac{(y-wx)^2}{2\sigma^2})
+$$
+
+The posterior of parameter $w$ is proportional to 
+$$
+P(y|x) = \prod P(y_i|x_i)
+$$
+
+Taking logarithm, we have
+
+$$
+\begin{aligned}
+    LL(w) & = \sum log(P(y_i|x_i))\\
+    &=\sum -\frac{1}{2\sigma^2}(y-wx)^2 +C
+\end{aligned}
+$$
+
+It is quite obvious that the log-likelihood of parameter $w$ is proportional to the sum of square loss.
 ## Logistic Regression
 
 ## Perceptron Learning Algorithm
