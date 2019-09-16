@@ -270,4 +270,63 @@ $$
 
 ## Multi-layer perceptron and back propagation
 
+## SVM and Kernel Method
+Support vector machine is a binary classification tool. It takes a data point and output a value which is $1$ or $-1$.
+What we wanna do with SVM is that we wanna find the support vectors that are closest data instances to the hyperplain that divide the dataset, and find such a hyperplain that maximize the distance.
 
+
+### Hard margin SVM
+
+Suppose if we have a data point $X$, the distance between the point and the hyper plain $P:y = w'x + b$ is calculated as follows:
+- We find a vector $r$, which is $X + r = X_p$, where $X_p$ is a point on the hyper plain and $r\perp P$
+- It is obvious that $r$ is parallel to $w$
+- The magnitude of $r$ is given by $r=w\frac{||r||}{||w||}$
+- We have $X + w\frac{||r||}{||w||} = X_p$
+- Multiply $w$ on both sides and add $b$, and we know $X_p$ is on hyper plain, so we finally get $||r|| = \plusmn \frac{w'x + b}{||w||}$
+- Because the $y$ is either $-1$ or $1$, we get $||r|| = \frac{y_i(w'x + b)}{||w||}$
+
+The SVM maxinizes the magnitude of $r$
+
+$\max \frac{y_i(w'x + b)}{||w||}, i=1,2,...n$
+
+The problem is that there might be infinity possible values for $w$ and $b$ which are $\alpha w$ and $\alpha b$ where $\alpha>0$. In order to resolve the ambiguity, we have following constraints
+
+$$\frac{y_{i*}(w'x_{i*} + b)}{||w||} = \frac{1}{||w||}$$
+where $*$ denotess the closest data point to the hyper-plain. Than the objective becomes 
+$$
+\argmin_{w,b} ||w|| \\
+s.t. \text{  } y_i(w'x + b) \geq 1
+$$
+
+### Training hard margin SVM
+To train the hard margin SVM, we need to apply Lagrangian Duality. The canonical form of it is show as following
+
+$$
+\argmin f(x) \\
+s.t \text{ } g(x) \leq 0,\\
+h(x) = 0
+$$ 
+
+And we have following exoression introducing some auxilliary variable $\lambda$ and $\nu$
+
+$$
+L(x, \lambda, \nu) = f(x) + \sum \lambda_i g_i(x) + \sum \nu_j h_j(x) 
+$$
+
+For hard margin SVM, the lagrange multiplier is shown as follows
+
+$$
+L = \frac{1}{2}||w||^2 - \sum \lambda (y(w'x + b) - 1)
+$$
+
+We have $\frac{\delta L}{\delta b} = \sum \lambda y = 0$ and $\frac{\delta L}{\delta w} = w - \sum_i\lambda_iy_ix_i = 0$
+
+Substituting into the original expression, we get 
+$$
+L' = \sum_i\lambda_i - \frac{1}{2}\sum_i\sum_j \lambda_i\lambda_jy_iy_jx_ix_j
+$$
+Where the $L'$ is the dual problem of prime problem. In order to predict, just calculate the sing
+$$
+s = b + \sum \lambda_iy_ix_ix_j
+$$
+where $x_j$ is the point to predict.

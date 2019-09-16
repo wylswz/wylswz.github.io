@@ -87,4 +87,19 @@ From this equation we can simply find inverse of $a$ mod $b$ by simply applying 
 $$
 aX = 1 \mod b
 $$
+
+### Finding inverse by hand (example)
+- Find inverse of 3 $\mod 40$
+  - $40 = 13 * 3 + 1$
+  - $40 - 13*3 = 1 \mod 40$
+  - $-13*3 = 1 \mod 40$
+  - Answer is $-13$
+
 ### RSA algorithm
+- Choose two large prime numbers $p$ and $q$ randomly, $pq=n$
+- Calculate $\phi(pq) = (p-1)(q-1)$
+- Find two numbers $e$(public) and $d$(private) which are inverse mod $\phi(pq)$
+- Encrypt message with $e$ with $M^e \mod n$ and decrypt with $C^d \mod n$
+- Or generate signature with $M^d$
+- Public key is <e, n>, private key is <d, n>
+
