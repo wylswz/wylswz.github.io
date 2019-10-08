@@ -355,3 +355,47 @@ $$
 s = b + \sum \lambda_iy_ix_ix_j
 $$
 where $x_j$ is the point to predict.
+
+## Bayesian Network
+
+### Discrete variable joint probability distribution
+When we do inferences like 
+
+$$
+P(x|\vec{e})
+$$
+where $\vec{e}$ is the evidence or observed variables, 
+it's quite straightforward to think of bayes' theorem
+
+$$
+P(x|\vec{e}) = \frac{P(x, \vec{e})}{P(\vec{e})} = \frac{1}{Z}P(x,\vec{e})
+$$
+
+But there might be other variables that are neigher $x$ nor $\vec{e}$, which are called $H$, they can be marginalized out like this
+
+$$
+P(x|\vec{e}) = \frac{1}{Z}\sum_H P(x,\vec{e},H)
+$$
+
+then the posterior is related to the full joint probability distribution. 
+
+Bayesian network is good at helping reducing the number of parameters required to calculate the joint probability by assuming dependancies between random variables. For example the figure below:
+
+![](./img/bayesnet.png)
+
+Where $A$ $B$ $C$ $D$ $E$ are random variables with two possible values: $1$ and $0$
+
+if we write down the joint probability ignoring the graph,
+$$
+P(A,B,C,D,E)
+$$
+needs $2^5$ parameters because we need the value of probability when those 5 random variables take each of 2 possible values.
+
+After taking the graph into consideration, the dependencies actually changed. For example, the random variable $A$ and $B$ doesn't have any parents. The joint distribution then becomes
+
+$$P(A,B,C,D,E) = P(A)P(B)P(C|A,B)P(E|C,D)P(D|C,B)$$
+
+the number of parameters becomes 
+
+$$1+1+4+4+4 = 14$$
+which is much less than previous one. In fact the growth of parameters follows $O(nd^k)$ where $d$ is possible values of random variables, $k$ is number of parents on average and $n$ is the number of nodes.
