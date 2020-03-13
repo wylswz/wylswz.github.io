@@ -25,6 +25,7 @@ layout: default
 |[Basics of Statistics](./Statistics/Statistics.md)|
 |[Cryptography](./Crypto/Crypto.md)|
 |[Parallel and Multicore Computing](./ParallelComputing/ParallelComputing.md)|
+|[K8s](./K8s/K8s.md)|
 
 
 
