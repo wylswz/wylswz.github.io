@@ -20,7 +20,6 @@ layout: default
 |[Machine Learning Face Detection](./FaceDetection/FaceDetection.md)|
 |[Haskell](./Haskell/Haskell.md)|
 |[Prolog](./Prolog/Prolog.md)|
-|[ParallelDecoderFromScratch](./ParallelDecoder/ParallelDecoder.md)|
 |[Learning Golang](./Golang/Golang.md)|
 |[Basics of Statistics](./Statistics/Statistics.md)|
 |[Cryptography](./Crypto/Crypto.md)|

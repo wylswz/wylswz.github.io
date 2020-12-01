@@ -96,3 +96,29 @@ Note that web server is responsible for implementing `receive()` and `send()` so
 
 This Figure is a simplified demonstration of each roles in python's web application stack.
 ![](./asgi.jpg)
+
+## Under the hood - asyncio
+
+`ASGI` is powered by `asyncio` feature, and the core of `asyncio` is event loop. I read a few lines of Python3.7's source code and think I can paste them here in order to explan what the fuck is inside of an event loop (Which is nowhere to be found in official doc).
+
+A typical event loop consists of couple of core roles:
+- A `selector` which helps us to identify events that are ready to be processed. This is a system call, so we won't discuss in detail here.
+- A `_scheduled` list which keep track of all scheduled handles. This is a priority queue of which the priority is defined by the actual time. That's how we can pop out most urgent task.
+- A `_ready` list, where ready tasks are stored. The callbacks of ready tasks are invoked at the end of each loop.
+
+
+The event loop is started by calling `loop.run_forever()` method, which is simply a while loop calling `_run_once(self)` method. In side of `_run_once(self)`, python does following things:
+
+- Update scheduled list (If some handles are canceled, remove them)
+- Calculate polling timeout.
+  - If loop is ready or stopped, `timeout=0`
+  - else, timeout is the minimum of time to next scheduled event and `MAX_SELECT_TIMEOUT`
+- If timeout is not 0, then invoke `select` on selector with timeout to get a list of events.
+- Process event first
+- Then process scheduled handles
+- Finally, invoke callbacks for handles in ready list
+
+Following diagram is a simple explanation of this process
+
+![](./eventloop.png)
+
