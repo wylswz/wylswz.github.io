@@ -15,6 +15,80 @@ This article is not originally written by me, I just read some Haskell articles 
 
 Haskell is a declarative (functional) programming language. You know what is functional programming, how to use functions as first class values, writing recursive programs, doing function composition and currying/uncurrying, so I'll skip that part. This introduction will start with some basic stuff like data type.
 
+
+## It's all about Functions!
+
+### Get started with recursive pattern matching functions
+When we talk about Haskell, the first that comes into out mind is definitely Functions!. Before we get into details of Haskell functions, let's take a look like what functions are look like. Say we want to write a function that calculate xth number of a fibonacci series, it looks like following
+
+```haskell
+-- This is a comment in Haskell
+
+-- This is a function definition in Haskell
+-- Num is type class which represents numbers
+-- a is a class variable
+-- fib takes an integer and returns a number
+fib :: Num a => Integer -> a
+
+-- We define two base cases for a fibonacci series
+fib 1 = 1
+fib 2 = 1
+
+-- Do recursion
+fib x = fib (x - 1) + fib (x - 2)
+```
+
+
+When we execute the function `fib`, Haskell simply match the argument from top to button and return the result we want, which is called `pattern matching`.
+
+### Improve functions by introducing extra arguments
+The `fib` function that we defined above is quite bad because of 
+- Repeated computation
+- Diversed stack growth
+
+Therefore we are going to improve it like this
+
+```haskell
+-- This function name is legal in Haskell
+fib' :: Num a => a -> a -> Integer -> a
+
+-- This time, we did tail recursion and prevent waste of computations
+fib' x y 3 = x + y
+fib' x y a = 
+    fib' y (x + y) (a - 1)
+
+-- Then we wrap fib' function
+fib 1 = 1
+fib 2 = 1
+fib x = fib' 1 1 x
+
+```
+
+### Curried function
+
+Officially, `function` in haskell takes only one argument and produce one output. But how is it possible that we define a function that accept arbitrary number of arguments, like `fib'` we used above? The answer to that question is currying. Think about following function
+
+```haskell
+bigger :: (Ord a) => a -> a -> a
+bigger a b
+    | a > b = a
+    | b > a = b
+```
+It simply pick a larger number between two and return it. It takes two arguments and return one. But if we look at it in this way `((bigger 1) 2)`
+it starts to become clearer: `bigger` is a function that takes an `Ord` argument and returns another function that takes one `Ord` and return an `Ord`, so that perfectly make sense that every function in Haskell takes one argument. The behavior that applying arguments to a function in this 'Chained' manner is what we called currying. It gives you the illusion that a function can actually take multiple arguments at the same time.
+
+So there is a question, are `bigger 1` and `bigger 2` the same function? Well, it is hard to tell because we only talk about equality in type class `Eq`, but the answer to this question is obviously NO, because they behaves totally differently.
+
+### High order functions
+
+We mentioned something like 'returning a function' or accepting a function as parameter. Yes, that's what high order functions do. A function can take a function as argument and apply it to something. This is so easy that we won't discuss in detail here. I believe that when you learn Java or Python, yu have already used this feature for many times.
+
+
+### Data type and type classes
+data types are like structures that has multiple properties to it
+
+
+
 ## `type`, `data` and `newtype` 
 At the beginning of this article, let's make sure we don't mess up some of the terminologies in Haskell in terms of data types. When we manipulate data types, there are three keywords that we might use, `type`, `data` and `newtype`.
 
