@@ -46,7 +46,6 @@
   - Cloud-init support
   - Support multipass and libvirt backend
   - Enhancement plugins for service discovery and service mesh
-  - Potentially another k8s distro for local deployment (like minikube)
 
 <!-- ## Sentiment analysis of social network *2019/2 - 2019/4*
 

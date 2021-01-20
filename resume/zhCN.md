@@ -45,8 +45,7 @@
   - 支持cloud-init
   - 支持multipass或者libvirt后端
   - 共同开发的有一些增强插件，针对k8s的原生服务发现，计划提供Service Mesh的原生支持能力
-  - 计划发展成一个单机部署的k8s发行版，并跟进CNCF的一些技术
-
+  
 ## 容器云平台若干组件的开发 *2020/3 - Now*
   - Python后端服务
   - Springcloud应用
