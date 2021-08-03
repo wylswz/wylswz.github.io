@@ -48,7 +48,7 @@
   - Involved in development of couple of services, which are building blocks of a PaaS platform, including deployment service and cloud console (like Nova and Horizon in openstack).
     - Developed some APIs that talk to other services to accomplish complex tasks.
     - Did some perfmance profiling and optimization
-  - Contribute to some common libraries to improve system behavior like concurrency handling,load balancing and service tracing.
+  - Contribute to some common libraries.
 
 
 # Projects
@@ -61,6 +61,7 @@
   - Implemented templating engine using go template to generate cloud-init user data source from user config
   - Developed a command like tool that provides finer-grained operations rather than single-shot deployment
   - Added support for libvirt command line tools and provided a daemon which maintains network configurations for user
+  - Support VM Overlay network, therefore it's possible scale VMs to a cluster
 
 ## Pathfinder & Trovu *2020/10 - Future*
   Pathfinder is a customized kubernetes controller that automatically register services to a centralized place (CRD) so that user can do service registration declaratively by adding annotations to their services. 
@@ -92,5 +93,4 @@
 
 
 # Appendix
-- **Personal Blog:** https://wylswz.github.io/
 - **Github:** https://www.github.com/wylswz

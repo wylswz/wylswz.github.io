@@ -71,7 +71,7 @@
 <li>进行一些性能分析和优化</li>
 </ul>
 </li>
-<li>贡献一些共享的库，以优化系统的行为，如并发控制，负载均衡和链路追踪</li>
+<li>贡献一些通用的库</li>
 </ul>
 </li>
 </ul>
@@ -81,8 +81,9 @@
 <p>*libvirt后端正在开发中</p>
 <ul>
 <li>使用go template实现模板引擎，可以通过用户的配置文件来生产cloud-init数据源</li>
-<li>开发命令行界面来提供细粒度的操作，取代原来的脚本一次性部署的方式</li>
+<li>开发命令行界面来提供虚拟机实例的生命周期管理</li>
 <li>增加对libvirt的支持从而对multipass解耦，并提供用于维护虚拟网络的守护进程</li>
+<li>搭建虚拟机Overlay网络，在集群上管理虚拟机实例</li>
 </ul>
 <h2 id="pathfinder-和-trovu-202010---future">Pathfinder 和 Trovu <em>2020/10 - Future</em></h2>
 <p>Pathfinder是一个k8s控制器，用于增强原生k8s的行为。它可以实现自动化的服务注册，用户可以做到声明式的服务注册而不用入侵代码。</p>
@@ -106,7 +107,6 @@
 </ul>
 <h1 id="附录">附录</h1>
 <ul>
-<li><strong>个人博客</strong> <a href="https://wylswz.github.io/">https://wylswz.github.io/</a></li>
 <li><strong>Github:</strong> <a href="https://www.github.com/wylswz">https://www.github.com/wylswz</a></li>
 </ul>
 
