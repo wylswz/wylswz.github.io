@@ -56,6 +56,147 @@ which is exactly what it describes.
 
 Now we know that by implementing an interpreter, we get a compiler for free,  if we invent such a machine that performs `I -> C` for us. Fortunately, we have such a machine implemented by the community, which is called Truffle.  Truffle allows us to implement out interpreter on AST, and use declarative directives to get instructions specialized automatically.
 
+
+
+# Simple Language (sl)
+
+Simple language is a custom language implementation based on Truffle, which is object-oriented and has dynamic class definitions. This section we'll focus on implementation of simple language.
+
+## Object Operations
+
+Think about following expression in sl
+
+```
+obj = new()
+obj.a = 4
+```
+
+This statement simply creates a new object, and then assign an integer, 4 to its property `a`. Such operation in sl is defined as `factor`. It looks like this
+
+```
+factor returns [SLExpressionNode result]
+:
+(
+    IDENTIFIER                                  { SLExpressionNode assignmentName = factory.createStringLiteral($IDENTIFIER, false); }
+    (
+        member_expression[null, null, assignmentName] { $result = $member_expression.result; }
+    |
+                                                { $result = factory.createRead(assignmentName); }
+    )
+|
+    STRING_LITERAL                              { $result = factory.createStringLiteral($STRING_LITERAL, true); }
+|
+    NUMERIC_LITERAL                             { $result = factory.createNumericLiteral($NUMERIC_LITERAL); }
+|
+...
+;
+```
+
+It is matched against a identifier followed by `member_expression`. In this case, the `assignmentName` passed to `member_expression` is `'A'`.  `member_expression`  is defined as: 
+
+```
+member_expression [SLExpressionNode r, SLExpressionNode assignmentReceiver, SLExpressionNode assignmentName] returns [SLExpressionNode result]
+:                                               { SLExpressionNode receiver = r;
+                                                  SLExpressionNode nestedAssignmentName = null; }
+```
+
+It takes 
+
+consists of several pattern matching rules
+
+### Function call
+
+```
+    '('                                         { List<SLExpressionNode> parameters = new ArrayList<>();
+                                                  if (receiver == null) {
+                                                      receiver = factory.createRead(assignmentName);
+                                                  } }
+    (
+        expression                              { parameters.add($expression.result); }
+        (
+            ','
+            expression                          { parameters.add($expression.result); }
+        )*
+    )?
+    e=')'
+```
+
+### Assignment
+
+assignment starts with an `=` 
+
+```
+    '='
+    expression                                  { if (assignmentName == null) {
+                                                      SemErr($expression.start, "invalid assignment target");
+                                                  } else if (assignmentReceiver == null) {
+                                                      $result = factory.createAssignment(assignmentName, $expression.result);
+                                                  } else {
+                                                      $result = factory.createWriteProperty(assignmentReceiver, assignmentName, $expression.result);
+                                                  } }
+```
+
+### Property Read
+
+```
+    '.'                                         { if (receiver == null) {
+                                                       receiver = factory.createRead(assignmentName);
+                                                  } }
+    IDENTIFIER
+                                                { nestedAssignmentName = factory.createStringLiteral($IDENTIFIER, false);
+                                                  $result = factory.createReadProperty(receiver, nestedAssignmentName); }
+```
+
+ or
+
+```
+    '['                                         { if (receiver == null) {
+                                                      receiver = factory.createRead(assignmentName);
+                                                  } }
+    expression
+                                                { nestedAssignmentName = $expression.result;
+                                                  $result = factory.createReadProperty(receiver, nestedAssignmentName); }
+    ']'
+```
+
+
+
+Let's see how these rules handle `A.prop = 4`.
+
+First of all, "A" is matched by `IDENTIFIER` and ".prop=4" is matched by `member_expression`. The `member_expression` is first invoked with parameter
+
+```
+member_expression(null, null, "A")
+```
+
+Because the receiver is unspecified, "A" is used to create a `Read` node which reads a variable from `VirtualFrame` using variable name. The token starts with "." thus the first result should be a property read, therefore we get
+
+```
+receiver = Read("A")
+result = ReadProp($receiver, "prop")
+nestedAssignmentName = "prop"
+```
+
+The second part is a recursive call on the remaining token
+
+```
+member_expression(ReadProp(Read("A"), "prop"), Read("A"), "prop")
+```
+
+This time, the token starts with "=" thus a `WriteProperty` node is generated, which is 
+
+```
+WriteProperty(Read("A"), "prop", 4)
+```
+
+This means assigning 4 to the "prop" property to variable "A".
+
+
+
+## Function Definition
+
+
+
 # Truffle DSL
 
 ## @Cached
