@@ -129,3 +129,7 @@ we can see the move constructor is invoked. So by adding a constructor and an op
 NOTE: Add -fno-elide-constructors to g++ to prevent return elision
 
 # Vector Optimization with No-Throw Moving
+
+In `stdlib` vector implementation, moving or copying is one decision to make when trying to enlarge itself. When the size and capacity of a vector are equal, it allocates a new block of memory, and copy items to that new memory space. When the copy finishes, the original vector is destroyed. If exception is thrown in the copy process, the new memory is thrown away and the original vector is unchanged. However, always copying items is pretty slow, why can't we just move items by shifting the pointers? The problem is that moving might throw. It is pretty hard to rollback the move operation because undoing a move might also throw, that's when you get messed up.
+
+The good news is that if we tell the compiler that our object never throw when being moved, vector will use move operation in expansion, which speeds up you code. We'll discuss this in [template](../templates/template.md) section.
