@@ -29,6 +29,8 @@ The Two Finger Algorithm is:
 - Good cache performance for collector, but bad data locality for mutator
 - Easy to implement
 
+Only handles fixed-size objects :(
+
 
 ### Lisp 2 Algorithm
 Lisp 2 algorithm aims to improve throughput of mark & compaction collectors. Similar to two finger algorithm, lisp 2 also has free and scan pointers.
@@ -42,3 +44,31 @@ Lisp 2 Algorithm is:
 - Space is added to object to store additional field
   - Space in-efficient
   - Invasion!
+
+
+### Threading compaction
+**Destructivity:** The algorithm is destructive if live data is overwritten by relocated objects. Lisp 2 is non-destructive because it tracks target address in object header.
+
+**Threading**: Allow all references to N can be found from N by following thread pointers
+
+1. Thread the node N by chaining referers. Swap one field of N into the Field that holds the reference of N of the last node of the threaded chain temporary.
+2. Calculate the new address of N (which is **free**), and update this reference into referers' fields.
+3. Actually reallocate objects
+
+This is a smart way by storing N's info in referer's field which referring to N, thus no additional space is required.
+
+Threading algorithm suffers from cache in-efficiency because it needs to follow thread pointers!
+
+
+### One pass algorithms
+
+- Divide heap into blocks
+- Use an offset vector to calculate offset address for each block
+- Process each block in parallel and relocate using local address + offset vector
+
+
+
+## Limitations of Mark & Compaction Collectors
+- Additional space to save reloating-address
+- Two-Finger only handles fixed-size objects
+- Threaded compaction requires that it is possible to distinguish thread pointers from references
