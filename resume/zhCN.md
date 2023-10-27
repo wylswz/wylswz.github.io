@@ -44,35 +44,32 @@
 
   参与Transwarp Data Cloud的开发
 
-  - 开发PaaS平台中的一些服务，包括部署服务，用户控制台（类似OpenStack中的Nova和Horizon）
+  - 开发PaaS平台中的一些服务，包括部署服务，用户控制台
     - 开发一些API，用来和其他服务同信，共同完成一些复杂任务
     - 进行一些性能分析和优化
-  - 贡献一些通用的库
+  - 设计并开发了 TDC 联邦云功能，输出专利两篇（其中一篇是和同事合作）
+  - 参与平台瘦身
+    - 开发基于 K8s 的服务发现组件（基于 spring-cloud-load-balancer），代替 eureka
+    - 服务编排资源配置调优
+  - 参与以 OAM 为中心的平台新架构的开发。对 kubevela workflow 项目进行二次开发。
+  - 参与 Java 8 -> 17 和 SpringBoot 2 -> 3 的升级工作，探索了 Spring Native Image 的可行性
+
+  关键词： 容器PaaS、应用模型
 
 
 # 项目
 
-## MediumKube *2020/10 - Future*
-  MediumKube是用于简化本地部署k8s集群的命令行工具。它支持multipass和libvirt驱动。
+## 个人项目 Janiva Programming Language
 
-  *libvirt后端正在开发中
+Janiva 是基于 GraalVM 的 Truffle 语言实现框架开发的 Json 模板语言,定位是 Json 语言的超集。可能的应用场景之一是 K8s 资源的动态渲染以及语言互操作性带来的可扩展的软件架构（类似 cue 语言之于 kubevela 的作用）
 
-  - 使用go template实现模板引擎，可以通过用户的配置文件来生产cloud-init数据源
-  - 开发命令行界面来提供虚拟机实例的生命周期管理
-  - 增加对libvirt的支持从而对multipass解耦，并提供用于维护虚拟网络的守护进程
-  - 搭建虚拟机Overlay网络，在集群上管理虚拟机实例
+Janiva 相比 Json 最大的特点是它支持函数，包括
+- 递归函数
+- 函数组合
+- Partial Application
+- 一些内置函数
   
-## Pathfinder 和 Trovu *2020/10 - Future*
-  Pathfinder是一个k8s控制器，用于增强原生k8s的行为。它可以实现自动化的服务注册，用户可以做到声明式的服务注册而不用入侵代码。
 
-  Trovu是一个直接和Pathfinder通信的DNS服务，它可以收集注册的服务并且提供xDS标准的解析，以支持Envoy sidecar。通过snapshot机制，它可以降低服务发现对控制面的负载压力
-
-  *此项目仍需大量调研和开发
-
-  - 设计了Pathfinder， Trouv和原生service之间的交互逻辑
-  - 使用kubebuilder定义CRD并生成一些辅助代码
-  - 实现控制器的逻辑
-  - 为Trovu增加用于服务发现的gRPC服务器和对Pathfiunder的监控
 
 ## 开源项目贡献
 
@@ -80,9 +77,9 @@
 
 
 # 技能
-- Java和Python的web开发经验
-- [个人项目](https://github.com/6BD-org) 中的golang开发经验
-- 其他辅助开发的工具/库
+- Java Python Go 都会一点
+- 基于 Kubernetes 的软件开发 （operator）
+- 会用 SpringBoot/Cloud 生态的框架
 
 
 # 附录

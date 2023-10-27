@@ -72,3 +72,6 @@ Threading algorithm suffers from cache in-efficiency because it needs to follow 
 - Additional space to save reloating-address
 - Two-Finger only handles fixed-size objects
 - Threaded compaction requires that it is possible to distinguish thread pointers from references
+
+
+# Generational Collectors
