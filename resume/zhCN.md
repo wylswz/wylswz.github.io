@@ -2,7 +2,7 @@
 
 # 闻云路
 **Tel:** +86 15851535018   
-**Email:** wylswz@163.com
+**Email:** wylswz@outlook.com
 
 # 教育
 - **墨尔本大学**
@@ -44,26 +44,29 @@
 
   参与Transwarp Data Cloud的开发
 
-  - 开发PaaS平台中的一些服务，包括部署服务，用户控制台
-    - 开发一些API，用来和其他服务同信，共同完成一些复杂任务
-    - 进行一些性能分析和优化
+  - 维护PaaS平台中的一些服务，包括生命周期管理服务，用户控制台
   - 设计并开发了 TDC 联邦云功能，输出专利两篇（其中一篇是和同事合作）
   - 参与平台瘦身
     - 开发基于 K8s 的服务发现组件（基于 spring-cloud-load-balancer），代替 eureka
     - 服务编排资源配置调优
-  - 参与以 OAM 为中心的平台新架构的开发。对 kubevela workflow 项目进行二次开发。
-  - 参与 Java 8 -> 17 和 SpringBoot 2 -> 3 的升级工作，探索了 Spring Native Image 的可行性
-
-  关键词： 容器PaaS、应用模型
+  - 基于 kubevela 的大数据组件运维
+    - 基于 cue 和 go 的互操作性实现工作流的编排
+    - 扩展和优化 kubevela 的 op 库（支持sql，提高 patch 效率，优化 log 实现等）
+    - 工作流实现从 kubevela 迁移到自研工作流平台
+  - 参与平台底层架构的重构（微服务->单体，单集群->多集群）
+    - 参与架构设计
+    - 设计/开发配置文件分发 operator
+    - 千节点集群性能优化
 
 
 # 项目
 
 ## 个人项目 Janiva Programming Language
+这是个做着玩的项目。
 
-Janiva 是基于 GraalVM 的 Truffle 语言实现框架开发的 Json 模板语言,定位是 Json 语言的超集。可能的应用场景之一是 K8s 资源的动态渲染以及语言互操作性带来的可扩展的软件架构（类似 cue 语言之于 kubevela 的作用）
+Janiva 是基于 GraalVM 的 Truffle 语言实现框架开发的 Json 模板语言,定位是 Json 语言的超集。
 
-Janiva 相比 Json 最大的特点是它支持函数，包括
+Janiva 相比 Json 最大的特点是它支持函数，包括：
 - 递归函数
 - 函数组合
 - Partial Application
@@ -77,10 +80,10 @@ Janiva 相比 Json 最大的特点是它支持函数，包括
 
 
 # 技能
-- Java Python Go 都会一点
+- Java Go 都会一点
 - 基于 Kubernetes 的软件开发 （operator）
-- 会用 SpringBoot/Cloud 生态的框架
 
 
-# 附录
+# 其他
 - **Github:** https://www.github.com/wylswz
+- **微信公众号**：Janiva on Truffle
