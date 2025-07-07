@@ -80,26 +80,12 @@
     - 字符串抽成 const 并暴露，使得 Hook 实现可以更容易获取文件路径等信息
   - **ssh4j** 是 java 的 ssh 客户端
     - 我优化了 keepalive 实现。借助优先级队列，由原来每个连接一个 keepalive 线程的模式改成 N 个线程管理 M 个连接的方式（N << M）。 异步的过程单元测试受环境影响比较多，所以还没完成合并。
-
-
-## 个人项目 Janiva Programming Language
-这是个做着玩的项目。
-
-Janiva 是基于 GraalVM 的 Truffle 语言实现框架开发的 Json 模板语言,定位是 Json 语言的超集。
-
-Janiva 相比 Json 最大的特点是它支持函数，包括：
-- 递归函数
-- 函数组合
-- Partial Application
-- 一些内置函数
-  
-
-
+  - **HAMi** HAMi 是支持异构设备管理的算力虚拟化框架
+    - 文档贡献：device-plugin 关键配置项文档贡献。
 
 # 技能
 - Java Go 都会一点
 - 基于 Kubernetes 的软件开发 （operator）
-
 
 # 其他
 - **Github:** https://www.github.com/wylswz
