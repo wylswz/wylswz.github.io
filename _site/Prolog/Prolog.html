@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Prolog Taolu | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Prolog Taolu" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/Prolog/Prolog.html" />
+<meta property="og:url" content="http://localhost:4000/Prolog/Prolog.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Prolog Taolu" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Prolog Taolu","url":"http://localhost:4000/Prolog/Prolog.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="prolog-taolu">Prolog Taolu</h1>
+
+<p>The workshop sample solutions are available <a href="/Prolog/ws.html">here</a></p>
+
+<h2 id="what-is-prolog">What is Prolog?</h2>
+<p>Prolog is shit.</p>
+
+<h2 id="why-prolog-is-shit">Why Prolog is shit?</h2>
+
+<h3 id="the-closed-world-assumption">The Closed World Assumption</h3>
+<p>Prolog assumes all true things can be derived from the program. This is called the closed world assumtion. So use negation carefully when the predicates are not complete (The query might give False Positive results).</p>
+
+<h3 id="negation-as-failure">Negation as failure</h3>
+<p>Prolog executes <code class="language-plaintext highlighter-rouge">\+ G</code> by first try to prove <code class="language-plaintext highlighter-rouge">G</code>. If it fails, then <code class="language-plaintext highlighter-rouge">\+ G</code> succeeds; If it succeeds then <code class="language-plaintext highlighter-rouge">\+ G</code> fails. This is called negation as failure. In prolog, failing goals never bind variables, so any variable bindings made in solving G are thrown away when <code class="language-plaintext highlighter-rouge">\+ G</code> fails. Therefore, <code class="language-plaintext highlighter-rouge">\+ G</code> cannot solve for any variables and gols such as these cannot work properly.</p>
+
+<h3 id="terms">Terms</h3>
+<p>In Prolog, all data structures are terms, which can be atomic or compound. Atomic terms include integer, float, and atoms. An atom begins with lower case letter or quoted with single quote, for example both <code class="language-plaintext highlighter-rouge">prolog_shit</code> and <code class="language-plaintext highlighter-rouge">'Prolog Shit\n'</code> are atoms.</p>
+
+<p>A compound term is a functor followed by zero or more arguments. Functors are Prolog’s equivalent of data constructor, and have the same syntax as atoms, for example</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">node</span><span class="p">(</span><span class="ss">leaf</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="ss">node</span><span class="p">(</span><span class="ss">leaf</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="ss">leaf</span><span class="p">))</span>
+</code></pre></div></div>
+<p>represents a tree.</p>
+
+<p>A variable is a single unknown term. Variable names begin with uppercase letters or underscores.、</p>
+
+<h3 id="ground-terms-substitution-unification">Ground terms, Substitution, Unification</h3>
+
+<p>A term is  ground if it contains no variables. A ground term has only one instance, while a non-ground term has an infinite number of instances.</p>
+
+<p>A substitution is a mapping from variables to terms. Applying a substitution to a term means consistently replacing all occurrences of each variable in the map with the term it is mapped to. Substitution only replaces variables.</p>
+
+<p>A substitution unifies two terms if the terms are identical after the substitution.</p>
+
+<h3 id="prolog-debugger-infinite-backtracing-loop">Prolog debugger, Infinite backtracing loop</h3>
+
+<p>Prolog has a shitty debugger. There’s something called Byrd box, like following:</p>
+
+<p><img src="/Prolog/debugger.png" alt="" /></p>
+
+<p>Unlike conventional languages which have only one way to enter and one way to exit, Prolog has two of each. Thing about the following code</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*</span><span class="err">
+    rev1/2
+    rev1(A, B) holds if B is reversed version of A
+</span><span class="cm">*/</span>
+<span class="ss">rev1</span><span class="p">([],</span> <span class="p">[]).</span>
+<span class="ss">rev1</span><span class="p">([</span><span class="nv">A</span><span class="p">|</span><span class="nv">BC</span><span class="p">],</span> <span class="nv">CBA</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">rev1</span><span class="p">(</span><span class="nv">BC</span><span class="p">,</span> <span class="nv">CB</span><span class="p">),</span>
+    <span class="ss">append</span><span class="p">(</span><span class="nv">CB</span><span class="p">,</span> <span class="p">[</span><span class="nv">A</span><span class="p">],</span> <span class="nv">CBA</span><span class="p">).</span>
+</code></pre></div></div>
+
+<p>Why the fuck does it enter infinite backtracking loop? for example we have a query</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">rev1</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="p">[</span><span class="ss">a</span><span class="p">])</span>
+</code></pre></div></div>
+<p>is was resolved to</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">rev1</span><span class="p">(</span><span class="nv">BC</span><span class="p">,</span> <span class="nv">CB</span><span class="p">),</span>
+<span class="ss">append</span><span class="p">(</span><span class="nv">CB</span><span class="p">,</span> <span class="p">[</span><span class="nv">A</span><span class="p">],</span> <span class="p">[</span><span class="ss">a</span><span class="p">]).</span>
+</code></pre></div></div>
+<p>The call rev1(BC, CB) produces an infinite backtracking sequesce of solutions, for wach one we call <code class="language-plaintext highlighter-rouge">append</code>. <code class="language-plaintext highlighter-rouge">append([],[A], [A])</code> succeeds but the following ones all fail.</p>
+
+<p>In order to make it work in all modes, we need to add <code class="language-plaintext highlighter-rouge">samelength(ABC, CBA)</code> in the front.</p>
+
+<p>See? This is why Prolog is shit.</p>
+
+<h3 id="choicepoints">Choicepoints</h3>
+
+<p>When a clause succeeds but there are later clauses that could possibly succeed, Prolog will leave a choicepoint so it can later backtrack and try the later clause.</p>
+
+<p>Think about following clauses which computes factorial</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">fact</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">).</span>
+<span class="ss">fact</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="nv">F</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="nv">N</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">,</span>
+    <span class="nv">N1</span> <span class="ss">is</span> <span class="nv">N</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span>
+    <span class="ss">fact</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="nv">F1</span><span class="p">),</span>
+    <span class="nv">F</span> <span class="ss">is</span> <span class="nv">F1</span> <span class="o">*</span> <span class="nv">N</span><span class="p">.</span>
+</code></pre></div></div>
+<p>After finding <code class="language-plaintext highlighter-rouge">0!=1</code>, prolog will continue trying <code class="language-plaintext highlighter-rouge">-1!, -2!, ...</code>, so we need to add <code class="language-plaintext highlighter-rouge">N &gt; 0</code> at the beginning in order to ensure correctness.</p>
+
+<h3 id="semantics-of-logic-program">Semantics of logic program</h3>
+
+<p>A logic program P consists of a set of predicate definitions. The semantic of this program is the set of its logical consequences as <strong>ground atomic formulas</strong></p>
+
+<p><strong>Ground atomic formula</strong> is a logical consequence of program P if P makes a true.</p>
+
+<p>How to find semantics? We’re gonna work backwards. We can reason fro mthe program to figure out what ground queries makes it <code class="language-plaintext highlighter-rouge">true</code>. Immediate consequence operator <code class="language-plaintext highlighter-rouge">TP</code> takes a set of ground unit clauses C and produce the set of ground unit clauses implies by C and P.</p>
+
+<p>For example:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nv">P</span> <span class="o">=</span> <span class="p">{</span><span class="ss">q</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Z</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">p</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">),</span> <span class="ss">p</span><span class="p">(</span><span class="nv">Y</span><span class="p">,</span><span class="nv">Z</span><span class="p">)}.</span>
+<span class="nv">C</span> <span class="o">=</span> <span class="p">{</span><span class="ss">p</span><span class="p">(</span><span class="ss">a</span><span class="p">,</span><span class="ss">b</span><span class="p">),</span> <span class="ss">p</span><span class="p">(</span><span class="ss">b</span><span class="p">,</span><span class="ss">c</span><span class="p">),</span> <span class="ss">p</span><span class="p">(</span><span class="ss">c</span><span class="p">,</span><span class="ss">d</span><span class="p">)}.</span>
+
+<span class="nv">TP</span> <span class="o">=</span> <span class="p">{</span><span class="ss">q</span><span class="p">(</span><span class="ss">a</span><span class="p">,</span><span class="ss">c</span><span class="p">),</span> <span class="ss">q</span><span class="p">(</span><span class="ss">b</span><span class="p">,</span><span class="ss">d</span><span class="p">)}.</span>
+
+</code></pre></div></div>
+
+<h3 id="sld-resolution">SLD Resolution</h3>
+<p>Consequences of logic program are determined through SLD resolution, which is simple? and powerful? and shitty (That’s true). It all about: Given a program, show this goal is true. It works like following:</p>
+
+<ul>
+  <li>Verify query with clause head, apply resulting substitution, yield resolvent</li>
+  <li>Since the goal is identical to resolvent head, replace with resolvent body</li>
+</ul>
+
+<h3 id="backtracking">Backtracking</h3>
+<p>When there are multiple clauses matching a goal, Prolog remembers which one to go back to if necessary. It must be able to return the computation to the state it was in when the first matching clause was selected, so that it can return to that state and try next matching claise, which called choicepoint.</p>
+
+<p>When a goal fails, Prolog backtracks to the most recent choicepoint, removing all variable bindings made since the choicepoint was created, returning those variables to their unbound state. Then prolog begins to resolution the next matching clause, repeating the process until Prolog detects no more matching clauses. It then removes the checkpoint. The subsequent failures still backtrack to nearest checkpoint.</p>
+
+<h3 id="index">Index</h3>
+<p>Index improves Prolog performance because it allows the Prolog to jump to match clauses directly by creating indexes for clauses with distinct constant or functors. SWI Prolog makes indices for arguments other than the first one. For example, <code class="language-plaintext highlighter-rouge">parent/2</code>, SWIpl index on both args, so finding the children of a parent or parent of a child both speeds up.</p>
+
+<h3 id="tail-recursion-tro-and-choicepoint">Tail Recursion, TRO and choicepoint</h3>
+<p>A predicate is tail recursive if and only if the recursive call on any execution of that predicate is the last code executed before returning to the caller. Prolog applied tail recursion optimization (TRO) to prevent recursions from eating up stack. For example, a called b, b called c, there will be three frames on stack storing all the variables so that the routine can be restored after the sub routine returned. TRO is made such that if returning the result of c is the last execution of b, then the variables in be can be released in advance, so the stack can be saved. But if there’s a choice point in b, the program isn’t tail recursive because Prolog need to backtrack to the choicepoint later on.</p>
+
+<h3 id="write-tail-recursive-code-by-adding-accumulate">Write tail recursive code by adding accumulate</h3>
+<p>Look at this example.</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">-</span>
+    <span class="ss">fact</span><span class="o">/</span><span class="m">2</span> 
+    <span class="ss">fact</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="nv">F</span><span class="p">)</span> <span class="ss">holds</span> <span class="ss">if</span> <span class="nv">F</span> <span class="ss">is</span> <span class="ss">the</span> <span class="ss">factorial</span> <span class="ss">of</span> <span class="nv">N</span>
+<span class="o">-</span><span class="p">}</span>
+
+<span class="ss">fact</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="nv">F</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="p">(</span>
+        <span class="nv">N</span> <span class="o">=:=</span> <span class="m">0</span> <span class="o">-&gt;</span> 
+        <span class="nv">F</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>
+        <span class="nv">N</span><span class="o">&gt;</span><span class="m">0</span><span class="p">,</span>
+        <span class="nv">N1</span> <span class="ss">is</span> <span class="nv">N</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span>
+        <span class="ss">fact</span><span class="p">(</span><span class="nv">N1</span><span class="p">,</span> <span class="nv">F1</span><span class="p">),</span>
+        <span class="nv">F</span> <span class="ss">is</span> <span class="nv">F1</span> <span class="o">*</span> <span class="nv">N</span>
+    <span class="p">).</span>
+
+</code></pre></div></div>
+<p>This is not tail recursive because the last excution is multiplication and substitution. But however we can make it tail recursive by introducing an accumulator, just like this</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="ss">fact</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="nv">F</span><span class="p">,</span> <span class="nv">C</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="p">(</span>
+        <span class="nv">N</span> <span class="o">=:=</span> <span class="m">0</span> <span class="o">-&gt;</span> 
+        <span class="nv">F</span> <span class="o">=</span> <span class="nv">C</span><span class="p">;</span>
+        <span class="nv">N</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">,</span>
+        <span class="nv">N1</span> <span class="ss">is</span> <span class="nv">N</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span>
+        <span class="nv">C1</span> <span class="ss">is</span> <span class="nv">C</span> <span class="o">*</span> <span class="nv">N</span><span class="p">,</span>
+        <span class="ss">fact</span><span class="p">(</span><span class="nv">N1</span><span class="p">,</span> <span class="nv">F</span><span class="p">,</span> <span class="nv">C1</span><span class="p">)</span>
+    <span class="p">).</span>
+
+</code></pre></div></div>
+<p>Then this is tail recursive.</p>
+
+<h3 id="all-solution">All solution</h3>
+<p>If we wanna bring together all solutions to a goal, Prolog’s all solution predicates do exactly this. The definition is</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">setof</span><span class="p">(</span><span class="nv">Template</span><span class="p">,</span> <span class="nv">Goal</span><span class="p">,</span> <span class="nv">List</span><span class="p">).</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Template</code> is like how you wanna present the result. For example, if you wanna display the parent relation of two people, you could use</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">setof</span><span class="p">(</span><span class="nv">P</span><span class="o">-</span><span class="nv">C</span><span class="p">,</span> <span class="ss">parent</span><span class="p">(</span><span class="nv">P</span><span class="p">,</span><span class="nv">C</span><span class="p">),</span> <span class="nv">List</span><span class="p">).</span>
+<span class="ss">bagof</span><span class="p">(</span><span class="nv">P</span><span class="o">-</span><span class="nv">C</span><span class="p">,</span> <span class="ss">parent</span><span class="p">(</span><span class="nv">P</span><span class="p">,</span><span class="nv">C</span><span class="p">),</span> <span class="nv">List</span><span class="p">).</span> <span class="c1">% This is for unsorted solutions</span>
+</code></pre></div></div>
+
+<p>Existential quantification can be used with <code class="language-plaintext highlighter-rouge">^</code>. Like following predicate</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">setof</span><span class="p">(</span><span class="nv">P</span><span class="p">,</span> <span class="nv">C</span><span class="o">^</span><span class="ss">parent</span><span class="p">(</span><span class="nv">P</span><span class="p">,</span><span class="nv">C</span><span class="p">),</span> <span class="nv">Parents</span><span class="p">)</span>
+</code></pre></div></div>
+<p>This predicate means, put all the solutions in list <code class="language-plaintext highlighter-rouge">Parents</code>. The solutions satisfy that “There exist C such that P is the parent of C”, which means find parent of any children.</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

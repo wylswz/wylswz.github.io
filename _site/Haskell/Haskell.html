@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Brief Intro to Haskell | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Brief Intro to Haskell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/Haskell/Haskell.html" />
+<meta property="og:url" content="http://localhost:4000/Haskell/Haskell.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Brief Intro to Haskell" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Brief Intro to Haskell","url":"http://localhost:4000/Haskell/Haskell.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="brief-intro-to-haskell">Brief Intro to Haskell</h1>
+
+<p>If you wanna checkout the workshop, it’s <a href="/Haskell/workshop.html">Here</a></p>
+
+<p>Note: Some codes in this article may not be legal haskell codes, they are only used to explain some facts.</p>
+
+<p>This article is not originally written by me, I just read some Haskell articles online and put them together:</p>
+
+<p><a href="http://book.realworldhaskell.org/">Real World Haskell</a></p>
+
+<p><a href="http://learnyouahaskell.com/chapters">Learn You a Haskell for Great Good!</a></p>
+
+<p><a href="https://mmhaskell.com/">Monday Morning Haskell</a></p>
+
+<p>Haskell is a declarative (functional) programming language. You know what is functional programming, how to use functions as first class values, writing recursive programs, doing function composition and currying/uncurrying, so I’ll skip that part. This introduction will start with some basic stuff like data type.</p>
+
+<h2 id="its-all-about-functions">It’s all about Functions!</h2>
+
+<h3 id="get-started-with-recursive-pattern-matching-functions">Get started with recursive pattern matching functions</h3>
+<p>When we talk about Haskell, the first that comes into out mind is definitely Functions!. Before we get into details of Haskell functions, let’s take a look like what functions are look like. Say we want to write a function that calculate xth number of a fibonacci series, it looks like following</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- This is a comment in Haskell</span>
+
+<span class="c1">-- This is a function definition in Haskell</span>
+<span class="c1">-- Num is type class which represents numbers</span>
+<span class="c1">-- a is a class variable</span>
+<span class="c1">-- fib takes an integer and returns a number</span>
+<span class="n">fib</span> <span class="o">::</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="kt">Integer</span> <span class="o">-&gt;</span> <span class="n">a</span>
+
+<span class="c1">-- We define two base cases for a fibonacci series</span>
+<span class="n">fib</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">fib</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1">-- Do recursion</span>
+<span class="n">fib</span> <span class="n">x</span> <span class="o">=</span> <span class="n">fib</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>When we execute the function <code class="language-plaintext highlighter-rouge">fib</code>, Haskell simply match the argument from top to button and return the result we want, which is called <code class="language-plaintext highlighter-rouge">pattern matching</code>.</p>
+
+<h3 id="improve-functions-by-introducing-extra-arguments">Improve functions by introducing extra arguments</h3>
+<p>The <code class="language-plaintext highlighter-rouge">fib</code> function that we defined above is quite bad because of</p>
+<ul>
+  <li>Repeated computation</li>
+  <li>Diversed stack growth</li>
+</ul>
+
+<p>Therefore we are going to improve it like this</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- This function name is legal in Haskell</span>
+<span class="n">fib'</span> <span class="o">::</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Integer</span> <span class="o">-&gt;</span> <span class="n">a</span>
+
+<span class="c1">-- This time, we did tail recursion and prevent waste of computations</span>
+<span class="n">fib'</span> <span class="n">x</span> <span class="n">y</span> <span class="mi">3</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="n">fib'</span> <span class="n">x</span> <span class="n">y</span> <span class="n">a</span> <span class="o">=</span> 
+    <span class="n">fib'</span> <span class="n">y</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">-- Then we wrap fib' function</span>
+<span class="n">fib</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">fib</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">fib</span> <span class="n">x</span> <span class="o">=</span> <span class="n">fib'</span> <span class="mi">1</span> <span class="mi">1</span> <span class="n">x</span>
+
+</code></pre></div></div>
+
+<h3 id="curried-function">Curried function</h3>
+
+<p>Officially, <code class="language-plaintext highlighter-rouge">function</code> in haskell takes only one argument and produce one output. But how is it possible that we define a function that accept arbitrary number of arguments, like <code class="language-plaintext highlighter-rouge">fib'</code> we used above? The answer to that question is currying. Think about following function</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bigger</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span>
+<span class="n">bigger</span> <span class="n">a</span> <span class="n">b</span>
+    <span class="o">|</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="o">|</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>It simply pick a larger number between two and return it. It takes two arguments and return one. But if we look at it in this way <code class="language-plaintext highlighter-rouge">((bigger 1) 2)</code>
+it starts to become clearer: <code class="language-plaintext highlighter-rouge">bigger</code> is a function that takes an <code class="language-plaintext highlighter-rouge">Ord</code> argument and returns another function that takes one <code class="language-plaintext highlighter-rouge">Ord</code> and return an <code class="language-plaintext highlighter-rouge">Ord</code>, so that perfectly make sense that every function in Haskell takes one argument. The behavior that applying arguments to a function in this ‘Chained’ manner is what we called currying. It gives you the illusion that a function can actually take multiple arguments at the same time.</p>
+
+<p>So there is a question, are <code class="language-plaintext highlighter-rouge">bigger 1</code> and <code class="language-plaintext highlighter-rouge">bigger 2</code> the same function? Well, it is hard to tell because we only talk about equality in type class <code class="language-plaintext highlighter-rouge">Eq</code>, but the answer to this question is obviously NO, because they behaves totally differently.</p>
+
+<h3 id="high-order-functions">High order functions</h3>
+
+<p>We mentioned something like ‘returning a function’ or accepting a function as parameter. Yes, that’s what high order functions do. A function can take a function as argument and apply it to something. This is so easy that we won’t discuss in detail here. I believe that when you learn Java or Python, yu have already used this feature for many times.</p>
+
+<h3 id="data-type-and-type-classes">Data type and type classes</h3>
+<p>data types are like structures that has multiple properties to it</p>
+
+<h2 id="type-data-and-newtype"><code class="language-plaintext highlighter-rouge">type</code>, <code class="language-plaintext highlighter-rouge">data</code> and <code class="language-plaintext highlighter-rouge">newtype</code></h2>
+<p>At the beginning of this article, let’s make sure we don’t mess up some of the terminologies in Haskell in terms of data types. When we manipulate data types, there are three keywords that we might use, <code class="language-plaintext highlighter-rouge">type</code>, <code class="language-plaintext highlighter-rouge">data</code> and <code class="language-plaintext highlighter-rouge">newtype</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">type</code> keyword is nothing more than defining type synonyms for existing types, that is, you take a type, add a new name referring to it, then you can use the new name and original name interchangably.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">type</span> <span class="kt">IntList</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+<span class="kr">let</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">::</span> <span class="kt">IntList</span>
+<span class="kr">let</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+<span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+
+<span class="o">&gt;</span> <span class="kt">True</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">data</code> keyword is used to create you own data types, which is quite straightforward:</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">type</span> <span class="kt">ID</span> <span class="o">=</span> <span class="kt">Int</span>
+<span class="kr">type</span> <span class="kt">Name</span> <span class="o">=</span> <span class="kt">String</span>
+<span class="kr">type</span> <span class="kt">DEAD</span> <span class="o">=</span> <span class="nb">()</span>
+<span class="kr">data</span> <span class="kt">Person</span> <span class="o">=</span> <span class="kt">Person</span> <span class="kt">ID</span> <span class="kt">Name</span>
+            <span class="o">|</span> <span class="kt">Dead</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">newtype</code> keyword is to wrap an existing type in a new defined type. The difference between <code class="language-plaintext highlighter-rouge">type</code> and <code class="language-plaintext highlighter-rouge">newtype</code> is that the <code class="language-plaintext highlighter-rouge">type</code> produces a synonym fro existing type, which means the new type is identical to original one, while <code class="language-plaintext highlighter-rouge">newtype</code> produces a new type. In fact, <code class="language-plaintext highlighter-rouge">newtype</code> is like a special kind of <code class="language-plaintext highlighter-rouge">data</code> which has only one constructor with only one field, but not exactly (There are differences in efficiency and lazyness).</p>
+
+<h3 id="newtype-efficiency-and-lazyness"><code class="language-plaintext highlighter-rouge">newtype</code> efficiency and lazyness</h3>
+
+<p><code class="language-plaintext highlighter-rouge">newtype</code> is more efficient than <code class="language-plaintext highlighter-rouge">data</code> in terms of wrapping types. With <code class="language-plaintext highlighter-rouge">data</code> keyword, you create a new data type, which brings overhead for wrapping and unwrapping operations. While with <code class="language-plaintext highlighter-rouge">newtype</code>, the Haskell knows the underlying type that you have wrapped, therefore the wrapped data can directly be referred to without extra overhead.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">newtype</code> also has extra lazyness in it. Because Haskell has known the wrapped type and there is only one constructor with one fixed field, sometimes the construction is not necessarily evaluated in some cases (like pattern matching with wildcards). While using <code class="language-plaintext highlighter-rouge">data</code>, construction is evaluated everytime because there might be different constructors with unfixed fields, Haskell need to figure out which one to go with.</p>
+
+<p>Now that we have understood some confusing terminologies, let’s dive into one of most things in Haskell, which is Functor.</p>
+
+<h2 id="functors">Functors</h2>
+<p>Functor class in Haskell simply means something that can be mapped over with a function. Any instance of Functor must implement the <code class="language-plaintext highlighter-rouge">fmap</code> function</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fmap</span> <span class="o">::</span> <span class="kt">Functor</span> <span class="n">f</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>where f is a wrapper for some value of any type, <code class="language-plaintext highlighter-rouge">(a -&gt; b)</code> is simple a function that takes value of type <code class="language-plaintext highlighter-rouge">a</code> as a parameter and return value of type <code class="language-plaintext highlighter-rouge">b</code>. The <code class="language-plaintext highlighter-rouge">fmap</code> function applies the function to the value which is wrapped by <code class="language-plaintext highlighter-rouge">f</code> and produces a new value wrapped in the exact same form.</p>
+
+<p>Differnt instances of functor have their implementations for <code class="language-plaintext highlighter-rouge">fmap</code>, for example, <code class="language-plaintext highlighter-rouge">fmap</code> of List is simply <code class="language-plaintext highlighter-rouge">map</code>, therefore the following statements are identical</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fmap</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">map</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="why-functor">Why functor?</h3>
+<p>When we use a programming language to interact with pieces of data to produce something that is useful, it’s hard to make sure everything is in the same data structure. Data is organized in different ways in differnt scenarios in order to achieve higher runtime or development efficiency. In order to manipulate all these different types of data, we want the programming language to gerneralize well, that is, we can perform similar actions to different types with a unified interface (Like Abstract Class and  Interface in Java).</p>
+
+<p>Think about the following scenario, we have a datatype constructed from a <code class="language-plaintext highlighter-rouge">Tuple</code></p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">data</span> <span class="kt">Student</span> <span class="o">=</span> <span class="kt">Student</span> <span class="p">{</span>
+    <span class="n">id</span> <span class="o">::</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="n">mark</span> <span class="o">::</span> <span class="kt">Int</span>
+<span class="p">}</span>
+
+<span class="n">buildFromTuple</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Student</span>
+<span class="n">buildFromTuple</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">mark</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Student</span> <span class="n">id</span> <span class="n">mark</span>
+</code></pre></div></div>
+
+<p>Then we want to create a list of <code class="language-plaintext highlighter-rouge">Student</code> type values from a list of tuples, we have</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map</span> <span class="n">buildFromTuple</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">57</span><span class="p">)]</span>
+</code></pre></div></div>
+<p>which is intuitive. But what if the tuples are stored in other data structures like <code class="language-plaintext highlighter-rouge">Vector</code>? With the help of functor, we can simply unify the interface with fmap.</p>
+
+<h3 id="type-constructor-being-an-instance-of-functor">Type constructor being an instance of Functor</h3>
+<p>Type constructors can be functors. For instance, the <code class="language-plaintext highlighter-rouge">Maybe</code> type can be defined as</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Functor</span> <span class="kt">Maybe</span> <span class="kr">where</span>
+    <span class="n">fmap</span> <span class="kr">_</span> <span class="kt">Nothing</span> <span class="o">=</span> <span class="kt">Nothing</span>
+    <span class="n">fmap</span> <span class="n">f</span> <span class="o">$</span> <span class="kt">Just</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">Just</span> <span class="o">$</span> <span class="n">f</span> <span class="n">a</span>
+</code></pre></div></div>
+<p>Note that in the type definition of fmap, the wrapper <code class="language-plaintext highlighter-rouge">f</code> only takes one parameter as type parameter, therefore, the type constructor in implementations should take exact one parameter as well. Consider the <code class="language-plaintext highlighter-rouge">Either</code> type</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Functor</span> <span class="kt">Either</span> <span class="kr">where</span>
+    <span class="n">fmap</span><span class="o">::</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Either</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Either</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>This is incorrect, because the type constructor <code class="language-plaintext highlighter-rouge">Either</code> takes two parameters. In order to make it valid, simple partially apply the first parameter with a</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Functor</span> <span class="kt">Either</span> <span class="n">a</span> <span class="kr">where</span>
+    <span class="n">fmap</span> <span class="o">::</span> <span class="p">(</span><span class="n">b</span> <span class="o">-&gt;</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Either</span> <span class="n">a</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="kt">Either</span> <span class="n">a</span> <span class="n">c</span> 
+</code></pre></div></div>
+
+<h3 id="function-as-an-instance-of-functor">Function as an instance of Functor</h3>
+<p>Function is first class citizen in Haskell so it makes sense for it to be an instance of some Class. The function as a functor has the form <code class="language-plaintext highlighter-rouge">(-&gt;) r</code>. This can be simply treat as application of a function that takes exact one parameter (or wrap the parameter with this function). According the previous definition, the function Functor can be defined as</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Functor</span> <span class="p">((</span><span class="o">-&gt;</span><span class="p">)</span> <span class="n">r</span><span class="p">)</span> <span class="kr">where</span>
+    <span class="n">fmap</span> <span class="n">f</span> <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="nf">\</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">))</span>
+</code></pre></div></div>
+<p>In another word, <code class="language-plaintext highlighter-rouge">fmap f g</code> returns a function which takes a value x, apply <code class="language-plaintext highlighter-rouge">g</code> to it and apply <code class="language-plaintext highlighter-rouge">f</code> to the result. In order to explain why does this happen, we need to go back to the original definition of <code class="language-plaintext highlighter-rouge">fmap</code> function</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fmap</span> <span class="o">::</span> <span class="kt">Functor</span> <span class="n">f</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>Replace <code class="language-plaintext highlighter-rouge">f</code> with <code class="language-plaintext highlighter-rouge">(-&gt;) r</code> in this case, we have</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fmap</span> <span class="o">::</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">((</span><span class="o">-&gt;</span><span class="p">)</span> <span class="n">r</span> <span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">((</span><span class="o">-&gt;</span><span class="p">)</span> <span class="n">r</span> <span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+<p>which is</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fmap</span> <span class="o">::</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+<p>It is obvious that the <code class="language-plaintext highlighter-rouge">fmap</code> function takes an function that takes <code class="language-plaintext highlighter-rouge">a</code> as parameter and return b, and a function takes <code class="language-plaintext highlighter-rouge">r</code> returns <code class="language-plaintext highlighter-rouge">a</code> and outputs a function takes <code class="language-plaintext highlighter-rouge">r</code> and returns <code class="language-plaintext highlighter-rouge">b</code>. So the second function is applied to <code class="language-plaintext highlighter-rouge">r</code> to get the result <code class="language-plaintext highlighter-rouge">a</code> then <code class="language-plaintext highlighter-rouge">a -&gt; b</code> can be applied to <code class="language-plaintext highlighter-rouge">a</code> to get <code class="language-plaintext highlighter-rouge">b</code>.</p>
+
+<p>Intuitively, this is function composition that we really love about in Haskell. So for function</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fmap</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="p">)</span>
+
+<span class="c1">-- The following equations are all equivalent</span>
+<span class="n">fmap</span> <span class="n">a</span> <span class="n">b</span>
+<span class="n">a</span> <span class="o">.</span> <span class="n">b</span>
+<span class="p">(</span><span class="o">.</span><span class="p">)</span> <span class="n">a</span> <span class="n">b</span>
+<span class="nf">\</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">$</span> <span class="n">b</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<h3 id="functor-laws">Functor Laws</h3>
+<p>In the above sessions, we discussed about the “Instance of Functor” instead of functor directly. The reason is that in order for an instance of Functor to be a functor, it need to obey functor rules which ensures calling a functor only maps a function over it without doing anything more. Here are the two rules</p>
+
+<ul>
+  <li>If we map id function over a functor, the functor we get back should be the exact same one.</li>
+  <li>Composing two functions and then map it over a functor is same as mapping one over it and then mapping another</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Maybe</code> is a functor, let’s see how it obeys the functor laws.</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- Law 1</span>
+<span class="n">fmap</span> <span class="n">id</span> <span class="kt">Nothing</span> <span class="o">=</span> <span class="kt">Nothing</span> <span class="c1">-- trivial</span>
+<span class="n">fmap</span> <span class="n">id</span> <span class="p">(</span><span class="kt">Just</span> <span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Just</span> <span class="p">(</span><span class="n">id</span> <span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Just</span> <span class="n">x</span>
+
+<span class="c1">-- Law 2</span>
+<span class="n">fmap</span> <span class="p">(</span><span class="n">f</span> <span class="o">.</span> <span class="n">g</span><span class="p">)</span> <span class="kt">Nothing</span> <span class="o">=</span> <span class="kt">Nothing</span>
+<span class="n">fmap</span> <span class="p">(</span><span class="n">f</span> <span class="o">.</span> <span class="n">g</span><span class="p">)</span> <span class="p">(</span><span class="kt">Just</span> <span class="n">x</span><span class="p">)</span> 
+    <span class="o">=</span> <span class="kt">Just</span> <span class="p">(</span><span class="n">f</span> <span class="o">$</span> <span class="n">g</span> <span class="n">x</span><span class="p">)</span>
+    <span class="o">=</span> <span class="n">fmap</span> <span class="n">f</span> <span class="kt">Just</span> <span class="p">(</span><span class="n">g</span> <span class="n">x</span><span class="p">)</span>
+    <span class="o">=</span> <span class="n">fmap</span> <span class="n">f</span> <span class="p">(</span><span class="n">fmap</span> <span class="n">g</span> <span class="p">(</span><span class="kt">Just</span> <span class="n">x</span><span class="p">))</span>
+    <span class="o">=</span> <span class="p">(</span><span class="n">fmap</span> <span class="n">f</span><span class="p">)</span> <span class="p">(</span><span class="n">fmap</span> <span class="n">g</span> <span class="p">(</span><span class="kt">Just</span> <span class="n">x</span><span class="p">))</span>
+</code></pre></div></div>
+<p>There also examples that a type construct is an instance of a functor but isn’t an actual functor. Consider a data type with a counter which increases by one everytime fmap is applied to it.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">data</span> <span class="kt">CtrMaybe</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">CtrNothing</span>
+                <span class="o">|</span> <span class="kt">CtrJust</span> <span class="kt">Int</span> <span class="n">a</span>
+                <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Show</span><span class="p">)</span>
+
+<span class="kr">instance</span> <span class="kt">Functor</span> <span class="kt">CtrMaybe</span> <span class="kr">where</span> 
+    <span class="n">fmap</span> <span class="kr">_</span> <span class="kt">CtrNothing</span> <span class="o">=</span> <span class="kt">CtrNothing</span>
+    <span class="n">fmap</span> <span class="n">f</span> <span class="o">$</span> <span class="kt">CtrJust</span> <span class="n">ctr</span> <span class="n">x</span> <span class="o">=</span> <span class="kt">CtrJust</span> <span class="o">$</span> <span class="n">ctr</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">$</span> <span class="n">f</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<p>In this case, everytime the <code class="language-plaintext highlighter-rouge">id</code> function is mapped over the structure, the counter has increased by 1, which is not identical to previous one anymore (side effect). Therefore, this is not a functor.</p>
+
+<h2 id="applicative-functors">Applicative Functors</h2>
+<p>In the cases we discussed above, we map a function that takes one paramter and produces one result over an instance of <code class="language-plaintext highlighter-rouge">Functor</code> to yield the exact same wrapper but with the value changed.</p>
+
+<p>What if we have a function that accepts more than one parameter, for example <code class="language-plaintext highlighter-rouge">(+)</code> which takes two <code class="language-plaintext highlighter-rouge">Num</code> type values and add them together.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fmap</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="p">(</span><span class="kt">Just</span> <span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Just</span> <span class="p">(</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="mi">3</span> <span class="p">)</span>
+</code></pre></div></div>
+<p>We have a partially applied function wrapped in <code class="language-plaintext highlighter-rouge">Just</code>~ Let’s think about how we gonna use it. What everyone can simple see is that it is a functor, so one intuitive way of using it is to map a function over it. What can we do to a function with another function, well, simply apply the function in another function that takes a function as parameter.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fmap</span> <span class="p">(</span><span class="nf">\</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="mi">3</span><span class="p">)</span> <span class="n">a</span>
+<span class="c1">-- For value wrapped in a, apply it to value 3</span>
+</code></pre></div></div>
+
+<p>This sounds like trivial, but it does have some fancy usages in Haskell with the <code class="language-plaintext highlighter-rouge">Applicative</code> class.</p>
+
+<p>Suppose that we have two numbers wrapped by a functor, <code class="language-plaintext highlighter-rouge">Just 3</code> and <code class="language-plaintext highlighter-rouge">Just 5</code>, how do we add them together? As we previously discussed, we can use fmap with (+) to produce a functor wrapped function, then map over it with another value.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">fmap</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="p">(</span><span class="kt">Just</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">fmap</span> <span class="p">(</span><span class="nf">\</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="mi">5</span><span class="p">)</span> <span class="n">a</span>
+</code></pre></div></div>
+<p>Well, that looks really bad. You are using two lines of codes and an anonymous function in order for a task as simple as adding two numbers! That’s where <code class="language-plaintext highlighter-rouge">Applicative Functor</code> comes in.</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">Applicative Functor</code>, two new terms are introduced, which are <code class="language-plaintext highlighter-rouge">pure</code> and <code class="language-plaintext highlighter-rouge">&lt;*&gt;</code>. These two terms are not defined by default, the developer who defines the data type should implement them. The <code class="language-plaintext highlighter-rouge">Applicative</code> class can be defined as</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">class</span> <span class="p">(</span><span class="kt">Functor</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">Applicative</span> <span class="n">f</span> <span class="kr">where</span>
+    <span class="n">pure</span> <span class="o">::</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">a</span>
+    <span class="p">(</span><span class="o">&lt;*&gt;</span><span class="p">)</span> <span class="o">::</span> <span class="n">f</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>It’s quite obvious from the class definition is that in order to be an instanve of <code class="language-plaintext highlighter-rouge">Applicative</code>, a variable need to be <code class="language-plaintext highlighter-rouge">Functor</code> first. The <code class="language-plaintext highlighter-rouge">pure</code> function takes a value of any type as parameter and return an applicative functor with the value in it. (Put the value in some sort of default context – a minimal context that still yields the value). The <code class="language-plaintext highlighter-rouge">(&lt;*&gt;)</code> extracts the function from the first functor and map over the second one.</p>
+
+<p>For instance, the <code class="language-plaintext highlighter-rouge">Maybe</code> is a kind of <code class="language-plaintext highlighter-rouge">Applicative Functor</code>, which is defined as</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Applicative</span> <span class="kt">Maybe</span> <span class="kr">where</span>
+    <span class="n">pure</span> <span class="o">=</span> <span class="kt">Just</span>
+    <span class="kt">Nothing</span> <span class="o">&lt;*&gt;</span> <span class="kr">_</span> <span class="o">=</span> <span class="kt">Nothing</span>
+    <span class="kt">Just</span> <span class="n">f</span> <span class="o">&lt;*&gt;</span> <span class="n">something</span> <span class="o">=</span> <span class="n">f</span> <span class="o">&lt;$&gt;</span> <span class="n">something</span>
+</code></pre></div></div>
+
+<p>With normal functor, you can only map a function over a functor without being able to get the result out of it or manipulate it. While <code class="language-plaintext highlighter-rouge">Applicative Functor</code> allows you to operate on several functors with a single function. Look at the following example:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pure</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="o">&lt;*&gt;</span> <span class="kt">Just</span> <span class="mi">3</span> <span class="o">&lt;*&gt;</span> <span class="kt">Just</span> <span class="mi">5</span>
+<span class="kt">Just</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span><span class="p">)</span> <span class="o">&lt;*&gt;</span> <span class="kt">Just</span> <span class="mi">5</span>
+</code></pre></div></div>
+<p>The first line can be aggregated to the second one by paritally apply the plus to <code class="language-plaintext highlighter-rouge">Just 3</code>. Thanks to the unwrapping capability of <code class="language-plaintext highlighter-rouge">&lt;*&gt;</code> function, the wrapped function is easily unwrapped and applied. The good thing is that the second line has almost identical structure with the first one: Partially applying a wrapped function still yields a wrapped function, that why we can easily cascade multiple <code class="language-plaintext highlighter-rouge">&lt;*&gt;</code> functions.</p>
+
+<p>If we generalize the usage of <code class="language-plaintext highlighter-rouge">Applicative Functor</code>, that becomes the following form</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pure</span> <span class="n">f</span> <span class="o">&lt;*&gt;</span> <span class="n">x</span> <span class="o">&lt;*&gt;</span> <span class="n">y</span> <span class="o">&lt;*&gt;</span> <span class="o">...</span>
+</code></pre></div></div>
+<p>Again, the strength of <code class="language-plaintext highlighter-rouge">Applicative Functor</code> over normal <code class="language-plaintext highlighter-rouge">Functor</code> is that it support function with any number of inputs and is able to cascade values in a fairly elegant manner.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">&lt;*&gt;</code> has the pre-condition that the function is wrapped, which is not always necessary, say, if we just want to apply a function to a couple of wrapped values, there is no need to wrap the function up explicitly, that’s why the <code class="language-plaintext highlighter-rouge">Applicative</code> module introduces another function called <code class="language-plaintext highlighter-rouge">&lt;$&gt;</code>, which is exact same as <code class="language-plaintext highlighter-rouge">fmap</code> but has more elegant form when applied.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="o">&lt;$&gt;</span><span class="p">)</span> <span class="o">::</span> <span class="kt">Functor</span> <span class="n">f</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<p>For instance, if we want to apply <code class="language-plaintext highlighter-rouge">(+)</code> to <code class="language-plaintext highlighter-rouge">Just 3</code> and <code class="language-plaintext highlighter-rouge">Just 5</code>, now we can simply write</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="o">&lt;$&gt;</span> <span class="kt">Just</span> <span class="mi">3</span> <span class="o">&lt;*&gt;</span> <span class="kt">Just</span> <span class="mi">5</span>
+</code></pre></div></div>
+<p>which is quite intuitive.</p>
+
+<p>I think that’s some basic knowledge a beginner should know about Haskell before he actually start doing codes. In the following sections, I’ll talk about Haskell <code class="language-plaintext highlighter-rouge">IO</code>, datatypes, monads, something like that.</p>
+
+<h2 id="io">I/O</h2>
+<p>Haskell strictly separate pure codes and non-pure ones, which may cause the world to change. Therefore, a complete isolation of side-effects is provided from the language level, which is a nice feature that helps improve program stability, because many bugs in programs are caused by unanticipated side-effects.</p>
+
+<p>Haskell I/O is a subset of those actions that might have side effect. Here are some examples of I/O functions</p>
+
+<h3 id="io-actions">IO actions</h3>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">putStrLn</span> <span class="o">::</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">IO</span> <span class="nb">()</span>
+<span class="c1">-- This writes out a string to standard output which an end-of-line char</span>
+
+<span class="n">getLine</span> <span class="o">::</span> <span class="kt">IO</span> <span class="kt">String</span>
+<span class="c1">-- This gets a string from the standard input</span>
+</code></pre></div></div>
+
+<p>Anything with <code class="language-plaintext highlighter-rouge">IO Something</code> in it is an IO action, which can be stored in a variable and evaluated later (because they are functions). They can also be glued toghther to form a larger block of action using <code class="language-plaintext highlighter-rouge">do</code>, like this</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myblock</span> <span class="o">=</span> <span class="kr">do</span>
+    <span class="n">putStrLn</span> <span class="s">"Please type something"</span>
+    <span class="n">myStr</span> <span class="o">&lt;-</span> <span class="n">getLine</span>
+</code></pre></div></div>
+
+<p>Any IO action has an underlying data type bound to it, for example, the <code class="language-plaintext highlighter-rouge">getLine</code> function has a <code class="language-plaintext highlighter-rouge">IO String</code> in the type definition, which means it has a <code class="language-plaintext highlighter-rouge">String</code> value bound to it. Using <code class="language-plaintext highlighter-rouge">&lt;-</code> when calling IO actions can get the underlying value and store it in a variable. The value of action block is the value of the last action in that block.</p>
+
+<p>Some actions have <code class="language-plaintext highlighter-rouge">IO ()</code> in their type definitions, which means there is nothing (called ‘unit’) bound to it. The <code class="language-plaintext highlighter-rouge">()</code> is simply an empty tuple, indicating there is nothing (Like <code class="language-plaintext highlighter-rouge">void</code> in C++). Consider following code:</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">let</span> <span class="n">writefoo</span> <span class="o">=</span> <span class="n">putStrLn</span> <span class="s">"foo"</span>
+<span class="n">writefoo</span>
+
+<span class="c1">-- we get foo in console</span>
+</code></pre></div></div>
+<p>We have “foo” printed in the console, but that’s not the value of writefoo statement, instead, that’s caused by the side effect of IO action, which write a string to the standard output handle.</p>
+
+<p>So what the fuck is IO action? Here are the ideas</p>
+<ul>
+  <li>It has the type of <code class="language-plaintext highlighter-rouge">IO t</code> where <code class="language-plaintext highlighter-rouge">t</code> is the data type of the value it yields</li>
+  <li>It is first-class value and can be seamlessly fit into Haskell’s type system</li>
+  <li>It produces side effect when performed (called by something outside the IO context)</li>
+  <li>Performaing IO action yields a value of type associalted to it.</li>
+</ul>
+
+<h3 id="handles-standard-input-output-and-error">Handles, Standard Input, Output and Error</h3>
+<p>File I/O is another kind of IO in Haskell, which differs from standard IO in that File IO operates on file Handles which are get from opening a file.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">openFile</span> <span class="o">::</span> <span class="n">filePath</span> <span class="o">-&gt;</span> <span class="kt">IOMode</span> <span class="o">-&gt;</span> <span class="kt">IO</span> <span class="kt">Handle</span>
+<span class="c1">-- IOMode can be WriteMode, ReadMode, ReadWriteMode, AppendMode</span>
+
+<span class="n">hPutStr</span> <span class="o">::</span> <span class="kt">Handle</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">IO</span> <span class="nb">()</span>
+</code></pre></div></div>
+<p>In order to use it, we simple to the following operations</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myHandle</span> <span class="o">&lt;-</span> <span class="n">openFile</span> <span class="s">"a.txt"</span> <span class="kt">WriteMode</span>
+<span class="n">hPutStr</span> <span class="n">myHandle</span> <span class="s">"This is a string"</span>
+</code></pre></div></div>
+<p>We may find that for each standard IO function, there is a File IO function associated to it, with a ‘h’ at the front of the function name, which is True. In fact, the non-h functions are just the result of partially applying the h functions to a pre-defined handle (Standard IO handles defined in <code class="language-plaintext highlighter-rouge">System.IO</code>). Which is,</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">import</span> <span class="nn">System.IO</span>
+<span class="n">getLine</span> <span class="o">=</span> <span class="n">hGetLine</span> <span class="n">stdin</span>
+<span class="n">putStrLn</span> <span class="o">=</span> <span class="n">hPutStrLn</span> <span class="n">stdout</span>
+<span class="o">...</span>
+</code></pre></div></div>
+<p>Some operating systems let you redirect file handlers to come from or go to different places (files, devices or other programs). For example</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo </span>John | runghc callingpure.hs
+</code></pre></div></div>
+<p>It doesn’t read input from keyboard, instead, it receives the output from echo command.</p>
+
+<h3 id="lazy-io">Lazy IO</h3>
+<p>We know that Haskell is lazy; Variables in Haskell are not evaluated until it is necessary to do so. IO actions also have lazyness to them, One typical example is <code class="language-plaintext highlighter-rouge">hGetContents</code>. This is an IO action which is used to read all the contents in a <code class="language-plaintext highlighter-rouge">Handle</code> in the form of <code class="language-plaintext highlighter-rouge">String</code>. It has type of</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hGetContents</span> <span class="o">::</span> <span class="kt">Handle</span> <span class="o">-&gt;</span> <span class="kt">IO</span> <span class="kt">String</span>
+</code></pre></div></div>
+
+<p>In some other languages, thing such as “reading everything into memory” can crash the program because the file is way too large. In Haskell, this is avoided because of lazy evaluation. Data in the file (<code class="language-plaintext highlighter-rouge">Char</code>s) is only read into memory when they are processed (Like converting to upper case). The data that is nolonger used is automatically collected by Haskell Garbage Collector. The good thing is that Haskell has shielded all these facts from programmers, so the result of <code class="language-plaintext highlighter-rouge">hGetContent</code> is just like a <code class="language-plaintext highlighter-rouge">String</code> from the developers’ point of views. They can pass it to any pure function that takes String as parameter without eating up all the memory.</p>
+
+<p>(If you do need to read the whole file into memory for later use, Haskell is not able to save you.)</p>
+
+<h2 id="associative-behavior-monoid-and-foldable">Associative Behavior, Monoid and Foldable</h2>
+<p>Some of the operations in programming languages has the property of “Associativity”, that is, however you group a sequence of operations, the result remains the same. For example</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">++</span> <span class="p">(</span><span class="n">b</span> <span class="o">++</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">(</span><span class="n">a</span> <span class="o">++</span> <span class="n">b</span><span class="p">)</span> <span class="o">++</span> <span class="n">c</span>
+<span class="c1">-- they are the same</span>
+</code></pre></div></div>
+
+<h3 id="monoid">Monoid</h3>
+<p>A monoid is when you have an associative binary funciton and a corresponding value which acts like an identity with respect to the function. The term “act like an identity with respect to the function” means, when this function is applied to this value and some other value, the result is always that “other value”. That is</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myFunc</span> <span class="n">identity</span> <span class="n">other</span> <span class="o">=</span> <span class="n">other</span>
+</code></pre></div></div>
+<p>For list, the binary function is <code class="language-plaintext highlighter-rouge">++</code> and the identity w.r.t it is <code class="language-plaintext highlighter-rouge">[]</code>, and for <code class="language-plaintext highlighter-rouge">Num</code>, the function can be <code class="language-plaintext highlighter-rouge">+</code> and the identity is <code class="language-plaintext highlighter-rouge">0</code>. So we can define the Monoid as following</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">class</span> <span class="kt">Monoid</span> <span class="n">m</span> <span class="kr">where</span><span class="o">:</span>
+    <span class="n">mempty</span> <span class="o">::</span> <span class="n">m</span>
+    <span class="n">mappend</span> <span class="o">::</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">m</span>
+    <span class="n">mconcat</span> <span class="o">::</span> <span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">m</span>
+    <span class="n">mconcat</span> <span class="o">=</span> <span class="n">foldr</span> <span class="n">mappend</span> <span class="n">mempty</span>
+
+    <span class="c1">-- mempty represent the identity value</span>
+    <span class="c1">-- mappend is associative binary function</span>
+</code></pre></div></div>
+<p>As we can see in the difinition, if something is an instance of <code class="language-plaintext highlighter-rouge">Monoid</code>, it must be a concrete type, because the <code class="language-plaintext highlighter-rouge">m</code> in the definition above does not accept any parameters. For example, it can be <code class="language-plaintext highlighter-rouge">[Int]</code> while <code class="language-plaintext highlighter-rouge">Maybe</code> is not valid.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">mappend</code> function implies that we are append one value to another, but in fact, this is not necessarily true. For example, <code class="language-plaintext highlighter-rouge">*</code> is not appending two things, instead, it’s the product of two Numbers.  <code class="language-plaintext highlighter-rouge">mconcat</code> has a default implementation so there is no need to worry about implementing that.</p>
+
+<h3 id="monoid-laws">Monoid Laws</h3>
+<p>Typically, <code class="language-plaintext highlighter-rouge">Monoid</code> obeys some laws which guarantees that the existance of <code class="language-plaintext highlighter-rouge">Monoid</code> makes sense. Designing the types by carefully checking these laws helps take the advantage of associative behavior of <code class="language-plaintext highlighter-rouge">Monoids</code>, but that’s not compulsury(Haskell doesn’t check that)</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mempty</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+<span class="n">x</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="n">mempty</span> <span class="o">=</span> <span class="n">x</span>
+<span class="p">(</span><span class="n">x</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="n">y</span><span class="p">)</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="n">z</span> <span class="o">=</span> 
+    <span class="n">x</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="p">(</span><span class="n">y</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="n">z</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="lists-are-monoids">Lists are Monoids</h3>
+<p>Intuitively, <code class="language-plaintext highlighter-rouge">List</code>s are Monoids. The definition is</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Monoid</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="kr">where</span>
+    <span class="n">mempty</span> <span class="o">=</span> <span class="kt">[]</span>
+    <span class="n">mappend</span> <span class="o">=</span> <span class="p">(</span><span class="o">++</span><span class="p">)</span>
+</code></pre></div></div>
+<p>If we need to use <code class="language-plaintext highlighter-rouge">mempty</code>, it is necessary to specify the type, for example</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">let</span> <span class="n">a</span> <span class="o">=</span> <span class="n">mempty</span> <span class="o">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+</code></pre></div></div>
+<p>otherwise the GHCi has no way to figure out which instance to use.</p>
+
+<h3 id="other-monoids">Other Monoids</h3>
+<p>As we mentioned above, <code class="language-plaintext highlighter-rouge">+</code> and <code class="language-plaintext highlighter-rouge">*</code> both have associative behaviors which can potentially make <code class="language-plaintext highlighter-rouge">Monoid</code>, but both of operations work on <code class="language-plaintext highlighter-rouge">Num</code>… How do we make an instance of <code class="language-plaintext highlighter-rouge">Num</code> the instance of two <code class="language-plaintext highlighter-rouge">Monoid</code>s at the same time? Sounds wierd, but there is a way of doing this. We introduced <code class="language-plaintext highlighter-rouge">newtype</code> at the very beginning of this article, which wrap a existing type and produce a new type referring to it without suffering from performance loss due to wrapping and unwrapping operation. We can actually wrap a type multiple times to produce different types but with exact same underlying content.</p>
+
+<p>Now we want to make two monoids which supports addition and product, respectively. First of all, we are going to wrap the instance of <code class="language-plaintext highlighter-rouge">Num</code> for two times</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">newtype</span> <span class="kt">Product</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">Product</span> <span class="p">{</span><span class="n">getProduct</span> <span class="o">::</span> <span class="n">a</span><span class="p">}</span>
+<span class="kr">newtype</span> <span class="kt">Sum</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">Sum</span> <span class="p">{</span><span class="n">getSum</span> <span class="o">::</span> <span class="n">a</span><span class="p">}</span>
+
+<span class="kr">instance</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="kt">Monoid</span> <span class="p">(</span><span class="kt">Product</span> <span class="n">a</span><span class="p">)</span> <span class="kr">where</span> 
+    <span class="n">mempty</span> <span class="o">=</span> <span class="kt">Product</span> <span class="mi">1</span>
+    <span class="n">mappend</span> <span class="p">(</span><span class="kt">Product</span> <span class="n">x</span><span class="p">)</span>  <span class="p">(</span><span class="kt">Product</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Product</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="kr">instance</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="kt">Monoid</span> <span class="p">(</span><span class="kt">Sum</span> <span class="n">a</span><span class="p">)</span> <span class="kr">where</span>
+    <span class="n">mempty</span> <span class="o">=</span> <span class="kt">Sum</span> <span class="mi">0</span>
+    <span class="n">mappend</span> <span class="p">(</span><span class="kt">Sum</span> <span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="kt">Sum</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Sum</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1">-- The values wrapped by Product and Sum are extracted using pattern matching</span>
+<span class="c1">-- Product and Sum are instances of Monoid as long as a belongs to type class Num</span>
+</code></pre></div></div>
+
+<p>Maybe can be <code class="language-plaintext highlighter-rouge">Monoid</code> as well. There are multiples ways for <code class="language-plaintext highlighter-rouge">Maybe a</code> to be an isntance of <code class="language-plaintext highlighter-rouge">Monoid</code> as well. This is also done by type wrapping.</p>
+
+<p>One of the intuitive way is to assume the content in Maybe type is a <code class="language-plaintext highlighter-rouge">Monoid</code>, then we can extract the values, apply <code class="language-plaintext highlighter-rouge">mappend</code> to them and wrap them back.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Monoid</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="kt">Monoid</span> <span class="p">(</span><span class="kt">Maybe</span> <span class="n">a</span><span class="p">)</span> <span class="kr">where</span> 
+    <span class="n">mempty</span> <span class="o">=</span> <span class="kt">Nothing</span>
+    <span class="kt">Nothing</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span>
+    <span class="n">m</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="kt">Nothing</span> <span class="o">=</span> <span class="kt">Nothing</span>
+    <span class="kt">Just</span> <span class="n">m1</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="kt">Just</span> <span class="n">m2</span> <span class="o">=</span> <span class="kt">Just</span> <span class="p">(</span><span class="n">m1</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="n">m2</span><span class="p">)</span>
+</code></pre></div></div>
+<p>However, in another cases, the value in Maybe type isn’t necessarily a Monoid, or we have no idea what it is. In this case, there is no way we can rely on behaviors of underlying types. Another simple way of doing this is to discard one of the two params. For instance, we can take the first one if it is <code class="language-plaintext highlighter-rouge">Just something</code>.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">newtype</span> <span class="kt">First</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">First</span> <span class="p">{</span><span class="n">getFirst</span> <span class="o">::</span> <span class="kt">Maybe</span> <span class="n">a</span><span class="p">}</span>
+    <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Show</span><span class="p">,</span> <span class="kt">Ord</span><span class="p">,</span> <span class="kt">Read</span><span class="p">,</span> <span class="kt">Eq</span><span class="p">)</span>
+<span class="kr">instance</span> <span class="kt">Monoid</span> <span class="p">(</span><span class="kt">First</span> <span class="n">a</span><span class="p">)</span> <span class="kr">where</span>
+    <span class="n">mempty</span> <span class="o">=</span> <span class="kt">First</span> <span class="kt">Nothing</span>
+    <span class="kt">First</span> <span class="p">(</span><span class="kt">Just</span> <span class="n">x</span><span class="p">)</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span> <span class="kr">_</span> <span class="o">=</span> <span class="kt">First</span> <span class="p">(</span><span class="kt">Just</span> <span class="n">a</span><span class="p">)</span>
+    <span class="kt">First</span> <span class="kt">Nothing</span> 
+</code></pre></div></div>
+
+<p>First can be used to check if any of the item is not <code class="language-plaintext highlighter-rouge">Nothing</code> when we have a bunch of <code class="language-plaintext highlighter-rouge">Maybe</code> items.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">getFirst</span> <span class="o">.</span> <span class="n">mconcat</span> <span class="o">.</span> <span class="n">map</span> <span class="kt">First</span> <span class="o">$</span> <span class="p">[</span><span class="kt">Nothing</span><span class="p">,</span> <span class="kt">Just</span> <span class="mi">3</span><span class="p">,</span> <span class="kt">Just</span> <span class="mi">4</span><span class="p">]</span>
+<span class="c1">-- Map over the list to wrap everthing into First</span>
+<span class="c1">-- Now we have a list of Monoids</span>
+<span class="c1">-- Apply mconcat to perform aggregation</span>
+<span class="c1">-- Unwrap the type</span>
+</code></pre></div></div>
+
+<h3 id="folding-data-structures-with-monoid">Folding Data Structures with Monoid</h3>
+<p>Many data structures work with fold. For example, we can reduce a list with some function to produce a single value by fold it, or serialize a Tree by folding over it. Therefore in Haskell, Foldable is abstracted to a class that as long as we provide certain implementations, we can fold the data structure. Like <code class="language-plaintext highlighter-rouge">Functor</code> which represents things that can be mapped over, <code class="language-plaintext highlighter-rouge">Foldable</code> represents anything that can be folded up.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Foldable</span><span class="o">.</span><span class="n">foldr</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Foldable</span><span class="o">.</span><span class="kt">Foldable</span> <span class="n">t</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>In order to make a type a <code class="language-plaintext highlighter-rouge">Foldable</code>, we can either implement the <code class="language-plaintext highlighter-rouge">foldr</code> function directly or implement <code class="language-plaintext highlighter-rouge">foldMap</code> and get <code class="language-plaintext highlighter-rouge">foldr</code> for free. The latter approach is usually easier than the former one.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foldMap</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Monoid</span> <span class="n">m</span><span class="p">,</span> <span class="kt">Foldable</span> <span class="n">t</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span> 
+</code></pre></div></div>
+<p>Let’s explain the function. The first paramter is a function that converts a value to Monoid, which is not defined by us. It is passed to <code class="language-plaintext highlighter-rouge">foldMap</code> automatically as long as we decide where and how to join up things. The second argument is the <code class="language-plaintext highlighter-rouge">Foldable</code> with type <code class="language-plaintext highlighter-rouge">a</code>. The function behaves like this:</p>
+
+<ul>
+  <li>It maps the function over <code class="language-plaintext highlighter-rouge">Foldable</code> structure to produce a <code class="language-plaintext highlighter-rouge">Foldable</code> of <code class="language-plaintext highlighter-rouge">Monoid</code>s</li>
+  <li>The values are joined up with <code class="language-plaintext highlighter-rouge">mappend</code> of the <code class="language-plaintext highlighter-rouge">Monoid</code>s</li>
+</ul>
+
+<p>We’ll end the introduction of <code class="language-plaintext highlighter-rouge">Monoid</code> by doing a serialization of binary tree. Which is fiarly simple</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">import</span> <span class="nn">Data.Monoid</span>
+<span class="kr">import</span> <span class="nn">Data.Foldable</span> <span class="k">as</span> <span class="n">F</span>
+
+<span class="c1">-- Define a Tree</span>
+<span class="kr">data</span> <span class="kt">Tree</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">Empty</span>
+            <span class="o">|</span> <span class="kt">Node</span> <span class="n">a</span> <span class="p">(</span><span class="kt">Tree</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="kt">Tree</span> <span class="n">a</span><span class="p">)</span>
+            <span class="kr">deriving</span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span> <span class="kt">Read</span><span class="p">,</span> <span class="kt">Eq</span><span class="p">)</span>
+
+<span class="c1">-- Create an instance for that Tree</span>
+<span class="n">a</span>  <span class="o">=</span> <span class="kt">Node</span> <span class="mi">3</span> <span class="p">(</span><span class="kt">Node</span> <span class="mi">4</span> <span class="p">(</span><span class="kt">Node</span> <span class="mi">5</span> <span class="kt">Empty</span> <span class="kt">Empty</span><span class="p">)</span> <span class="kt">Empty</span><span class="p">)</span> <span class="p">(</span><span class="kt">Node</span> <span class="mi">6</span> <span class="p">(</span><span class="kt">Empty</span><span class="p">)</span> <span class="p">(</span><span class="kt">Node</span> <span class="mi">8</span> <span class="p">(</span><span class="kt">Empty</span><span class="p">)(</span><span class="kt">Empty</span><span class="p">)))</span>
+
+<span class="cm">{-
+    Here we define three wrappers of Tree which indicate three
+    traversal behaviors, Pre-order, Post-order and In-order
+    They have exact same underlying data structure, but slightly 
+    different in folding
+-}</span>
+<span class="kr">newtype</span> <span class="kt">PreOrderTree</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">PreOrderTree</span> <span class="p">{</span><span class="n">getPreOrderTree</span> <span class="o">::</span> <span class="kt">Tree</span> <span class="n">a</span><span class="p">}</span> <span class="kr">deriving</span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span> <span class="kt">Read</span><span class="p">,</span> <span class="kt">Eq</span><span class="p">)</span>
+<span class="kr">newtype</span> <span class="kt">PostOrderTree</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">PostOrderTree</span> <span class="p">{</span><span class="n">getPostOrderTree</span> <span class="o">::</span> <span class="kt">Tree</span> <span class="n">a</span><span class="p">}</span> <span class="kr">deriving</span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span> <span class="kt">Read</span><span class="p">,</span> <span class="kt">Eq</span><span class="p">)</span>
+<span class="kr">newtype</span> <span class="kt">InOrderTree</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">InOrderTree</span> <span class="p">{</span><span class="n">getInOrderTree</span> <span class="o">::</span> <span class="kt">Tree</span> <span class="n">a</span><span class="p">}</span> <span class="kr">deriving</span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span> <span class="kt">Read</span><span class="p">,</span> <span class="kt">Eq</span><span class="p">)</span>
+
+<span class="n">preA</span> <span class="o">=</span> <span class="kt">PreOrderTree</span> <span class="n">a</span>
+<span class="n">postA</span> <span class="o">=</span> <span class="kt">PostOrderTree</span> <span class="n">a</span>
+<span class="n">inA</span> <span class="o">=</span> <span class="kt">InOrderTree</span> <span class="n">a</span>
+<span class="cm">{-
+    Simply define different Folding behaviors for three
+    wrappers. (Different order in recursive traversal)
+-}</span>
+<span class="kr">instance</span> <span class="kt">F</span><span class="o">.</span><span class="kt">Foldable</span> <span class="kt">PreOrderTree</span> <span class="kr">where</span> 
+    <span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">PreOrderTree</span> <span class="kt">Empty</span><span class="p">)</span> <span class="o">=</span> <span class="n">mempty</span>
+    <span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">PreOrderTree</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">x</span> <span class="n">l</span> <span class="n">r</span><span class="p">))</span> <span class="o">=</span> 
+        <span class="n">f</span> <span class="n">x</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span>
+        <span class="kt">F</span><span class="o">.</span><span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">PreOrderTree</span> <span class="n">l</span><span class="p">)</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span>
+        <span class="kt">F</span><span class="o">.</span><span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">PreOrderTree</span> <span class="n">r</span><span class="p">)</span>
+
+<span class="kr">instance</span> <span class="kt">F</span><span class="o">.</span><span class="kt">Foldable</span> <span class="kt">PostOrderTree</span> <span class="kr">where</span> 
+    <span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">PostOrderTree</span> <span class="kt">Empty</span><span class="p">)</span> <span class="o">=</span> <span class="n">mempty</span>
+    <span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">PostOrderTree</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">x</span> <span class="n">l</span> <span class="n">r</span><span class="p">))</span> <span class="o">=</span> 
+        <span class="kt">F</span><span class="o">.</span><span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">PostOrderTree</span> <span class="n">l</span><span class="p">)</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span>
+        <span class="kt">F</span><span class="o">.</span><span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">PostOrderTree</span> <span class="n">r</span><span class="p">)</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span>
+        <span class="n">f</span> <span class="n">x</span> 
+        
+<span class="kr">instance</span> <span class="kt">F</span><span class="o">.</span><span class="kt">Foldable</span> <span class="kt">InOrderTree</span> <span class="kr">where</span>
+    <span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">InOrderTree</span> <span class="kt">Empty</span><span class="p">)</span> <span class="o">=</span> <span class="n">mempty</span>
+    <span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">InOrderTree</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">x</span> <span class="n">l</span> <span class="n">r</span><span class="p">))</span> <span class="o">=</span> 
+        <span class="kt">F</span><span class="o">.</span><span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">InOrderTree</span> <span class="n">r</span><span class="p">)</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span>
+        <span class="n">f</span> <span class="n">x</span> <span class="p">`</span><span class="n">mappend</span><span class="p">`</span>
+        <span class="kt">F</span><span class="o">.</span><span class="n">foldMap</span> <span class="n">f</span> <span class="p">(</span><span class="kt">InOrderTree</span> <span class="n">l</span><span class="p">)</span> 
+
+
+<span class="cm">{-
+    Create an aggregation function that takes a string and 
+    anything which is an instance of Show type class, and 
+    we keep push the string version of it to the base string
+    and return the result
+-}</span>
+<span class="n">serializeApp</span> <span class="o">::</span> <span class="kt">Show</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="n">a</span>  <span class="o">-&gt;</span> <span class="kt">String</span>
+<span class="n">serializeApp</span> <span class="n">cache</span> <span class="n">val</span> <span class="o">=</span> 
+    <span class="n">cache</span> <span class="o">++</span> <span class="p">(</span><span class="n">show</span> <span class="n">val</span><span class="p">)</span>
+
+<span class="c1">-- Do some tests</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">foldl</span> <span class="n">serializeApp</span> <span class="s">""</span> <span class="n">preA</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">foldl</span> <span class="n">serializeApp</span> <span class="s">""</span> <span class="n">postA</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">foldl</span> <span class="n">serializeApp</span> <span class="s">""</span> <span class="n">inA</span>
+</code></pre></div></div>
+
+<p>Note that this is NOT an efficient way of doing Binary Tree serialization… You can see that we defined three types of wrapper and we implemented <code class="language-plaintext highlighter-rouge">foldMap</code> function for each of them, so we end up with 60 lines of code. This is just done to show you some simple usage of <code class="language-plaintext highlighter-rouge">Monoid</code> and <code class="language-plaintext highlighter-rouge">Foldable</code></p>
+
+<p>In the following section, I’ll start discuss <code class="language-plaintext highlighter-rouge">Monad</code>.</p>
+
+<h2 id="monad">Monad</h2>
+<p>Monad is a nature extension of <code class="language-plaintext highlighter-rouge">Applicative</code> in Haskell. Think about this question: If you have a value with context, how would you apply a function that takes a normal value and return a value with context to it? Monad has provided something like that.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;=</span> <span class="o">::</span> <span class="kt">Monad</span> <span class="n">m</span> <span class="o">=&gt;</span> <span class="n">m</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>but how would you feed the value into that function? It’s quite eazy if we just have a normal value <code class="language-plaintext highlighter-rouge">a</code> and a function <code class="language-plaintext highlighter-rouge">a -&gt; b</code>, but when a is wrapped, we need a little bit work around. This is the main question we always think about when we are dealing with <code class="language-plaintext highlighter-rouge">Monads</code>. <code class="language-plaintext highlighter-rouge">Monads</code> are simply <code class="language-plaintext highlighter-rouge">Applicatives</code> that support <code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> operation. This seems to be abstract, let’s start with some concrete types.</p>
+
+<h3 id="maybe-is-a-monad">Maybe is a Monad</h3>
+<p><code class="language-plaintext highlighter-rouge">Maybe a</code> is a value of type <code class="language-plaintext highlighter-rouge">a</code> with potential possibility of failure. When we look at it as a <code class="language-plaintext highlighter-rouge">Functor</code>, what we do is simply mapping the function over the value if it’s <code class="language-plaintext highlighter-rouge">Just sth</code>, otherwize, we get <code class="language-plaintext highlighter-rouge">Nothing</code>. As an <code class="language-plaintext highlighter-rouge">Applicative Functor</code>, pretty much the same story except the function is wrapped in context. 
+<code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> takes in a <code class="language-plaintext highlighter-rouge">Monad</code> value, a function that takes a normal value and give a <code class="language-plaintext highlighter-rouge">Monad</code> value, and return another <code class="language-plaintext highlighter-rouge">Monad</code> value, of which the underlying value is the result of applying the function on value in first parameter.
+In the context of <code class="language-plaintext highlighter-rouge">Maybe</code>, the function is like</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span> <span class="o">::</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>and we apply this function to a <code class="language-plaintext highlighter-rouge">Maybe</code> value with <code class="language-plaintext highlighter-rouge">applyMaybe</code> function.</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">applyMaybe</span> <span class="o">::</span> <span class="kt">Maybe</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="n">b</span>
+<span class="n">applyMaybe</span> <span class="kt">Nothing</span> <span class="kr">_</span> <span class="o">=</span> <span class="kt">Nothing</span>
+<span class="n">applyMaybe</span> <span class="p">(</span><span class="kt">Just</span> <span class="n">a</span><span class="p">)</span> <span class="n">f</span> <span class="o">=</span> <span class="n">f</span> <span class="n">a</span>
+</code></pre></div></div>
+<p>Fairly straightforward, if the first value is <code class="language-plaintext highlighter-rouge">Just something</code>, <code class="language-plaintext highlighter-rouge">f</code> is directly applied to that <code class="language-plaintext highlighter-rouge">something</code> using patter matching. Let’s look at the definition of the class</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">class</span> <span class="kt">Monad</span> <span class="n">m</span> <span class="kr">where</span>
+    <span class="n">return</span> <span class="o">::</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">a</span>
+    <span class="p">(</span><span class="o">&gt;&gt;=</span><span class="p">)</span> <span class="o">::</span> <span class="n">m</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span>
+    <span class="o">&gt;&gt;</span> <span class="o">::</span> <span class="n">m</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span>
+    <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;=</span> <span class="nf">\</span><span class="kr">_</span> <span class="o">-&gt;</span> <span class="n">y</span>
+    <span class="n">fail</span> <span class="o">::</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">a</span>
+    <span class="n">fail</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">error</span> <span class="n">msg</span>
+</code></pre></div></div>
+
+<p>We assume that all <code class="language-plaintext highlighter-rouge">Monads</code> are instances of <code class="language-plaintext highlighter-rouge">Applicative</code> even though there is no explicit requirement in the class definition.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">return</code> function is like <code class="language-plaintext highlighter-rouge">pure</code> we previously used in <code class="language-plaintext highlighter-rouge">Applicative</code>, which wraps a value in the minimum context. For example, <code class="language-plaintext highlighter-rouge">return</code> in IO is used to yield a value without doing anything else. Unlike other languages, return does not end the function, but in many cases, it is placed at the end of <code class="language-plaintext highlighter-rouge">do</code> block. 
+<code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> is like function application except that it takes <code class="language-plaintext highlighter-rouge">Monad</code> values. <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> is merely implemented as it comes with a default implementation. <code class="language-plaintext highlighter-rouge">fail</code> is never used by us explicitly in programs. It’s used by Haskell to enable failure in a special syntactic.</p>
+
+<p>Now let’s look at <code class="language-plaintext highlighter-rouge">Monad</code> definition of <code class="language-plaintext highlighter-rouge">Maybe</code></p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Monad</span> <span class="kt">Maybe</span> <span class="kr">where</span> 
+    <span class="n">return</span> <span class="n">x</span> <span class="o">=</span> <span class="kt">Just</span> <span class="n">x</span>
+    <span class="kt">Nothing</span> <span class="o">&gt;&gt;=</span> <span class="n">f</span> <span class="o">=</span> <span class="kt">Nothing</span>
+    <span class="kt">Just</span> <span class="n">x</span> <span class="o">&gt;&gt;=</span> <span class="n">f</span> <span class="o">=</span> <span class="n">f</span> <span class="n">x</span>
+    <span class="n">fail</span> <span class="kr">_</span> <span class="o">=</span> <span class="kt">Nothing</span>
+</code></pre></div></div>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Just</span> <span class="mi">9</span> <span class="o">&gt;&gt;=</span> <span class="nf">\</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Just</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="o">&gt;</span> <span class="kt">Just</span> <span class="mi">27</span>
+</code></pre></div></div>
+<p>We can see that after we apply some function to a <code class="language-plaintext highlighter-rouge">Just</code> value, it returns another <code class="language-plaintext highlighter-rouge">Just</code> value, which means we can apply more functions and chain them together with <code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> function. Like</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">prod2</span> <span class="o">::</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Just</span> <span class="n">a</span>
+<span class="n">prod2</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">Just</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="kt">Just</span> <span class="mi">2</span> <span class="o">&gt;&gt;=</span> <span class="n">prod2</span> <span class="o">&gt;&gt;=</span> <span class="n">prod2</span> <span class="o">&gt;&gt;=</span> <span class="n">prod2</span>
+
+<span class="o">&gt;</span> <span class="kt">Just</span> <span class="mi">16</span>
+</code></pre></div></div>
+<p>Such feature frees us from writing disgusting nested pattern matchings when we are dealing with chained computations which may potentially produce <code class="language-plaintext highlighter-rouge">Nothing</code>.</p>
+
+<h3 id="lists-as-monads">Lists as Monads</h3>
+<p><code class="language-plaintext highlighter-rouge">List</code> is a great type for representing non-deterministic values. For example, a single integer, like 5, is a deterministic value, because it has a value and we know exactly what it is. While a <code class="language-plaintext highlighter-rouge">List</code>, say [1,2,3], has multiple values in it, but we can still view it as a single value that can be multiple values at the same time. Using <code class="language-plaintext highlighter-rouge">List</code> as <code class="language-plaintext highlighter-rouge">Applicative</code> showcases this non-deterministic nicely. For example</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&lt;$&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;*&gt;</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="o">&gt;</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">12</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>The context of non-deteministic translates to <code class="language-plaintext highlighter-rouge">Monad</code> nicely</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Mondd</span> <span class="kt">[]</span> <span class="kr">where</span>
+    <span class="n">return</span> <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="n">xs</span> <span class="o">&gt;&gt;=</span> <span class="n">f</span> <span class="o">=</span> <span class="n">concat</span> <span class="p">(</span><span class="n">map</span> <span class="n">f</span> <span class="n">xs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> in the code above takes a <code class="language-plaintext highlighter-rouge">Monad</code> value and convert it to another <code class="language-plaintext highlighter-rouge">Monad</code> value with another underlying type, in this case is <code class="language-plaintext highlighter-rouge">List</code> because the output of <code class="language-plaintext highlighter-rouge">f</code> is the same <code class="language-plaintext highlighter-rouge">Monad</code> with first parameter. Therefore, we get a <code class="language-plaintext highlighter-rouge">List</code> of <code class="language-plaintext highlighter-rouge">List</code> after map, that’s why a <code class="language-plaintext highlighter-rouge">concat</code> is applied to it. One concrete example is</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="o">&gt;&gt;=</span> <span class="p">(</span><span class="nf">\</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">x</span><span class="p">])</span>
+
+<span class="o">&gt;</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="monads-are-monoids">Monads are Monoids</h3>
+<p>Before we get into comparing <code class="language-plaintext highlighter-rouge">Monad</code> and <code class="language-plaintext highlighter-rouge">Monoid</code>, we have to take a look at Monad Laws which all the <code class="language-plaintext highlighter-rouge">Monad</code> instances have to obey.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">return</span> <span class="n">a</span> <span class="o">&gt;&gt;=</span> <span class="n">f</span> <span class="o">&lt;=&gt;</span> <span class="n">f</span> <span class="n">a</span> <span class="c1">-- Left identity law</span>
+<span class="n">m</span> <span class="o">&gt;&gt;=</span> <span class="n">return</span> <span class="o">&lt;=&gt;</span> <span class="n">m</span> <span class="c1">-- Right identity law</span>
+<span class="p">(</span><span class="n">m</span> <span class="o">&gt;&gt;=</span> <span class="n">f</span><span class="p">)</span> <span class="o">&gt;&gt;=</span> <span class="n">g</span> <span class="o">&lt;=&gt;</span> <span class="n">m</span> <span class="o">&gt;&gt;=</span> <span class="p">(</span><span class="nf">\</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="n">g</span><span class="p">)</span>
+</code></pre></div></div>
+<p>The rules above looks quite confusing cuz it’s nothing like identity and assiciative shit… But if we re-write the expressions above by introducing a new function <code class="language-plaintext highlighter-rouge">&gt;=&gt;</code></p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="o">&gt;=&gt;</span><span class="p">)</span> <span class="o">::</span> <span class="kt">Monad</span> <span class="n">m</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">b</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">c</span>
+<span class="p">(</span><span class="n">m</span> <span class="o">&gt;&gt;=</span> <span class="n">n</span><span class="p">)</span> <span class="n">x</span> <span class="o">=</span> <span class="kr">do</span>
+                <span class="n">y</span> <span class="o">&lt;-</span> <span class="n">m</span> <span class="n">x</span>
+                <span class="n">n</span> <span class="n">y</span>
+</code></pre></div></div>
+<p>The function <code class="language-plaintext highlighter-rouge">&gt;=&gt;</code> is a function that takes two functions which take a normal value and return a <code class="language-plaintext highlighter-rouge">Monad</code> and return another function which take a normal value and return a <code class="language-plaintext highlighter-rouge">Monad</code>. Then the laws become</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">return</span> <span class="o">&gt;=&gt;</span> <span class="n">g</span> <span class="o">&lt;=&gt;</span> <span class="n">g</span> <span class="c1">-- Left identity law</span>
+<span class="n">f</span> <span class="o">&gt;=&gt;</span> <span class="n">return</span> <span class="o">&lt;=&gt;</span> <span class="n">f</span> <span class="c1">-- right identity law</span>
+<span class="p">(</span><span class="n">f</span> <span class="o">&gt;=&gt;</span> <span class="n">g</span><span class="p">)</span> <span class="o">&gt;=&gt;</span> <span class="n">h</span> <span class="o">&lt;=&gt;</span> <span class="n">f</span> <span class="o">&gt;=&gt;</span> <span class="p">(</span><span class="n">g</span> <span class="o">&gt;=&gt;</span> <span class="n">h</span><span class="p">)</span> <span class="c1">-- Associative law  </span>
+</code></pre></div></div>
+
+<p>It can be easily seen that <code class="language-plaintext highlighter-rouge">return</code> is an identity with respect to the function <code class="language-plaintext highlighter-rouge">&gt;=&gt;</code> and the associative law has been satisfied, which means <code class="language-plaintext highlighter-rouge">Monad</code> is just a <code class="language-plaintext highlighter-rouge">Monoid</code> in the category of endofunctors.</p>
+
+<h2 id="more-on-monads">More on monads</h2>
+
+<h3 id="converting-bind-then-and-do-block">Converting bind, then and do block</h3>
+
+<p>Before get into any further topics, it is necessary to make few things clear, which are then (<code class="language-plaintext highlighter-rouge">&gt;&gt;</code>) bind (<code class="language-plaintext highlighter-rouge">&gt;&gt;=</code>) and <code class="language-plaintext highlighter-rouge">do</code> block.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> operator is quite straight forward. It is defined as</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="o">&gt;&gt;</span><span class="p">)</span> <span class="o">::</span> <span class="kt">Monad</span> <span class="n">m</span> <span class="o">=&gt;</span> <span class="n">m</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>This works almost identically as do block as</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">do</span> 
+    <span class="n">action1</span>
+    <span class="n">action2</span>
+    <span class="n">action3</span>
+</code></pre></div></div>
+<p>is equivalent to</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">action1</span> <span class="o">&gt;&gt;</span> <span class="n">action2</span> <span class="o">&gt;&gt;</span> <span class="n">action3</span>
+</code></pre></div></div>
+<p>is also equivalent to</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">action1</span> <span class="o">&gt;&gt;</span>
+<span class="kr">do</span> <span class="p">{</span>
+    <span class="n">action2</span>
+    <span class="n">action3</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> is little bit more complicated to be translated. It is defined as</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="o">&gt;&gt;=</span><span class="p">)</span> <span class="o">::</span> <span class="kt">Monad</span> <span class="n">m</span> <span class="o">=&gt;</span> <span class="n">m</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">m</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">do</code> block expression</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">do</span> <span class="p">{</span>
+    <span class="n">x1</span> <span class="o">&lt;-</span> <span class="n">action1</span>
+    <span class="n">x2</span> <span class="o">&lt;-</span> <span class="n">action2</span>
+    <span class="n">action3</span> <span class="n">x1</span> <span class="n">x2</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>is equivalent to</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">action1</span>
+    <span class="o">&gt;&gt;=</span> 
+        <span class="p">(</span><span class="nf">\</span> <span class="n">x1</span> <span class="o">-&gt;</span> <span class="n">action2</span>
+            <span class="o">&gt;&gt;=</span> <span class="p">(</span>
+                <span class="nf">\</span> <span class="n">x2</span> <span class="o">-&gt;</span> <span class="n">action3</span> <span class="n">x1</span> <span class="n">x2</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+</code></pre></div></div>
+<p>What <code class="language-plaintext highlighter-rouge">bind</code> doe is taking the <code class="language-plaintext highlighter-rouge">Monad</code> from left hand side and apply an action that take a value and produce a <code class="language-plaintext highlighter-rouge">Monad</code> to it. In the example above, the result of <code class="language-plaintext highlighter-rouge">action1</code> and <code class="language-plaintext highlighter-rouge">action2</code> are eventually passed to <code class="language-plaintext highlighter-rouge">action3</code> by 2 binding operations. In <code class="language-plaintext highlighter-rouge">do</code> block mode, we don’t care much about data types when chaining functions, instead, we just focus on the data itself, pretty much like imperative programming.</p>
+
+<h3 id="where-the-fuck-are-we-right-now">Where the fuck are we right now?</h3>
+
+<p>In previous sections we have mobbed with Monad, which provides a way of applying a function that takes a plain value and return wrapped value to a wrapped value with <code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> operator. We have seen the <code class="language-plaintext highlighter-rouge">do</code> notation which helps us focusing on the value without worry about handling the context (Sequential IO operations). We have looked at how <code class="language-plaintext highlighter-rouge">Maybe Monad</code> models the behavior of possible computational failure and how <code class="language-plaintext highlighter-rouge">List Monad</code> provides an abstraction of non-determinism. In this section, we are going to explore a little bit more in <code class="language-plaintext highlighter-rouge">Monads</code> by looking at few more examples.</p>
+
+<h3 id="state-monad">State Monad</h3>
+
+<p><code class="language-plaintext highlighter-rouge">State Monad</code> is useful for stateful computations which need to thread information throughtout the execution. it allows such information to be transparently passed around a computation, accessed and replaced when needed. It addresses the problem of stateful computation while keeping everything pure and simple.</p>
+
+<p>A stateful computation is denoted as</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">h</span> <span class="o">::</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+</code></pre></div></div>
+<p>where s is the type of state and a is the type of the result of this computation. <code class="language-plaintext highlighter-rouge">State</code> is defined such that</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">newtype</span> <span class="kt">State</span> <span class="n">s</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">State</span> <span class="p">{</span><span class="n">runState</span> <span class="o">::</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">s</span><span class="p">)}</span>
+</code></pre></div></div>
+<p>The Monad definition is</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">instance</span> <span class="kt">Monad</span> <span class="p">(</span><span class="kt">State</span> <span class="n">s</span><span class="p">)</span> <span class="kr">where</span>
+    <span class="n">return</span> <span class="n">x</span> <span class="o">=</span> <span class="kt">State</span> <span class="o">$</span> <span class="nf">\</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="p">(</span><span class="kt">State</span> <span class="n">h</span><span class="p">)</span> <span class="o">&gt;&gt;=</span> <span class="n">f</span> <span class="o">=</span> <span class="kt">State</span> <span class="o">$</span> <span class="nf">\</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="kr">let</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">newState</span><span class="p">)</span> <span class="o">=</span> <span class="n">h</span> <span class="n">s</span>
+                                        <span class="p">(</span><span class="kt">State</span> <span class="n">g</span><span class="p">)</span> <span class="o">=</span> <span class="n">f</span> <span class="n">a</span>
+                                        <span class="kr">in</span> <span class="n">g</span> <span class="n">newState</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">return</code> function simply provide a minimum context for the value <code class="language-plaintext highlighter-rouge">x</code>, which is a stateful computation which return <code class="language-plaintext highlighter-rouge">x</code> as a result without changing the state.</p>
+
+<p><code class="language-plaintext highlighter-rouge">&gt;&gt;=</code>: The result of feeding a stateful computation to a function with <code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> is a stateful computation with different underlying value (That’s what <code class="language-plaintext highlighter-rouge">Monad</code> does). Let’s look at those components in <code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> defininition:</p>
+
+<ul>
+  <li>What the fuck is <code class="language-plaintext highlighter-rouge">State h</code> ? <code class="language-plaintext highlighter-rouge">State h</code> is actually a <code class="language-plaintext highlighter-rouge">State</code> wrapper for h with <code class="language-plaintext highlighter-rouge">newtype</code> definition, where <code class="language-plaintext highlighter-rouge">h</code> is a stateful computation function with type
+    <div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">h</span> <span class="o">::</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>What the fuck is <code class="language-plaintext highlighter-rouge">f</code> ? <code class="language-plaintext highlighter-rouge">f</code> is a function that takes a plain value <code class="language-plaintext highlighter-rouge">a</code> and returns a stateful computation wrapped by <code class="language-plaintext highlighter-rouge">State</code>.
+    <div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span> <span class="o">::</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">State</span> <span class="n">s</span> <span class="n">a</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>What the fuck happens?</p>
+
+    <p><img src="/Haskell/img/state_h.png" alt="" /></p>
+
+    <p>Look at this fucking diagram. It is actually the visualization of the <code class="language-plaintext highlighter-rouge">Static h</code> in the definition above. The directed graph in the box is the stateful computation function which is wrapped. What it does in the definition is that the <code class="language-plaintext highlighter-rouge">h</code> is extrated using pattern matching and applied to the input state <code class="language-plaintext highlighter-rouge">s</code> to get a new state, which is <code class="language-plaintext highlighter-rouge">s'</code>  in the graph above. Then the <code class="language-plaintext highlighter-rouge">f</code> after <code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> is applied to the value get from the output of <code class="language-plaintext highlighter-rouge">h</code> and end up with another stateful computation <code class="language-plaintext highlighter-rouge">g</code>, which is them applied to new state. Just like following diagram.</p>
+
+    <p><img src="/Haskell/img/statemonad.jpg" alt="" /></p>
+
+    <p>This diagram shows 2 sequential applications of <code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> for a state monad, which is like:</p>
+
+    <div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">State</span> <span class="n">h</span> <span class="o">&gt;&gt;=</span> <span class="n">f1</span> <span class="o">&gt;&gt;=</span> <span class="n">f2</span>
+</code></pre></div>    </div>
+    <p>It can be seen that no matter how many functions are applied to it, it’s always in the form of taking a state and return a new state along with a value.</p>
+  </li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">Control.Monad.State</code> module also provides a type class called <code class="language-plaintext highlighter-rouge">MonadState</code> with two useful functions, which are <code class="language-plaintext highlighter-rouge">get</code> and <code class="language-plaintext highlighter-rouge">put</code>. The <code class="language-plaintext highlighter-rouge">get</code> is defined as</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">get</span> <span class="o">=</span> <span class="kt">State</span> <span class="o">$</span> <span class="nf">\</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+</code></pre></div></div>
+<p>which returns the <code class="language-plaintext highlighter-rouge">State</code> with current state as its value. The <code class="language-plaintext highlighter-rouge">put</code> is defined as</p>
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">put</span> <span class="n">newState</span> <span class="o">=</span> <span class="kt">State</span> <span class="o">$</span> <span class="nf">\</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">()</span><span class="p">,</span> <span class="n">newState</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>But how does these shits work in an imperative looking do block with <code class="language-plaintext highlighter-rouge">State Monad</code>? If we look at the definition of <code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> for <code class="language-plaintext highlighter-rouge">State Monad</code>, the chained function actually apply to the value of previous result and return a stateful computation that is applied to previous state. This means that things chained after <code class="language-plaintext highlighter-rouge">get</code> function are going to use the value returned by the function wrapped by <code class="language-plaintext highlighter-rouge">get</code>, in this case, the value is current state. The put is pretty much similar. Functions chained after put will see the new state set by the <code class="language-plaintext highlighter-rouge">put</code> function.</p>
+
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

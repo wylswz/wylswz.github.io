@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Revision | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Revision" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/CloudComputing/CCC.html" />
+<meta property="og:url" content="http://localhost:4000/CloudComputing/CCC.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Revision" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Revision","url":"http://localhost:4000/CloudComputing/CCC.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="revision">Revision</h1>
+
+<h2 id="history-of-cloud-computing">History of Cloud Computing</h2>
+
+<ul>
+  <li>Internet</li>
+  <li>Standards (Services, protocols, inter-operability, …)</li>
+  <li>More standards
+    <ul>
+      <li>Open distributed processing</li>
+      <li>less rigorous compliance demands</li>
+      <li>Distributed computing environments</li>
+    </ul>
+  </li>
+  <li>Mid 90s: focus on transparency and heterogeneity of computer-computer interaction</li>
+  <li>1993: Enter web era</li>
+  <li>P2P processing</li>
+  <li>Grid computing
+    <ul>
+      <li>Information systems (available resources like servers, CPU, memory, storage, queue, OS, …)</li>
+      <li>Monitoring and discovery systems (Status of these resources)</li>
+      <li>Job scheduling/resource brokering</li>
+      <li>Virtual organization support</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="parallelization-l3">Parallelization (L3)</h2>
+
+<h3 id="computation-scaling-up">Computation Scaling Up</h3>
+<ul>
+  <li><strong>Single machine multiple cores</strong></li>
+  <li><strong>Loosely coupled cluster</strong>
+    <ul>
+      <li>Web services, Condor, Seto@home, Boinc</li>
+    </ul>
+  </li>
+  <li><strong>Tightly coupled cluster of machines</strong>
+    <ul>
+      <li>HPC/HTC (SPARTAN, NCI, …)</li>
+    </ul>
+  </li>
+  <li><strong>Widely distributed clusters of machines</strong></li>
+  <li><strong>Hybrid combinations of above</strong></li>
+</ul>
+
+<h3 id="amdahls-law">Amdahl’s Law</h3>
+
+<p>$T(1) = \sigma + \pi$</p>
+
+<p>$T(N) = \sigma + \frac{\pi}{N}$</p>
+
+<p>$S = \frac{T(1)}{T(N)} \approx \frac{1}{\alpha}$</p>
+
+<p>This over simplifies the problem, because the overhead replicates in parallelization</p>
+
+<h3 id="gustafson-barsiss-law">Gustafson-Barsis’s Law</h3>
+<p>$T(1) = \sigma + N\pi$
+$T(N) = \sigma + \pi$</p>
+
+<p>where $\pi$ is fixed parallel time per process and $\alpha$ is fraction of running time sequential program spends on parallel part
+$\frac{\pi}{\sigma} = \frac{1-\alpha}{\alpha}$</p>
+
+<p>$S(N) = \alpha + N(1-\alpha) = N - \alpha(N-1)$</p>
+
+<h3 id="computer-architectures">Computer Architectures</h3>
+
+<ul>
+  <li><strong>Single Instruction, Single Data stream(SISD)</strong>
+    <ul>
+      <li>Sequential computer</li>
+      <li>Single CPU fetch instruction, CPU generate appropriate control signals to direct single processing element to operate on single data stream</li>
+    </ul>
+  </li>
+  <li><strong>Single Instruction, Multiple Data stream (SIMD)</strong>
+    <ul>
+      <li>multiple processing elements that perform the same operation on multiple data simultaneously</li>
+      <li>Focus on data level parallelism.</li>
+      <li>Many moder computers use SIMD instructions, e.g., to improve performance of multimedia use such as for image processing</li>
+    </ul>
+  </li>
+  <li><strong>Multiple Instruction, Single Data stream (MISD)</strong>
+    <ul>
+      <li>Parallel computing arch. Many functional units perform different operations on same dataset</li>
+      <li>Fault tolerant computer architecture, running multiple error checking processes on same data stream</li>
+    </ul>
+  </li>
+  <li><strong>Multiple Instruction, Multiple Data stream</strong>
+    <ul>
+      <li>Number of processors that function asynchronously and independently</li>
+      <li>At any time, different processors may be executing different instructions on different pieces of data</li>
+      <li>Machines can be shared memory or distributed memory categories</li>
+      <li>Most systems these days operate on MIMD</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="types-of-parallelisms">Types of parallelisms</h3>
+<p><strong>Implicit parallelism</strong> means
+parallel languages and parallelizing compilers that take care of identifying parallelism, the scheduling of calculations and placement of data. This is quite hard to do though.</p>
+
+<p><strong>Explicit parallelism</strong> requires the programmer to take effort of parallelization, like mapping tasks to processors and inter-process communications. This approach assumes user is the best judge of how parallism can be exploited for a particular application.</p>
+
+<h3 id="hardware-parallelism-level">Hardware parallelism level</h3>
+<p>In hardware threading CPU, extra control units are added to allow more instructions to be processed per cycle. They usually share arithmetic units, so heavy use of one type of computation can tie up the available units of the CPU preventing other threads from using them.</p>
+
+<p>Multi-core CPU can perform computational tasks in parallel in principle. The Control units have indenpendant arithmatic units but share cache.</p>
+
+<p>Symmetric Multiprocessing means two or more identical processors connected to a single shared main memory, with full access to all I/O devices, controlled by a single OS that treats all processors equally. It’s more complex to program since need to program both CPUs and inter-processor communications.</p>
+
+<p>Non-Uniform Memory Access provides speed up by allowing a processor to access its local memory faster than non-local memory. As long as data are localized, performance is improved.</p>
+
+<h3 id="software-parallelism-approaches">Software Parallelism Approaches</h3>
+
+<p>Most languages support parallelization features like Threads, Pools, Lock, Semaphores. There are some key issues that need to be tackled. Deadlock (Process constantly wait for each other), Livelock (Processes involved in livelock constantly change with regard to one another, but none are progressing)</p>
+
+<p>Message passing interface (MPI) is widely adoped approach for message passing in parallel system. Key MPI functions include MPI_Init, MPI_Finalize, MPI_COMM_SIZE, MPI_COMM_RANK, MPI_SEND, MPI_RECV, … It supports both point to point and broadcast communications.</p>
+
+<p>(HT)Condor It is a specialized workload management system for compute-intensive jobs. It offers job queueing mechanisms, scheduling policies, priority schemes, resource monitoring/management. Users submit jobs to Condor and it chooses when and where to run the job, monitors their progress and informs the user upon completion. There no need for shared file system across machines, data can be staged to machines as needed.</p>
+
+<h3 id="facts-about-distributed-systems">Facts about Distributed Systems</h3>
+<ul>
+  <li>Network is unreliable</li>
+  <li>Latency</li>
+  <li>Limited Bandwidth</li>
+  <li>Network is insecure</li>
+  <li>Topology changes</li>
+  <li>Transport cost</li>
+  <li>Heterogeneous networks</li>
+  <li>Time is not synchronized</li>
+</ul>
+
+<h3 id="how-to-design-a-parallel-system">How to design a parallel system?</h3>
+
+<ul>
+  <li><strong>Partitioning</strong>: Decomposition of computational activities and data into smaller tasks.</li>
+  <li><strong>Communication</strong>: <strong>Flow</strong> of information and <strong>coordination</strong> among tasks that are created in the partitioning stage.</li>
+  <li><strong>Agglomeration</strong>:
+    <ul>
+      <li>Tasks and communication structure created in the above stages are evaluated for performance and implement cost</li>
+      <li>Tasks may be grouped into larger tasks to improve comm</li>
+      <li>Individual comm can be bundled</li>
+    </ul>
+  </li>
+  <li><strong>Mapping</strong>: Assigning tasks to processors such that job completion time is minimized and resource utilization is maximized.</li>
+</ul>
+
+<p>In master-slave model, master decomposes the problem into small tasks and distributes to workers and gather partial results to produce final result.</p>
+
+<h3 id="shared-memory-parallelism-mp">Shared memory parallelism (MP)</h3>
+<p>Multi-threading is one type of shared memory parallelism. A master forks a number of sub threads and diveide tasks between them. One implementation is OpenMP, which is limited to single instance.</p>
+
+<h3 id="distributed-memory-parallelism-mpi">Distributed memory parallelism (MPI)</h3>
+<p>Programs are parallelized by sending messages between processes. Some functions in MPI are:</p>
+<ul>
+  <li><strong>Bcast</strong>: Broadcast same piece of data to all processes</li>
+  <li><strong>Scatter</strong>: Send a part of data from one process to all the processes (each process get different pieces of data)</li>
+  <li><strong>Gather</strong>: Gather data from all processes</li>
+  <li><strong>Reduce</strong>: Perform a reduce operation, return the result to root.</li>
+</ul>
+
+<h3 id="parallism-patterns">Parallism Patterns</h3>
+<ul>
+  <li><strong>Master-Slave</strong>: Master decomposes problem to smaller tasks, distribute them to workers and gather the results. Many ways to do it: Threading, Web service workflow …</li>
+  <li><strong>Single Process Multiple Data</strong>: Each process executes same piece of code but on different parts of data. Data is splitted among available processors</li>
+  <li><strong>Data Pipelining</strong>: Includ multiple stages of execution, that typically operate on large number of dataset</li>
+  <li><strong>Divide &amp; Conquer</strong>: Divide problem into sub-problems which can be independently solved. Master-worker is like divide &amp; conquer with master doing split and join operation.</li>
+  <li><strong>Look ahead execution</strong>: C depends on P for some output value V,  then C predict V. If that’s correct, there’s a performance gain, otherwise restart the task with correct V.</li>
+</ul>
+
+<h2 id="cluster-computing-l4">Cluster Computing (L4)</h2>
+
+<h3 id="concepts">Concepts</h3>
+<p>Supercomputer is a single computer system that has exceptiona; processing power for its time. One metric is the number of floating-point operation per second (FLOPS).</p>
+
+<p>High-performance computing (HPC) is any computer system whose architecture allows for above average performance.</p>
+
+<p>Clustered computing is when two or more computers servce a single resource (improved performance and redundancy). A collection of smaller computers strapped together with a high-speed local network.</p>
+
+<p>Research computing is the software application used by research comminity to aod research. THis skill gap is a major problem and must be addresed because as datasets grow, the researchers will need to able to process the data.</p>
+
+<h3 id="hpc">HPC</h3>
+
+<p>The HPC cluster architecture is like this
+<img src="/CloudComputing/L4/HPC_arch.png" alt="" />
+Queueing system and scheduler are placed at management node whiel user access are via logon node.</p>
+
+<p>Supercomputers use Linux because:</p>
+<ul>
+  <li>Powerful and efficient command-line interface</li>
+  <li>Scalable</li>
+  <li>Reliable</li>
+  <li>Free and open source system and software</li>
+  <li>Compile open source software</li>
+</ul>
+
+<h2 id="cloud-l5">Cloud (L5)</h2>
+
+<h3 id="definition">Definition</h3>
+<p>Cloud computing is a model for enabling ubiqutous convenient, on demand network access to a pool of configurable computing resources that can be repidly provisioned and released with minimal management effort and provider interaction. Cloud computing has following characteristics:</p>
+<ul>
+  <li>On-demand self-service</li>
+  <li>Broad network access</li>
+  <li>Resource pooling</li>
+  <li>Rapid elasticity</li>
+  <li>Measured service</li>
+</ul>
+
+<h3 id="how-to-attach-a-volume">How to attach a volume</h3>
+<ul>
+  <li>Create mounting point in fs</li>
+  <li>Format the volume (for nectar cloud, it’s in /dev/vdb)</li>
+  <li>Mount the volume to the mounting point</li>
+</ul>
+
+<h3 id="public-cloud">Public cloud</h3>
+<p>Pros:</p>
+<ul>
+  <li>Cost efficient</li>
+  <li>Focus on core business</li>
+  <li>Right sizing</li>
+  <li>Democratisation of computing</li>
+</ul>
+
+<p>Cons</p>
+<ul>
+  <li>Security</li>
+  <li>Loss of control</li>
+  <li>Lock in</li>
+  <li>Depends on cloud provider</li>
+</ul>
+
+<h3 id="private-cloud">Private cloud</h3>
+<p>Pros:</p>
+<ul>
+  <li>More control</li>
+  <li>Secure</li>
+  <li>Consolidation of resource</li>
+  <li>Trust</li>
+</ul>
+
+<p>Cons:</p>
+<ul>
+  <li>Management &amp; maintenance overhead</li>
+  <li>Relevant to core business&gt;?</li>
+  <li>Hardware obsolescence</li>
+  <li>Over/under utilization</li>
+</ul>
+
+<h3 id="hybrid-cloud">Hybrid Cloud</h3>
+
+<p>Pros:</p>
+<ul>
+  <li>Cloud-bursting: Use private cloud but burst into public cloud when needed</li>
+</ul>
+
+<p>Cons:</p>
+<ul>
+  <li>How do you move data</li>
+  <li>Decide what data go to public</li>
+</ul>
+
+<h3 id="automation">Automation</h3>
+<ul>
+  <li>Config &amp; manage computers and make them reach a desired state</li>
+  <li>Provide a record what you did</li>
+  <li>Codifies knowledge about the system</li>
+  <li>Make process repeatable</li>
+  <li>Makes it programmable</li>
+</ul>
+
+<h2 id="web-service-l6">Web Service (L6)</h2>
+
+<h3 id="soa-service-oriented-architecture">SOA (Service-Oriented Architecture)</h3>
+
+<p>Design principles:</p>
+<ul>
+  <li><strong>Standardized Service Contract</strong>: Services adhere to a communication aggrement</li>
+  <li><strong>Loose Coupling</strong>: Minimized dependency; Only maintain an awareness of each other</li>
+  <li><strong>Abstraction</strong>: The information published is limited to what is required to effectively utilize the service.</li>
+  <li><strong>Encapsulation</strong>: Hidden inner work</li>
+  <li><strong>Reusability</strong>: Logic is divided into services for reuse</li>
+  <li><strong>Autonomy</strong>: Service cannot contain logics that depends on anything external.</li>
+  <li><strong>Statelessness</strong>: Separate services with their state data whenever possible. Data management delegated to separated service.</li>
+  <li><strong>Discoverablility</strong>: Communicative meta-data by which they can be discovered/interpreted</li>
+  <li><strong>Composability</strong>: Services are effective compisition participants, regardless size/complexity</li>
+  <li><strong>Granularity</strong>: Services are at right ganular level</li>
+  <li><strong>Normalization</strong>: Minimized redundancy (by decompising/consolidation)</li>
+  <li><strong>Service Optimization</strong>: Prefer high quality specific purpose services over low quality general purpose ones</li>
+  <li><strong>Service Relevance</strong>: At a ganular level such that it’s meaningful to users</li>
+</ul>
+
+<h3 id="soap-vs-rest">SOAP vs ReST</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>SOAP</th>
+      <th>ReST</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Built upon RPC</td>
+      <td>About resources and the way they can be manipulated remotely</td>
+    </tr>
+    <tr>
+      <td>Stack of protocols that covers every aspect of using a remote service</td>
+      <td>A style of using HTTP</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="wsdl-web-service-description-language">WSDL (Web service description language)</h3>
+<ul>
+  <li>XML based, machine readable</li>
+  <li>Key components
+    <ul>
+      <li><strong>Definition</strong>: what it does?</li>
+      <li><strong>Target Namespace</strong>: context of naming</li>
+      <li><strong>Data Types</strong>: Data structure of input/output</li>
+      <li><strong>Messages</strong>: Messages &amp; structures exchanged between client/server</li>
+      <li><strong>Port type</strong>: Encapsulate input/output messages into one logical operation(abstract)</li>
+      <li><strong>Bindings</strong>: bind operations to port types (Concrete operatiosn)</li>
+      <li><strong>Service</strong>: Name of service</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="rest-design-best-practice">ReST design best practice</h3>
+<ul>
+  <li>Short URI</li>
+  <li>URI discovered by following links, instead of constructed by clients</li>
+  <li>Use nouns instead of verbs</li>
+  <li>Use links in response</li>
+  <li>Minimize query string</li>
+  <li>Use HTTP status code</li>
+</ul>
+
+<h3 id="rest-principles">ReST principles</h3>
+<ul>
+  <li>Addressability</li>
+  <li>Uniform interface</li>
+  <li>Resources and representations instead of RPC</li>
+  <li>HATEOAS</li>
+</ul>
+
+<h3 id="uniform-interface">Uniform interface</h3>
+<ul>
+  <li>All important resources are identified by one resource identifier mechanism</li>
+  <li>Resource has different representations (application/json, text/html, …)</li>
+  <li>Requests contain headers describing how the content should be processed</li>
+</ul>
+
+<h3 id="hateoas-hyper-media-as-the-engine-of-app">HATEOAS (Hyper Media As the Engine of App)</h3>
+<ul>
+  <li>Link to identify resources</li>
+  <li>Navigate through resources</li>
+  <li>Navigate instead of calling</li>
+</ul>
+
+<h3 id="rest-20">ReST 2.0</h3>
+<ul>
+  <li>Everything as a service</li>
+  <li>Vast number of entities and services</li>
+  <li>Link services to create workflows</li>
+  <li>Extend API to web Apps</li>
+  <li>API Hub to facilitate the sharing and usage of service among developers, users, …</li>
+</ul>
+
+<h3 id="safeidempotent-methods">Safe/Idempotent methods</h3>
+<p>A method is safe if does not change anything. (N calls == 0 call). A method is idempotent if (N calls = 0 call)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Safety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GET, OPTION, HEAD</td>
+      <td>Safe</td>
+    </tr>
+    <tr>
+      <td>PUT, DELETE</td>
+      <td>Idempotent</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>Neither</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="virtualization-vs-containerization">Virtualization vs Containerization</h3>
+<p>Virtualization has advantages like containment and horizontal scalability, but requires more resources. Guest OS and binaries might be duplicated, wasting resources.</p>
+
+<p>Containerization allows virtual instances to share a single host OS, binaries, drivers and libraries to reduce waste.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Paraleter</th>
+      <th>VM</th>
+      <th>Container</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Guest OS</td>
+      <td>Has their own kernel</td>
+      <td>Share same kernel</td>
+    </tr>
+    <tr>
+      <td>Comm</td>
+      <td>Eth</td>
+      <td>Pipes, sockets</td>
+    </tr>
+    <tr>
+      <td>Security</td>
+      <td>Depends on Hypervisor</td>
+      <td>Requires close scrutiny</td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td>Small overhead when translating instructions</td>
+      <td>Near native</td>
+    </tr>
+    <tr>
+      <td>Isolation</td>
+      <td>FS and lib not shared</td>
+      <td>Shared lib, fs can be shared</td>
+    </tr>
+    <tr>
+      <td>Startup</td>
+      <td>Slow</td>
+      <td>Fast</td>
+    </tr>
+    <tr>
+      <td>Storage</td>
+      <td>Large</td>
+      <td>Small</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="container-orchestration">Container Orchestration</h3>
+<p>Manage containers at scale</p>
+
+<p>Features:</p>
+<ul>
+  <li>Networking</li>
+  <li>Scaling</li>
+  <li>Service discovery and load balancing</li>
+  <li>Health check and self-healing</li>
+  <li>Security</li>
+  <li>Rolling updates</li>
+</ul>
+
+<p>Goals</p>
+<ul>
+  <li>Simplify container management process</li>
+  <li>Help manage availability and scaling</li>
+</ul>
+
+<h3 id="docker">Docker</h3>
+<p>It uses resource isolation features of Linux Kernel to allow independent containers to run within a single Linux instance. Can also be installed on Macos and windows, integrated with Hypervisor in maxOS and Hyper-V in windows.</p>
+
+<p>Data can be persisted when container is deleted using docker volumes or bind mounts. Docker volumes are managed by docker, in <code class="language-plaintext highlighter-rouge">/var/lib/docker/volumes</code>, while bindmount is managed by user.</p>
+
+<h2 id="big-data-l7">Big Data (L7)</h2>
+<p>4 Vs</p>
+<ul>
+  <li><strong>Volume</strong></li>
+  <li><strong>Velocity</strong></li>
+  <li><strong>Veracity</strong></li>
+  <li><strong>Variety</strong></li>
+</ul>
+
+<p>Why use document-oriented DBMS for big data?</p>
+
+<p>Relational database model implied fine-grained data, which are less conductive to partition-tolerance than coarse-grained data.</p>
+
+<h3 id="mongodb-vs-couchdb">MongoDB vs CouchDB</h3>
+
+<p>CouchDB cluster is simpler, more available. Accepts HTTP requests. All the nodes accept requests. If data unavailable, it fetch from other node and return to user.</p>
+
+<p>CouchDB cluster uses MVCC, while MongoDB uses a mix of two-phase commit for consistency and Paxos-like algorithm for leader election.</p>
+
+<p>When a CouchDB cluster is partitioned and two nodes receive two different updates of the same document, two different revisions are added. However, only one of these is returned as the current version.</p>
+
+<p><img src="/CloudComputing/L7/couch.png" alt="CouchDB Architecture" /></p>
+
+<p>When partitioning happens in MongoDB which separate a primary into a partition with a minority of nodes, when primary detects that it can only see a minority of nodes, it steps down and a members in majority oartition holds election to become the new primary</p>
+
+<p>MongoDB clusters are more complex, more consistent and less available. The sharding is on the replicaset level. Routers must be embedded in application servers. Only master node accept queries (depending on configurations)</p>
+
+<p><img src="/CloudComputing/L7/mongo.png" alt="MongoDB Architecture" /></p>
+
+<h3 id="couchdb-views">CouchDB Views</h3>
+<ul>
+  <li>Definition of MapReduce jobs that are updated as new data comes in</li>
+  <li>Grouped into design documetns</li>
+  <li>Passed the level of aggregation</li>
+  <li>May return only a subset of keys</li>
+  <li>Computed once they’re called. Update everytime document changed</li>
+  <li>Persist on disk. Adding entire doc in view uses a lot of disk space</li>
+  <li>Add type to docs to make it handier</li>
+  <li>Not influenced by system state</li>
+  <li>Ensures consistency of result</li>
+</ul>
+
+<h3 id="cap-theorem">CAP theorem</h3>
+<ul>
+  <li><strong>Consistency</strong>: Every client receives the same answer from all nodes in the cluster.</li>
+  <li><strong>Availability</strong>: Every client receives an answer from any node in cluster</li>
+  <li><strong>Partition-tolerance</strong>: The cluster keeps on operating when one or more nodes cannot communicate with rest of the cluster.</li>
+</ul>
+
+<p>Consistency and availability are at odds when a Partition happens. Traditional databasrs are not concerned with network partitions, since all data were supposed to be in a small co-located cluster of servers.</p>
+
+<p><strong>Consistency and Availability: Two-phase commit</strong>
+It enforces consistency by:</p>
+<ul>
+  <li>Lock data within transaction scope</li>
+  <li>Perform transaction on write-ahead logs</li>
+  <li>Commit only when all nodes have performed the transaction</li>
+  <li>Abort when partition detected</li>
+</ul>
+
+<p>Commit request phase:</p>
+<ul>
+  <li>Coordinator sends a query to commit msg to all participants, wait until reply</li>
+  <li>Participant execute the transaction up to the point where they will be asked to commit. They write an entry to undo log and redo log</li>
+  <li>Each participant votes yes if success, or no if execution fail.</li>
+</ul>
+
+<p>Commit phase:
+The commit is success if all participants agree to commit. It fails if any of them vote “No”.</p>
+<ul>
+  <li>Coordinator sends commit/rollback to all participants</li>
+  <li>The participants finish commit or undo it, then release lock.</li>
+  <li>Participants send ACK to coordinator</li>
+  <li>Coordinator complete-abort transaction after recving all ACKs</li>
+</ul>
+
+<p><strong>Availability and Partition Tolerance: MVCC</strong></p>
+<ul>
+  <li>Commit updates without locks</li>
+  <li>Transaction that completes last has larger revision number</li>
+  <li>When partition is solved, same rev number may cause conflict</li>
+  <li>Couchdb returns a list of current conflicts to be solved by application.</li>
+</ul>
+
+<p><strong>Consistency and Partition Tolerance: Paxos</strong></p>
+
+<p>Paxos ensures no matter what if data is written, it eventually propagate to all nodes. There will never be different nodes that think that some index contains different value.</p>
+
+<p>Some assumptions:</p>
+<ul>
+  <li>Message contents don’t change after sent</li>
+  <li>No bugs or hackers</li>
+  <li>Storage persistant if system is down</li>
+</ul>
+
+<p>Building blocks</p>
+<ul>
+  <li>Leader election protocol</li>
+  <li>Consensus on a single log entry (Synod) that preserves safety</li>
+  <li>Protocol to manage the entire log</li>
+</ul>
+
+<p>The alg orithm overview</p>
+<ul>
+  <li>Continuously run leader election algorithm, making sure all nodes know who’s in charge.</li>
+  <li>When leader receives a request to add ITEM to log, it selects next empty log index, and initiate a consensus on adding data to log (Ballot)</li>
+  <li>When consensus initiated, all nodes participate in it, eventually aggreeing that item was added to log as INDEX.</li>
+</ul>
+
+<h2 id="big-data-processing-l8">Big data processing (L8)</h2>
+
+<p>Challenges of big data analysis:</p>
+<ul>
+  <li>Need to read and write distributed datasets</li>
+  <li>Preserve data in the presence of fail node\</li>
+  <li>Execute map reduce tasks</li>
+  <li>Fault-tolerant (nodes that fail computing only slow down the process instead of stop it)</li>
+  <li>Coordinating task execution across a cluster</li>
+</ul>
+
+<h3 id="hadoop">Hadoop</h3>
+
+<p>Hadoop HDFS uses 128MB block for smaller metadata, higher network efficiency and reduce need for seek operation. It is quite efficient when most data of a block is processed.</p>
+
+<p>Hadoop uses YARN (Yet Another Resource Negotiator). Resource Manger is located on master node while Node Managers are on slave nodes. Everytime a MR job is initiated, an Application Master is started to negotiate resource with Resource Manager and start containers on slave node.</p>
+
+<p>YARN core components:</p>
+
+<ul>
+  <li><strong>Resource Manage</strong>
+    <ul>
+      <li><strong>Scheduler</strong> allocates resource to running Apps, subject to constraints of capacities, queues. It does not monitor or track tasks, doesn’t ensure restart failed tasks. The schedule is based on resource requirement. It has a pluggable policy plug in, which can be Capacitor Shceduler or Fair Scheduler</li>
+      <li><strong>Application Manager</strong> accepting job submissions and negotiate first container from RM for app-specific App Master. It also manages running App Master in cluster and provide services for restarting.</li>
+    </ul>
+  </li>
+  <li><strong>Node Manager</strong> takes care of individual nodes, jobs and workflows in a single node</li>
+  <li><strong>Application Master</strong> is unique for each application. It coordinate execution in the cluster and manage fault. It negotiate resources from RM, works with node manager to execute and monitor tasks and also send heart beat to RM to affirm its health and update its record of resource demand.</li>
+</ul>
+
+<h3 id="spark">Spark</h3>
+<p>Why Spark?</p>
+<ul>
+  <li>Hadoop only performs simple tasks on large datasets</li>
+  <li>Data need to be cached for comples operations</li>
+  <li>Need fine grained control on executions</li>
+  <li>Low latency</li>
+  <li>Operate with hadoop architecture</li>
+</ul>
+
+<p>Spark components</p>
+<ul>
+  <li>Job: Data processing to be performed on a dataset</li>
+  <li>Task: A single operation on dataset</li>
+  <li>Executor: The process in which tasks are executed</li>
+  <li>Cluster Manager: Process that assigning tasks to executors</li>
+  <li>Driver Program: Main logic of the program</li>
+  <li>Spark Application: Driver + Executor</li>
+  <li>Spark Context: General configuration</li>
+</ul>
+
+<p>Spark RDD (Resilient Distributed Dataset).
+Resilient means Data is stored with redundancy. Failing node does not effect integrity. It has following properties</p>
+
+<ul>
+  <li>Immutable: Once defined, not changed</li>
+  <li>Transient: Used only once, then discarded</li>
+  <li>Lazy-evaluated: Data process only happens when data cannot not be kept in RDD (Transormations don’t evaluate RDD)</li>
+</ul>
+
+<p>Some RDD Transformations:</p>
+<ul>
+  <li><strong>distinct()</strong></li>
+  <li><strong>uniun(rdd)</strong></li>
+  <li><strong>intersect(rdd)</strong></li>
+  <li><strong>substract(rdd)</strong></li>
+  <li><strong>cartesian(rdd)</strong></li>
+</ul>
+
+<p>Key-value Transormations</p>
+<ul>
+  <li><strong>map(lambda)</strong></li>
+  <li><strong>flatmap(lambda)</strong></li>
+  <li><strong>reduceByKey(lambda)</strong></li>
+  <li><strong>join(rdd)</strong>: Merge key-value pairs</li>
+</ul>
+
+<p>Actions (Evaluation happens)</p>
+<ul>
+  <li><strong>collect()</strong>: Return all elements in an RDD</li>
+  <li><strong>count()</strong></li>
+  <li><strong>reduce(lambda)</strong> (different from reduce by key)</li>
+  <li><strong>foreach(lambda)</strong>: apply lambda to all elems</li>
+</ul>
+
+<h2 id="virtualization-l9">Virtualization (L9)</h2>
+
+<p><strong>VMM</strong> or <strong>Hypervisor</strong> is a piece of software that provide the abstraction of a virtual machine. When looking at the virtual environment provided by VMM, there are three properties of interest:</p>
+<ul>
+  <li><strong>Fidelity</strong>: Programs running under VMM exhibit identical behavior to running on an equivalent physical machine.</li>
+  <li><strong>Safety</strong>: VMM is in complete control over virtual resources</li>
+  <li><strong>Performance</strong>: Dominant fraction of instructions must be executed without VMM intervention</li>
+</ul>
+
+<p>Popek and Goldberg describe characteristics that ISA (Instruction Set Architecture) of physical machine must possess to run VMM with 3 properties above. There is a classification of instructions of an ISO into 3 different groups:</p>
+
+<ul>
+  <li><strong>Privileged instructions</strong>: Those that trap if the processor is in user mode and do not trap if it is in system mode</li>
+  <li><strong>Control sensitive instructions</strong>: Those that attempt to change the configuration of resource in the system</li>
+  <li><strong>Behavior sensitive instructions</strong>: Those whose behavior or result depends on the configuration of resources (the content of the relocation register or the processor’s mode)</li>
+</ul>
+
+<h3 id="theorem">Theorem</h3>
+<p>For any conventional third-gen computer, an effective VMM may be constructed if the set of sensitive instruction for that computer is a subset of the set of privileged instructions.</p>
+
+<p>This indicates that in order to build a VMM it is sufficient that all instructions that could affect the correct functioning of the VMM always trap and pass control to the VMM. This guarantees the resource control property. None privileged instructions must instead be executed natively.</p>
+
+<p>This theorem also provides a simple technique for implementing a VMM, called trap-and-emulate virtualization, more recently called classic virtualization: because all sensitive instructions behave nicely, all the VMM has to do is trap and emulate every one of them</p>
+
+<h3 id="virtual-machine-extensions">Virtual machine extensions</h3>
+<p>x86 is not originally virtualizable. VT-x (Intel) and SVM (AMD) are introduced to satisfy popek-goldberg theorem permit entering/exiting virtual execution mode where guestOS perceives itself as running with full privilege, but host OS remains protected.</p>
+
+<p>VMM should support following features:</p>
+
+<ul>
+  <li><strong>De-privilege</strong>
+    <ul>
+      <li>VMM emulates the effect on system/hardware resources of privileged instructions whose execution traps into VMM (This is achieved by running GuestOS at lower priority level than VMM)</li>
+      <li>Problematic on some architectures where privileged instructions do not trap when executed at de-priveleged level.</li>
+    </ul>
+  </li>
+  <li><strong>Primary/Shadow structures</strong>: VMM maintains shadow copy of critical structures whose primary versions are manipulated by GuestOS e.g. memory page table. Primary copies need to ensure correct versions are visible to Guest OS</li>
+  <li><strong>Memory traces</strong>:
+    <ul>
+      <li>Control access to memory so that the shadow and primary structure remain coherent</li>
+      <li>The common strategy is write-protect primary copy so that updates which cause page fault can be caught, interpreted and addressed</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="full-virtualization-vs-para-virtualization">Full virtualization vs Para-virtualization</h3>
+<p>Full virtualization allow na unmodified guest OS to run in isolation by simulating full hardware. Guest OS has no idea it is virtualized.</p>
+
+<p>With Para-virtualization, VMM exposes special interfaces to guest OS for better performance. It requires a modified/hypervisor aware Guest OS (Xen). This can optimise systems to use this interface since not all instructions need to be trapped/dealt with</p>
+
+<h3 id="software-based-virtualization-vs-hardware-assisted-virtualization">Software based virtualization vs Hardware assisted virtualization</h3>
+
+<p>In software based (CPU) virtualization, Guest application code runs directly on CPU. Privileged codes are translated to run on CPU. Translated codes are larger and slightly slower.</p>
+
+<p>In hardware assisted virtualization, the processor provides hardware assistant for CPU virtualization. Guests can use a separated mode called Guest Mode (Both applications and privileged codes are running in guest mode). On certain events, the processor exit guest mode and enter root mode. Hypervisor executes in root mode, determing reason for exit and restart guest in guest mode. With hardware assist, system calls and trap intensive workloads run close to native performance. Tasks that lead to large number of exitting guest mode may affect the performance.</p>
+
+<h2 id="openstack-services-l92">Openstack Services (L9.2)</h2>
+<ul>
+  <li><strong>Nova (Compute Service)</strong>
+    <ul>
+      <li>Nova-api: Accepts end user API calls</li>
+      <li>Nova-compute: Create/terminate VMs through Hypervisor APIs</li>
+      <li>Nova-conductor: Interact between compute service and other components</li>
+    </ul>
+  </li>
+  <li><strong>Swift (Object Storage)</strong>
+    <ul>
+      <li>Arbitrary unstructured data object storage via ReSTful APIs</li>
+      <li>Fault tolerant by replicating across a cluster</li>
+      <li>Can be used withou Nova</li>
+    </ul>
+  </li>
+  <li><strong>Clinder (Block Storage)</strong>: Block storage to VM. Supports creation and management of block storage devices
+    <ul>
+      <li>Cinder-api: Route req to cinder-volume</li>
+      <li>Cinder-volume: Interact with block storage sercice and scheduler to read/write requests. Interact with multiple flavors of storage</li>
+      <li>Cinder-scheduler: Select optimal storage provider node to create volume</li>
+      <li>Cinder-backup: Privide backup to any types of volumes to backup storage provider</li>
+    </ul>
+  </li>
+  <li><strong>Glance (Image Service)</strong>： Accepts request for disk/server image and their associated metadata. Retrieve and install.</li>
+  <li><strong>Neutron (Network)</strong>
+    <ul>
+      <li>Networking</li>
+      <li>APIs for defining, attaching networks (switches, routers)</li>
+      <li>Support multiple network venders</li>
+    </ul>
+  </li>
+  <li><strong>Horizon (Dashboard)</strong>
+    <ul>
+      <li>Web-based portal</li>
+      <li>Based on Django</li>
+      <li>mod-wsgi</li>
+      <li>Requires Nova, Keystone, Glance and Neutron</li>
+    </ul>
+  </li>
+  <li><strong>Head (Orchestration)</strong>
+    <ul>
+      <li>Template based</li>
+      <li>Can be integrated with automation tools like ansible</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="security-l12">Security (L12)</h2>
+
+<h3 id="motivations-and-challenges">Motivations and challenges</h3>
+<p>Why Security? Otherwise</p>
+<ul>
+  <li>Large communities will not engage</li>
+  <li>Expensive to repeat some experiments</li>
+  <li>Legal and ethical issues</li>
+  <li>Trust problem</li>
+</ul>
+
+<p>Challenges of security</p>
+<ul>
+  <li>Grids and clouds allow user to compile ecodes that do stuff to machines. Need more security facility. Need scalable tech to meet wide variety of application</li>
+  <li>Generic security solutions, avoid organizations from re-inventing incompatible solutions</li>
+  <li>Clouds allow scenarios that stretch inter-organizational security</li>
+</ul>
+
+<p>Technical Challenges of Security</p>
+<ul>
+  <li><strong>Authentication</strong>
+    <ul>
+      <li>Propagate user identity in the system (Only check who is it)</li>
+    </ul>
+  </li>
+  <li><strong>Authorization</strong>
+    <ul>
+      <li>Centraolized vs Decentralized</li>
+      <li>Group based (GBAC)</li>
+      <li>Role based (RBAC)</li>
+      <li>Identity based (IBAC)</li>
+      <li>Attribute based (ABAC)</li>
+    </ul>
+  </li>
+  <li><strong>Audit/accounting</strong>
+    <ul>
+      <li>Logging, intrusion detection, auditing of security in external computer facilities</li>
+    </ul>
+  </li>
+  <li><strong>Confidentiality</strong></li>
+  <li><strong>Privacy</strong></li>
+  <li><strong>Fabric management</strong></li>
+  <li><strong>Trust</strong></li>
+</ul>
+
+<p>Single Sign-on</p>
+
+<p>Certification Authority (CA) has following responsibilities:</p>
+<ul>
+  <li>Policy and procedure
+    <ul>
+      <li>Howto, dos don’ts of using certificate</li>
+      <li>Process to follow</li>
+    </ul>
+  </li>
+  <li>Issuing certificates
+    <ul>
+      <li>Often need to delegate to local Registration Authority</li>
+    </ul>
+  </li>
+  <li>Revoking certificates
+    <ul>
+      <li>Certificate Revokation List for expired/compromised certificates</li>
+    </ul>
+  </li>
+  <li>Storing, archiving
+    <ul>
+      <li>Keep track of existing certificates</li>
+    </ul>
+  </li>
+</ul>
+
+<p>To issue a certificate</p>
+<ul>
+  <li>User request certificate and generate a private key</li>
+  <li>CA checks details of request with RA</li>
+  <li>RA check with user</li>
+  <li>Download and install certificate in browser</li>
+  <li>Download and install CRL</li>
+  <li>Export cert to various formats</li>
+</ul>
+
+<h2 id="exam-questions">Exam Questions</h2>
+
+<h3 id="erroneous-assumptions-made-in-designing-large-scale-distributed-system">Erroneous assumptions made in designing large-scale distributed system</h3>
+
+<h3 id="cloud-computing-do-not-solve-many-key-challenges-of-large-scale-distributed-systems">Cloud computing do not solve many key challenges of large scale distributed systems</h3>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

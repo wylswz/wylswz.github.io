@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Background | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Background" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/Graal/Graal.html" />
+<meta property="og:url" content="http://localhost:4000/Graal/Graal.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Background" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Background","url":"http://localhost:4000/Graal/Graal.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="background">Background</h1>
+
+<p>Is it possible to generate a compiler by implementing interpreter? The answer is YES.</p>
+
+<h2 id="partial-evaluation">Partial Evaluation</h2>
+
+<p>In functional programming, partial evaluation is defined as given a function which takes N parameters and return a output, if we apply the function with one parameter, when we get another function which takes (N-1) parameters and return one output.</p>
+
+<p>In programming language implementation, a program is a function, with dynamic data and static data. Performing partial evaluation means given the static part, we can eliminate unnecessary behaviors and yield a compact and fast version of that program. This process is called specialization. If we specialize our program for each single problem, each of that specialized version of program runs really fast, but might explode in space, that’s why we need to make decisions between specialization and generalization.</p>
+
+<h2 id="futamuras-projection">Futamura’s projection</h2>
+
+<p>Let’s look at <code class="language-plaintext highlighter-rouge">Futamura's Projection</code>. Say we have following entities</p>
+
+<ul>
+  <li>Program: <code class="language-plaintext highlighter-rouge">P</code></li>
+  <li>Data: <code class="language-plaintext highlighter-rouge">D</code></li>
+  <li>Output: <code class="language-plaintext highlighter-rouge">O</code></li>
+  <li>Executable: <code class="language-plaintext highlighter-rouge">E :: D -&gt; O</code></li>
+  <li>Interpreter:  <code class="language-plaintext highlighter-rouge">I :: P -&gt; D -&gt; O</code></li>
+</ul>
+
+<h2 id="futamuras-1st-projection">Futamura’s 1st projection</h2>
+
+<p>This projections says if we specialize an interpreter with a program, we yield an executable. This is quite straightforward, let say this specializer is called <code class="language-plaintext highlighter-rouge">S1</code></p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">S1</span> <span class="o">::</span> <span class="p">(</span><span class="kt">P</span> <span class="o">-&gt;</span> <span class="kt">D</span> <span class="o">-&gt;</span> <span class="kt">O</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">P</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">D</span> <span class="o">-&gt;</span> <span class="kt">O</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This is pretty close to what we always have in functional programming, but this is a quite different story. When we apply specialization, we are optimize the interpreter by pruning out unreachable branches and yield an efficient executable.</p>
+
+<h2 id="futamuras-2nd-projection">Futamura’s 2nd projection</h2>
+
+<p>This projection says specializing specializer <code class="language-plaintext highlighter-rouge">S1</code> with an interpreter,  yields a compiler.</p>
+
+<p>If we apply <code class="language-plaintext highlighter-rouge">(P -&gt; D -&gt; O)</code> to <code class="language-plaintext highlighter-rouge">S1</code> defined above, what we get a</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kt">P</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">D</span> <span class="o">-&gt;</span> <span class="kt">O</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>which is a function that takes a program as input and product an efficient executable, this is a compiler! Let’s say this specializer <code class="language-plaintext highlighter-rouge">S2</code> is written as</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">S2</span> <span class="o">::</span> <span class="kt">S1</span> <span class="o">-&gt;</span> <span class="kt">I</span> <span class="o">-&gt;</span> <span class="kt">C</span>
+</code></pre></div></div>
+
+<h2 id="futamuras-3rd-projection">Futamura’s 3rd projection</h2>
+
+<p>This projection says specializing specializer <code class="language-plaintext highlighter-rouge">S2</code> with specializer <code class="language-plaintext highlighter-rouge">S1</code> yields a interpreter to compiler converter. This is pretty intuitive if we apply <code class="language-plaintext highlighter-rouge">S1</code> to <code class="language-plaintext highlighter-rouge">S2</code> above, we get a function</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">F</span> <span class="o">::</span> <span class="kt">I</span> <span class="o">-&gt;</span> <span class="kt">C</span>
+</code></pre></div></div>
+
+<p>which is exactly what it describes.</p>
+
+<p>Now we know that by implementing an interpreter, we get a compiler for free,  if we invent such a machine that performs <code class="language-plaintext highlighter-rouge">I -&gt; C</code> for us. Fortunately, we have such a machine implemented by the community, which is called Truffle.  Truffle allows us to implement out interpreter on AST, and use declarative directives to get instructions specialized automatically.</p>
+
+<h1 id="simple-language-sl">Simple Language (sl)</h1>
+
+<p>Simple language is a custom language implementation based on Truffle, which is object-oriented and has dynamic class definitions. This section we’ll focus on implementation of simple language.</p>
+
+<h2 id="object-operations">Object Operations</h2>
+
+<p>Think about following expression in sl</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>obj = new()
+obj.a = 4
+</code></pre></div></div>
+
+<p>This statement simply creates a new object, and then assign an integer, 4 to its property <code class="language-plaintext highlighter-rouge">a</code>. Such operation in sl is defined as <code class="language-plaintext highlighter-rouge">factor</code>. It looks like this</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>factor returns [SLExpressionNode result]
+:
+(
+    IDENTIFIER                                  { SLExpressionNode assignmentName = factory.createStringLiteral($IDENTIFIER, false); }
+    (
+        member_expression[null, null, assignmentName] { $result = $member_expression.result; }
+    |
+                                                { $result = factory.createRead(assignmentName); }
+    )
+|
+    STRING_LITERAL                              { $result = factory.createStringLiteral($STRING_LITERAL, true); }
+|
+    NUMERIC_LITERAL                             { $result = factory.createNumericLiteral($NUMERIC_LITERAL); }
+|
+...
+;
+</code></pre></div></div>
+
+<p>It is matched against a identifier followed by <code class="language-plaintext highlighter-rouge">member_expression</code>. In this case, the <code class="language-plaintext highlighter-rouge">assignmentName</code> passed to <code class="language-plaintext highlighter-rouge">member_expression</code> is <code class="language-plaintext highlighter-rouge">'A'</code>.  <code class="language-plaintext highlighter-rouge">member_expression</code>  is defined as:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>member_expression [SLExpressionNode r, SLExpressionNode assignmentReceiver, SLExpressionNode assignmentName] returns [SLExpressionNode result]
+:                                               { SLExpressionNode receiver = r;
+                                                  SLExpressionNode nestedAssignmentName = null; }
+</code></pre></div></div>
+
+<p>It takes</p>
+
+<p>consists of several pattern matching rules</p>
+
+<h3 id="function-call">Function call</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    '('                                         { List&lt;SLExpressionNode&gt; parameters = new ArrayList&lt;&gt;();
+                                                  if (receiver == null) {
+                                                      receiver = factory.createRead(assignmentName);
+                                                  } }
+    (
+        expression                              { parameters.add($expression.result); }
+        (
+            ','
+            expression                          { parameters.add($expression.result); }
+        )*
+    )?
+    e=')'
+</code></pre></div></div>
+
+<h3 id="assignment">Assignment</h3>
+
+<p>assignment starts with an <code class="language-plaintext highlighter-rouge">=</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    '='
+    expression                                  { if (assignmentName == null) {
+                                                      SemErr($expression.start, "invalid assignment target");
+                                                  } else if (assignmentReceiver == null) {
+                                                      $result = factory.createAssignment(assignmentName, $expression.result);
+                                                  } else {
+                                                      $result = factory.createWriteProperty(assignmentReceiver, assignmentName, $expression.result);
+                                                  } }
+</code></pre></div></div>
+
+<h3 id="property-read">Property Read</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    '.'                                         { if (receiver == null) {
+                                                       receiver = factory.createRead(assignmentName);
+                                                  } }
+    IDENTIFIER
+                                                { nestedAssignmentName = factory.createStringLiteral($IDENTIFIER, false);
+                                                  $result = factory.createReadProperty(receiver, nestedAssignmentName); }
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    '['                                         { if (receiver == null) {
+                                                      receiver = factory.createRead(assignmentName);
+                                                  } }
+    expression
+                                                { nestedAssignmentName = $expression.result;
+                                                  $result = factory.createReadProperty(receiver, nestedAssignmentName); }
+    ']'
+</code></pre></div></div>
+
+<p>Let’s see how these rules handle <code class="language-plaintext highlighter-rouge">A.prop = 4</code>.</p>
+
+<p>First of all, “A” is matched by <code class="language-plaintext highlighter-rouge">IDENTIFIER</code> and “.prop=4” is matched by <code class="language-plaintext highlighter-rouge">member_expression</code>. The <code class="language-plaintext highlighter-rouge">member_expression</code> is first invoked with parameter</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>member_expression(null, null, "A")
+</code></pre></div></div>
+
+<p>Because the receiver is unspecified, “A” is used to create a <code class="language-plaintext highlighter-rouge">Read</code> node which reads a variable from <code class="language-plaintext highlighter-rouge">VirtualFrame</code> using variable name. The token starts with “.” thus the first result should be a property read, therefore we get</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>receiver = Read("A")
+result = ReadProp($receiver, "prop")
+nestedAssignmentName = "prop"
+</code></pre></div></div>
+
+<p>The second part is a recursive call on the remaining token</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>member_expression(ReadProp(Read("A"), "prop"), Read("A"), "prop")
+</code></pre></div></div>
+
+<p>This time, the token starts with “=” thus a <code class="language-plaintext highlighter-rouge">WriteProperty</code> node is generated, which is</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WriteProperty(Read("A"), "prop", 4)
+</code></pre></div></div>
+
+<p>This means assigning 4 to the “prop” property to variable “A”.</p>
+
+<h2 id="function-definition">Function Definition</h2>
+
+<h1 id="truffle-dsl">Truffle DSL</h1>
+
+<h2 id="cached">@Cached</h2>
+
+<h3 id="usage">Usage</h3>
+
+<p><code class="language-plaintext highlighter-rouge">@Cached</code> annotation is applied to parameters of specialized functions. Parameters annotated with <code class="language-plaintext highlighter-rouge">@Cached</code> is initialized once per specialization.</p>
+
+<p><code class="language-plaintext highlighter-rouge">@Cache</code> accept expressions as argument, which can be used to access -</p>
+
+<ul>
+  <li>parameters</li>
+  <li>public functions</li>
+  <li>use new() to access public constructor</li>
+  <li>use create() to instantiate Class without public constructors</li>
+</ul>
+
+<h3 id="use-case">Use case</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nd">@NodeChild</span><span class="o">(</span><span class="s">"operand"</span><span class="o">)</span>
+   <span class="kd">abstract</span> <span class="nc">TestNode</span> <span class="kd">extends</span> <span class="nc">Node</span> <span class="o">{</span>
+     <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="nc">Object</span> <span class="n">operandValue</span><span class="o">);</span>
+     <span class="c1">// ... example here ...</span>
+   <span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Specialization</span>
+    <span class="kt">void</span> <span class="nf">doCached</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand</span><span class="o">,</span>  <span class="nd">@Cached</span><span class="o">(</span><span class="s">"operand"</span><span class="o">)</span> <span class="kt">int</span> <span class="n">cachedOperand</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">CompilerAsserts</span><span class="o">.</span><span class="na">compilationConstant</span><span class="o">(</span><span class="n">cachedOperand</span><span class="o">);</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">execute</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">doCached</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span> <span class="c1">// new instantiation, localOperand is bound to 1</span>
+    <span class="n">execute</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">doCached</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="n">execute</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">doCached</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="specialization">@Specialization</h2>
+
+<h3 id="usage-1">Usage</h3>
+
+<p><code class="language-plaintext highlighter-rouge">@Specialization</code> annotation is used together with <code class="language-plaintext highlighter-rouge">@NodeChild</code> to define a specialized operation of a node. Guards define when specializations happen and when the execution is returned to interpreter. It support following guards</p>
+
+<ul>
+  <li>Type guards: By define the parameter of type defined in <code class="language-plaintext highlighter-rouge">TypeSystem</code>, type guard is implicitly applied. When using <code class="language-plaintext highlighter-rouge">Object</code> as parameter, there would be no type guard is applied</li>
+  <li>Expression guards: Use expressions as guards. Either simple operations or method calls can be used. It is suggested to use method calls to keep code maintainable.</li>
+  <li>Event guards: This triggers re-specialization on certain events, like Exceptions. This will return the execution back to interpreter.</li>
+  <li>Assumption guards: Assumption is initialized per specialization. This guard optimistically assume the state of Assumption remains true. Specialization is removed when assumption becomes invalid</li>
+</ul>
+
+<p>Specialization generates a “specialized” program for a specific purpose, which means the compiler can potentially generate arbitrary number of specified programs. In order to prevent memory explosion, this <code class="language-plaintext highlighter-rouge">@Specialization</code> supports specifying limit of specialized programs using <code class="language-plaintext highlighter-rouge">limit()</code> property.</p>
+
+<h1 id="truffle-object-storage-model">Truffle Object Storage Model</h1>
+
+<h2 id="components-of-osm">Components of OSM</h2>
+
+<h3 id="storage-class">Storage Class</h3>
+
+<p>A Java class which contains fields used to store data of the guest language objects.</p>
+
+<h3 id="layout">Layout</h3>
+
+<p>Every storage class is assigned to a layout upon its first use. This provides info about its available fields, allocation strategy, and OSM features.</p>
+
+<h3 id="shape">Shape</h3>
+
+<p>Shape contains all meta-data of a Truffle OSM object.</p>
+
+<h3 id="property">Property</h3>
+
+<p>Describes a property by its identifier, location and attributes.</p>
+
+<h3 id="allocator">Allocator</h3>
+
+<p>Allocator is used to create storage locations for new members. It maintains info about size of the extension arrays and which parts of the storage areas are in use. Allocator uses info provided by layout to do its job.</p>
+
+<h3 id="location">Location</h3>
+
+<p>Defines the storage location of a property. Storage locations include:</p>
+
+<ul>
+  <li>Object field location: denotes an instance field of the storage object that is used to store object reference. Additionally, it holds the lower bound type reference of referenced object.</li>
+  <li>Primitive field location: stores primitive types</li>
+  <li>Object extension array location: Object[] array, loaded from object field location.</li>
+  <li>Primitive extension array location:</li>
+  <li>static location</li>
+</ul>
+
+<p>By using extensions, it is possible to support arbitrary number of properties. Accessing field is faster than accessing extension array because of fewer memory indirection. Language implementer can decide the size of fields to provide, but more fields means higher heap consumption even if not used.</p>
+
+<h3 id="operation">Operation</h3>
+
+<p>Method table of operations applicable to the object. Language implementers can add/override these operations.</p>
+
+<h3 id="transition">Transition</h3>
+
+<p>When a property is added to object, or removed from it, it’s shape changes. Transition defines such changes. Every shape has a transition map.</p>
+
+<h3 id="shared-data">Shared Data</h3>
+
+<p>A special storage area in the <code class="language-plaintext highlighter-rouge">Shape</code> that can be used by language implementation to store additional meta-data in the shape. This is inherited by successor shapes, therefore can survive the shape <code class="language-plaintext highlighter-rouge">Transitions</code>.</p>
+
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

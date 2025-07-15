@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>How does ASGI work? | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="How does ASGI work?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/PythonWeb/PythonWeb.html" />
+<meta property="og:url" content="http://localhost:4000/PythonWeb/PythonWeb.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How does ASGI work?" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"How does ASGI work?","url":"http://localhost:4000/PythonWeb/PythonWeb.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="how-does-asgi-work">How does ASGI work?</h1>
+
+<p>This article is a very short introduction of <code class="language-plaintext highlighter-rouge">ASGI</code>, speficifcally, what is <code class="language-plaintext highlighter-rouge">ASGI</code>, how does it work and how can we use it.</p>
+
+<h2 id="what-is-asgi-and-why">What is ASGI and Why?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ASGI</code> is the abbrevation of Asynchronous Server Gateway Interface, which is pretty much similar to <code class="language-plaintext highlighter-rouge">WSGI</code>, but in an async context. The reason that we need <code class="language-plaintext highlighter-rouge">ASGI</code> is very simple, we want to go async. <code class="language-plaintext highlighter-rouge">WSGI</code> was designed in such way that your python application can handle one request and send one response at one time. If you want keep-alive connection, just do long polling. If you need concurrent request handling, add more threads or use something like <code class="language-plaintext highlighter-rouge">gevent</code>. This works but they are not nativly shipped with python asyncio feature, in another word, in order to make async happen, you are making your web app heavier.</p>
+
+<p>With <code class="language-plaintext highlighter-rouge">ASGI</code>, you can develop your app in fully async manner.</p>
+
+<h2 id="how-to-write-a-web-service-with-asgi">How to write a web service with ASGI?</h2>
+<p>The answer is simple, write code like this:</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="k">def</span> <span class="nf">application</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="k">await</span> <span class="n">receive</span><span class="p">()</span>
+    <span class="c1"># Your business logics
+</span>    <span class="k">await</span> <span class="n">send</span><span class="p">({</span><span class="s">"type"</span><span class="p">:</span> <span class="s">"websocket.send"</span><span class="p">,</span> <span class="p">...})</span>
+</code></pre></div></div>
+
+<p>And serve it with your favorite web server.</p>
+
+<h2 id="what-does-asgi-web-server-do">What does ASGI web server do?</h2>
+
+<p>Let’s take a very simple look at <code class="language-plaintext highlighter-rouge">uvcorn</code>’s source code.</p>
+
+<p>First, a protocol is initialized. The protocol class is based on configurations</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">create_protocol</span> <span class="o">=</span> <span class="n">functools</span><span class="p">.</span><span class="n">partial</span><span class="p">(</span>
+            <span class="n">config</span><span class="p">.</span><span class="n">http_protocol_class</span><span class="p">,</span>
+             <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+             <span class="n">server_state</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">server_state</span>
+        <span class="p">)</span>
+</code></pre></div></div>
+
+<p>The protocol is used to create service with python’s <code class="language-plaintext highlighter-rouge">asyncio</code> library by invoking</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">loop</span><span class="p">.</span><span class="n">create_server</span><span class="p">()</span>
+</code></pre></div></div>
+<p>This will create a server that listens on a port. the first argument of this method is a <code class="language-plaintext highlighter-rouge">protocol factory</code>, which is a callable returning a protocol implementation.</p>
+
+<p>Check <a href="https://docs.python.org/3/library/asyncio-protocol.html#asyncio.Protocol.data_received">this</a> out for details of protocol interfaces.</p>
+
+<p>The most important method here is <code class="language-plaintext highlighter-rouge">data_received(data)</code>. This is the callback when some data is received. The main logic of web server.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">def</span> <span class="nf">data_received</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="bp">self</span><span class="p">.</span><span class="n">_unset_keepalive_if_required</span><span class="p">()</span>
+    <span class="bp">self</span><span class="p">.</span><span class="n">conn</span><span class="p">.</span><span class="n">receive_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="bp">self</span><span class="p">.</span><span class="n">handle_events</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>It handles event when some data is received, let’s look at how the events are handled.</p>
+
+<p>First of all, it build up a scope. Remember out simplest server? This scope is exactly same as that one. It includes necessary data to process a http request.</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">self</span><span class="p">.</span><span class="n">scope</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"type"</span><span class="p">:</span> <span class="s">"http"</span><span class="p">,</span>
+    <span class="s">"asgi"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">"version"</span><span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">asgi_version</span><span class="p">,</span>
+        <span class="s">"spec_version"</span><span class="p">:</span> <span class="s">"2.1"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s">"http_version"</span><span class="p">:</span> <span class="n">event</span><span class="p">.</span><span class="n">http_version</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"ascii"</span><span class="p">),</span>
+    <span class="s">"server"</span><span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">server</span><span class="p">,</span>
+    <span class="s">"client"</span><span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">client</span><span class="p">,</span>
+    <span class="s">"scheme"</span><span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">scheme</span><span class="p">,</span>
+    <span class="s">"method"</span><span class="p">:</span> <span class="n">event</span><span class="p">.</span><span class="n">method</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"ascii"</span><span class="p">),</span>
+    <span class="s">"root_path"</span><span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">root_path</span><span class="p">,</span>
+    <span class="s">"path"</span><span class="p">:</span> <span class="n">unquote</span><span class="p">(</span><span class="n">raw_path</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"ascii"</span><span class="p">)),</span>
+    <span class="s">"raw_path"</span><span class="p">:</span> <span class="n">raw_path</span><span class="p">,</span>
+    <span class="s">"query_string"</span><span class="p">:</span> <span class="n">query_string</span><span class="p">,</span>
+    <span class="s">"headers"</span><span class="p">:</span> <span class="bp">self</span><span class="p">.</span><span class="n">headers</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then it starts a task which invokes the ASGI function</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">loop</span><span class="p">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">cycle</span><span class="p">.</span><span class="n">run_asgi</span><span class="p">(</span><span class="n">app</span><span class="p">))</span>
+<span class="n">task</span><span class="p">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">.</span><span class="n">discard</span><span class="p">)</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Inside the <code class="language-plaintext highlighter-rouge">run_asgi</code> method, it does this</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="k">def</span> <span class="nf">run_asgi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">app</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">scope</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">receive</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">send</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Note that web server is responsible for implementing <code class="language-plaintext highlighter-rouge">receive()</code> and <code class="language-plaintext highlighter-rouge">send()</code> so that web application can focus on application layer protocols, i.e., <code class="language-plaintext highlighter-rouge">HTTP</code> or <code class="language-plaintext highlighter-rouge">Web Socket</code></p>
+
+<p>This Figure is a simplified demonstration of each roles in python’s web application stack.
+<img src="/PythonWeb/asgi.jpg" alt="" /></p>
+
+<h2 id="under-the-hood---asyncio">Under the hood - asyncio</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ASGI</code> is powered by <code class="language-plaintext highlighter-rouge">asyncio</code> feature, and the core of <code class="language-plaintext highlighter-rouge">asyncio</code> is event loop. I read a few lines of Python3.7’s source code and think I can paste them here in order to explan what the fuck is inside of an event loop (Which is nowhere to be found in official doc).</p>
+
+<p>A typical event loop consists of couple of core roles:</p>
+<ul>
+  <li>A <code class="language-plaintext highlighter-rouge">selector</code> which helps us to identify events that are ready to be processed. This is a system call, so we won’t discuss in detail here.</li>
+  <li>A <code class="language-plaintext highlighter-rouge">_scheduled</code> list which keep track of all scheduled handles. This is a priority queue of which the priority is defined by the actual time. That’s how we can pop out most urgent task.</li>
+  <li>A <code class="language-plaintext highlighter-rouge">_ready</code> list, where ready tasks are stored. The callbacks of ready tasks are invoked at the end of each loop.</li>
+</ul>
+
+<p>The event loop is started by calling <code class="language-plaintext highlighter-rouge">loop.run_forever()</code> method, which is simply a while loop calling <code class="language-plaintext highlighter-rouge">_run_once(self)</code> method. In side of <code class="language-plaintext highlighter-rouge">_run_once(self)</code>, python does following things:</p>
+
+<ul>
+  <li>Update scheduled list (If some handles are canceled, remove them)</li>
+  <li>Calculate polling timeout.
+    <ul>
+      <li>If loop is ready or stopped, <code class="language-plaintext highlighter-rouge">timeout=0</code></li>
+      <li>else, timeout is the minimum of time to next scheduled event and <code class="language-plaintext highlighter-rouge">MAX_SELECT_TIMEOUT</code></li>
+    </ul>
+  </li>
+  <li>If timeout is not 0, then invoke <code class="language-plaintext highlighter-rouge">select</code> on selector with timeout to get a list of events.</li>
+  <li>Process event first</li>
+  <li>Then process scheduled handles</li>
+  <li>Finally, invoke callbacks for handles in ready list</li>
+</ul>
+
+<p>Following diagram is a simple explanation of this process</p>
+
+<p><img src="/PythonWeb/eventloop.png" alt="" /></p>
+
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

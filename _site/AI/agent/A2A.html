@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>A2A | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="A2A" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/AI/agent/A2A.html" />
+<meta property="og:url" content="http://localhost:4000/AI/agent/A2A.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="A2A" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"A2A","url":"http://localhost:4000/AI/agent/A2A.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="a2a">A2A</h1>
+
+<h2 id="why-a2a">Why A2A</h2>
+
+<p>When implementing AI agents, it is crucial to have a channel for agents to communicate. For instance, when using LangGraph, agents can be implemented as sub-graphs, tools or just ordinary functions. For subgraphs, the communication is via shared states. For tools or functions, the communication is via message passing, depending on the implementation of tools. For ordinary tools, the message is sent by passing arguments, while for MCP, the message is sent through stdio or TCP connections. This seems fairly straightforward. However, when it comes to interoperability, the complexity occurs. Think about having multiple agents implemented using different frameworks or event programming languages, communicating via shared memory becomes difficult, while MCP tool are limited to simple blocking calls, that’s where A2A comes in.</p>
+
+<h2 id="what-is-a2a">What is A2A</h2>
+<p>A2A (Agent to Agent) is a protocol that defines the communication protocol between agents, trying to solve the interoperability between agents implemented using different frameworks. The A2A supports not only blocking messages, but also streamed ones. When an agent performs a task, it emits key events through the channel, so that the invoker can trace the progress.</p>
+
+<h2 id="how-a2a-works">How A2A works</h2>
+
+<p>A2A has several key components:</p>
+
+<ul>
+  <li><strong>Client</strong>: A client agent is an agent who dispatches a task, which can be a supervisor or an agent in a peer-to-peer relationship.</li>
+  <li><strong>Server</strong>: Server agent is an agent who provide service and execute a task. A server agent can also be a client when it needs to collaborate with other agents.</li>
+  <li><strong>Agent Card</strong>: Each agent is identified using a agent card. The card includes metadata such as
+    <ul>
+      <li>Name</li>
+      <li>Description</li>
+      <li>Skills (What kind of tasks the agent can perform)</li>
+      <li>Capabilities (How does the agent perform the task, synchronously, or streamed)</li>
+      <li>Authentication requirements</li>
+    </ul>
+  </li>
+  <li><strong>Task</strong> is something that can be executed by server agent. Each task has lifecycles  such as <code class="language-plaintext highlighter-rouge">submitted</code>, <code class="language-plaintext highlighter-rouge">working</code>, <code class="language-plaintext highlighter-rouge">completed</code>, <code class="language-plaintext highlighter-rouge">failed</code>.</li>
+  <li><strong>Message</strong> is a single turn of communication, it can be either user message or agent message.</li>
+  <li><strong>Part</strong> is a unit of message or artifact, can be text, file or JSON object.</li>
+  <li><strong>Artifact</strong> is some result from the agent, for example, the output file.</li>
+</ul>
+
+<h2 id="communications">Communications</h2>
+<p>For long running tasks, A2A provides three mechanisms</p>
+<ul>
+  <li>Polling: The client schedules periodical poll requests to track the task status. The need of sending request may introduce overheads.</li>
+  <li>SSE: The server pus events to the client via SSE connection. This mechanism requires a connection to be maintained between two parties.</li>
+  <li>Push Notifications: If keep-alive connection is not available (maybe because the network is unreliable), the client can provide a webhook, so the server can push notifications to it.</li>
+</ul>
+
+<h2 id="agent-discovery">Agent discovery</h2>
+<p>Just like tools, agents can be discovered by their skills. The client fetch agent cards to determine if any of the agents is suitable for certain tasks. The agent cards can be registered to a centralized registry, or can be statically configured for each client, depending on the use case.</p>
+
+<h2 id="what-does-it-look-like">What does it look like</h2>
+<p><img src="/AI/agent/img/comm-diagram.png" alt="" />
+Here in server side, we have a platform specific agent, and A2A implementation wraps aroud it, encapsulating its event as Message parts. On the client side, a event handler checks the type of each event, and interact with external systems or users if necessary.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>In this blog, we introduces A2A protocol, why A2A, what is it and what it looks like in reality. Plz get hands dirty and try to implement one to get a better unstanding.</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

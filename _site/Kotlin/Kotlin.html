@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Learning Kotlin | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Learning Kotlin" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/Kotlin/Kotlin.html" />
+<meta property="og:url" content="http://localhost:4000/Kotlin/Kotlin.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Learning Kotlin" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Learning Kotlin","url":"http://localhost:4000/Kotlin/Kotlin.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="learning-kotlin">Learning Kotlin</h1>
+
+<h2 id="inline-functions">Inline functions</h2>
+<p>Inline functions are introduced as a part of functional programming features in Kotlin. Let’s just look at a high order function</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">fun</span> <span class="nf">ordinaryFun</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="p">()</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">println</span><span class="p">(</span><span class="s">"Executing ordinary function"</span><span class="p">)</span>
+    <span class="nf">f</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">ordinaryFun</span> <span class="p">{</span>
+        <span class="nf">println</span><span class="p">(</span><span class="s">"Invoked"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>which is dead simple. A code block as a <code class="language-plaintext highlighter-rouge">fun</code> with type of <code class="language-plaintext highlighter-rouge">() -&gt; Unit</code> is passed as argument to <code class="language-plaintext highlighter-rouge">ordinaryFun</code>, and is invoked inside. The problem is that this anonymous function is instantiated and produce a closure, where the variables are only accessible from inside. Let’s put it in java’s way</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nc">Function</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">,</span> <span class="nc">Void</span><span class="o">&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Invoked"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">ordinaryFun</span><span class="o">(</span><span class="n">f</span><span class="o">)</span>
+
+</code></pre></div></div>
+<p>See? A function object is instantiated and passed to the function, which introduces overhead in object creation, which is quite expensive.</p>
+
+<p>Therefore inline function is introduced to reduce this. Look at this <code class="language-plaintext highlighter-rouge">inline</code> modifier</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">inline</span> <span class="k">fun</span> <span class="nf">inlineFun</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="p">()</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">println</span><span class="p">(</span><span class="s">"Inline function"</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>When the compiler sees the <code class="language-plaintext highlighter-rouge">inline</code> keyword, it automatically generate the byte code of that function, therefor the overhead is eliminated and lambda behaves like normal function calls.</p>
+
+<h2 id="reified-type-parameter">Reified type parameter</h2>
+
+<p>a <code class="language-plaintext highlighter-rouge">reified</code> type parameter is a special type of type parameter that can be used like a <code class="language-plaintext highlighter-rouge">Class</code>. The <code class="language-plaintext highlighter-rouge">reified</code> type parameter can only be used in <code class="language-plaintext highlighter-rouge">inline</code> functions. The reason is that in ordinary functions, the parameter is erased at compile time, so if you want to access the class object, you need to pass in arguments.</p>
+
+<p>A <code class="language-plaintext highlighter-rouge">inline</code> function is inlined where it is used, so then the compile see that reference to <code class="language-plaintext highlighter-rouge">inline</code> function, it knows what is the parameterized type exactly.</p>
+
+<p>In java, the generic functions behaves like this</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Before compile</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BoundStack</span><span class="o">&lt;</span><span class="no">E</span> <span class="kd">extends</span> <span class="nc">Comparable</span><span class="o">&lt;</span><span class="no">E</span><span class="o">&gt;&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="no">E</span><span class="o">[]</span> <span class="n">stackContent</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">BoundStack</span><span class="o">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">stackContent</span> <span class="o">=</span> <span class="o">(</span><span class="no">E</span><span class="o">[])</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">[</span><span class="n">capacity</span><span class="o">];</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push</span><span class="o">(</span><span class="no">E</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// ..</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="no">E</span> <span class="nf">pop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// ..</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+
+<span class="c1">// After compile</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BoundStack</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">Comparable</span> <span class="o">[]</span> <span class="n">stackContent</span><span class="o">;</span>
+ 
+    <span class="kd">public</span> <span class="nf">BoundStack</span><span class="o">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">stackContent</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Comparable</span><span class="o">[])</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">[</span><span class="n">capacity</span><span class="o">];</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push</span><span class="o">(</span><span class="nc">Comparable</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// ..</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="nc">Comparable</span> <span class="nf">pop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// ..</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>The compiler “sort of” knows about the real type, but not really. What it does is just bound the type depending on how type parameters are defined.</p>
+
+<p>In kotlin, it would be something like this</p>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+<span class="c1">// Some function that check whether </span>
+<span class="c1">// integer 1 is of given type</span>
+<span class="c1">// Before compile</span>
+<span class="k">inline</span> <span class="k">fun</span><span class="p">&lt;</span><span class="k">reified</span> <span class="nc">T</span><span class="p">&gt;</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="k">is</span> <span class="nc">T</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+We have three invokations
+*/</span>
+<span class="n">foo</span><span class="p">&lt;</span><span class="nc">Double</span><span class="p">&gt;()</span>
+
+<span class="n">foo</span><span class="p">&lt;</span><span class="nc">Int</span><span class="p">&gt;()</span>
+
+<span class="n">foo</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">&gt;()</span>
+
+
+<span class="c1">// After compile</span>
+
+<span class="k">fun</span> <span class="nf">foo1</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="mi">1</span> <span class="k">is</span> <span class="nc">Double</span><span class="p">}</span>
+<span class="k">fun</span> <span class="nf">foo2</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="mi">1</span> <span class="k">is</span> <span class="nc">Int</span><span class="p">}</span>
+<span class="k">fun</span> <span class="nf">foo3</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="mi">1</span> <span class="k">is</span> <span class="nc">String</span><span class="p">}</span>
+</code></pre></div></div>
+
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

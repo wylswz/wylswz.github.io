@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Prolog workshops | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Prolog workshops" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/Prolog/ws.html" />
+<meta property="og:url" content="http://localhost:4000/Prolog/ws.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Prolog workshops" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Prolog workshops","url":"http://localhost:4000/Prolog/ws.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="prolog-workshops">Prolog workshops</h1>
+
+<p>Workshop 1 - 5 are Haskell topics.</p>
+
+<p>The code in workshop is guaranteed to be error-free.</p>
+
+<h2 id="workshop-6">Workshop 6</h2>
+<p>Some files required:</p>
+
+<ul>
+  <li><a href="/Prolog/ws/borders.pl">borders</a></li>
+  <li><a href="/Prolog/ws/cities.pl">cities</a></li>
+  <li><a href="./ws/countries">countries</a></li>
+  <li><a href="/Prolog/ws/rivers.pl">rivers</a></li>
+</ul>
+
+<p>Please put them in same dir as workshop 6 source code</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:-</span> <span class="ss">ensure_loaded</span><span class="p">(</span><span class="ss">borders</span><span class="p">).</span>
+<span class="p">:-</span> <span class="ss">ensure_loaded</span><span class="p">(</span><span class="ss">cities</span><span class="p">).</span>
+<span class="p">:-</span> <span class="ss">ensure_loaded</span><span class="p">(</span><span class="ss">countries</span><span class="p">).</span>
+<span class="p">:-</span> <span class="ss">ensure_loaded</span><span class="p">(</span><span class="ss">rivers</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err">
+    Q1 borders(X,australia).
+    Q2 borders(B, france), borders(B, spain).
+    Q3 borders(B, france), borders(B, spain), country(B,_,_,_,_,_,_,_).
+    
+</span><span class="cm">*/</span>
+
+<span class="cm">/*</span><span class="err"> Q4
+    country/1 
+    country(C) is True if C is a country 
+</span><span class="cm">*/</span>
+<span class="ss">country</span><span class="p">(</span><span class="nv">A</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">country</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err"> Q5
+    larger/2 
+    larger(C1, C2) holds when C1 is larger
+
+    country(Country,Region,Latitude,Longitude,
+        Area (sqmiles),
+        Population,
+        Capital,Currency)
+</span><span class="cm">*/</span>
+<span class="ss">larger</span><span class="p">(</span><span class="nv">C1</span><span class="p">,</span> <span class="nv">C2</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">country</span><span class="p">(</span><span class="nv">C1</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">A1</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">),</span>
+    <span class="ss">country</span><span class="p">(</span><span class="nv">C2</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">A2</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">),</span>
+    <span class="nv">A1</span> <span class="o">&gt;</span> <span class="nv">A2</span><span class="p">.</span>
+
+<span class="cm">/*</span><span class="err">
+    river_country/2 
+    river_country(River, Country) holds if:
+    - River is a river
+    - Country is a country
+    - River flows into or outof Country
+
+    country_region/2
+    country_region(Country, Region) holds if:
+    - Country is a country in Region
+</span><span class="cm">*/</span>
+<span class="ss">river_country</span><span class="p">(</span><span class="nv">River</span><span class="p">,</span> <span class="nv">Country</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">river</span><span class="p">(</span><span class="nv">River</span><span class="p">,</span> <span class="nv">L</span><span class="p">),</span>
+    <span class="ss">country</span><span class="p">(</span><span class="nv">Country</span><span class="p">),</span>
+    <span class="ss">member</span><span class="p">(</span><span class="nv">Country</span><span class="p">,</span> <span class="nv">L</span><span class="p">).</span>
+
+<span class="ss">country_region</span><span class="p">(</span><span class="nv">Country</span><span class="p">,</span> <span class="nv">Region</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">country</span><span class="p">(</span><span class="nv">Country</span><span class="p">,</span> <span class="nv">Region</span><span class="p">,</span> <span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">,</span><span class="nv">_</span><span class="p">).</span>
+
+</code></pre></div></div>
+
+<h2 id="workshop-7">Workshop 7</h2>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*</span><span class="err"> Q1
+    list_of/2
+    list_of(Elt, List) holds if:
+    - every element if List equals to Elt
+
+    Works in any mode
+</span><span class="cm">*/</span>
+
+<span class="ss">list_of</span><span class="p">(</span><span class="nv">_</span><span class="p">,[]).</span>
+<span class="ss">list_of</span><span class="p">(</span><span class="nv">E</span><span class="p">,</span> <span class="p">[</span><span class="nv">E</span><span class="p">|</span><span class="nv">T</span><span class="p">])</span> <span class="p">:-</span> 
+    <span class="ss">list_of</span><span class="p">(</span><span class="nv">E</span><span class="p">,</span><span class="nv">T</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err"> Q2
+    all_same/1
+    all_same(List) holds if:
+    - All elements are same
+</span><span class="cm">*/</span>
+<span class="ss">all_same</span><span class="p">([]).</span>
+<span class="ss">all_same</span><span class="p">([</span><span class="nv">_</span><span class="p">]).</span>
+<span class="ss">all_same</span><span class="p">([</span><span class="nv">E</span><span class="p">|[</span><span class="nv">E</span><span class="p">|</span><span class="nv">T</span><span class="p">]])</span> <span class="p">:-</span> 
+    <span class="ss">all_same</span><span class="p">([</span><span class="nv">E</span><span class="p">|</span><span class="nv">T</span><span class="p">]).</span>
+
+<span class="cm">/*</span><span class="err"> Q3
+    adjacent/3
+    adjacent(E1, E2, List) holds if:
+    E1 appear immediately before E2 in List
+
+</span><span class="cm">*/</span>
+
+<span class="ss">adjacent</span><span class="p">(</span><span class="nv">E1</span><span class="p">,</span> <span class="nv">E2</span><span class="p">,</span> <span class="nv">List</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">append</span><span class="p">(</span><span class="nv">_</span><span class="p">,</span> <span class="p">[</span><span class="nv">E1</span><span class="p">,</span> <span class="nv">E2</span><span class="p">|</span><span class="nv">_</span><span class="p">],</span> <span class="nv">List</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err"> Q4
+    same predicate as Q3, but implement it recursively
+</span><span class="cm">*/</span>
+
+<span class="ss">adjacent_r</span><span class="p">(</span><span class="nv">E1</span><span class="p">,</span> <span class="nv">E2</span><span class="p">,</span> <span class="p">[</span><span class="nv">E1</span><span class="p">,</span><span class="nv">E2</span><span class="p">|</span><span class="nv">_</span><span class="p">]).</span>
+<span class="ss">adjacent_r</span><span class="p">(</span><span class="nv">E1</span><span class="p">,</span> <span class="nv">E2</span><span class="p">,</span> <span class="p">[</span><span class="nv">_</span><span class="p">|</span><span class="nv">T</span><span class="p">])</span> <span class="p">:-</span>
+    <span class="ss">adjacent_r</span><span class="p">(</span><span class="nv">E1</span><span class="p">,</span> <span class="nv">E2</span><span class="p">,</span> <span class="nv">T</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err"> Q5
+    before/3
+    before(E1,E2,List) holds if: 
+    - E1 occurs before E2 in List
+
+    Solve this recursively.
+    If List starts with E1, then we need to make sure 
+    E2 is in tail. If not, apply this to tail.
+</span><span class="cm">*/</span>
+<span class="ss">before</span><span class="p">(</span><span class="nv">E1</span><span class="p">,</span> <span class="nv">E2</span><span class="p">,</span> <span class="p">[</span><span class="nv">E1</span><span class="p">|</span><span class="nv">T</span><span class="p">])</span> <span class="p">:-</span> 
+    <span class="ss">member</span><span class="p">(</span><span class="nv">E2</span><span class="p">,</span><span class="nv">T</span><span class="p">).</span>
+<span class="ss">before</span><span class="p">(</span><span class="nv">E1</span><span class="p">,</span> <span class="nv">E2</span><span class="p">,</span> <span class="p">[</span><span class="nv">_</span><span class="p">|</span><span class="nv">T</span><span class="p">])</span> <span class="p">:-</span> 
+    <span class="ss">before</span><span class="p">(</span><span class="nv">E1</span><span class="p">,</span> <span class="nv">E2</span><span class="p">,</span> <span class="nv">T</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err"> Q6
+    tree/3
+    tree(L, N, R) represents a tree with label N and left
+    sub-tree L and right sub-tree R. Atom empty is Leaf.
+
+    intset_member/2
+    intset_member(N, Set) holds if:
+    - N is a member of Set</span><span class="cm">
+    *Avoid unnecessary recursion by comparing N with label of Set
+
+    intset_insert</span><span class="err">/3
+    intset_insert(N, Set0, Set) where
+    Set has N as a member. There should be no duplicated elements
+</span><span class="cm">*/</span>
+<span class="ss">intset_member</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="ss">tree</span><span class="p">(</span><span class="nv">_</span><span class="p">,</span><span class="nv">N</span><span class="p">,</span><span class="nv">_</span><span class="p">)).</span>
+<span class="ss">intset_member</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="ss">tree</span><span class="p">(</span><span class="nv">L</span><span class="p">,</span><span class="nv">N0</span><span class="p">,</span><span class="nv">_</span><span class="p">))</span> <span class="p">:-</span> 
+    <span class="nv">N</span> <span class="o">&lt;</span> <span class="nv">N0</span><span class="p">,</span>
+    <span class="ss">intset_member</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="nv">L</span><span class="p">).</span>
+<span class="ss">intset_member</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="ss">tree</span><span class="p">(</span><span class="nv">_</span><span class="p">,</span> <span class="nv">N0</span><span class="p">,</span> <span class="nv">R</span><span class="p">))</span> <span class="p">:-</span> 
+    <span class="nv">N</span> <span class="o">&gt;=</span> <span class="nv">N0</span><span class="p">,</span>
+    <span class="ss">intset_member</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span><span class="nv">R</span><span class="p">).</span>
+
+<span class="ss">intset_insert</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="ss">empty</span><span class="p">,</span> <span class="ss">tree</span><span class="p">(</span><span class="ss">empty</span><span class="p">,</span> <span class="nv">N</span><span class="p">,</span> <span class="ss">empty</span><span class="p">)).</span>
+<span class="ss">intset_insert</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="ss">tree</span><span class="p">(</span><span class="nv">L</span><span class="p">,</span><span class="nv">N</span><span class="p">,</span><span class="nv">R</span><span class="p">),</span> <span class="ss">tree</span><span class="p">(</span><span class="nv">L</span><span class="p">,</span><span class="nv">N</span><span class="p">,</span><span class="nv">R</span><span class="p">)).</span>
+<span class="ss">intset_insert</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="ss">tree</span><span class="p">(</span><span class="nv">L1</span><span class="p">,</span><span class="nv">N1</span><span class="p">,</span><span class="nv">R1</span><span class="p">),</span> <span class="ss">tree</span><span class="p">(</span><span class="nv">L2</span><span class="p">,</span><span class="nv">N1</span><span class="p">,</span><span class="nv">R1</span><span class="p">))</span> <span class="p">:-</span>
+    <span class="nv">N</span> <span class="o">&lt;</span> <span class="nv">N1</span><span class="p">,</span>
+    <span class="ss">intset_insert</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="nv">L1</span><span class="p">,</span> <span class="nv">L2</span><span class="p">).</span>
+<span class="ss">intset_insert</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="ss">tree</span><span class="p">(</span><span class="nv">L1</span><span class="p">,</span><span class="nv">N1</span><span class="p">,</span><span class="nv">R1</span><span class="p">),</span> <span class="ss">tree</span><span class="p">(</span><span class="nv">L1</span><span class="p">,</span><span class="nv">N1</span><span class="p">,</span><span class="nv">R2</span><span class="p">))</span> <span class="p">:-</span> 
+    <span class="nv">N</span> <span class="o">&gt;=</span> <span class="nv">N1</span><span class="p">,</span>
+    <span class="ss">intset_insert</span><span class="p">(</span><span class="nv">N</span><span class="p">,</span> <span class="nv">R1</span><span class="p">,</span> <span class="nv">R2</span><span class="p">).</span>
+
+</code></pre></div></div>
+
+<h2 id="workshop-8">Workshop 8</h2>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cm">/*</span><span class="err"> Q1
+    Convert the code to tail recursive version
+    sumList([], 0).
+    sumList([N|Ns], Sum) :- 
+        sumList(Ns, Sum0),
+        Sum is Sum0 + N.
+
+    Solve this by introducing an accumulator A
+    When the list is empty, the sum is A
+    Otherwise, Add head to A and recursively call
+    predicate.
+</span><span class="cm">*/</span>
+
+<span class="ss">sumListA</span><span class="p">([],</span><span class="nv">A</span><span class="p">,</span><span class="nv">A</span><span class="p">).</span>
+<span class="ss">sumListA</span><span class="p">([</span><span class="nv">N</span><span class="p">|</span><span class="nv">Ns</span><span class="p">],</span> <span class="nv">Sum</span><span class="p">,</span> <span class="nv">A</span><span class="p">)</span> <span class="p">:-</span>
+    <span class="nv">Sum0</span> <span class="ss">is</span> <span class="nv">A</span> <span class="o">+</span> <span class="nv">N</span><span class="p">,</span>
+    <span class="ss">sumListA</span><span class="p">(</span><span class="nv">Ns</span><span class="p">,</span> <span class="nv">Sum</span><span class="p">,</span> <span class="nv">Sum0</span><span class="p">).</span>
+
+<span class="ss">sumList</span><span class="p">(</span><span class="nv">L</span><span class="p">,</span> <span class="nv">Sum</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">sumListA</span><span class="p">(</span><span class="nv">L</span><span class="p">,</span> <span class="nv">Sum</span><span class="p">,</span> <span class="m">0</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err"> Q2
+    a binary tree defined as:
+    tree(empty).
+    tree(node(Left, _, Right)) :- 
+        tree(Left),
+        tree(Right).
+    
+    tree_list/2
+    tree_list(Tree, List) holds if:
+    - List is list of all elem of tree
+    - Left to Right order
+
+</span><span class="cm">*/</span>
+
+
+<span class="ss">tree_list</span><span class="p">(</span><span class="ss">empty</span><span class="p">,</span> <span class="p">[]).</span>
+<span class="ss">tree_list</span><span class="p">(</span><span class="ss">node</span><span class="p">(</span><span class="nv">Left</span><span class="p">,</span><span class="nv">Elt</span><span class="p">,</span><span class="nv">Right</span><span class="p">),</span> <span class="nv">List</span><span class="p">)</span> <span class="p">:-</span>
+	<span class="ss">tree_list</span><span class="p">(</span><span class="nv">Left</span><span class="p">,</span> <span class="nv">List1</span><span class="p">),</span>
+	<span class="ss">tree_list</span><span class="p">(</span><span class="nv">Right</span><span class="p">,</span> <span class="nv">List2</span><span class="p">),</span>
+	<span class="ss">append</span><span class="p">(</span><span class="nv">List1</span><span class="p">,</span> <span class="p">[</span><span class="nv">Elt</span><span class="p">|</span><span class="nv">List2</span><span class="p">],</span> <span class="nv">List</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err"> Q3 
+    Same as last question, but not use append
+    Make sure the cost is proportional to number of 
+    nodes in tree.
+
+    Refer to tail recursion optimization
+
+    It can be solved like this:
+    We are basically adding the tree to accumulator to get
+    the result.
+
+    Left hand side:
+        adding left tree to accumulator A where A is calculated from
+        right hand side and the node of current tree
+
+    Right hand side:
+        The accumulator is current accumulator passed as argument 
+</span><span class="cm">*/</span>
+
+<span class="ss">tree_list_a</span><span class="p">(</span><span class="ss">empty</span><span class="p">,</span> <span class="nv">A</span><span class="p">,</span> <span class="nv">A</span><span class="p">).</span>
+<span class="ss">tree_list_a</span><span class="p">(</span><span class="ss">node</span><span class="p">(</span><span class="nv">Left</span><span class="p">,</span> <span class="nv">V</span><span class="p">,</span> <span class="nv">Right</span><span class="p">),</span> <span class="nv">List</span><span class="p">,</span> <span class="nv">A</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">tree_list_a</span><span class="p">(</span><span class="nv">Left</span><span class="p">,</span> <span class="nv">List</span><span class="p">,</span> <span class="nv">List1</span><span class="p">),</span>
+    <span class="nv">List1</span> <span class="o">=</span> <span class="p">[</span><span class="nv">V</span><span class="p">|</span><span class="nv">List2</span><span class="p">],</span>
+    <span class="ss">tree_list_a</span><span class="p">(</span><span class="nv">Right</span><span class="p">,</span> <span class="nv">List2</span><span class="p">,</span> <span class="nv">A</span><span class="p">).</span>
+
+
+<span class="cm">/*</span><span class="err"> Q4
+    list_tree_b/2
+    list_tree_b(List, Tree) holds if:
+    - List is a list of elements in Tree
+    - Tree is balanced
+    
+    Work in the mode where List is proper list
+</span><span class="cm">*/</span>
+
+<span class="cm">/*</span><span class="err">
+    The below solution is not efficient because
+    it tries to find the appropriate list combination
+    one by one
+list_tree_b([],empty).
+list_tree_b(List, node(Left, V, Right)) :- 
+    append(List_L, List_R_V, List),
+    List_R_V = [V| List_R],
+    length(List_L, Len_L),
+    length(List_R, Len_R),
+    Len_L - Len_R =&lt; 1,
+    list_tree_b(List_L, Left),
+    list_tree_b(List_R, Right).
+
+    A better solution is to specify the length at 
+    the beginning
+
+</span><span class="cm">*/</span>
+
+<span class="ss">list_tree_b_</span><span class="p">([],</span> <span class="ss">empty</span><span class="p">).</span>
+<span class="ss">list_tree_b_</span><span class="p">([</span><span class="nv">E</span><span class="p">|</span><span class="nv">List</span><span class="p">],</span> <span class="ss">node</span><span class="p">(</span><span class="nv">Left</span><span class="p">,</span><span class="nv">Elt</span><span class="p">,</span><span class="nv">Right</span><span class="p">))</span> <span class="p">:-</span>
+	<span class="ss">length</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="nv">Len</span><span class="p">),</span>
+	<span class="nv">Len2</span> <span class="ss">is</span> <span class="nv">Len</span> <span class="o">//</span> <span class="m">2</span><span class="p">,</span>
+	<span class="ss">length</span><span class="p">(</span><span class="nv">Front</span><span class="p">,</span> <span class="nv">Len2</span><span class="p">),</span>
+	<span class="ss">append</span><span class="p">(</span><span class="nv">Front</span><span class="p">,</span> <span class="p">[</span><span class="nv">Elt</span><span class="p">|</span><span class="nv">Back</span><span class="p">],</span> <span class="p">[</span><span class="nv">E</span><span class="p">|</span><span class="nv">List</span><span class="p">]),</span>
+	<span class="ss">list_tree_b_</span><span class="p">(</span><span class="nv">Front</span><span class="p">,</span> <span class="nv">Left</span><span class="p">),</span>
+	<span class="ss">list_tree_b_</span><span class="p">(</span><span class="nv">Back</span><span class="p">,</span> <span class="nv">Right</span><span class="p">).</span>
+</code></pre></div></div>
+
+<h2 id="workshop-9">Workshop 9</h2>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cm">/*</span><span class="err"> Q1
+    same_elements/2
+    same_element(L1, L2) holds if:
+    - Elems in L1 are in L2
+    - Vice versa
+
+    Only work in mode where both lists are ground
+
+</span><span class="cm">*/</span>
+
+<span class="ss">members</span><span class="p">([],</span><span class="nv">_</span><span class="p">).</span>
+<span class="ss">members</span><span class="p">([</span><span class="nv">H</span><span class="p">|</span><span class="nv">T</span><span class="p">],</span> <span class="nv">L</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">member</span><span class="p">(</span><span class="nv">H</span><span class="p">,</span> <span class="nv">L</span><span class="p">),</span>
+    <span class="ss">members</span><span class="p">(</span><span class="nv">T</span><span class="p">,</span><span class="nv">L</span><span class="p">).</span>
+
+<span class="ss">same_elements</span><span class="p">(</span><span class="nv">L1</span><span class="p">,</span> <span class="nv">L2</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">members</span><span class="p">(</span><span class="nv">L1</span><span class="p">,</span> <span class="nv">L2</span><span class="p">),</span>
+    <span class="ss">members</span><span class="p">(</span><span class="nv">L2</span><span class="p">,</span> <span class="nv">L1</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err"> Q2
+    same as previous one, make it Nlog(N)
+    in time complexity
+
+    Note that prolog sort removes duplicates
+</span><span class="cm">*/</span>
+
+<span class="ss">same_elements_log</span><span class="p">(</span><span class="nv">L1</span><span class="p">,</span> <span class="nv">L2</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">sort</span><span class="p">(</span><span class="nv">L1</span><span class="p">,</span> <span class="nv">Sorted</span><span class="p">),</span>
+    <span class="ss">sort</span><span class="p">(</span><span class="nv">L2</span><span class="p">,</span> <span class="nv">Sorted</span><span class="p">).</span>
+
+<span class="cm">/*</span><span class="err"> Q3
+    times/4
+    times(W,X,Y,Z). holds if:
+    - All arguments are integers
+    - W</span><span class="cm">*X + Y = Z
+    - 0 &lt;= Y &lt; |W|
+
+    Works when W and at least on of X and Z are bound to integer
+    Deterministic when 3 of 4 args are ground
+*/</span>
+
+<span class="cm">/*</span><span class="err"> Q4 
+    Solve water container problem
+    two containers: 5L and 3L. The goal is to get 
+    4L water in 5L container.
+
+    fill/1
+    fill(To) where To is the capacity of container to fill
+
+    empty/1
+    empty(From) where From is capacity of container to empty
+
+    pour/2
+    pour(From, To)
+
+    container/1
+
+    Solve this by first define all the possible next operations and their effects
+    Bring non-deteministic movement by using Prolog Variables
+
+    It eventually reach the goal, and all the actions after that are don't cares
+
+</span><span class="cm">*/</span>
+
+<span class="ss">next</span><span class="p">(</span><span class="ss">fill</span><span class="p">(</span><span class="m">3</span><span class="p">),</span> <span class="p">[</span><span class="nv">_</span><span class="p">,</span><span class="nv">B</span><span class="p">],</span> <span class="p">[</span><span class="m">3</span><span class="p">,</span> <span class="nv">B</span><span class="p">]).</span>
+<span class="ss">next</span><span class="p">(</span><span class="ss">fill</span><span class="p">(</span><span class="m">5</span><span class="p">),</span> <span class="p">[</span><span class="nv">A</span><span class="p">,</span><span class="nv">_</span><span class="p">],</span> <span class="p">[</span><span class="nv">A</span><span class="p">,</span> <span class="m">5</span><span class="p">]).</span> 
+<span class="ss">next</span><span class="p">(</span><span class="ss">empty</span><span class="p">(</span><span class="m">3</span><span class="p">),</span> <span class="p">[</span><span class="nv">_</span><span class="p">,</span><span class="nv">B</span><span class="p">],</span> <span class="p">[</span><span class="m">0</span><span class="p">,</span><span class="nv">B</span><span class="p">]).</span>
+<span class="ss">next</span><span class="p">(</span><span class="ss">empty</span><span class="p">(</span><span class="m">5</span><span class="p">),</span> <span class="p">[</span><span class="nv">A</span><span class="p">,</span><span class="nv">_</span><span class="p">],</span> <span class="p">[</span><span class="nv">A</span><span class="p">,</span><span class="m">0</span><span class="p">]).</span>
+
+<span class="ss">next</span><span class="p">(</span><span class="ss">pour</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">5</span><span class="p">),</span> <span class="p">[</span><span class="nv">A</span><span class="p">,</span><span class="nv">B</span><span class="p">],</span> <span class="p">[</span><span class="nv">C</span><span class="p">,</span><span class="nv">D</span><span class="p">])</span> <span class="p">:-</span> 
+    <span class="p">(</span>
+        <span class="nv">A</span> <span class="o">+</span> <span class="nv">B</span> <span class="o">&gt;</span> <span class="m">5</span> <span class="o">-&gt;</span> 
+        <span class="nv">C</span> <span class="ss">is</span> <span class="nv">A</span> <span class="o">-</span> <span class="p">(</span><span class="m">5</span><span class="o">-</span><span class="nv">B</span><span class="p">),</span>
+        <span class="nv">D</span> <span class="ss">is</span> <span class="m">5</span><span class="p">;</span>
+        <span class="nv">C</span> <span class="ss">is</span> <span class="m">0</span><span class="p">,</span>
+        <span class="nv">D</span> <span class="ss">is</span> <span class="nv">B</span> <span class="o">+</span> <span class="nv">A</span>
+    <span class="p">).</span>
+
+<span class="ss">next</span><span class="p">(</span><span class="ss">pour</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="p">[</span><span class="nv">A</span><span class="p">,</span><span class="nv">B</span><span class="p">],</span> <span class="p">[</span><span class="nv">C</span><span class="p">,</span><span class="nv">D</span><span class="p">])</span> <span class="p">:-</span> 
+    <span class="p">(</span>
+        <span class="nv">A</span> <span class="o">+</span> <span class="nv">B</span> <span class="o">&gt;</span> <span class="m">3</span> <span class="o">-&gt;</span>
+        <span class="nv">C</span> <span class="ss">is</span> <span class="m">3</span><span class="p">,</span>
+        <span class="nv">D</span> <span class="ss">is</span> <span class="nv">B</span> <span class="o">-</span> <span class="p">(</span><span class="m">3</span><span class="o">-</span><span class="nv">A</span><span class="p">);</span>
+        <span class="nv">C</span> <span class="ss">is</span> <span class="nv">B</span> <span class="o">+</span> <span class="nv">A</span><span class="p">,</span>
+        <span class="nv">D</span> <span class="ss">is</span> <span class="m">0</span>
+    <span class="p">).</span>
+
+
+<span class="ss">container</span><span class="p">([</span><span class="nv">_</span><span class="p">,</span><span class="m">4</span><span class="p">],</span> <span class="nv">_</span><span class="p">,</span> <span class="nv">_</span><span class="p">):-</span> 
+    <span class="ss">print</span><span class="p">(</span><span class="s2">"success"</span><span class="p">).</span>
+<span class="ss">container</span><span class="p">(</span><span class="nv">State</span><span class="p">,</span> <span class="nv">History</span><span class="p">,</span> <span class="p">[</span><span class="nv">Action</span><span class="p">|</span><span class="nv">Actions</span><span class="p">])</span> <span class="p">:-</span> 
+    <span class="ss">next</span><span class="p">(</span><span class="nv">Action</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="nv">State_</span><span class="p">),</span>
+    <span class="err">\</span><span class="o">+</span> <span class="ss">member</span><span class="p">(</span><span class="nv">State_</span><span class="p">,</span> <span class="nv">History</span><span class="p">),</span>
+    <span class="ss">container</span><span class="p">(</span><span class="nv">State_</span><span class="p">,</span> <span class="p">[</span><span class="nv">State_</span><span class="p">|</span><span class="nv">History</span><span class="p">],</span> <span class="nv">Actions</span><span class="p">).</span>
+
+<span class="ss">container</span><span class="p">(</span><span class="nv">Action</span><span class="p">)</span> <span class="p">:-</span>
+    <span class="ss">container</span><span class="p">([</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">],</span> <span class="p">[],</span> <span class="nv">Action</span><span class="p">).</span>
+
+</code></pre></div></div>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

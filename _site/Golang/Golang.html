@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>IT Taolu | Read best Taolus of IT industry</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="IT Taolu" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/Golang/Golang.html" />
+<meta property="og:url" content="http://localhost:4000/Golang/Golang.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="IT Taolu" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"IT Taolu","url":"http://localhost:4000/Golang/Golang.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      
+<ul>
+  <li><a href="#Learning-Golang">Learning Golang</a>
+    <ul>
+      <li><a href="#Install-Go">Install Go</a></li>
+    </ul>
+  </li>
+  <li><a href="#Something-to-remember">Something to remember…</a>
+    <ul>
+      <li><a href="#packageimport">package/import</a></li>
+      <li><a href="#Functions">Functions</a></li>
+      <li><a href="#Variables">Variables</a></li>
+      <li><a href="#Basic-types">Basic types</a></li>
+      <li><a href="#Confrol-flow">Confrol flow</a>
+        <ul>
+          <li><a href="#For-loop">For loop</a></li>
+          <li><a href="#Switch">Switch</a></li>
+          <li><a href="#Defer">Defer</a></li>
+        </ul>
+      </li>
+      <li><a href="#Pointer">Pointer</a></li>
+      <li><a href="#Structs">Structs</a></li>
+      <li><a href="#Arrays--Slice">Arrays &amp; Slice</a></li>
+      <li><a href="#Maps">Maps</a></li>
+      <li><a href="#Closures">Closures</a></li>
+      <li><a href="#Methods">Methods</a></li>
+      <li><a href="#Interface">Interface</a></li>
+      <li><a href="#Type-Assertion">Type Assertion</a></li>
+      <li><a href="#Type-switch">Type switch</a></li>
+      <li><a href="#Stringer">Stringer</a></li>
+      <li><a href="#Error">Error</a></li>
+      <li><a href="#Channel">Channel</a></li>
+      <li><a href="#Select">Select</a></li>
+      <li><a href="#Mutex">Mutex</a>
+        <h2 id="learning-golang">Learning Golang</h2>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>This is not a tutorial, and I’m not expecting anyone to learning Go by reading this because I’m a novice as well. This is somewhere I write down some notes as I learn.</p>
+
+<h3 id="install-go">Install Go</h3>
+<p>Installing Go is quite simple, which is nothing more than</p>
+
+<ul>
+  <li>Downloading and installing the binary</li>
+  <li>Setting GOPATH</li>
+  <li>Adding Go executables to PATH</li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Download the binary and install to /usr/local/go</span>
+
+<span class="nv">TAR_URL</span><span class="o">=</span>https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz
+<span class="nb">rm</span> <span class="nt">-rf</span> /usr/local/go
+wget <span class="nt">-O-</span> <span class="nv">$TAR_URL</span> | <span class="nb">tar</span> <span class="nt">-C</span> /usr/local <span class="nt">-xvz</span>
+</code></pre></div></div>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Add these two lines to .bashrc</span>
+
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/go/bin
+<span class="nb">export </span><span class="nv">GOPATH</span><span class="o">=</span>/home/ubuntu/go
+</code></pre></div></div>
+
+<p>What is the difference between <code class="language-plaintext highlighter-rouge">GOPATH</code> and <code class="language-plaintext highlighter-rouge">GOROOT</code>. Well, <code class="language-plaintext highlighter-rouge">GOPATH</code> is like your working dir, where you put third party packages or source codes. The following code installs testify package,</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># install the package testify</span>
+<span class="c"># https://github.com/stretchr/testify </span>
+go get github.com/stretchr/testify
+</code></pre></div></div>
+<p>and you get this in <code class="language-plaintext highlighter-rouge">GOPATH/pkg</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/ubuntu/go/pkg/
+└── linux_amd64
+    └── github.com
+        └── stretchr
+            └── testify.a
+</code></pre></div></div>
+
+<p>While <code class="language-plaintext highlighter-rouge">GOROOT</code> is like the path to your Golang software, which is needed if you have multiple versions of Go installed.</p>
+
+<h2 id="something-to-remember">Something to remember…</h2>
+
+<h3 id="packageimport">package/import</h3>
+<p>Go programs are made up of packages. Program start running in package <code class="language-plaintext highlighter-rouge">main</code>. The following code imports <code class="language-plaintext highlighter-rouge">fmt</code> and <code class="language-plaintext highlighter-rouge">math/rand</code> to do a fairly simple job. The last element of package path can be directly used.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+<span class="k">import</span> <span class="s">"fmt"</span>
+<span class="k">import</span> <span class="s">"math/rand"</span>
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Print</span><span class="p">(</span><span class="n">rand</span><span class="o">.</span><span class="n">Intn</span><span class="p">(</span><span class="m">10</span><span class="p">))</span>
+    <span class="c">// use rand.Xxx directly</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<p>The import can also be</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">(</span>
+    <span class="s">"pkg1"</span>
+    <span class="s">"pkg2"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>Exported name start with capital letter.</p>
+
+<h3 id="functions">Functions</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Define a function</span>
+<span class="k">func</span> <span class="n">funcName</span><span class="p">(</span><span class="n">arg</span> <span class="k">type</span><span class="p">,</span> <span class="n">arg2</span> <span class="n">type2</span><span class="p">)</span> <span class="p">(</span><span class="n">type3</span><span class="p">,</span> <span class="n">type4</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">val1</span><span class="p">,</span> <span class="n">val2</span>
+<span class="p">}</span>
+
+<span class="c">// Named return</span>
+<span class="c">// Don't use too much</span>
+<span class="c">// Unreadable</span>
+<span class="k">func</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="n">x</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="variables">Variables</h3>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="s">"fmt"</span>
+
+<span class="k">var</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="kt">int</span> <span class="c">// package level</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="n">i</span> <span class="kt">int</span> <span class="c">// function level declaration</span>
+    <span class="k">var</span> <span class="n">j</span> <span class="kt">int</span> <span class="o">=</span> <span class="m">3</span> <span class="c">// with init value</span>
+    <span class="n">k</span> <span class="o">:=</span> <span class="m">8</span> <span class="c">// Implicite type</span>
+    <span class="k">const</span> <span class="n">g</span> <span class="o">=</span> <span class="m">12</span> <span class="c">// Constant</span>
+    <span class="k">const</span> <span class="p">(</span>
+        <span class="n">Big</span> <span class="o">=</span> <span class="m">1</span> <span class="o">&lt;&lt;</span> <span class="m">100</span> <span class="c">// shift 1 100 left</span>
+        <span class="c">// Untyped numeric const takes the type needed by context</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<h3 id="basic-types">Basic types</h3>
+<ul>
+  <li>bool</li>
+  <li>string</li>
+  <li>int</li>
+  <li>uint</li>
+  <li>byte (uint8)</li>
+  <li>rune (int32)</li>
+  <li>float32 float64</li>
+  <li>complex64 complex128</li>
+</ul>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c">// type conversion</span>
+</code></pre></div></div>
+
+<h3 id="confrol-flow">Confrol flow</h3>
+
+<h4 id="for-loop">For loop</h4>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">init</span><span class="p">;</span> <span class="n">end</span><span class="p">;</span> <span class="n">inc</span> <span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">cond</span> <span class="p">{</span>
+    <span class="c">// like while</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">{</span>
+    <span class="c">// forever</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h4 id="switch">Switch</h4>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">switch</span> <span class="k">var</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">value1</span><span class="o">:</span>
+        <span class="n">do</span> <span class="n">something</span>
+    <span class="k">case</span> <span class="n">value2</span><span class="o">:</span>
+        <span class="n">do</span> <span class="n">something</span> <span class="k">else</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">do</span> <span class="n">default_</span> <span class="n">shit</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Evalute from top to bottom, stop when a case succeeds.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// switch with no condition</span>
+<span class="k">switch</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">cond1</span><span class="o">:</span>
+        <span class="n">do_something</span>
+    <span class="k">case</span> <span class="n">cond2</span><span class="o">:</span>
+        <span class="n">do_something_else</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">do_default_shit</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When used with no condition, a full condition can be placed after <code class="language-plaintext highlighter-rouge">case</code>.</p>
+
+<h4 id="defer">Defer</h4>
+<p>Defers the execution of a function until the surrounding function returns</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">defer</span> <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"world"</span><span class="p">)</span>
+
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"hello, "</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c">// Get hello, world in console</span>
+</code></pre></div></div>
+
+<p>Deferred fn are pushed to stack, so executed first-in-last-out order.</p>
+
+<h3 id="pointer">Pointer</h3>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">func</span> <span class="n">incr</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">i</span> <span class="o">++</span>
+<span class="p">}</span>
+
+<span class="n">i</span> <span class="o">:=</span> <span class="m">1</span>
+<span class="n">p</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">i</span>
+<span class="n">incr</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+<span class="c">// We get i=2 as a result</span>
+</code></pre></div></div>
+
+<h3 id="structs">Structs</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// struct is a collection of fields</span>
+
+<span class="k">type</span> <span class="n">Vertex</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">X</span> <span class="kt">int</span>
+    <span class="n">Y</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="n">v</span> <span class="o">:=</span> <span class="n">Vertex</span><span class="p">{</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">}</span>
+<span class="n">v</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="m">3</span>
+<span class="c">// Modify X to 3</span>
+
+<span class="n">p</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">v</span>
+<span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">X</span>
+<span class="n">p</span><span class="o">.</span><span class="n">X</span>
+<span class="c">// Both are valid</span>
+
+<span class="n">v2</span> <span class="o">:=</span> <span class="n">Vertex</span><span class="p">{</span><span class="n">X</span><span class="o">:</span><span class="m">1</span><span class="p">}</span>
+<span class="c">// Y is 0 by default</span>
+
+
+</code></pre></div></div>
+
+<h3 id="arrays--slice">Arrays &amp; Slice</h3>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="n">T</span>
+<span class="c">// Array of type T with lengh n</span>
+<span class="c">// Length is an attribute, which is immutable</span>
+
+<span class="k">var</span> <span class="n">a</span> <span class="p">[</span><span class="m">10</span><span class="p">]</span><span class="kt">int</span>
+<span class="c">// a is an int array with length 10</span>
+
+
+</code></pre></div></div>
+
+<p>Slice is dynamically sized, references to arrays.</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[]</span><span class="n">T</span>
+<span class="c">// Slice of type T</span>
+<span class="n">c</span> <span class="o">:=</span> <span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">}</span>
+<span class="n">a</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">}</span>
+<span class="n">cs</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="m">0</span><span class="o">:</span><span class="m">2</span><span class="p">]</span> <span class="c">// [2,3]</span>
+<span class="n">nilSlice</span> <span class="o">:=</span> <span class="no">nil</span> <span class="c">// can be nil</span>
+
+<span class="n">makeslice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="m">5</span><span class="p">)</span>
+<span class="n">matrix</span> <span class="o">:=</span> <span class="p">[][]</span><span class="kt">int</span> <span class="p">{</span>
+    <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">},</span>
+    <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">},</span>
+<span class="p">}</span> <span class="c">// 2d slice</span>
+
+<span class="nb">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="c">// append to slice</span>
+<span class="c">// array re-allocation happens</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">a</span> <span class="p">{</span>
+    <span class="n">do</span> <span class="n">sth</span> <span class="n">to</span> <span class="n">i</span> <span class="n">and</span> <span class="n">v</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>len()</strong> is the number of element in slice</li>
+  <li><strong>cap()</strong> is the number of elements in underlying array, counting from first elem in the slice</li>
+</ul>
+
+<p>Slicing from the beginning does not affect cap, and you can always re-slice to extend. But slicing from the middle cut down cap, you cannot re-slice to extend back.</p>
+
+<h3 id="maps">Maps</h3>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span>
+<span class="c">// map string to int</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="nb">make</span><span class="p">(</span><span class="k">map</span><span class="p">[</span><span class="n">keyType</span><span class="p">]</span><span class="n">valType</span><span class="p">)</span>
+<span class="n">m</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+<span class="nb">delete</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">key</span><span class="p">)</span> <span class="c">// delete a value</span>
+
+<span class="n">elem</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="k">map</span><span class="p">[</span><span class="s">"key"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="closures">Closures</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">adder</span><span class="p">()</span> <span class="k">func</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="n">sum</span> <span class="o">:=</span> <span class="m">0</span>
+    <span class="k">return</span> <span class="k">func</span><span class="p">(</span><span class="n">x</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">x</span>
+        <span class="k">return</span> <span class="n">sum</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c">// adder() returns a closure, each one with its own sum bounded</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">pos</span><span class="p">,</span> <span class="n">neg</span> <span class="o">:=</span> <span class="n">adder</span><span class="p">(),</span> <span class="n">adder</span><span class="p">()</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="m">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span>
+			<span class="n">pos</span><span class="p">(</span><span class="m">1</span><span class="p">),</span>
+			<span class="n">neg</span><span class="p">(</span><span class="o">-</span><span class="m">1</span><span class="p">),</span>
+		<span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="methods">Methods</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Vertex</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="kt">float64</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">v</span> <span class="n">Vertex</span><span class="p">)</span> <span class="n">Abs</span><span class="p">()</span> <span class="kt">float64</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">X</span><span class="o">*</span><span class="n">v</span><span class="o">.</span><span class="n">X</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">Y</span><span class="o">*</span><span class="n">v</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">v</span> <span class="o">*</span><span class="n">Vertex</span><span class="p">)</span> <span class="n">Testp</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="m">1</span>
+    <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">X</span>
+    <span class="c">// Pointer receiver</span>
+    <span class="c">// Modifies struct value</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">v</span> <span class="o">:=</span> <span class="n">Vertex</span><span class="p">{</span><span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">}</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">Testp</span><span class="p">()</span>
+    <span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">Testp</span><span class="p">()</span>
+    <span class="c">// Can either take pointer or value, interpreted as accepted by pointer</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">Abs</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="interface">Interface</h3>
+<p>An interface type is defined as a set of method signatures. A value of interface can hold any value that implements those methods.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Int_f</span> <span class="k">interface</span> <span class="p">{</span>
+    <span class="n">Incr</span><span class="p">()</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="k">type</span> <span class="n">Int</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">V</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span><span class="n">Int</span><span class="p">)</span> <span class="n">Incr</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">i</span><span class="o">.</span><span class="n">V</span> <span class="o">+</span> <span class="m">1</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="n">a</span> <span class="n">Int_f</span>
+<span class="n">v</span> <span class="o">:=</span> <span class="n">Int</span><span class="p">{</span><span class="m">1</span><span class="p">}</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">v</span> <span class="c">// Error, no implementation for Int</span>
+<span class="n">a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">v</span> <span class="c">// Correct, pointer receiver is implemented</span>
+</code></pre></div></div>
+
+<p>Interface values can be thought of as a tuple of a value and a concrete type</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="k">type</span><span class="p">)</span>
+</code></pre></div></div>
+<p>An interface value holds a value of specific underlying concrete type. Calling a method of interface value executes the method of same name on its underlying type</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">i</span> <span class="k">interface</span> <span class="p">{}</span> 
+<span class="c">// Holds any type</span>
+</code></pre></div></div>
+
+<h3 id="type-assertion">Type Assertion</h3>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">v</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+<span class="c">// Type Assertion</span>
+</code></pre></div></div>
+
+<h3 id="type-switch">Type switch</h3>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span> <span class="n">v</span> <span class="o">:=</span> <span class="n">i</span><span class="o">.</span><span class="p">(</span><span class="k">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="stringer">Stringer</h3>
+<p><code class="language-plaintext highlighter-rouge">fmt.Print</code> looks for <code class="language-plaintext highlighter-rouge">Stringer</code> interface to print values</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">v</span> <span class="n">Type</span><span class="p">)</span> <span class="n">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"asdasd"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="error">Error</h3>
+<p>error interface implements <code class="language-plaintext highlighter-rouge">Error()</code> method</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">e</span> <span class="o">*</span><span class="n">MyErr</span><span class="p">)</span> <span class="n">Error</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">"Error message"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="channel">Channel</h3>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ch</span> <span class="o">&lt;-</span> <span class="n">v</span> <span class="c">// Send v to channel</span>
+<span class="n">v</span> <span class="o">:=</span> <span class="o">&lt;-</span> <span class="n">ch</span> <span class="c">// Recv val from channel</span>
+
+<span class="n">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="kt">int</span><span class="p">)</span>
+<span class="c">// Create the chennel</span>
+
+<span class="n">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span>
+<span class="c">// buffered channel, blocks</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">c</span> <span class="p">{</span>
+    <span class="c">//recv value repeatedly until closed</span>
+<span class="p">}</span>
+
+<span class="nb">close</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="c">// close channel</span>
+
+<span class="n">v</span><span class="p">,</span> <span class="n">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span> <span class="n">ch</span>
+<span class="c">// Ok is false if channel closed</span>
+
+</code></pre></div></div>
+
+<h3 id="select">Select</h3>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">c</span> <span class="o">&lt;-</span> <span class="n">x</span><span class="o">:</span>
+        <span class="n">ops</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">wait</span>
+<span class="p">}</span>
+<span class="c">// Block until some case can run</span>
+<span class="c">// Randomly select one if multiple are ready</span>
+</code></pre></div></div>
+
+<h3 id="mutex">Mutex</h3>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Counter</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">v</span> <span class="kt">int</span>
+    <span class="n">mux</span> <span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span>
+<span class="p">}</span>
+
+<span class="n">c</span><span class="o">:=</span> <span class="n">Counter</span><span class="p">{</span><span class="n">v</span><span class="o">:</span><span class="m">1</span><span class="p">}</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="o">*</span><span class="n">Counter</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">mux</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+    <span class="k">defer</span> <span class="n">c</span><span class="o">.</span><span class="n">mux</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="m">3</span> 
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

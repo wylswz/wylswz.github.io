@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Mark and Compaction Algorithms | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Mark and Compaction Algorithms" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/GC/MarkCompaction.html" />
+<meta property="og:url" content="http://localhost:4000/GC/MarkCompaction.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Mark and Compaction Algorithms" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Mark and Compaction Algorithms","url":"http://localhost:4000/GC/MarkCompaction.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="mark-and-compaction-algorithms">Mark and Compaction Algorithms</h1>
+<p>Mark and compaction alorithms can illeviate fragmentation of memory by relocating live objects</p>
+
+<h2 id="strategy-of-relocating">Strategy of relocating</h2>
+
+<ul>
+  <li>Arbitrary: Relocate objects in arbitrary order.
+    <ul>
+      <li>Simple to implement</li>
+      <li>Poor data locality for mutators</li>
+    </ul>
+  </li>
+  <li>Linearising: Relocate object based on dependencies (like referencing fields)
+    <ul>
+      <li>Better locality</li>
+    </ul>
+  </li>
+  <li>Sliding: Slide object to one end of the heap</li>
+</ul>
+
+<h2 id="algorithms">Algorithms</h2>
+
+<h3 id="two-finger-compaction">Two finger compaction</h3>
+
+<p>The idea is that if we know the total size of live objects, we can find the <strong>high water threshold</strong> of the heap, then we simple move data below that threshold.</p>
+
+<ol>
+  <li>Find high-water threshold</li>
+  <li>Initialize two pointers, <strong>free</strong> and <strong>scan</strong>
+    <ol>
+      <li>Free start at the beginning of address space and move forward</li>
+      <li>Scan start at end of address space and move backward</li>
+    </ol>
+  </li>
+  <li>Move <strong>free</strong> to first <strong>gap</strong> where space is available</li>
+  <li>If <strong>scan</strong> finds live object, it is relocated at the <strong>free</strong> pointer</li>
+  <li>After relocating one object, proceed <strong>free</strong> to next <strong>gap</strong></li>
+</ol>
+
+<p>The Two Finger Algorithm is:</p>
+<ul>
+  <li>Memory efficient</li>
+  <li>Good cache performance for collector, but bad data locality for mutator</li>
+  <li>Easy to implement</li>
+</ul>
+
+<p>Only handles fixed-size objects :(</p>
+
+<h3 id="lisp-2-algorithm">Lisp 2 Algorithm</h3>
+<p>Lisp 2 algorithm aims to improve throughput of mark &amp; compaction collectors. Similar to two finger algorithm, lisp 2 also has free and scan pointers.</p>
+
+<ul>
+  <li><strong>Phase 1</strong> It traverses the heap, and set <code class="language-plaintext highlighter-rouge">forwardingAddress</code> field of the object with value of <strong>free</strong> pointer, which is also the target address of this object.</li>
+  <li><strong>Phase 2</strong> Traverse the heap again, and relocate objects based on <code class="language-plaintext highlighter-rouge">forwardingAddress</code> field.</li>
+</ul>
+
+<p>Lisp 2 Algorithm is:</p>
+<ul>
+  <li>easily parallelized, thus high throughput can be achieved.</li>
+  <li>But it requires 3 traversals over the heap, which is quite in-efficient</li>
+  <li>Space is added to object to store additional field
+    <ul>
+      <li>Space in-efficient</li>
+      <li>Invasion!</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="threading-compaction">Threading compaction</h3>
+<p><strong>Destructivity:</strong> The algorithm is destructive if live data is overwritten by relocated objects. Lisp 2 is non-destructive because it tracks target address in object header.</p>
+
+<p><strong>Threading</strong>: Allow all references to N can be found from N by following thread pointers</p>
+
+<ol>
+  <li>Thread the node N by chaining referers. Swap one field of N into the Field that holds the reference of N of the last node of the threaded chain temporary.</li>
+  <li>Calculate the new address of N (which is <strong>free</strong>), and update this reference into referers’ fields.</li>
+  <li>Actually reallocate objects</li>
+</ol>
+
+<p>This is a smart way by storing N’s info in referer’s field which referring to N, thus no additional space is required.</p>
+
+<p>Threading algorithm suffers from cache in-efficiency because it needs to follow thread pointers!</p>
+
+<h3 id="one-pass-algorithms">One pass algorithms</h3>
+
+<ul>
+  <li>Divide heap into blocks</li>
+  <li>Use an offset vector to calculate offset address for each block</li>
+  <li>Process each block in parallel and relocate using local address + offset vector</li>
+</ul>
+
+<h2 id="limitations-of-mark--compaction-collectors">Limitations of Mark &amp; Compaction Collectors</h2>
+<ul>
+  <li>Additional space to save reloating-address</li>
+  <li>Two-Finger only handles fixed-size objects</li>
+  <li>Threaded compaction requires that it is possible to distinguish thread pointers from references</li>
+</ul>
+
+<h1 id="generational-collectors">Generational Collectors</h1>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

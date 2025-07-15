@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Cryptography | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Cryptography" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/Crypto/Crypto.html" />
+<meta property="og:url" content="http://localhost:4000/Crypto/Crypto.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Cryptography" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Cryptography","url":"http://localhost:4000/Crypto/Crypto.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="cryptography">Cryptography</h1>
+
+<h2 id="diffie-hellman-idea">Diffie-Hellman Idea</h2>
+
+<p>The problem: Two users want to share a common secret over a public network, is it possible?</p>
+
+<ul>
+  <li>We need a one way function which is easy to get $x \rightarrow y$ but very hard to get $x$ from $y$</li>
+  <li>Alice and Bob exchange some public information then calculate the shared secret key.</li>
+</ul>
+
+<h3 id="one-way-function">One way function</h3>
+<p>One example of one-way function is discrete logarithm problem. Let ‘g’ and ‘h’ be elements of group G, then discrete logarithm problem is the problem of finding x such that $g^x = h$</p>
+
+<p>For example, we are calculating $2^x mod 11$, then we get this</p>
+
+<p><img src="/Crypto/dlog.png" alt="" /></p>
+
+<p>This process is quite hard to be reversed, esecially when we have a real big x.</p>
+
+<h3 id="exchanging-the-key">Exchanging the key</h3>
+
+<p><img src="/Crypto/DH_keyexchange.png" alt="" /></p>
+
+<p>The exchange of key then becomes straightforward. Alice chooses a Na, and calculate Ma using one way function, then send it to Bob. Bob chooses a Nb and calculate Mb then send to Alice. We easily get $Mb^{Na} = Ma^{Nb}$, which can be used as shared key. Even if the attackers know Ma and Mb, they can hardly calculate the key.</p>
+
+<p>The problem of DH key exchange is man-in-the-middle attack. Someone may pretent to be the peer in the middle to intfere the communication.</p>
+
+<h2 id="rsa-idea">RSA Idea</h2>
+
+<h3 id="rsa-overview">RSA overview</h3>
+<p>RSA is one of the public key cryptography algorithm which allows encoding and decoding in both direction, that is, the message can either be encrypted with public key or private key. In RSA, the plain text and cipher text are integers between 0 to n-1, where n is 1024 typically. This integer is treated as one block.</p>
+
+<p>The main idea of RSA is that given a message $M$, and a key $e$, the cipher text $M^e \mod n$ can be calculated given another key 
+$d$ by $(M^e)^d \mod n$. This holds under the condition that $e$ and $d$ are inverse mod $\phi(n)$ where $\phi(n)$ is the Euler totient function which indicates the number of integers up to $n$ that are relatively prime to $n$. If $p$ and $q$ are prime, we have</p>
+
+\[\phi(pq) = (p-1)(q-1)\]
+
+<p>Before getting into that, we need some introduction on number theory.</p>
+
+<h3 id="euclids-algorithm-and-inverse-modulo">Euclid’s Algorithm and Inverse Modulo</h3>
+<p>Euclid’s algorithm is an important algorithm used to find GCD (Greatest Common Divisior). One of the most useful theorem is that given integers $a$, $b$, $q$ and $r$, we have
+\(GCD(a, b) = GCD(b, r)\)
+ where
+\(a = b q + r\)</p>
+
+<p>This theorem can be applied repeatedly until $r=0$, then the $GCD$ is b. This can be simply written into the form of linear system</p>
+
+\[\begin{bmatrix}
+a_r\\
+a_{r+1}
+\end{bmatrix} = \begin{bmatrix}
+0 &amp; 1 \\
+1 &amp; -q_r
+\end{bmatrix} \begin{bmatrix}
+a_{r-1}\\
+a_r
+\end{bmatrix}\]
+
+<p>where $q = a_{r-1} // a_r$, $a_0 = a$, $a_1 = b$. The matrix dot production is applied repeatedly until $a_{r+1} = 0$. The final form is 
+\(\begin{bmatrix}
+a_n \\ 0 
+\end{bmatrix} = 
+\begin{bmatrix}
+A_{00} &amp; A_{01} \\
+A_{10} &amp; A_{11} \\
+\end{bmatrix} 
+\begin{bmatrix}
+a\\
+b
+\end{bmatrix}\)
+which is equivalent to
+\(GCD = X\times a + Y \times b\)
+where $X=A_{00}$ and $Y=A_{01}$</p>
+
+<p>From this equation we can simply find inverse of $a$ mod $b$ by simply applying modulo on both side
+\(aX = 1 \mod b\)</p>
+
+<h3 id="finding-inverse-by-hand-example">Finding inverse by hand (example)</h3>
+<ul>
+  <li>Find inverse of 3 $\mod 40$
+    <ul>
+      <li>$40 = 13 * 3 + 1$</li>
+      <li>$40 - 13*3 = 1 \mod 40$</li>
+      <li>$-13*3 = 1 \mod 40$</li>
+      <li>Answer is $-13$</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="rsa-algorithm">RSA algorithm</h3>
+<ul>
+  <li>Choose two large prime numbers $p$ and $q$ randomly, $pq=n$</li>
+  <li>Calculate $\phi(pq) = (p-1)(q-1)$</li>
+  <li>Find two numbers $e$(public) and $d$(private) which are inverse mod $\phi(pq)$</li>
+  <li>Encrypt message with $e$ with $M^e \mod n$ and decrypt with $C^d \mod n$</li>
+  <li>Or generate signature with $M^d$</li>
+  <li>Public key is &lt;e, n&gt;, private key is &lt;d, n&gt;</li>
+</ul>
+
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

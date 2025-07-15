@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>C++ Template and Type trait | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="C++ Template and Type trait" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/CPP/templates/template.html" />
+<meta property="og:url" content="http://localhost:4000/CPP/templates/template.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="C++ Template and Type trait" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"C++ Template and Type trait","url":"http://localhost:4000/CPP/templates/template.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="c-template-and-type-trait">C++ Template and Type trait</h1>
+
+<h1 id="two-phase-translation">Two Phase translation</h1>
+
+<ul>
+  <li>The compiler is limited in what it can di when it first encounters a template definition</li>
+  <li>It can’t generate code</li>
+  <li>It just scoops up the template and store it in the symbol table</li>
+</ul>
+
+<h2 id="phase-1">Phase 1</h2>
+<p>parse the template declaration</p>
+
+<h2 id="phase-2">Phase 2</h2>
+<p>Deduce things, instantiate the template. (This happens at each instantiation)</p>
+
+<h1 id="dependent-vs-non-dependent-names">Dependent vs Non-dependent Names</h1>
+<ul>
+  <li>A name appearing in a template whose meaning depends on one or more template parameter is a dependent name.</li>
+  <li>A dependent name may have a different meaning in each instantiation</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="n">T</span><span class="o">::</span><span class="n">size_type</span> <span class="nf">munge</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">T</span><span class="o">::</span><span class="n">size_type</span> <span class="o">*</span> <span class="n">i</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="n">npos</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// compiler does not know that size_type is type, npos is constant</span>
+
+<span class="c1">// if size_type is type, npos is type</span>
+<span class="c1">//  T::size_type * i(T::npos) is a function</span>
+
+
+<span class="c1">// if size_type is type, npos is const, object or function</span>
+<span class="c1">// -&gt; object definition</span>
+
+<span class="c1">// if both are not type</span>
+<span class="c1">// multiplication</span>
+</code></pre></div></div>
+
+<p>How does compiler handle this?</p>
+<ul>
+  <li>A name used in a template delcaration that is dependent on template parameter is assumed not to name a type unless the name is qualified by the keyword typename</li>
+</ul>
+
+<h1 id="type-trait">Type trait</h1>
+<ul>
+  <li>Type trait is a templated <code class="language-plaintext highlighter-rouge">struct</code></li>
+  <li>member variables and member types give you information about the type that it is templated on</li>
+</ul>
+
+<h2 id="vector-pushback">Vector pushback</h2>
+<ul>
+  <li>if size() == capacity()</li>
+  <li>allocate new memory, copy items to new memory, destruct old items, deallocate old memory</li>
+  <li>if insufficient room, throw exception. Original vector is unchanged;</li>
+</ul>
+
+<p>What if T is movable? (Move is faster than copy)</p>
+<ul>
+  <li>Allocate new memory, move, destruct old items</li>
+  <li>What if move fails?
+    <ul>
+      <li>Try to move back</li>
+      <li>What if that move fails</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Vector moves items if they are move-constructible</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+
