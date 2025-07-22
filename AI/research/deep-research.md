@@ -39,6 +39,6 @@ Plan and execute 模式虽好，但是笔者做下来感觉它也存在一些问
 3. 此外，我们尝试使用领域相关数据集对模型进行微调，发现微调过的 8B 模型在引用文献，语言风格等方面和 32B 的模型有过之而无不及。
 
 # References
-[Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models](https://arxiv.org/pdf/2305.04091)
-[LangChain Plan and Execute](https://langchain-ai.github.io/langgraph/tutorials/plan-and-execute/plan-and-execute/)
-[Open Deep Research](https://github.com/langchain-ai/open_deep_research)
+1. [Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models](https://arxiv.org/pdf/2305.04091)
+2. [LangChain Plan and Execute](https://langchain-ai.github.io/langgraph/tutorials/plan-and-execute/plan-and-execute/)
+3. [Open Deep Research](https://github.com/langchain-ai/open_deep_research)
