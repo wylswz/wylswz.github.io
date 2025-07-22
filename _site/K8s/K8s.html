@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Some tips on k8s | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Some tips on k8s" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/K8s/K8s.html" />
+<meta property="og:url" content="http://localhost:4000/K8s/K8s.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Some tips on k8s" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Some tips on k8s","url":"http://localhost:4000/K8s/K8s.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 id="some-tips-on-k8s">Some tips on k8s</h1>
+
+<h2 id="account-and-service-account">Account and service account</h2>
+
+<p>When users manipulate kubernetes cluster via kubectl on command line, they are sending these API requests via an account, which is <code class="language-plaintext highlighter-rouge">default</code> if not explicitly declared. Same thing happens when some services (deployed in pods) call k8s APIs, they are actually assigned to an account which is called service account.</p>
+
+<p>Each account has its permission to access to various types of resources, e.g., pods, volumes, namespaces with different actions, e.g., list, get, watch. The way it is authorized is by access token. When a new service account is created, a randon access token is generated with it.</p>
+
+<p>In order to access the token in service, we have to declare a special type of <code class="language-plaintext highlighter-rouge">Secret</code> pointing the the service account and mount it to the pods where you wanna access your toekn.</p>
+
+<h2 id="role-based-access-control-rabc">Role based access control (RABC)</h2>
+<p>K8s controls accounts’ access to resources with <code class="language-plaintext highlighter-rouge">RABC</code> mechanism. <code class="language-plaintext highlighter-rouge">RABC</code> has two core features, which are <code class="language-plaintext highlighter-rouge">Roles</code> and <code class="language-plaintext highlighter-rouge">RoleBinding</code>. A <code class="language-plaintext highlighter-rouge">Role</code> is simply a set if rules or we say permissions, which can either be cluster-wise or namespace-wise. These rules are purely additive, which means the role is the sum of rules which allows you to do something. None of those rules rejects any access.</p>
+
+<p><code class="language-plaintext highlighter-rouge">RoleBining</code> is how we bind rols to service accounts.</p>
+
+<h2 id="providing-services-using-ingress-resource">Providing services using <code class="language-plaintext highlighter-rouge">Ingress</code> resource</h2>
+<p><code class="language-plaintext highlighter-rouge">Ingress</code> defines a set of rules of how services can be accessed, including the <code class="language-plaintext highlighter-rouge">url</code>, <code class="language-plaintext highlighter-rouge">backing services</code> and other information(looks like a router).</p>
+
+<p><code class="language-plaintext highlighter-rouge">Ingress</code> won’t work on itself because it is nothing but a set of rules, that’s where <code class="language-plaintext highlighter-rouge">Ingress Controller</code> comes in. The job of <code class="language-plaintext highlighter-rouge">Ingress Controller</code> is automatically programming a front-end load balancer and enable <code class="language-plaintext highlighter-rouge">Ingress</code> configuration. There are multiple <code class="language-plaintext highlighter-rouge">Ingress Controller</code> implementations. <code class="language-plaintext highlighter-rouge">Nginx Ingress Controller</code> is one of those.</p>
+
+<p>Installing an <code class="language-plaintext highlighter-rouge">Ingress Controller</code> is nothing but launching a special pod with some simple configurations. Details can be found on official website but we can make it fairly simple with a few sentances:</p>
+
+<ul>
+  <li>First we create a namespace and a service account for it</li>
+  <li>Create cluster role and cluster role binding</li>
+  <li>Create secret</li>
+  <li>Create configmap</li>
+  <li>Custom resource definition for <code class="language-plaintext highlighter-rouge">VirtualServer</code> or <code class="language-plaintext highlighter-rouge">Ingress</code></li>
+</ul>
+
+<h2 id="deploying-minikube-in-proxy-env">Deploying Minikube in Proxy env</h2>
+<p>In order to use proxy settings in Minikube(proxy server is running on host machine) it is necessary to set proxy address as host ip instead of <code class="language-plaintext highlighter-rouge">127.0.0.1</code>. We can use following commands to set environment variables.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">IP</span><span class="o">=</span><span class="sb">`</span>ifconfig <span class="o">{</span>your network device name<span class="o">}</span> | <span class="nb">grep</span> <span class="s1">'inet addr'</span> | <span class="nb">cut</span> <span class="nt">-d</span>: <span class="nt">-f2</span> | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f1</span><span class="sb">`</span>
+<span class="c"># cut -d: -f2 means splitting the line with ':' and take second field </span>
+
+<span class="nb">export </span><span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="k">${</span><span class="nv">IP</span><span class="k">}</span>:1091
+<span class="nb">export </span><span class="nv">HTTPS_PROXY</span><span class="o">=</span><span class="k">${</span><span class="nv">IP</span><span class="k">}</span>:1091
+<span class="nb">export </span><span class="nv">NO_PROXY</span><span class="o">=</span>localhost,127.0.0.1,10.96.0.0/12,192.168.99.0/24,192.168.39.0/24
+
+</code></pre></div></div>
+
+<h2 id="extend-the-ability-of-kubernetes-with-custom-controller">Extend the ability of kubernetes with custom controller</h2>
+
+<p>Kubernetes has some pre-defined controllers and APIs when it’s installed, like replicaset, services, pods. The job of a controller is to maintain the desired state of the cluster. For example, if you define a deployment with replicas equals to three, and there are only 2 pods available in the cluster, the controller will attempt to create another one pod, and let tge scheduler to schedule it.</p>
+
+<p>Kuernetes allow developers to develop their own controllers &amp; resources. There is a framework called <code class="language-plaintext highlighter-rouge">kubebuilder</code>, which does some of those dirty work for you, like code generation, config file generation, etc. All you need to do is to define the struct of your custom resource as well as some tags for serialization/deserialization. The <code class="language-plaintext highlighter-rouge">kubebuilder</code> automatically generates codes like <code class="language-plaintext highlighter-rouge">DeepCopy</code> methods, <code class="language-plaintext highlighter-rouge">WebHooks</code>, <code class="language-plaintext highlighter-rouge">Ca injections</code> and controller it self. After your resource is defined, just go ahead and implement the <code class="language-plaintext highlighter-rouge">reconcile</code> method to do whatever you want based one the current state of your custom resource you received from kubernetes.</p>
+
+<p>When implementing the <code class="language-plaintext highlighter-rouge">reconcile</code> method, you probably wanna look at the spec method for expected state of the CR or another resources in the cluster, then you do something fancy to modify the state of resources to make it match the spec.</p>
+
+<p>You can also implement your own admission webhook for your CRD, including some data verification or what ever you want. In order to enable webhook, you will need to add something like <code class="language-plaintext highlighter-rouge">ValidatingWebhookConfiguration</code> to your cluster, specifying webhook addresses or service reference to tell admission controller where the reqest should send to. In <code class="language-plaintext highlighter-rouge">kubebuilder</code> framework, this address is generated for you, which is a combination of api name, group name, api version and type of admission wehook(<code class="language-plaintext highlighter-rouge">mutate</code> or <code class="language-plaintext highlighter-rouge">validate</code>). Also, <code class="language-plaintext highlighter-rouge">kubebuilder</code> generates cert manager tools for you, like ca injectors which and some side cars to automatically handle SSL for you. You will need to install cert-manager in your cluster for this to work.</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+

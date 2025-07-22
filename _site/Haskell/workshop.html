@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+          MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['\$','\$'], ["\\(","\\)"] ],
+          },
+
+      });
+    </script>
+
+ 
+  <head>
+
+    
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141212522-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141212522-1');
+      </script>
+
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Haskell Workshop (1 to 5) | IT Taolu</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Haskell Workshop (1 to 5)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Read best Taolus of IT industry" />
+<meta property="og:description" content="Read best Taolus of IT industry" />
+<link rel="canonical" href="http://localhost:4000/Haskell/workshop.html" />
+<meta property="og:url" content="http://localhost:4000/Haskell/workshop.html" />
+<meta property="og:site_name" content="IT Taolu" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Haskell Workshop (1 to 5)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Read best Taolus of IT industry","headline":"Haskell Workshop (1 to 5)","url":"http://localhost:4000/Haskell/workshop.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=4cab4a74ddc0c244cdb3a9379be74bd111eeaa7b">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">IT Taolu</h1>
+      <h2 class="project-tagline">Read best Taolus of IT industry</h2>
+      
+        <a href="https://github.com/wylswz/wylswz.github.io" class="btn">View on GayHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h2 id="haskell-workshop-1-to-5">Haskell Workshop (1 to 5)</h2>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">{-
+    Revision of Haskell workshops
+    Author: Yunluw@student.unimelb.edu.au
+    name rules:
+        wsx_prefix_variableName
+        WSX_ClassName
+-}</span>
+
+<span class="c1">-- Workshop 1</span>
+
+<span class="n">ws1_support_conTwoElem</span> <span class="o">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> 
+<span class="n">ws1_support_conTwoElem</span>  <span class="n">b</span> <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">:</span><span class="n">b</span>
+
+<span class="n">ws1_myReverse</span> <span class="o">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws1_myReverse</span> <span class="kt">[]</span> <span class="o">=</span> <span class="kt">[]</span>
+<span class="n">ws1_myReverse</span> <span class="n">l</span> <span class="o">=</span> 
+    <span class="n">foldl</span> <span class="n">ws1_support_conTwoElem</span> <span class="kt">[]</span> <span class="n">l</span>
+
+<span class="n">ws1_getNthElem</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">a</span>
+<span class="n">ws1_getNthElem</span> <span class="mi">0</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span>
+<span class="n">ws1_getNthElem</span> <span class="n">n</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span> <span class="o">=</span> 
+    <span class="n">ws1_getNthElem</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">xs</span>
+
+<span class="c1">-- Workshop 2</span>
+
+<span class="c1">-- Q1 Define pocker </span>
+<span class="kr">data</span> <span class="kt">WS2_Suite</span> <span class="o">=</span> <span class="kt">Clubs</span> <span class="o">|</span> <span class="kt">Diamonds</span> <span class="o">|</span> <span class="kt">Hearts</span> <span class="o">|</span> <span class="kt">Spades</span>
+<span class="kr">data</span> <span class="kt">WS2_Pocker</span> <span class="o">=</span> <span class="kt">WS2_Pocker</span> <span class="kt">Int</span> <span class="kt">WS2_Suite</span>
+
+<span class="c1">-- Q2 Define a HTML font tag</span>
+<span class="c1">-- Typeface, font size and color</span>
+<span class="kr">type</span> <span class="kt">WS2_Typeface</span> <span class="o">=</span> <span class="kt">String</span>
+<span class="kr">type</span> <span class="kt">WS2_FontSize</span> <span class="o">=</span> <span class="kt">Int</span>
+<span class="kr">type</span> <span class="kt">WS2_R</span> <span class="o">=</span> <span class="kt">Int</span>
+<span class="kr">type</span> <span class="kt">WS2_G</span> <span class="o">=</span> <span class="kt">Int</span>
+<span class="kr">type</span> <span class="kt">WS2_B</span> <span class="o">=</span> <span class="kt">Int</span>
+<span class="kr">data</span> <span class="kt">WS2_Color</span> <span class="o">=</span> <span class="kt">WS2_Color_RGB</span> <span class="kt">WS2_R</span> <span class="kt">WS2_G</span> <span class="kt">WS2_B</span> <span class="o">|</span>
+    <span class="kt">WS2_Color_Name</span> <span class="kt">String</span> <span class="o">|</span>
+    <span class="kt">WS2_Color_Hex</span> <span class="kt">Int</span>
+
+<span class="kr">data</span> <span class="kt">Font</span> <span class="o">=</span> <span class="kt">Font</span> <span class="p">(</span><span class="kt">Maybe</span> <span class="kt">WS2_Typeface</span><span class="p">)</span> <span class="p">(</span><span class="kt">Maybe</span> <span class="kt">WS2_FontSize</span><span class="p">)</span> <span class="p">(</span><span class="kt">Maybe</span> <span class="kt">WS2_Color</span><span class="p">)</span>
+
+<span class="c1">-- Q3</span>
+<span class="n">ws2_factorial</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Int</span>
+<span class="n">ws2_factorial</span> <span class="mi">0</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ws2_factorial</span> <span class="n">n</span> <span class="o">=</span> 
+    <span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">ws2_factorial</span> <span class="o">$</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">-- Q4 myElem True of elem in list else false</span>
+<span class="n">ws2_myElem</span> <span class="o">::</span> <span class="kt">Eq</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="n">ws2_myElem</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="o">=</span> <span class="kt">False</span>
+<span class="n">ws2_myElem</span> <span class="n">a</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">a</span> <span class="o">==</span> <span class="n">x</span> <span class="o">=</span> <span class="kt">True</span>
+    <span class="o">|</span> <span class="n">otherwise</span> <span class="o">=</span> <span class="p">(</span><span class="n">ws2_myElem</span> <span class="n">a</span> <span class="n">xs</span><span class="p">)</span>
+
+<span class="c1">-- Q5 longest common prefix of two lists</span>
+
+<span class="n">ws2_longestPrefix</span> <span class="o">::</span> <span class="kt">Eq</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws2_longestPrefix</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="o">=</span> <span class="kt">[]</span>
+<span class="n">ws2_longestPrefix</span> <span class="kt">[]</span> <span class="kr">_</span> <span class="o">=</span> <span class="kt">[]</span>
+<span class="n">ws2_longestPrefix</span> <span class="p">(</span><span class="n">a</span><span class="o">:</span><span class="n">as</span><span class="p">)</span> <span class="p">(</span><span class="n">b</span><span class="o">:</span><span class="n">bs</span><span class="p">)</span> 
+    <span class="o">|</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">:</span> <span class="n">ws2_longestPrefix</span> <span class="n">as</span> <span class="n">bs</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">otherwise</span> <span class="o">=</span> <span class="kt">[]</span>
+
+<span class="c1">-- Q7 build a list from min to max</span>
+<span class="n">ws2_range</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+<span class="n">ws2_range</span> <span class="n">min</span> <span class="n">max</span> 
+    <span class="o">|</span> <span class="n">min</span> <span class="o">&gt;</span> <span class="n">max</span> <span class="o">=</span> <span class="kt">[]</span>
+    <span class="o">|</span> <span class="n">otherwise</span> <span class="o">=</span> <span class="n">min</span> <span class="o">:</span> <span class="n">ws2_range</span> <span class="p">(</span><span class="n">min</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">max</span>
+
+<span class="c1">-- Workshop 3 Fahrenheit to Celsius</span>
+
+<span class="c1">-- Q2</span>
+<span class="c1">-- C = (5/9) * (F - 32)</span>
+<span class="c1">-- When commented out type declaration</span>
+<span class="c1">-- Fractional a =&gt; a -&gt; a</span>
+<span class="n">ws3_ftoc</span> <span class="o">::</span> <span class="kt">Double</span> <span class="o">-&gt;</span> <span class="kt">Double</span>
+<span class="n">ws3_ftoc</span> <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">9</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="o">-</span><span class="mi">32</span><span class="p">)</span>
+
+<span class="c1">--Q4 Merge sorted</span>
+<span class="n">ws3_mergeSorted</span> <span class="o">::</span> <span class="kt">Ord</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws3_mergeSorted</span> <span class="kt">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+<span class="n">ws3_mergeSorted</span> <span class="n">a</span> <span class="kt">[]</span> <span class="o">=</span> <span class="n">a</span>
+<span class="n">ws3_mergeSorted</span> <span class="p">(</span><span class="n">a</span><span class="o">:</span><span class="n">as</span><span class="p">)</span> <span class="p">(</span><span class="n">b</span><span class="o">:</span><span class="n">bs</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">:</span><span class="n">ws3_mergeSorted</span> <span class="p">(</span><span class="n">a</span><span class="o">:</span><span class="n">as</span><span class="p">)</span> <span class="n">bs</span>
+    <span class="o">|</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">:</span><span class="n">ws3_mergeSorted</span> <span class="n">as</span> <span class="p">(</span><span class="n">b</span><span class="o">:</span><span class="n">bs</span><span class="p">)</span>
+
+<span class="c1">-- Q5 Quick sort on list (inefficient)</span>
+<span class="n">ws3_qsort</span> <span class="o">::</span> <span class="kt">Ord</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws3_qsort</span> <span class="kt">[]</span> <span class="o">=</span> <span class="kt">[]</span>
+<span class="n">ws3_qsort</span> <span class="p">(</span><span class="n">pivot</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span> <span class="o">=</span> 
+    <span class="n">ws3_qsort</span> <span class="n">less</span> <span class="o">++</span> <span class="p">[</span><span class="n">pivot</span><span class="p">]</span> <span class="o">++</span> <span class="n">ws3_qsort</span> <span class="n">greater</span>
+        <span class="kr">where</span> <span class="n">less</span> <span class="o">=</span> <span class="n">filter</span> <span class="p">(</span><span class="o">&lt;</span> <span class="n">pivot</span><span class="p">)</span> <span class="n">xs</span>
+              <span class="n">greater</span> <span class="o">=</span> <span class="n">filter</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="n">pivot</span><span class="p">)</span> <span class="n">xs</span>
+
+<span class="c1">-- Q6 If two trees have same shape</span>
+<span class="kr">data</span> <span class="kt">WS3_Tree</span> <span class="n">k</span> <span class="n">v</span> <span class="o">=</span> <span class="kt">WS3_Leaf</span> <span class="o">|</span>
+    <span class="kt">WS3_Node</span> <span class="n">k</span> <span class="n">v</span> <span class="p">(</span><span class="kt">WS3_Tree</span> <span class="n">k</span> <span class="n">v</span><span class="p">)</span> <span class="p">(</span><span class="kt">WS3_Tree</span> <span class="n">k</span> <span class="n">v</span><span class="p">)</span>
+<span class="n">ws3_sameShape</span> <span class="o">::</span> <span class="kt">WS3_Tree</span> <span class="n">a</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="kt">WS3_Tree</span> <span class="n">c</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="n">ws3_sameShape</span> <span class="kt">WS3_Leaf</span> <span class="kt">WS3_Leaf</span> <span class="o">=</span> <span class="kt">True</span>
+<span class="n">ws3_sameShape</span> <span class="kt">WS3_Leaf</span> <span class="p">(</span><span class="kt">WS3_Node</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="o">=</span> <span class="kt">False</span>
+<span class="n">ws3_sameShape</span> <span class="p">(</span><span class="kt">WS3_Node</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="kt">WS3_Leaf</span> <span class="o">=</span> <span class="kt">False</span>
+<span class="n">ws3_sameShape</span> <span class="p">(</span><span class="kt">WS3_Node</span> <span class="kr">_</span> <span class="kr">_</span> <span class="n">ta</span> <span class="n">tb</span><span class="p">)</span> <span class="p">(</span><span class="kt">WS3_Node</span> <span class="kr">_</span> <span class="kr">_</span> <span class="n">tc</span> <span class="n">td</span><span class="p">)</span>
+    <span class="o">=</span> <span class="n">ws3_sameShape</span> <span class="n">ta</span> <span class="n">tc</span> <span class="o">&amp;&amp;</span> <span class="n">ws3_sameShape</span> <span class="n">tb</span> <span class="n">td</span>
+
+<span class="c1">-- Q7 Evaluation expression</span>
+
+<span class="kr">data</span> <span class="kt">WS3_Variable</span> <span class="o">=</span> <span class="kt">WS3_A</span> <span class="o">|</span> <span class="kt">WS3_B</span>
+<span class="kr">data</span> <span class="kt">WS3_Expression</span> 
+         <span class="o">=</span> <span class="kt">WS3_Var</span> <span class="kt">WS3_Variable</span>
+         <span class="o">|</span> <span class="kt">WS3_Num</span> <span class="kt">Integer</span>
+         <span class="o">|</span> <span class="kt">WS3_Plus</span> <span class="kt">WS3_Expression</span> <span class="kt">WS3_Expression</span>
+         <span class="o">|</span> <span class="kt">WS3_Minus</span>  <span class="kt">WS3_Expression</span> <span class="kt">WS3_Expression</span>
+         <span class="o">|</span> <span class="kt">WS3_Times</span>  <span class="kt">WS3_Expression</span> <span class="kt">WS3_Expression</span>
+         <span class="o">|</span> <span class="kt">WS3_Div</span>  <span class="kt">WS3_Expression</span> <span class="kt">WS3_Expression</span>
+
+<span class="n">ws3_eval</span> <span class="o">::</span> <span class="kt">Integer</span> <span class="o">-&gt;</span> <span class="kt">Integer</span> <span class="o">-&gt;</span> <span class="kt">WS3_Expression</span> <span class="o">-&gt;</span> <span class="kt">Integer</span>
+<span class="n">ws3_eval</span> <span class="n">a</span> <span class="kr">_</span> <span class="p">(</span><span class="kt">WS3_Var</span> <span class="kt">WS3_A</span><span class="p">)</span> <span class="o">=</span> <span class="n">a</span>
+<span class="n">ws3_eval</span> <span class="kr">_</span> <span class="n">b</span> <span class="p">(</span><span class="kt">WS3_Var</span> <span class="kt">WS3_B</span><span class="p">)</span> <span class="o">=</span> <span class="n">b</span>
+<span class="n">ws3_eval</span> <span class="kr">_</span> <span class="kr">_</span> <span class="p">(</span><span class="kt">WS3_Num</span> <span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">n</span>
+<span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span> <span class="p">(</span><span class="kt">WS3_Plus</span> <span class="n">e1</span> <span class="n">e2</span><span class="p">)</span> <span class="o">=</span> 
+    <span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span>  <span class="n">e1</span> <span class="o">+</span> <span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span> <span class="n">e2</span>
+<span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span> <span class="p">(</span><span class="kt">WS3_Minus</span> <span class="n">e1</span> <span class="n">e2</span><span class="p">)</span> <span class="o">=</span> 
+    <span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span>  <span class="n">e1</span> <span class="o">-</span> <span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span> <span class="n">e2</span>
+<span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span> <span class="p">(</span><span class="kt">WS3_Times</span> <span class="n">e1</span> <span class="n">e2</span><span class="p">)</span> <span class="o">=</span> 
+    <span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span>  <span class="n">e1</span> <span class="o">*</span> <span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span> <span class="n">e2</span>
+<span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span> <span class="p">(</span><span class="kt">WS3_Div</span> <span class="n">e1</span> <span class="n">e2</span><span class="p">)</span> <span class="o">=</span> 
+    <span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span>  <span class="n">e1</span> <span class="p">`</span><span class="n">quot</span><span class="p">`</span> <span class="n">ws3_eval</span> <span class="n">a</span> <span class="n">b</span> <span class="n">e2</span>
+
+<span class="c1">-- Workshop 4</span>
+
+<span class="c1">-- Q1 Haskell version of tree sort algorithm</span>
+<span class="c1">-- Insert data into a Tree</span>
+<span class="c1">-- In order traverse</span>
+<span class="kr">data</span> <span class="kt">WS4_Tree</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">WS4_Leaf</span> <span class="o">|</span>
+    <span class="kt">WS4_Node</span> <span class="n">a</span> <span class="p">(</span><span class="kt">WS4_Tree</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="kt">WS4_Tree</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="n">ws4_insert</span> <span class="o">::</span> <span class="kt">Ord</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="kt">WS4_Tree</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">WS4_Tree</span> <span class="n">a</span>
+<span class="n">ws4_insert</span> <span class="kt">WS4_Leaf</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">WS4_Node</span> <span class="n">a</span> <span class="p">(</span><span class="kt">WS4_Leaf</span><span class="p">)</span> <span class="p">(</span><span class="kt">WS4_Leaf</span><span class="p">)</span>
+<span class="n">ws4_insert</span> <span class="p">(</span><span class="kt">WS4_Node</span> <span class="n">v</span> <span class="n">left</span> <span class="n">right</span><span class="p">)</span> <span class="n">a</span> 
+    <span class="o">|</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">v</span> <span class="o">=</span> <span class="kt">WS4_Node</span> <span class="n">v</span> <span class="p">(</span><span class="n">ws4_insert</span> <span class="n">left</span> <span class="n">a</span><span class="p">)</span> <span class="n">right</span>
+    <span class="o">|</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="n">v</span> <span class="o">=</span> <span class="kt">WS4_Node</span> <span class="n">v</span> <span class="n">left</span> <span class="p">(</span><span class="n">ws4_insert</span> <span class="n">right</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="cm">{- Legacy version..
+ws4_insert_all :: Ord a =&gt; WS4_Tree a -&gt; [a] -&gt; WS4_Tree a
+ws4_insert_all t [] = t
+ws4_insert_all t (x:xs) = 
+    ws4_insert_all t1 xs where 
+        t1 = ws4_insert t x
+-}</span>
+
+<span class="c1">-- New version using foldl. </span>
+<span class="n">ws4_insert_all</span> <span class="o">::</span> <span class="kt">Ord</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">WS4_Tree</span> <span class="n">a</span>
+<span class="n">ws4_insert_all</span> <span class="o">=</span> <span class="n">foldl</span> <span class="n">ws4_insert</span> <span class="kt">WS4_Leaf</span>
+<span class="n">ws4_traverse</span> <span class="o">::</span> <span class="kt">WS4_Tree</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws4_traverse</span> <span class="kt">WS4_Leaf</span> <span class="o">=</span> <span class="kt">[]</span>
+<span class="n">ws4_traverse</span> <span class="p">(</span><span class="kt">WS4_Node</span> <span class="n">v</span> <span class="n">left</span> <span class="n">right</span><span class="p">)</span> <span class="o">=</span> 
+    <span class="n">ws4_traverse</span> <span class="n">left</span> <span class="o">++</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">++</span> <span class="n">ws4_traverse</span> <span class="n">right</span>
+
+<span class="cm">{- Legacy version
+ws4_treeSort :: Ord a =&gt; [a] -&gt; [a]
+ws4_treeSort [] = []
+ws4_treeSort l = 
+    ws4_traverse tree where
+        tree = ws4_insert_all l
+-}</span>
+
+<span class="c1">-- New version using function composition</span>
+<span class="n">ws4_treeSort</span> <span class="o">::</span> <span class="kt">Ord</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws4_treeSort</span> <span class="o">=</span> <span class="n">ws4_traverse</span> <span class="o">.</span> <span class="n">ws4_insert_all</span>
+
+
+<span class="c1">-- Q2 Transpose a matrix</span>
+
+<span class="n">ws4_transpose</span> <span class="o">::</span> <span class="p">[[</span><span class="n">a</span><span class="p">]]</span> <span class="o">-&gt;</span> <span class="p">[[</span><span class="n">a</span><span class="p">]]</span>
+<span class="n">ws4_transpose</span> <span class="n">m</span>
+    <span class="o">|</span> <span class="n">length</span> <span class="p">(</span><span class="n">head</span> <span class="n">m</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">=</span> <span class="kt">[]</span>
+    <span class="o">|</span> <span class="n">otherwise</span> <span class="o">=</span> <span class="p">[</span><span class="n">head</span> <span class="n">x</span> <span class="o">|</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="n">m</span><span class="p">]</span> <span class="o">:</span> <span class="p">(</span><span class="n">ws4_transpose</span> <span class="p">[</span><span class="n">tail</span> <span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="n">m</span><span class="p">])</span>
+
+<span class="c1">-- Q3 take a list of number, return (len, sum, sum_of_square)</span>
+<span class="c1">-- Do with three traversal and single traversal</span>
+
+<span class="n">ws4_support_accum</span> <span class="o">::</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="kt">Integer</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Integer</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Integer</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">ws4_support_accum</span> <span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="n">sum</span><span class="p">,</span> <span class="n">ssum</span><span class="p">)</span> <span class="p">(</span><span class="n">cnt'</span><span class="p">,</span> <span class="n">sum'</span><span class="p">,</span> <span class="n">ssum'</span><span class="p">)</span> <span class="o">=</span> 
+    <span class="p">(</span><span class="n">cnt</span> <span class="o">+</span> <span class="n">cnt'</span><span class="p">,</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">sum'</span><span class="p">,</span> <span class="n">ssum</span> <span class="o">+</span> <span class="n">ssum'</span><span class="p">)</span>
+
+<span class="cm">{- Legacy Method
+ws4_listsum :: Num a =&gt; [a] -&gt; (Integer, a, a)
+ws4_listsum [] = (0,0,0)
+ws4_listsum (x:xs) = ws4_support_accum (1, x, x^2) $ ws4_listsum xs
+-}</span>
+
+<span class="c1">-- More declarative approach using foldl</span>
+<span class="n">ws4_accAll</span> <span class="o">::</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">ws4_accAll</span> <span class="n">a</span> <span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">sum</span><span class="p">,</span> <span class="n">sums</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">a</span><span class="p">,</span> <span class="n">sums</span> <span class="o">+</span> <span class="n">a</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ws4_listsum</span> <span class="o">::</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">ws4_listsum</span> <span class="o">=</span> <span class="n">foldr</span> <span class="n">ws4_accAll</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">-- Workshop 5</span>
+
+<span class="c1">-- Q1 </span>
+<span class="n">ws5_maybeApply</span> <span class="o">::</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="n">b</span>
+<span class="n">ws5_maybeApply</span> <span class="kr">_</span> <span class="kt">Nothing</span> <span class="o">=</span> <span class="kt">Nothing</span>
+<span class="n">ws5_maybeApply</span> <span class="n">f</span> <span class="p">(</span><span class="kt">Just</span> <span class="n">a</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Just</span> <span class="p">(</span><span class="n">f</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="c1">-- Q2 </span>
+<span class="c1">-- Apply first argument to corresponding elements of two </span>
+<span class="c1">-- input lists. If different length, extra elems are ignored</span>
+<span class="n">ws5_zWith</span> <span class="o">::</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">c</span><span class="p">]</span>
+<span class="n">ws5_zWith</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="kr">_</span> <span class="o">=</span> <span class="kt">[]</span>
+<span class="n">ws5_zWith</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="o">=</span> <span class="kt">[]</span>
+<span class="n">ws5_zWith</span> <span class="n">f</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span> <span class="p">(</span><span class="n">y</span><span class="o">:</span><span class="n">ys</span><span class="p">)</span> <span class="o">=</span> 
+    <span class="p">(</span><span class="n">f</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">ws5_zWith</span> <span class="n">f</span> <span class="n">xs</span> <span class="n">ys</span><span class="p">)</span>
+
+<span class="c1">-- Q3</span>
+<span class="c1">-- Multiply elem in list by first arg and add to second arg</span>
+<span class="n">ws5_support_convert</span> <span class="o">::</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span>
+<span class="n">ws5_support_convert</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="n">ws5_linearEqn</span> <span class="o">::</span> <span class="kt">Num</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws5_linearEqn</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="o">=</span> <span class="kt">[]</span>
+<span class="n">ws5_linearEqn</span> <span class="n">a</span> <span class="n">b</span> <span class="n">l</span><span class="o">=</span> <span class="n">map</span> <span class="p">(</span><span class="n">ws5_support_convert</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span> <span class="n">l</span>
+
+<span class="c1">-- Q4</span>
+<span class="c1">-- sqrtPM return postive and negative sqrt of </span>
+<span class="c1">-- a floating number</span>
+<span class="c1">-- Apply to all elems in a list and concat them together</span>
+<span class="n">ws5_support_sqrtPM</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Floating</span> <span class="n">a</span><span class="p">,</span> <span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws5_support_sqrtPM</span> <span class="n">x</span> 
+    <span class="o">|</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">=</span> <span class="kr">let</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">sqrt</span> <span class="n">x</span><span class="p">)</span> <span class="kr">in</span> <span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="o">-</span><span class="n">y</span><span class="p">]</span>
+    <span class="o">|</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="o">|</span> <span class="n">otherwise</span> <span class="o">=</span> <span class="kt">[]</span>
+
+<span class="n">ws5_allSqrts</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Floating</span> <span class="n">a</span><span class="p">,</span> <span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws5_allSqrts</span> <span class="o">=</span> <span class="p">(</span><span class="n">foldl</span> <span class="p">(</span><span class="o">++</span><span class="p">)</span> <span class="kt">[]</span><span class="p">)</span> <span class="o">.</span> <span class="p">(</span><span class="n">map</span> <span class="n">ws5_support_sqrtPM</span><span class="p">)</span>
+
+<span class="c1">-- Q5 </span>
+<span class="c1">-- Filter out negative number and sqrt on remain integers</span>
+<span class="c1">-- a. Use filter and map</span>
+<span class="c1">-- b. Don't use high order functions</span>
+
+<span class="n">ws5_sqrt_filter</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Floating</span> <span class="n">a</span><span class="p">,</span> <span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">ws5_sqrt_filter</span><span class="o">=</span> <span class="p">(</span><span class="n">map</span> <span class="n">sqrt</span><span class="p">)</span> <span class="o">.</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="c1">-- I'll skip the easy part</span>
+
+</code></pre></div></div>
+
+<h2 id="haskell-workshop-10">Haskell Workshop 10</h2>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">import</span> <span class="nn">Data.Char</span>
+
+<span class="c1">-- Q1</span>
+<span class="n">maybe_tail</span> <span class="o">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">maybe_tail</span> <span class="kt">[]</span> <span class="o">=</span> <span class="kt">Nothing</span>
+<span class="n">maybe_tail</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span> <span class="o">=</span> <span class="kt">Just</span> <span class="n">xs</span>
+
+<span class="c1">-- Drop first N elems of a list</span>
+<span class="c1">-- Method 1: Check Nothing explicitly</span>
+<span class="c1">-- Method 2: use &gt;&gt;=</span>
+<span class="n">maybe_drop</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">maybe_drop</span> <span class="mi">0</span> <span class="n">l</span> <span class="o">=</span> <span class="kt">Just</span> <span class="n">l</span>
+<span class="n">maybe_drop</span> <span class="n">n</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">n</span><span class="o">&lt;</span><span class="mi">0</span> <span class="o">=</span> <span class="kt">Nothing</span>
+    <span class="o">|</span> <span class="n">otherwise</span> <span class="o">=</span> <span class="n">maybe_drop</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">xs</span>
+
+<span class="c1">-- This is method 2</span>
+<span class="c1">-- (&gt;&gt;=) :: Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b</span>
+<span class="n">maybe_drop'</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">maybe_drop'</span> <span class="mi">0</span> <span class="n">l</span> <span class="o">=</span> <span class="kt">Just</span> <span class="n">l</span>
+<span class="n">maybe_drop'</span> <span class="n">n</span> <span class="n">l</span> <span class="o">=</span> 
+    <span class="kt">Just</span> <span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">&gt;&gt;=</span> <span class="n">maybe_tail</span> <span class="o">&gt;&gt;=</span> <span class="n">maybe_drop'</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="c1">-- Q2</span>
+<span class="cm">{-
+    Print the content of each node of the tree
+    What's the advantage and disadvantege of this method??
+-}</span>
+
+<span class="kr">data</span> <span class="kt">Tree</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">Empty</span> <span class="o">|</span>
+                <span class="kt">Node</span> <span class="p">(</span><span class="kt">Tree</span> <span class="n">a</span><span class="p">)</span> <span class="n">a</span> <span class="p">(</span><span class="kt">Tree</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="n">print_tree</span> <span class="o">::</span> <span class="kt">Show</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="kt">Tree</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">IO</span> <span class="nb">()</span>
+<span class="n">print_tree</span> <span class="kt">Empty</span> <span class="o">=</span> <span class="kr">do</span>
+    <span class="n">putStrLn</span> <span class="s">"Empty"</span>
+
+<span class="n">print_tree</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">left</span> <span class="n">content</span> <span class="n">right</span><span class="p">)</span>
+    <span class="o">=</span> <span class="kr">do</span>
+        <span class="n">print_tree</span> <span class="n">left</span>
+        <span class="n">print</span> <span class="n">content</span>
+        <span class="n">print_tree</span> <span class="n">right</span>
+
+<span class="c1">-- Q3</span>
+
+<span class="n">convert_digit</span> <span class="o">::</span> <span class="kt">Char</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="kt">Int</span>
+<span class="n">convert_digit</span> <span class="n">c</span>
+        <span class="o">|</span> <span class="n">isDigit</span> <span class="n">c</span> <span class="o">=</span> <span class="kt">Just</span> <span class="p">(</span><span class="n">digitToInt</span> <span class="n">c</span><span class="p">)</span>
+        <span class="o">|</span> <span class="n">otherwise</span> <span class="o">=</span> <span class="kt">Nothing</span>
+
+<span class="n">str_to_num_r</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="kt">Int</span>
+<span class="n">str_to_num_r</span> <span class="kr">_</span> <span class="s">""</span> <span class="o">=</span> <span class="kt">Just</span> <span class="mi">0</span>
+<span class="n">str_to_num_r</span> <span class="n">power</span> <span class="p">(</span><span class="n">n</span><span class="o">:</span><span class="n">ns</span><span class="p">)</span> <span class="o">=</span>
+    <span class="kr">case</span> <span class="n">convert_digit</span> <span class="n">n</span> <span class="kr">of</span> 
+        <span class="kt">Nothing</span> <span class="o">-&gt;</span> <span class="kt">Nothing</span>
+        <span class="kt">Just</span> <span class="n">s</span>  <span class="o">-&gt;</span> <span class="kt">Just</span> <span class="p">((</span><span class="n">s</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">^</span> <span class="n">power</span><span class="p">)</span> <span class="o">+</span> <span class="n">rest</span><span class="p">)</span> <span class="kr">where</span>
+            <span class="kt">Just</span> <span class="n">rest</span> <span class="o">=</span> <span class="n">str_to_num_r</span>  <span class="p">(</span><span class="n">power</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="n">ns</span>
+    
+<span class="n">str_to_num</span> <span class="o">::</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="kt">Int</span>
+<span class="n">str_to_num</span> <span class="o">=</span> <span class="n">str_to_num_r</span> <span class="mi">0</span> <span class="o">.</span> <span class="n">reverse</span>
+
+
+<span class="c1">-- Q4</span>
+
+<span class="cm">{-
+    reads in a list of lines containing numbers, return their sum
+    Version 1: Sum up as read
+    Version 2: Collect all numbers, then sum up
+-}</span>
+
+
+<span class="c1">-- Version 2</span>
+<span class="n">read_sum'</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">IO</span> <span class="kt">Int</span>
+<span class="n">read_sum'</span> <span class="n">n</span> <span class="o">=</span> <span class="kr">do</span> 
+    <span class="n">line</span> <span class="o">&lt;-</span> <span class="n">getLine</span>
+    <span class="kr">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">str_to_num</span> <span class="n">line</span>
+    <span class="kr">case</span> <span class="n">res</span> <span class="kr">of</span> 
+        <span class="kt">Nothing</span> <span class="o">-&gt;</span> <span class="n">return</span> <span class="n">n</span>
+        <span class="kt">Just</span> <span class="n">num</span> <span class="o">-&gt;</span> <span class="n">read_sum'</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">num</span><span class="p">)</span>
+
+<span class="n">read_sum</span> <span class="o">=</span> <span class="n">read_sum'</span> <span class="mi">0</span>
+
+<span class="c1">-- Version 1</span>
+<span class="c1">-- I pretty much similar thing, put we just push them to list and sum up later</span>
+
+<span class="c1">-- Q5</span>
+<span class="cm">{-
+        Repeatedly read in and execute command. Some commands:
+        - print: print the phone book
+        - add name num: add num as the phone number for name
+        - delete name: delete entry for name
+        - loopup name: print entry match
+        - quit exit the program
+-}</span>
+    
+
+<span class="n">cmd</span> <span class="o">::</span> <span class="p">[(</span><span class="kt">String</span><span class="p">,</span> <span class="kt">String</span><span class="p">)]</span> <span class="o">-&gt;</span> <span class="kt">IO</span> <span class="nb">()</span>
+<span class="n">cmd</span> <span class="n">book</span> <span class="o">=</span> <span class="kr">do</span> 
+    <span class="n">command</span> <span class="o">&lt;-</span> <span class="n">getLine</span>
+    <span class="kr">let</span> <span class="p">(</span><span class="n">c</span><span class="o">:</span><span class="n">cs</span><span class="p">)</span> <span class="o">=</span> <span class="n">words</span> <span class="n">command</span>
+    <span class="kr">case</span> <span class="n">c</span> <span class="kr">of</span> 
+        <span class="s">"print"</span> <span class="o">-&gt;</span> <span class="kr">do</span> 
+                <span class="n">print</span> <span class="n">book</span>
+                <span class="n">cmd</span> <span class="n">book</span>
+        <span class="s">"add"</span> <span class="o">-&gt;</span> <span class="kr">let</span> <span class="n">name</span><span class="o">:</span><span class="n">num</span><span class="o">:</span><span class="kr">_</span> <span class="o">=</span> <span class="n">cs</span> <span class="kr">in</span>
+                    <span class="n">cmd</span> <span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span><span class="o">:</span><span class="n">book</span><span class="p">)</span>
+        <span class="s">"delete"</span> <span class="o">-&gt;</span> <span class="kr">let</span> <span class="n">name</span><span class="o">:</span><span class="kr">_</span> <span class="o">=</span> <span class="n">cs</span> <span class="kr">in</span>
+                    <span class="n">cmd</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="nf">\</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">/=</span><span class="n">name</span><span class="p">)</span> <span class="n">book</span><span class="p">)</span> 
+        <span class="s">"lookup"</span> <span class="o">-&gt;</span> <span class="kr">do</span> 
+                <span class="kr">let</span> <span class="n">name</span><span class="o">:</span><span class="kr">_</span> <span class="o">=</span> <span class="n">cs</span> <span class="kr">in</span>
+                    <span class="kr">let</span> <span class="n">lookup_res</span> <span class="o">=</span>  <span class="n">filter</span> <span class="p">(</span><span class="nf">\</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">==</span> <span class="n">name</span><span class="p">)</span> <span class="n">book</span> <span class="kr">in</span>
+                        <span class="n">print</span> <span class="n">lookup_res</span>
+                <span class="n">cmd</span> <span class="n">book</span>
+        <span class="s">"quit"</span> <span class="o">-&gt;</span> <span class="n">return</span> <span class="nb">()</span>
+                    
+</code></pre></div></div>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/wylswz/wylswz.github.io">wylswz.github.io</a> is maintained by <a href="https://github.com/wylswz">wylswz</a>.</span>
+        
+      </footer>
+    </main>
+  </body>
+  <script>
+
+</script>
+</html>
+
