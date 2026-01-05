@@ -133,7 +133,8 @@
         .thought-node {
             position: absolute;
             cursor: none;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Only transition z-index, not position - position is handled by JS */
+            transition: z-index 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .node-core {
@@ -970,8 +971,90 @@
             }
         }
 
-        // Animate - just draw connections and move particles
+        // Force-directed collision avoidance
+        function applyCollisionForces() {
+            const MIN_SEPARATION = 150; // Minimum distance between nodes (accounts for labels)
+            const REPULSION_STRENGTH = 1.5; // How strongly nodes push apart
+            const DAMPING = 0.9; // Velocity damping for smooth movement
+            const BOUNDARY_PADDING = 60;
+            const SPRING_STRENGTH = 0.02; // Strength of spring pulling children to parent
+            const MAX_CHILD_DISTANCE = 250; // Max distance before spring kicks in
+            
+            // Apply spring forces to keep children near their parent
+            nodes.forEach(node => {
+                if (node.parent) {
+                    const parentNode = nodes.find(n => n.path === node.parent);
+                    if (parentNode) {
+                        const dx = parentNode.x - node.x;
+                        const dy = parentNode.y - node.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        
+                        // Apply spring force if child is too far from parent
+                        if (dist > MAX_CHILD_DISTANCE) {
+                            const excess = dist - MAX_CHILD_DISTANCE;
+                            const force = excess * SPRING_STRENGTH;
+                            const nx = dx / dist;
+                            const ny = dy / dist;
+                            node.vx += nx * force;
+                            node.vy += ny * force;
+                        }
+                    }
+                }
+            });
+            
+            // Calculate repulsion forces between all pairs of nodes
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const nodeA = nodes[i];
+                    const nodeB = nodes[j];
+                    
+                    const dx = nodeB.x - nodeA.x;
+                    const dy = nodeB.y - nodeA.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < MIN_SEPARATION && dist > 0) {
+                        // Calculate repulsion force
+                        const overlap = MIN_SEPARATION - dist;
+                        const force = (overlap / MIN_SEPARATION) * REPULSION_STRENGTH;
+                        
+                        // Normalize direction
+                        const nx = dx / dist;
+                        const ny = dy / dist;
+                        
+                        // Apply forces in opposite directions
+                        nodeA.vx -= nx * force;
+                        nodeA.vy -= ny * force;
+                        nodeB.vx += nx * force;
+                        nodeB.vy += ny * force;
+                    }
+                }
+            }
+            
+            // Update positions and apply damping
+            nodes.forEach(node => {
+                // Apply velocity with damping
+                node.vx *= DAMPING;
+                node.vy *= DAMPING;
+                
+                // Update position
+                node.x += node.vx;
+                node.y += node.vy;
+                
+                // Keep within bounds
+                node.x = Math.max(BOUNDARY_PADDING, Math.min(window.innerWidth - BOUNDARY_PADDING, node.x));
+                node.y = Math.max(BOUNDARY_PADDING, Math.min(window.innerHeight - BOUNDARY_PADDING, node.y));
+                
+                // Update DOM element position
+                node.element.style.left = node.x + 'px';
+                node.element.style.top = node.y + 'px';
+            });
+        }
+
+        // Animate - collision avoidance, draw connections and move particles
         function animate() {
+            // Apply collision avoidance forces
+            applyCollisionForces();
+            
             // Move particles slowly
             particles.forEach(p => {
                 p.x += p.vx;
