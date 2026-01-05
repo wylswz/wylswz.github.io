@@ -23,7 +23,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -42,7 +42,7 @@
             height: 100%;
             overflow: hidden;
             background: var(--void);
-            font-family: 'Instrument Serif', Georgia, serif;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             cursor: none;
         }
 
@@ -261,16 +261,32 @@
             z-index: 50;
             text-align: center;
             pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #origin.shifted {
+            top: 2rem;
+            left: 5rem;
+            transform: translate(0, 0);
+            text-align: left;
         }
 
         #origin-title {
             font-size: clamp(2rem, 6vw, 4rem);
             color: var(--flesh);
-            letter-spacing: 0.4em;
+            letter-spacing: 0.5em;
             opacity: 0.9;
             text-transform: uppercase;
-            font-weight: 400;
+            font-weight: 300;
             margin-bottom: 1rem;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        #origin.shifted #origin-title {
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.3rem;
         }
 
         #origin-subtitle {
@@ -279,6 +295,13 @@
             color: var(--synapse);
             letter-spacing: 0.3em;
             opacity: 0.6;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #origin.shifted #origin-subtitle {
+            font-size: 0.5rem;
+            letter-spacing: 0.15em;
+            opacity: 0.4;
         }
 
         /* Temporal display */
@@ -345,8 +368,8 @@
 
         /* Content typography */
         #revelation-content h1, #revelation-content h2, #revelation-content h3 {
-            font-family: 'Instrument Serif', serif;
-            font-weight: 400;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
             margin: 2rem 0 1rem;
             color: var(--nerve);
         }
@@ -520,8 +543,8 @@
 
     <!-- Origin point -->
     <div id="origin">
-        <div id="origin-title">{{ site.title | default: "TAOLU" }}</div>
-        <div id="origin-subtitle">Read Best Taolus of IT Industry</div>
+        <div id="origin-title">{{ site.title }}</div>
+        <div id="origin-subtitle">{{ site.subtitle }}</div>
     </div>
 
     <!-- The revelation (content container) -->
@@ -768,6 +791,9 @@
         function expandFolder(path, parentX, parentY, children) {
             expandedFolders.add(path);
             
+            // Shift title to corner when any folder is expanded
+            document.getElementById('origin').classList.add('shifted');
+            
             // Mark parent as expanded
             const parentNode = nodes.find(n => n.path === path);
             if (parentNode) {
@@ -844,6 +870,11 @@
                     if (idx > -1) nodes.splice(idx, 1);
                 }, 300);
             });
+            
+            // Shift title back to center if no folders are expanded
+            if (expandedFolders.size === 0) {
+                document.getElementById('origin').classList.remove('shifted');
+            }
         }
 
         // No relaxation needed - grid positioning is good enough
