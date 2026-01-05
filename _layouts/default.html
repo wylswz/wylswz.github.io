@@ -53,11 +53,6 @@
         body.panning * {
             cursor: grabbing !important;
         }
-
-        body:not(.panning):not(.content-mode) #universe {
-            cursor: grab;
-        }
-
         /* The Universe - infinite canvas */
         #universe {
             position: fixed;
@@ -630,10 +625,6 @@
         let scrollOffsetX = 0;
         let scrollOffsetY = 0;
         
-        // For drag scrolling
-        let isDragging = false;
-        let dragStartX = 0;
-        let dragStartY = 0;
         
         // Detect if we're on the home page using JavaScript
         const currentPath = window.location.pathname;
@@ -744,51 +735,6 @@
                 panIndicator.textContent = '∞';
             }, 1000);
         }
-
-        // Drag to scroll
-        function startDrag(e) {
-            if (isContentPage) return;
-            if (e.target.closest('.thought-node') || e.target.closest('#close-revelation')) return;
-            
-            isDragging = true;
-            dragStartX = e.clientX || (e.touches && e.touches[0].clientX);
-            dragStartY = e.clientY || (e.touches && e.touches[0].clientY);
-            document.body.classList.add('panning');
-            panIndicator.classList.add('active');
-        }
-
-        function doDrag(e) {
-            if (!isDragging) return;
-            
-            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-            
-            const deltaX = clientX - dragStartX;
-            const deltaY = clientY - dragStartY;
-            
-            dragStartX = clientX;
-            dragStartY = clientY;
-            
-            scrollWorld(deltaX, deltaY);
-            resetIdleTimer();
-        }
-
-        function endDrag() {
-            isDragging = false;
-            document.body.classList.remove('panning');
-            panIndicator.classList.remove('active');
-        }
-
-        // Mouse drag
-        universe.addEventListener('mousedown', startDrag);
-        document.addEventListener('mousemove', doDrag);
-        document.addEventListener('mouseup', endDrag);
-        document.addEventListener('mouseleave', endDrag);
-
-        // Touch drag
-        universe.addEventListener('touchstart', startDrag, { passive: true });
-        document.addEventListener('touchmove', doDrag, { passive: true });
-        document.addEventListener('touchend', endDrag);
 
         // Wheel scrolling (both directions)
         universe.addEventListener('wheel', (e) => {
@@ -1083,7 +1029,8 @@
         
         // Check if a node is visible in the viewport
         function isInViewport(x, y, margin = 50) {
-            return !isOutsideViewport(x, y, margin);
+            return x >= -margin && x <= window.innerWidth + margin &&
+                   y >= -margin && y <= window.innerHeight + margin;
         }
         
         function getRandomFolderNodeInViewport() {
