@@ -1,2 +1,0 @@
-# Python multicasting queue
-
