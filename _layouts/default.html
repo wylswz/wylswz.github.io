@@ -727,6 +727,7 @@
             
             nodeEl.addEventListener('click', (e) => {
                 e.stopPropagation();
+                resetIdleTimer(); // Reset idle timer on click
                 toggleFolder(folder.name, folder.x, folder.y, folder.children);
             });
             
@@ -836,6 +837,45 @@
         }
 
         // No relaxation needed - grid positioning is good enough
+        
+        // Auto-expand/collapse when user is idle
+        let lastInteractionTime = Date.now();
+        let autoExpandInterval = null;
+        const IDLE_THRESHOLD = 3000; // 3 seconds of inactivity before auto-behavior
+        const AUTO_ACTION_INTERVAL = 2500; // Time between auto actions
+        
+        function resetIdleTimer() {
+            lastInteractionTime = Date.now();
+        }
+        
+        function isUserIdle() {
+            return Date.now() - lastInteractionTime > IDLE_THRESHOLD;
+        }
+        
+        function getRandomFolderNode() {
+            const folderNodes = nodes.filter(n => n.isFolder);
+            if (folderNodes.length === 0) return null;
+            return folderNodes[Math.floor(Math.random() * folderNodes.length)];
+        }
+        
+        function autoToggleRandomFolder() {
+            if (!isUserIdle()) return;
+            
+            const folderNode = getRandomFolderNode();
+            if (!folderNode) return;
+            
+            // 60% chance to expand if collapsed, 40% chance to collapse if expanded
+            const isExpanded = expandedFolders.has(folderNode.path);
+            const shouldToggle = isExpanded ? Math.random() < 0.4 : Math.random() < 0.6;
+            
+            if (shouldToggle) {
+                toggleFolder(folderNode.path, folderNode.x, folderNode.y, folderNode.children);
+            }
+        }
+        
+        // Start auto-expand/collapse interval
+        autoExpandInterval = setInterval(autoToggleRandomFolder, AUTO_ACTION_INTERVAL);
+        
         {% endif %}
 
         // Create background particles
@@ -859,6 +899,9 @@
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+            
+            // Reset idle timer on mouse movement
+            resetIdleTimer();
             
             presence.style.left = mouseX + 'px';
             presence.style.top = mouseY + 'px';
@@ -901,6 +944,7 @@
 
         // Keyboard controls
         document.addEventListener('keydown', (e) => {
+            resetIdleTimer(); // Reset idle timer on any key press
             if (e.code === 'Space') {
                 e.preventDefault();
                 document.body.classList.add('glitch-active');
@@ -911,6 +955,11 @@
                     window.location.href = '/';
                 }
             }
+        });
+        
+        // Also reset on any click anywhere
+        document.addEventListener('click', () => {
+            resetIdleTimer();
         });
 
         // Draw connections between nearby nodes
