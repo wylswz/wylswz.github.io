@@ -322,6 +322,9 @@
             cursor: none;
             transition: all 0.3s ease;
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         body:not(.content-mode) #close-revelation {
@@ -330,6 +333,8 @@
 
         body.content-mode #close-revelation {
             display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #close-revelation:hover {
@@ -692,36 +697,20 @@
 
         // Position children tightly around parent in concentric rings
         function positionAroundParent(parentX, parentY, children) {
-            const baseRadius = 60;
-            const radiusIncrement = 45;
-            const minAngleSpacing = 0.4; // Minimum angle between nodes in radians
+            const count = children.length;
+            if (count === 0) return [];
             
-            let currentRing = 0;
-            let currentAngle = -Math.PI / 2;
-            let nodesInCurrentRing = 0;
+            // Simple circular positioning - one ring
+            const radius = 50 + count * 8; // Larger radius for more children
+            const angleStep = (2 * Math.PI) / count;
             
             return children.map((child, i) => {
-                const radius = baseRadius + currentRing * radiusIncrement;
-                const circumference = 2 * Math.PI * radius;
-                const maxNodesInRing = Math.floor(circumference / 50); // ~50px spacing
-                
-                const angle = currentAngle;
-                const x = parentX + Math.cos(angle) * radius;
-                const y = parentY + Math.sin(angle) * radius;
-                
-                // Move to next position
-                const angleStep = (2 * Math.PI) / Math.min(maxNodesInRing, children.length - i + nodesInCurrentRing);
-                currentAngle += angleStep;
-                nodesInCurrentRing++;
-                
-                // Check if we need to move to next ring
-                if (nodesInCurrentRing >= maxNodesInRing) {
-                    currentRing++;
-                    currentAngle = -Math.PI / 2 + (currentRing * 0.3); // Offset each ring
-                    nodesInCurrentRing = 0;
-                }
-                
-                return { ...child, x, y };
+                const angle = angleStep * i - Math.PI / 2;
+                return {
+                    ...child,
+                    x: parentX + Math.cos(angle) * radius,
+                    y: parentY + Math.sin(angle) * radius
+                };
             });
         }
 
@@ -807,9 +796,7 @@
                     url: file.url
                 });
             });
-            
-            // Relax to prevent overlap
-            relaxNodes(20);
+            // No relaxation needed - positions are pre-calculated
         }
 
         function collapseFolder(path) {
@@ -847,44 +834,7 @@
             });
         }
 
-        // Run force-directed relaxation to spread nodes
-        function relaxNodes(iterations) {
-            for (let iter = 0; iter < iterations; iter++) {
-                for (let i = 0; i < nodes.length; i++) {
-                    for (let j = i + 1; j < nodes.length; j++) {
-                        const dx = nodes[j].x - nodes[i].x;
-                        const dy = nodes[j].y - nodes[i].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (dist < MIN_DISTANCE && dist > 0) {
-                            const force = (MIN_DISTANCE - dist) / dist * 0.5;
-                            const fx = dx * force;
-                            const fy = dy * force;
-                            
-                            nodes[i].x -= fx;
-                            nodes[i].y -= fy;
-                            nodes[j].x += fx;
-                            nodes[j].y += fy;
-                        }
-                    }
-                }
-                
-                nodes.forEach(node => {
-                    node.x = Math.max(PADDING, Math.min(window.innerWidth - PADDING, node.x));
-                    node.y = Math.max(PADDING, Math.min(window.innerHeight - PADDING, node.y));
-                });
-            }
-            
-            nodes.forEach(node => {
-                node.baseX = node.x;
-                node.baseY = node.y;
-                node.element.style.left = node.x + 'px';
-                node.element.style.top = node.y + 'px';
-            });
-        }
-        
-        // Initial relaxation
-        relaxNodes(50);
+        // No relaxation needed - grid positioning is good enough
         {% endif %}
 
         // Create background particles
@@ -1020,94 +970,24 @@
             }
         }
 
-        // Animate nodes - gentle drift with collision avoidance
-        function animateNodes() {
-            const RUNTIME_MIN_DIST = 100;
-            const BOUND_PADDING = 80;
-            
-            // Apply inter-node repulsion
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[j].x - nodes[i].x;
-                    const dy = nodes[j].y - nodes[i].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < RUNTIME_MIN_DIST && dist > 0) {
-                        const force = (RUNTIME_MIN_DIST - dist) / dist * 0.02;
-                        nodes[i].vx -= dx * force;
-                        nodes[i].vy -= dy * force;
-                        nodes[j].vx += dx * force;
-                        nodes[j].vy += dy * force;
-                    }
-                }
-            }
-            
-            nodes.forEach(node => {
-                // Gentle drift
-                node.x += node.vx;
-                node.y += node.vy;
-                
-                // Soft return to base position
-                const dx = node.x - node.baseX;
-                const dy = node.y - node.baseY;
-                node.vx -= dx * 0.002;
-                node.vy -= dy * 0.002;
-                
-                // Hard boundary constraints
-                if (node.x < BOUND_PADDING) {
-                    node.x = BOUND_PADDING;
-                    node.vx = Math.abs(node.vx) * 0.5;
-                }
-                if (node.x > window.innerWidth - BOUND_PADDING) {
-                    node.x = window.innerWidth - BOUND_PADDING;
-                    node.vx = -Math.abs(node.vx) * 0.5;
-                }
-                if (node.y < BOUND_PADDING) {
-                    node.y = BOUND_PADDING;
-                    node.vy = Math.abs(node.vy) * 0.5;
-                }
-                if (node.y > window.innerHeight - BOUND_PADDING) {
-                    node.y = window.innerHeight - BOUND_PADDING;
-                    node.vy = -Math.abs(node.vy) * 0.5;
-                }
-                
-                // Mouse interaction - gentle repulsion when very close
-                const mx = mouseX - node.x;
-                const my = mouseY - node.y;
-                const mouseDist = Math.sqrt(mx * mx + my * my);
-                
-                if (mouseDist < 100 && mouseDist > 10) {
-                    node.vx -= mx * 0.0003;
-                    node.vy -= my * 0.0003;
-                }
-                
-                // Damping
-                node.vx *= 0.95;
-                node.vy *= 0.95;
-                
-                node.element.style.left = node.x + 'px';
-                node.element.style.top = node.y + 'px';
-            });
-
-            // Animate particles
+        // Animate - just draw connections and move particles
+        function animate() {
+            // Move particles slowly
             particles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
-                
-                // Wrap around
                 if (p.x < 0) p.x = window.innerWidth;
                 if (p.x > window.innerWidth) p.x = 0;
                 if (p.y < 0) p.y = window.innerHeight;
                 if (p.y > window.innerHeight) p.y = 0;
-                
                 p.element.style.left = p.x + 'px';
                 p.element.style.top = p.y + 'px';
             });
 
             drawConnections();
-            requestAnimationFrame(animateNodes);
+            requestAnimationFrame(animate);
         }
-        animateNodes();
+        animate();
 
         // Time display
         function updateTime() {
