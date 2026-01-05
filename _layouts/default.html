@@ -465,6 +465,16 @@
             #instructions { display: none; }
         }
 
+        /* Show normal cursor on content pages */
+        body.content-mode,
+        body.content-mode * {
+            cursor: auto !important;
+        }
+        
+        body.content-mode #presence {
+            display: none;
+        }
+
         /* Glitch on space */
         .glitch-active {
             animation: glitch 0.1s ease;
