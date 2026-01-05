@@ -46,6 +46,18 @@
             cursor: none;
         }
 
+        body.panning {
+            cursor: grabbing !important;
+        }
+
+        body.panning * {
+            cursor: grabbing !important;
+        }
+
+        body:not(.panning):not(.content-mode) #universe {
+            cursor: grab;
+        }
+
         /* The Universe - infinite canvas */
         #universe {
             position: fixed;
@@ -331,6 +343,26 @@
             line-height: 2;
         }
 
+        /* Scroll indicator */
+        #pan-indicator {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--flesh);
+            opacity: 0.25;
+            letter-spacing: 0.1em;
+            z-index: 1000;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #pan-indicator.active {
+            opacity: 0.5;
+        }
+
         /* Close revelation */
         #close-revelation {
             position: fixed;
@@ -498,6 +530,11 @@
             display: none;
         }
 
+        body.content-mode #pan-indicator,
+        body.content-mode #instructions {
+            display: none;
+        }
+
         /* Glitch on space */
         .glitch-active {
             animation: glitch 0.1s ease;
@@ -561,10 +598,14 @@
 
     <!-- Instructions -->
     <div id="instructions">
+        [DRAG] PAN INFINITE SPACE<br>
+        [SCROLL] NAVIGATE<br>
         [SPACE] DISTORT REALITY<br>
-        [ESC] RETURN TO VOID<br>
-        [HOVER] DISCOVER
+        [ESC] RETURN TO VOID
     </div>
+
+    <!-- Scroll indicator -->
+    <div id="pan-indicator">∞</div>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -577,12 +618,22 @@
         const canvas = document.getElementById('connections');
         const ctx = canvas.getContext('2d');
         const temporal = document.getElementById('temporal');
+        const panIndicator = document.getElementById('pan-indicator');
 
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;
         let nodes = [];
         let trails = [];
         let particles = [];
+        
+        // Infinite scroll offset (accumulated scroll distance)
+        let scrollOffsetX = 0;
+        let scrollOffsetY = 0;
+        
+        // For drag scrolling
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
         
         // Detect if we're on the home page using JavaScript
         const currentPath = window.location.pathname;
@@ -599,19 +650,156 @@
         let resizeTimeout;
         window.addEventListener('resize', () => {
             resizeCanvas();
-            // Debounce node repositioning
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                // Recalculate bounds for all nodes
-                const BOUND_PADDING = 80;
-                nodes.forEach(node => {
-                    node.x = Math.max(BOUND_PADDING, Math.min(window.innerWidth - BOUND_PADDING, node.x));
-                    node.y = Math.max(BOUND_PADDING, Math.min(window.innerHeight - BOUND_PADDING, node.y));
-                    node.baseX = node.x;
-                    node.baseY = node.y;
-                });
-            }, 100);
         });
+
+        // Wrap a value to stay within bounds (toroidal wrapping)
+        function wrapValue(val, min, max) {
+            const range = max - min;
+            while (val < min) val += range;
+            while (val >= max) val -= range;
+            return val;
+        }
+
+        // Check if a position is outside the viewport
+        function isOutsideViewport(x, y, margin = 50) {
+            return x < -margin || x > window.innerWidth + margin ||
+                   y < -margin || y > window.innerHeight + margin;
+        }
+
+        // Move all nodes by delta and wrap around screen edges
+        function scrollWorld(deltaX, deltaY) {
+            const padding = 100; // Extra padding for wraparound
+            const minX = -padding;
+            const maxX = window.innerWidth + padding;
+            const minY = -padding;
+            const maxY = window.innerHeight + padding;
+            
+            // Track folders that need to collapse (when they wrap)
+            const foldersToCollapse = [];
+            
+            // Move nodes and wrap
+            nodes.forEach(node => {
+                const oldX = node.x;
+                const oldY = node.y;
+                
+                node.x += deltaX;
+                node.y += deltaY;
+                
+                // Check if this folder node is about to wrap (exit viewport)
+                if (node.isFolder && expandedFolders.has(node.path)) {
+                    const willWrapX = (node.x < minX && oldX >= minX) || (node.x >= maxX && oldX < maxX);
+                    const willWrapY = (node.y < minY && oldY >= minY) || (node.y >= maxY && oldY < maxY);
+                    
+                    if (willWrapX || willWrapY) {
+                        foldersToCollapse.push(node.path);
+                    }
+                }
+                
+                // Wrap around edges
+                node.x = wrapValue(node.x, minX, maxX);
+                node.y = wrapValue(node.y, minY, maxY);
+                
+                // Update base positions for collision system
+                node.baseX = node.x;
+                node.baseY = node.y;
+                
+                // Update DOM
+                node.element.style.left = node.x + 'px';
+                node.element.style.top = node.y + 'px';
+            });
+            
+            // Collapse folders that wrapped
+            foldersToCollapse.forEach(path => {
+                collapseFolder(path);
+            });
+            
+            // Move particles and wrap
+            particles.forEach(p => {
+                p.x += deltaX;
+                p.y += deltaY;
+                p.x = wrapValue(p.x, minX, maxX);
+                p.y = wrapValue(p.y, minY, maxY);
+                p.element.style.left = p.x + 'px';
+                p.element.style.top = p.y + 'px';
+            });
+            
+            // Track total offset for indicator
+            scrollOffsetX -= deltaX;
+            scrollOffsetY -= deltaY;
+            updateScrollIndicator();
+        }
+
+        // Update scroll indicator (shows scroll direction briefly)
+        let indicatorTimeout;
+        function updateScrollIndicator() {
+            // Show scroll direction arrows
+            const dirX = scrollOffsetX > 0 ? '→' : scrollOffsetX < 0 ? '←' : '';
+            const dirY = scrollOffsetY > 0 ? '↓' : scrollOffsetY < 0 ? '↑' : '';
+            panIndicator.textContent = `${dirY}${dirX} ∞`;
+            panIndicator.classList.add('active');
+            
+            clearTimeout(indicatorTimeout);
+            indicatorTimeout = setTimeout(() => {
+                panIndicator.classList.remove('active');
+                panIndicator.textContent = '∞';
+            }, 1000);
+        }
+
+        // Drag to scroll
+        function startDrag(e) {
+            if (isContentPage) return;
+            if (e.target.closest('.thought-node') || e.target.closest('#close-revelation')) return;
+            
+            isDragging = true;
+            dragStartX = e.clientX || (e.touches && e.touches[0].clientX);
+            dragStartY = e.clientY || (e.touches && e.touches[0].clientY);
+            document.body.classList.add('panning');
+            panIndicator.classList.add('active');
+        }
+
+        function doDrag(e) {
+            if (!isDragging) return;
+            
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            
+            const deltaX = clientX - dragStartX;
+            const deltaY = clientY - dragStartY;
+            
+            dragStartX = clientX;
+            dragStartY = clientY;
+            
+            scrollWorld(deltaX, deltaY);
+            resetIdleTimer();
+        }
+
+        function endDrag() {
+            isDragging = false;
+            document.body.classList.remove('panning');
+            panIndicator.classList.remove('active');
+        }
+
+        // Mouse drag
+        universe.addEventListener('mousedown', startDrag);
+        document.addEventListener('mousemove', doDrag);
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('mouseleave', endDrag);
+
+        // Touch drag
+        universe.addEventListener('touchstart', startDrag, { passive: true });
+        document.addEventListener('touchmove', doDrag, { passive: true });
+        document.addEventListener('touchend', endDrag);
+
+        // Wheel scrolling (both directions)
+        universe.addEventListener('wheel', (e) => {
+            if (isContentPage) return;
+            e.preventDefault();
+            
+            // deltaX for horizontal, deltaY for vertical
+            // Negative because we want to move content in opposite direction of scroll
+            scrollWorld(-e.deltaX, -e.deltaY);
+            resetIdleTimer();
+        }, { passive: false });
 
         // If this is a content page, show it directly
         if (isContentPage) {
@@ -668,7 +856,7 @@
             children: fileTree[key]._children
         }));
 
-        // Create a node element
+        // Create a node element (x, y are screen coordinates)
         function createNodeElement(name, isFolder, x, y) {
             const node = document.createElement('div');
             node.className = `thought-node ${isFolder ? 'folder' : 'file'}`;
@@ -681,7 +869,7 @@
             return node;
         }
 
-        // Position nodes in a grid
+        // Position nodes in a grid across the screen
         function positionInGrid(items, padding) {
             const cols = Math.ceil(Math.sqrt(items.length * (window.innerWidth / window.innerHeight)));
             const rows = Math.ceil(items.length / cols);
@@ -893,8 +1081,14 @@
             return Date.now() - lastInteractionTime > IDLE_THRESHOLD;
         }
         
-        function getRandomFolderNode() {
-            const folderNodes = nodes.filter(n => n.isFolder);
+        // Check if a node is visible in the viewport
+        function isInViewport(x, y, margin = 50) {
+            return !isOutsideViewport(x, y, margin);
+        }
+        
+        function getRandomFolderNodeInViewport() {
+            // Only get folder nodes that are currently visible in viewport
+            const folderNodes = nodes.filter(n => n.isFolder && isInViewport(n.x, n.y));
             if (folderNodes.length === 0) return null;
             return folderNodes[Math.floor(Math.random() * folderNodes.length)];
         }
@@ -902,7 +1096,7 @@
         function autoToggleRandomFolder() {
             if (!isUserIdle()) return;
             
-            const folderNode = getRandomFolderNode();
+            const folderNode = getRandomFolderNodeInViewport();
             if (!folderNode) return;
             
             // 60% chance to expand if collapsed, 40% chance to collapse if expanded
@@ -919,22 +1113,26 @@
         
         {% endif %}
 
-        // Create background particles
+        // Create background particles spread across the screen
         for (let i = 0; i < 50; i++) {
             const p = document.createElement('div');
             p.className = 'particle';
-            p.style.left = Math.random() * window.innerWidth + 'px';
-            p.style.top = Math.random() * window.innerHeight + 'px';
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
             p.style.opacity = Math.random() * 0.3;
             universe.appendChild(p);
             particles.push({
                 element: p,
-                x: parseFloat(p.style.left),
-                y: parseFloat(p.style.top),
+                x: x,
+                y: y,
                 vx: (Math.random() - 0.5) * 0.3,
                 vy: (Math.random() - 0.5) * 0.3
             });
         }
+        
+        updateScrollIndicator();
 
         // Mouse tracking
         document.addEventListener('mousemove', (e) => {
@@ -1061,14 +1259,19 @@
             }
         }
 
-        // Force-directed collision avoidance
+        // Force-directed collision avoidance with wraparound
         function applyCollisionForces() {
             const MIN_SEPARATION = 150; // Minimum distance between nodes (accounts for labels)
             const REPULSION_STRENGTH = 1.5; // How strongly nodes push apart
             const DAMPING = 0.9; // Velocity damping for smooth movement
-            const BOUNDARY_PADDING = 60;
             const SPRING_STRENGTH = 0.02; // Strength of spring pulling children to parent
             const MAX_CHILD_DISTANCE = 250; // Max distance before spring kicks in
+            
+            const padding = 100;
+            const minX = -padding;
+            const maxX = window.innerWidth + padding;
+            const minY = -padding;
+            const maxY = window.innerHeight + padding;
             
             // Apply spring forces to keep children near their parent
             nodes.forEach(node => {
@@ -1120,23 +1323,44 @@
                 }
             }
             
+            // Track folders that need to collapse
+            const foldersToCollapse = [];
+            
             // Update positions and apply damping
             nodes.forEach(node => {
                 // Apply velocity with damping
                 node.vx *= DAMPING;
                 node.vy *= DAMPING;
                 
+                const oldX = node.x;
+                const oldY = node.y;
+                
                 // Update position
                 node.x += node.vx;
                 node.y += node.vy;
                 
-                // Keep within bounds
-                node.x = Math.max(BOUNDARY_PADDING, Math.min(window.innerWidth - BOUNDARY_PADDING, node.x));
-                node.y = Math.max(BOUNDARY_PADDING, Math.min(window.innerHeight - BOUNDARY_PADDING, node.y));
+                // Check if this folder node is about to wrap
+                if (node.isFolder && expandedFolders.has(node.path)) {
+                    const willWrapX = (node.x < minX && oldX >= minX) || (node.x >= maxX && oldX < maxX);
+                    const willWrapY = (node.y < minY && oldY >= minY) || (node.y >= maxY && oldY < maxY);
+                    
+                    if (willWrapX || willWrapY) {
+                        foldersToCollapse.push(node.path);
+                    }
+                }
+                
+                // Wrap around screen edges
+                node.x = wrapValue(node.x, minX, maxX);
+                node.y = wrapValue(node.y, minY, maxY);
                 
                 // Update DOM element position
                 node.element.style.left = node.x + 'px';
                 node.element.style.top = node.y + 'px';
+            });
+            
+            // Collapse folders that wrapped
+            foldersToCollapse.forEach(path => {
+                collapseFolder(path);
             });
         }
 
@@ -1145,10 +1369,11 @@
             // Apply collision avoidance forces
             applyCollisionForces();
             
-            // Move particles slowly
+            // Move particles slowly with wraparound
             particles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
+                // Wrap around screen edges
                 if (p.x < 0) p.x = window.innerWidth;
                 if (p.x > window.innerWidth) p.x = 0;
                 if (p.y < 0) p.y = window.innerHeight;
