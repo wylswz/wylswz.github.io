@@ -149,7 +149,7 @@
             height: 8px;
             background: var(--flesh);
             border-radius: 50%;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, transform 0.2s ease;
             position: relative;
         }
 
@@ -177,27 +177,25 @@
         }
 
         .thought-node:hover .node-core {
-            width: 12px;
-            height: 12px;
             background: var(--nerve);
             box-shadow: 0 0 15px var(--nerve), 0 0 30px rgba(255, 214, 10, 0.2);
+            transform: scale(1.4);
         }
 
         .thought-node:hover .node-label {
             opacity: 1;
         }
 
-        /* Folder nodes (expandable) */
+        /* Folder nodes (expandable) - size set dynamically via inline styles based on child count */
         .thought-node.folder .node-core {
             background: var(--synapse);
-            width: 10px;
-            height: 10px;
+            /* Width/height set dynamically based on child count */
         }
 
         .thought-node.folder:hover .node-core {
             background: var(--nerve);
-            width: 14px;
-            height: 14px;
+            /* Scale up slightly on hover */
+            transform: scale(1.3);
         }
 
         .thought-node.folder.expanded .node-core {
@@ -212,8 +210,7 @@
         }
 
         .thought-node.file:hover .node-core {
-            width: 10px;
-            height: 10px;
+            transform: scale(1.5);
         }
 
         /* Child nodes animation */
@@ -593,7 +590,6 @@
 
     <!-- Instructions -->
     <div id="instructions">
-        [DRAG] PAN INFINITE SPACE<br>
         [SCROLL] NAVIGATE<br>
         [SPACE] DISTORT REALITY<br>
         [ESC] RETURN TO VOID
@@ -802,16 +798,32 @@
             children: fileTree[key]._children
         }));
 
+        // Non-linear radius function: approaches maxRadius as childCount increases
+        // Uses hyperbolic function: base + (max - base) * count / (count + k)
+        function calculateNodeRadius(childCount, isFolder) {
+            if (!isFolder) return 6; // Files always small
+            const baseRadius = 10;
+            const maxRadius = 28;
+            const k = 5; // Controls how fast it approaches max (lower = faster)
+            return baseRadius + (maxRadius - baseRadius) * childCount / (childCount + k);
+        }
+
         // Create a node element (x, y are screen coordinates)
-        function createNodeElement(name, isFolder, x, y) {
+        // childCount: number of children for sizing (0 for files)
+        function createNodeElement(name, isFolder, x, y, childCount = 0) {
             const node = document.createElement('div');
             node.className = `thought-node ${isFolder ? 'folder' : 'file'}`;
             node.style.left = x + 'px';
             node.style.top = y + 'px';
+            
+            const radius = calculateNodeRadius(childCount, isFolder);
+            const diameter = radius * 2;
+            
             node.innerHTML = `
-                <div class="node-core breathing" style="animation-delay: ${Math.random() * 3}s"></div>
+                <div class="node-core breathing" style="animation-delay: ${Math.random() * 3}s; width: ${diameter}px; height: ${diameter}px;"></div>
                 <div class="node-label">${name}</div>
             `;
+            node.dataset.childCount = childCount;
             return node;
         }
 
@@ -888,7 +900,9 @@
         // Create initial folder nodes
         const positioned = positionInGrid(topFolders, PADDING);
         positioned.forEach(folder => {
-            const nodeEl = createNodeElement(folder.name, true, folder.x, folder.y);
+            // Count all files in this folder for sizing
+            const childCount = collectAllFiles(folder.children, folder.name).length;
+            const nodeEl = createNodeElement(folder.name, true, folder.x, folder.y, childCount);
             nodeEl.dataset.path = folder.name;
             nodeEl.dataset.isFolder = 'true';
             

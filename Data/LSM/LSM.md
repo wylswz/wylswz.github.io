@@ -33,18 +33,33 @@ Segment 是按照时间来划分的，比如今天 12:00 - 13:00 存在 `seg-1.s
 2. 查询稀疏索引，如果能查到，则直接通过 Offset 获取数据，否则返回一个区间
 3. 在区间内顺序扫描 Key
 
-### 合并
-多个 SSTable 合并时，我们会舍弃旧 SSTable 中的 Key 而保留新的。
+### 合并 （Merge）
+多个带有重复 key 的 SSTable 合并时，我们会舍弃旧 SSTable 中的 Key 而保留新的。这种操作类似于 `merge-sort` 中的 `merge`，通常会使用 `Iterator` 来做。
 
-## 整理（Compaction）
-当数据写入增多时，SSTable Segment 的数量就会增加，导致读放大（Read Amplification）。当我需要读取过去某个 Key 值的时候，系统需要扫描所有新增的 SSTable，会非常慢，因此需要引入一个 Compaction 的流程，对数据段进行合并。
+### 连接 （Join）
+多个没有重复 key 的 SSTable 合并时，我们不需要进行 merge，而只需要进行简单的合并（SSTable 内部已经排好序了，所以直接追加数据就能实现 join）。
 
-### Low Level Compation
-- L0 层内整理：有些系统会在 L0 内部进行数据整理，例如 OceanBase
-- 当 L0 SSTable 数达到限制，会出发 L0 -> L1 的数据整理
+## Level
+从架构图我们可以发现，LSM 的 SSTable 通常被组织成不同的层。当 Flush 发生时，MemTable 总是被刷到 L0，因此 L0 的 SSTable 之间是存在 Key 重叠的。
+重复的 Key 会导致读放大（Read Amplification）：当我需要读取过去某个 Key 值的时候，系统可能需要扫描所有的 SSTable 才能找到它，会非常慢，因此需要引入一个 Compaction 的流程，对数据段进行合并。L1 及以上的 SSTable 都是被整理过的，因此不存在 Key 重叠，在查询时，可以直接命中。
+
+### 层内整理 （Intra-Level Compaction）
+有些数据库的实现会在 L0 内部进行 in-place 的整理，例如 Ocean Base
+
+### 低层整理（Low-Level Compaction）
+低层整理一般是 （L0 -> L1）的整理，当 L0 的 SSTable 数量达到阈值时会触发。低层整理的行为是 `Merge`。
 
 ### High Level Compation
-高层的整理会涉及到合并多个层的 SSTable。相比于低层的整理，高层的往往也会消耗更多资源。
+高层的整理会涉及到合并多个层的 SSTable。如架构图所示，它会选定一个 k 层的 SSTable，在 k+1 层找到和它 key 重合的 SSTable，把它们加载到内存中，然后进行一个 join-merge 操作：即对 k+1 层的 SSTable 进行 join，再与 k 层的 SSTable 进行 merge。
+
+# LSM KVS 查询
+有了上面的介绍，查询的逻辑就比较清楚了。
+1. 从 MemTable 进行查询
+2. 如果没找到，从磁盘上进行查询：从 L0 开始
+  a. 对于 L0 层，需要从新到旧遍历 SSTable 查询 key
+  b. 对于更高层，只需要根据 key 范围定位到 SSTable 以后从中查询
+
+
 
 # 分布式 LSM-KVS
 分布式的 LSM-KVS 系统架构如下
@@ -72,9 +87,9 @@ LSM 系统有大量的参数，例如 Compaction 策略，磁盘文件 Layout，
 ## Compaction 优化
 - 何时触发？
 - 整理那些 SSTable？
-- Compaction 粒度？更小的力度会有更多 IO，但是单次停顿时间更短
+- Compaction 粒度？更小的粒度会有更多 IO，但是单次停顿时间更短
 - Data Layout：Leveling VS Tiering
 - In-Storage Compaction：使用专有硬件（GPGPU，FPGA），直接在存储层进行数据整理，节省 CPU 的时间。
 
 ## KV 操作优化
-TODO：
+TODO
