@@ -30,6 +30,10 @@
 
 # Career
 
+- **Dify** *2025/8 - now*
+  Backend Developer
+  - Responsible for developing backend features for Dify Enterprise Edition
+
 - **Algolib Ltd** *2017/7 - 2018/2*
   
   Web Developer
