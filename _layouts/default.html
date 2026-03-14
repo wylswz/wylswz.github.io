@@ -21,1351 +21,215 @@
     </script>
     {% endif %}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --void: #050507;
-            --flesh: #f0e6db;
-            --blood: #ff2d55;
-            --nerve: #ffd60a;
-            --synapse: #5e5ce6;
-            --membrane: rgba(240, 230, 219, 0.03);
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html, body {
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #c0c0c0 0%, #a0a0a0 50%, #808080 100%);
+            font-family: "Times New Roman", Times, serif;
+            font-size: 14px;
+            color: #000000;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        .header {
+            border: 2px solid #000;
+            border-style: outset;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #e0e0e0 0%, #c0c0c0 100%);
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+
+        .header p {
+            font-size: 12px;
+            color: #404040;
+            margin-top: 4px;
+        }
+
+        .content {
+            border: 2px solid #000;
+            border-style: inset;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .content h1, .content h2, .content h3 {
+            font-family: Arial, sans-serif;
+            margin: 1em 0 0.5em;
+            font-size: 16px;
+        }
+
+        .content h1 { font-size: 20px; }
+        .content h2 { font-size: 18px; }
+        .content h3 { font-size: 16px; }
+
+        .content p { margin-bottom: 1em; }
+
+        .content a {
+            color: #0000ff;
+            text-decoration: underline;
+        }
+
+        .content a:visited {
+            color: #800080;
+        }
+
+        .content a:hover {
+            color: #ff0000;
+        }
+
+        .content code {
+            font-family: "Courier New", monospace;
+            font-size: 13px;
+            background: #e8e8e8;
+            padding: 1px 4px;
+            border: 1px solid #c0c0c0;
+        }
+
+        .content pre {
+            background: #e8e8e8;
+            border: 1px solid #c0c0c0;
+            padding: 12px;
+            overflow-x: auto;
+            margin: 1em 0;
+            font-family: "Courier New", monospace;
+            font-size: 12px;
+        }
+
+        .content pre code {
+            background: none;
+            padding: 0;
+            border: none;
+        }
+
+        .content ul, .content ol {
+            margin: 1em 0;
+            padding-left: 2em;
+        }
+
+        .content blockquote {
+            border-left: 3px solid #808080;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #404040;
+        }
+
+        .content table {
+            border-collapse: collapse;
             width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: var(--void);
-            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            cursor: none;
+            margin: 1em 0;
         }
 
-        body.panning {
-            cursor: grabbing !important;
+        .content th, .content td {
+            border: 1px solid #000;
+            padding: 6px 10px;
+            text-align: left;
         }
 
-        body.panning * {
-            cursor: grabbing !important;
-        }
-        /* The Universe - infinite canvas */
-        #universe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        .content th {
+            background: linear-gradient(180deg, #e0e0e0 0%, #c0c0c0 100%);
+            font-weight: bold;
         }
 
-        /* Custom cursor as presence */
-        #presence {
-            position: fixed;
-            pointer-events: none;
-            z-index: 10000;
-            mix-blend-mode: difference;
+        /* Link list - home page */
+        .link-list {
+            list-style: none;
+            padding-left: 0;
         }
 
-        #presence-core {
-            width: 12px;
-            height: 12px;
-            background: var(--flesh);
-            border-radius: 50%;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease;
-        }
-
-        #presence-aura {
-            width: 120px;
-            height: 120px;
-            border: 1px solid rgba(240, 230, 219, 0.2);
-            border-radius: 50%;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            transition: all 0.3s ease;
-        }
-
-        #presence-field {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255, 45, 85, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
-
-        /* The revelation - content appears from void */
-        #revelation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            z-index: 500;
-            background: radial-gradient(ellipse at center, rgba(5, 5, 7, 0.95) 0%, var(--void) 100%);
-        }
-
-        #revelation.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        #revelation-content {
-            max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 3rem;
-            color: var(--flesh);
-            line-height: 1.9;
-            font-size: 1.1rem;
-            scrollbar-width: none;
-        }
-
-        #revelation-content::-webkit-scrollbar { display: none; }
-
-        /* Thought nodes floating in space */
-        .thought-node {
-            position: absolute;
-            cursor: none;
-            /* Only transition z-index, not position - position is handled by JS */
-            transition: z-index 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .node-core {
-            width: 8px;
-            height: 8px;
-            background: var(--flesh);
-            border-radius: 50%;
-            transition: all 0.3s ease, transform 0.2s ease;
+        .link-list li {
+            margin: 6px 0;
+            padding-left: 16px;
             position: relative;
         }
 
-        .node-label {
+        .link-list li:before {
+            content: ">";
             position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            color: var(--flesh);
-            opacity: 0.5;
-            white-space: nowrap;
-            letter-spacing: 0.03em;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            background: rgba(5, 5, 7, 0.85);
-            padding: 0.3em 0.6em;
-            border-radius: 3px;
-            z-index: 100;
-        }
-
-        .thought-node:hover {
-            z-index: 1000;
-        }
-
-        .thought-node:hover .node-core {
-            background: var(--nerve);
-            box-shadow: 0 0 15px var(--nerve), 0 0 30px rgba(255, 214, 10, 0.2);
-            transform: scale(1.4);
-        }
-
-        .thought-node:hover .node-label {
-            opacity: 1;
-        }
-
-        /* Folder nodes (expandable) - size set dynamically via inline styles based on child count */
-        .thought-node.folder .node-core {
-            background: var(--synapse);
-            /* Width/height set dynamically based on child count */
-        }
-
-        .thought-node.folder:hover .node-core {
-            background: var(--nerve);
-            /* Scale up slightly on hover */
-            transform: scale(1.3);
-        }
-
-        .thought-node.folder.expanded .node-core {
-            background: var(--blood);
-            box-shadow: 0 0 20px var(--blood);
-        }
-
-        /* File nodes (clickable to content) */
-        .thought-node.file .node-core {
-            width: 6px;
-            height: 6px;
-        }
-
-        .thought-node.file:hover .node-core {
-            transform: scale(1.5);
-        }
-
-        /* Child nodes animation */
-        .thought-node.child {
-            animation: nodeAppear 0.4s ease-out forwards;
-        }
-
-        @keyframes nodeAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .thought-node.removing {
-            animation: nodeDisappear 0.3s ease-in forwards;
-        }
-
-        @keyframes nodeDisappear {
-            to {
-                opacity: 0;
-                transform: scale(0.3);
-            }
-        }
-
-        .thought-node.active .node-core {
-            background: var(--blood);
-            box-shadow: 0 0 40px var(--blood);
-        }
-
-        /* Neural connections */
-        #connections {
-            position: fixed;
-            top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            color: #808080;
         }
 
-        /* Center origin point */
-        #origin {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 50;
-            text-align: center;
-            pointer-events: none;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        .link-list a {
+            color: #0000ff;
+            text-decoration: underline;
         }
 
-        #origin.shifted {
-            top: 2rem;
-            left: 5rem;
-            transform: translate(0, 0);
-            text-align: left;
+        .link-list a:visited {
+            color: #800080;
         }
 
-        #origin-title {
-            font-size: clamp(2rem, 6vw, 4rem);
-            color: var(--flesh);
-            letter-spacing: 0.5em;
-            opacity: 0.9;
-            text-transform: uppercase;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
+        .link-list .folder {
+            font-weight: bold;
+            margin-top: 12px;
+            color: #000;
         }
 
-        #origin.shifted #origin-title {
-            font-size: 1rem;
-            letter-spacing: 0.2em;
-            margin-bottom: 0.3rem;
+        .link-list .folder:before {
+            content: "[+]";
         }
 
-        #origin-subtitle {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--synapse);
-            letter-spacing: 0.3em;
-            opacity: 0.6;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        .back-link {
+            display: inline-block;
+            margin-bottom: 16px;
+            color: #0000ff;
+            text-decoration: underline;
         }
 
-        #origin.shifted #origin-subtitle {
-            font-size: 0.5rem;
-            letter-spacing: 0.15em;
-            opacity: 0.4;
-        }
-
-        /* Temporal display */
-        #temporal {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--flesh);
-            opacity: 0.3;
-            letter-spacing: 0.2em;
-            z-index: 1000;
-        }
-
-        /* Instructions */
-        #instructions {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            color: var(--flesh);
-            opacity: 0.2;
-            letter-spacing: 0.15em;
-            z-index: 1000;
-            line-height: 2;
-        }
-
-        /* Scroll indicator */
-        #pan-indicator {
-            position: fixed;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            color: var(--flesh);
-            opacity: 0.25;
-            letter-spacing: 0.1em;
-            z-index: 1000;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        #pan-indicator.active {
-            opacity: 0.5;
-        }
-
-        /* Close revelation */
-        #close-revelation {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(240, 230, 219, 0.3);
-            border-radius: 50%;
-            background: transparent;
-            color: var(--flesh);
-            font-size: 1.2rem;
-            cursor: none;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        body:not(.content-mode) #close-revelation {
-            display: none !important;
-        }
-
-        body.content-mode #close-revelation {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #close-revelation:hover {
-            background: var(--blood);
-            border-color: var(--blood);
-        }
-
-        /* Content typography */
-        #revelation-content h1, #revelation-content h2, #revelation-content h3 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 300;
-            margin: 2rem 0 1rem;
-            color: var(--nerve);
-        }
-
-        #revelation-content h1 { font-size: 2.5rem; }
-        #revelation-content h2 { font-size: 1.8rem; }
-        #revelation-content h3 { font-size: 1.3rem; color: var(--synapse); }
-
-        #revelation-content p { margin-bottom: 1.5rem; }
-
-        #revelation-content a {
-            color: var(--nerve);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s;
-        }
-
-        #revelation-content a:hover {
-            border-bottom-color: var(--nerve);
-        }
-
-        #revelation-content code {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            background: rgba(94, 92, 230, 0.2);
-            padding: 0.2em 0.5em;
-            border-radius: 3px;
-        }
-
-        #revelation-content pre {
-            background: rgba(5, 5, 7, 0.8);
-            border: 1px solid rgba(240, 230, 219, 0.1);
-            padding: 1.5rem;
-            overflow-x: auto;
-            margin: 2rem 0;
-            border-radius: 4px;
-        }
-
-        #revelation-content pre code {
-            background: none;
-            padding: 0;
-            color: var(--synapse);
-        }
-
-        #revelation-content ul, #revelation-content ol {
-            margin: 1.5rem 0;
-            padding-left: 1.5rem;
-        }
-
-        #revelation-content li { margin-bottom: 0.8rem; }
-
-        #revelation-content blockquote {
-            border-left: 2px solid var(--blood);
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            font-style: italic;
-            opacity: 0.8;
-        }
-
-        #revelation-content img {
-            max-width: 100%;
-            margin: 2rem 0;
-            filter: grayscale(20%);
-        }
-
-        #revelation-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-        }
-
-        #revelation-content th, #revelation-content td {
-            padding: 1rem;
-            border: 1px solid rgba(240, 230, 219, 0.1);
-            text-align: left;
-        }
-
-        #revelation-content th {
-            background: rgba(255, 214, 10, 0.1);
-            color: var(--nerve);
-        }
-
-        /* Depth layers */
-        .depth-1 { opacity: 1; }
-        .depth-2 { opacity: 0.85; }
-        .depth-3 { opacity: 0.65; }
-
-        /* Particle field */
-        .particle {
-            position: fixed;
-            width: 2px;
-            height: 2px;
-            background: var(--flesh);
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.2;
-        }
-
-        /* Trail effect */
-        .trail {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: var(--blood);
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.5;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Mobile fallback */
-        @media (max-width: 768px) {
-            body { cursor: auto; }
-            #presence { display: none; }
-            .node-label { opacity: 0.7 !important; }
-            #instructions { display: none; }
-        }
-
-        /* Show normal cursor on content pages */
-        body.content-mode,
-        body.content-mode * {
-            cursor: auto !important;
-        }
-        
-        body.content-mode #presence {
-            display: none;
-        }
-
-        body.content-mode #pan-indicator,
-        body.content-mode #instructions {
-            display: none;
-        }
-
-        /* Glitch on space */
-        .glitch-active {
-            animation: glitch 0.1s ease;
-        }
-
-        @keyframes glitch {
-            0%, 100% { filter: none; }
-            25% { filter: hue-rotate(90deg) saturate(2); }
-            50% { filter: invert(1); }
-            75% { filter: hue-rotate(-90deg) brightness(1.5); }
-        }
-
-        /* Breathing animation for nodes */
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 1; }
-        }
-
-        .breathing {
-            animation: breathe 3s ease-in-out infinite;
-        }
-
-        /* Drift animation */
-        @keyframes drift {
-            0%, 100% { transform: translate(0, 0); }
-            25% { transform: translate(5px, -5px); }
-            50% { transform: translate(-3px, 8px); }
-            75% { transform: translate(-7px, -3px); }
+        .footer {
+            margin-top: 24px;
+            padding-top: 12px;
+            border-top: 1px solid #808080;
+            font-size: 11px;
+            color: #606060;
         }
     </style>
 </head>
 <body>
-    <div id="universe">
-        <canvas id="connections"></canvas>
-    </div>
+    <div class="container">
+        <div class="header">
+            <h1>{{ site.title }}</h1>
+            <p>{{ site.subtitle }}</p>
+        </div>
 
-    <!-- Presence (cursor) -->
-    <div id="presence">
-        <div id="presence-field"></div>
-        <div id="presence-aura"></div>
-        <div id="presence-core"></div>
-    </div>
-
-    <!-- Origin point -->
-    <div id="origin">
-        <div id="origin-title">{{ site.title }}</div>
-        <div id="origin-subtitle">{{ site.subtitle }}</div>
-    </div>
-
-    <!-- The revelation (content container) -->
-    <div id="revelation">
-        <div id="revelation-content">
+        <div class="content">
+            {% if page.url == '/' %}
+            <p>Welcome. Select a link:</p>
+            <ul class="link-list">
+                {% assign articles = site.pages | where_exp: "item", "item.path contains '.md'" | where_exp: "item", "item.path != 'index.md'" | where_exp: "item", "item.path != 'README.md'" | sort: "path" %}
+                {% assign current_folder = "" %}
+                {% for article in articles %}
+                    {% assign path_parts = article.path | split: "/" %}
+                    {% assign folder = path_parts[0] %}
+                    {% if folder != current_folder %}
+                        <li class="folder">{{ folder }}</li>
+                        {% assign current_folder = folder %}
+                    {% endif %}
+                    <li><a href="{{ article.url }}">{{ article.title | default: article.path | replace: ".md", "" }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <a href="/" class="back-link">&lt; Back to index</a>
             {{ content }}
+            {% endif %}
+        </div>
+
+        <div class="footer">
+            {{ site.description | default: "Built with Jekyll" }}
         </div>
     </div>
-
-    <button id="close-revelation">×</button>
-
-    <!-- Time -->
-    <div id="temporal"></div>
-
-    <!-- Instructions -->
-    <div id="instructions">
-        [SCROLL] NAVIGATE<br>
-        [SPACE] DISTORT REALITY<br>
-        [ESC] RETURN TO VOID
-    </div>
-
-    <!-- Scroll indicator -->
-    <div id="pan-indicator">∞</div>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const universe = document.getElementById('universe');
-        const presence = document.getElementById('presence');
-        const presenceCore = document.getElementById('presence-core');
-        const presenceAura = document.getElementById('presence-aura');
-        const revelation = document.getElementById('revelation');
-        const closeBtn = document.getElementById('close-revelation');
-        const canvas = document.getElementById('connections');
-        const ctx = canvas.getContext('2d');
-        const temporal = document.getElementById('temporal');
-        const panIndicator = document.getElementById('pan-indicator');
-
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let nodes = [];
-        let trails = [];
-        let particles = [];
-        
-        // Infinite scroll offset (accumulated scroll distance)
-        let scrollOffsetX = 0;
-        let scrollOffsetY = 0;
-        
-        
-        // Detect if we're on the home page using JavaScript
-        const currentPath = window.location.pathname;
-        const isContentPage = currentPath !== '/' && currentPath !== '/index.html';
-
-        // Resize canvas
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        
-        // Handle window resize
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-        });
-
-        // Wrap a value to stay within bounds (toroidal wrapping)
-        function wrapValue(val, min, max) {
-            const range = max - min;
-            while (val < min) val += range;
-            while (val >= max) val -= range;
-            return val;
-        }
-
-        // Check if a position is outside the viewport
-        function isOutsideViewport(x, y, margin = 50) {
-            return x < -margin || x > window.innerWidth + margin ||
-                   y < -margin || y > window.innerHeight + margin;
-        }
-
-        // Move all nodes by delta and wrap around screen edges
-        function scrollWorld(deltaX, deltaY) {
-            const padding = 100; // Extra padding for wraparound
-            const minX = -padding;
-            const maxX = window.innerWidth + padding;
-            const minY = -padding;
-            const maxY = window.innerHeight + padding;
-            
-            // Track folders that need to collapse (when they wrap)
-            const foldersToCollapse = [];
-            
-            // Move nodes and wrap
-            nodes.forEach(node => {
-                const oldX = node.x;
-                const oldY = node.y;
-                
-                node.x += deltaX;
-                node.y += deltaY;
-                
-                // Check if this folder node is about to wrap (exit viewport)
-                if (node.isFolder && expandedFolders.has(node.path)) {
-                    const willWrapX = (node.x < minX && oldX >= minX) || (node.x >= maxX && oldX < maxX);
-                    const willWrapY = (node.y < minY && oldY >= minY) || (node.y >= maxY && oldY < maxY);
-                    
-                    if (willWrapX || willWrapY) {
-                        foldersToCollapse.push(node.path);
-                    }
-                }
-                
-                // Wrap around edges
-                node.x = wrapValue(node.x, minX, maxX);
-                node.y = wrapValue(node.y, minY, maxY);
-                
-                // Update base positions for collision system
-                node.baseX = node.x;
-                node.baseY = node.y;
-                
-                // Update DOM
-                node.element.style.left = node.x + 'px';
-                node.element.style.top = node.y + 'px';
-            });
-            
-            // Collapse folders that wrapped
-            foldersToCollapse.forEach(path => {
-                collapseFolder(path);
-            });
-            
-            // Move particles and wrap
-            particles.forEach(p => {
-                p.x += deltaX;
-                p.y += deltaY;
-                p.x = wrapValue(p.x, minX, maxX);
-                p.y = wrapValue(p.y, minY, maxY);
-                p.element.style.left = p.x + 'px';
-                p.element.style.top = p.y + 'px';
-            });
-            
-            // Track total offset for indicator
-            scrollOffsetX -= deltaX;
-            scrollOffsetY -= deltaY;
-            updateScrollIndicator();
-        }
-
-        // Update scroll indicator (shows scroll direction briefly)
-        let indicatorTimeout;
-        function updateScrollIndicator() {
-            // Show scroll direction arrows
-            const dirX = scrollOffsetX > 0 ? '→' : scrollOffsetX < 0 ? '←' : '';
-            const dirY = scrollOffsetY > 0 ? '↓' : scrollOffsetY < 0 ? '↑' : '';
-            panIndicator.textContent = `${dirY}${dirX} ∞`;
-            panIndicator.classList.add('active');
-            
-            clearTimeout(indicatorTimeout);
-            indicatorTimeout = setTimeout(() => {
-                panIndicator.classList.remove('active');
-                panIndicator.textContent = '∞';
-            }, 1000);
-        }
-
-        // Wheel scrolling (both directions)
-        universe.addEventListener('wheel', (e) => {
-            if (isContentPage) return;
-            e.preventDefault();
-            
-            // deltaX for horizontal, deltaY for vertical
-            // Negative because we want to move content in opposite direction of scroll
-            scrollWorld(-e.deltaX, -e.deltaY);
-            resetIdleTimer();
-        }, { passive: false });
-
-        // If this is a content page, show it directly
-        if (isContentPage) {
-            document.body.classList.add('content-mode');
-            revelation.classList.add('active');
-            closeBtn.style.display = 'flex';
-        } else {
-            closeBtn.style.display = 'none';
-        }
-
-        // Create hierarchical tree from page links
-        {% if page.url == '/' %}
-        const articles = [
-            {% assign articles = site.pages | where_exp: "page", "page.path contains '.md'" | where_exp: "page", "page.path != 'index.md'" | where_exp: "page", "page.path != 'README.md'" %}
-            {% for article in articles %}
-            {
-                path: "{{ article.path }}",
-                url: "{{ article.url }}"
-            },
-            {% endfor %}
-        ];
-
-        // Build tree structure from paths
-        const fileTree = {};
-        articles.forEach(article => {
-            const parts = article.path.replace('.md', '').split('/');
-            let current = fileTree;
-            parts.forEach((part, i) => {
-                if (!current[part]) {
-                    current[part] = {
-                        _isFolder: i < parts.length - 1,
-                        _name: part,
-                        _url: i === parts.length - 1 ? article.url : null,
-                        _children: {}
-                    };
-                }
-                if (i < parts.length - 1) {
-                    current = current[part]._children;
-                }
-            });
-        });
-
-        // Configuration
-        const MIN_DISTANCE = 140;
-        const PADDING = 100;
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-
-        // Get top-level folders
-        const topFolders = Object.keys(fileTree).map(key => ({
-            name: key,
-            data: fileTree[key],
-            isFolder: true,
-            children: fileTree[key]._children
-        }));
-
-        // Non-linear radius function: approaches maxRadius as childCount increases
-        // Uses hyperbolic function: base + (max - base) * count / (count + k)
-        function calculateNodeRadius(childCount, isFolder) {
-            if (!isFolder) return 6; // Files always small
-            const baseRadius = 10;
-            const maxRadius = 28;
-            const k = 5; // Controls how fast it approaches max (lower = faster)
-            return baseRadius + (maxRadius - baseRadius) * childCount / (childCount + k);
-        }
-
-        // Create a node element (x, y are screen coordinates)
-        // childCount: number of children for sizing (0 for files)
-        function createNodeElement(name, isFolder, x, y, childCount = 0) {
-            const node = document.createElement('div');
-            node.className = `thought-node ${isFolder ? 'folder' : 'file'}`;
-            node.style.left = x + 'px';
-            node.style.top = y + 'px';
-            
-            const radius = calculateNodeRadius(childCount, isFolder);
-            const diameter = radius * 2;
-            
-            node.innerHTML = `
-                <div class="node-core breathing" style="animation-delay: ${Math.random() * 3}s; width: ${diameter}px; height: ${diameter}px;"></div>
-                <div class="node-label">${name}</div>
-            `;
-            node.dataset.childCount = childCount;
-            return node;
-        }
-
-        // Position nodes in a grid across the screen
-        function positionInGrid(items, padding) {
-            const cols = Math.ceil(Math.sqrt(items.length * (window.innerWidth / window.innerHeight)));
-            const rows = Math.ceil(items.length / cols);
-            const cellWidth = (window.innerWidth - padding * 2) / Math.max(cols, 1);
-            const cellHeight = (window.innerHeight - padding * 2) / Math.max(rows, 1);
-            
-            return items.map((item, index) => {
-                const col = index % cols;
-                const row = Math.floor(index / cols);
-                return {
-                    ...item,
-                    x: padding + col * cellWidth + cellWidth / 2,
-                    y: padding + row * cellHeight + cellHeight / 2
-                };
-            });
-        }
-
-        // Recursively collect all leaf files from a tree
-        function collectAllFiles(children, basePath) {
-            const files = [];
-            
-            function traverse(node, currentPath) {
-                Object.keys(node).forEach(key => {
-                    const child = node[key];
-                    const childPath = currentPath ? `${currentPath}/${key}` : key;
-                    
-                    if (child._url) {
-                        // This is a file (has URL)
-                        files.push({
-                            name: key,
-                            path: childPath,
-                            url: child._url,
-                            isFolder: false
-                        });
-                    }
-                    
-                    // Recurse into children
-                    if (child._children && Object.keys(child._children).length > 0) {
-                        traverse(child._children, childPath);
-                    }
-                });
-            }
-            
-            traverse(children, basePath);
-            return files;
-        }
-
-        // Position children tightly around parent in concentric rings
-        function positionAroundParent(parentX, parentY, children) {
-            const count = children.length;
-            if (count === 0) return [];
-            
-            // Simple circular positioning - one ring
-            const radius = 50 + count * 8; // Larger radius for more children
-            const angleStep = (2 * Math.PI) / count;
-            
-            return children.map((child, i) => {
-                const angle = angleStep * i - Math.PI / 2;
-                return {
-                    ...child,
-                    x: parentX + Math.cos(angle) * radius,
-                    y: parentY + Math.sin(angle) * radius
-                };
-            });
-        }
-
-        // Expanded folders tracking
-        const expandedFolders = new Set();
-
-        // Create initial folder nodes
-        const positioned = positionInGrid(topFolders, PADDING);
-        positioned.forEach(folder => {
-            // Count all files in this folder for sizing
-            const childCount = collectAllFiles(folder.children, folder.name).length;
-            const nodeEl = createNodeElement(folder.name, true, folder.x, folder.y, childCount);
-            nodeEl.dataset.path = folder.name;
-            nodeEl.dataset.isFolder = 'true';
-            
-            nodeEl.addEventListener('click', (e) => {
-                e.stopPropagation();
-                resetIdleTimer(); // Reset idle timer on click
-                toggleFolder(folder.name, folder.x, folder.y, folder.children);
-            });
-            
-            universe.appendChild(nodeEl);
-            nodes.push({
-                element: nodeEl,
-                x: folder.x,
-                y: folder.y,
-                baseX: folder.x,
-                baseY: folder.y,
-                vx: 0,
-                vy: 0,
-                path: folder.name,
-                isFolder: true,
-                children: folder.children
-            });
-        });
-
-        // Toggle folder expansion
-        function toggleFolder(path, parentX, parentY, children) {
-            if (expandedFolders.has(path)) {
-                collapseFolder(path);
-            } else {
-                expandFolder(path, parentX, parentY, children);
-            }
-        }
-
-        function expandFolder(path, parentX, parentY, children) {
-            expandedFolders.add(path);
-            
-            // Shift title to corner when any folder is expanded
-            document.getElementById('origin').classList.add('shifted');
-            
-            // Mark parent as expanded
-            const parentNode = nodes.find(n => n.path === path);
-            if (parentNode) {
-                parentNode.element.classList.add('expanded');
-            }
-            
-            // Recursively collect ALL files
-            const allFiles = collectAllFiles(children, path);
-            
-            if (allFiles.length === 0) return;
-            
-            // Position all files around parent
-            const positioned = positionAroundParent(parentX, parentY, allFiles);
-            
-            positioned.forEach(file => {
-                const nodeEl = createNodeElement(file.name, false, file.x, file.y);
-                nodeEl.classList.add('child');
-                nodeEl.dataset.path = file.path;
-                nodeEl.dataset.parent = path;
-                nodeEl.dataset.isFolder = 'false';
-                
-                nodeEl.addEventListener('click', () => {
-                    window.location.href = file.url;
-                });
-                
-                universe.appendChild(nodeEl);
-                nodes.push({
-                    element: nodeEl,
-                    x: file.x,
-                    y: file.y,
-                    baseX: file.x,
-                    baseY: file.y,
-                    vx: 0,
-                    vy: 0,
-                    path: file.path,
-                    parent: path,
-                    isFolder: false,
-                    url: file.url
-                });
-            });
-            // No relaxation needed - positions are pre-calculated
-        }
-
-        function collapseFolder(path) {
-            expandedFolders.delete(path);
-            
-            // Mark parent as not expanded
-            const parentNode = nodes.find(n => n.path === path);
-            if (parentNode) {
-                parentNode.element.classList.remove('expanded');
-            }
-            
-            // Find all descendants to remove
-            const toRemove = [];
-            function findDescendants(parentPath) {
-                nodes.forEach(node => {
-                    if (node.parent === parentPath) {
-                        toRemove.push(node);
-                        if (node.isFolder && expandedFolders.has(node.path)) {
-                            expandedFolders.delete(node.path);
-                            findDescendants(node.path);
-                        }
-                    }
-                });
-            }
-            findDescendants(path);
-            
-            // Animate removal
-            toRemove.forEach(node => {
-                node.element.classList.add('removing');
-                setTimeout(() => {
-                    node.element.remove();
-                    const idx = nodes.indexOf(node);
-                    if (idx > -1) nodes.splice(idx, 1);
-                }, 300);
-            });
-            
-            // Shift title back to center if no folders are expanded
-            if (expandedFolders.size === 0) {
-                document.getElementById('origin').classList.remove('shifted');
-            }
-        }
-
-        // No relaxation needed - grid positioning is good enough
-        
-        // Auto-expand/collapse when user is idle
-        let lastInteractionTime = Date.now();
-        let autoExpandInterval = null;
-        const IDLE_THRESHOLD = 3000; // 3 seconds of inactivity before auto-behavior
-        const AUTO_ACTION_INTERVAL = 2500; // Time between auto actions
-        
-        function resetIdleTimer() {
-            lastInteractionTime = Date.now();
-        }
-        
-        function isUserIdle() {
-            return Date.now() - lastInteractionTime > IDLE_THRESHOLD;
-        }
-        
-        // Check if a node is visible in the viewport
-        function isInViewport(x, y, margin = 50) {
-            return x >= -margin && x <= window.innerWidth + margin &&
-                   y >= -margin && y <= window.innerHeight + margin;
-        }
-        
-        function getRandomFolderNodeInViewport() {
-            // Only get folder nodes that are currently visible in viewport
-            const folderNodes = nodes.filter(n => n.isFolder && isInViewport(n.x, n.y));
-            if (folderNodes.length === 0) return null;
-            return folderNodes[Math.floor(Math.random() * folderNodes.length)];
-        }
-        
-        function autoToggleRandomFolder() {
-            if (!isUserIdle()) return;
-            
-            const folderNode = getRandomFolderNodeInViewport();
-            if (!folderNode) return;
-            
-            // 60% chance to expand if collapsed, 40% chance to collapse if expanded
-            const isExpanded = expandedFolders.has(folderNode.path);
-            const shouldToggle = isExpanded ? Math.random() < 0.4 : Math.random() < 0.6;
-            
-            if (shouldToggle) {
-                toggleFolder(folderNode.path, folderNode.x, folderNode.y, folderNode.children);
-            }
-        }
-        
-        // Start auto-expand/collapse interval
-        autoExpandInterval = setInterval(autoToggleRandomFolder, AUTO_ACTION_INTERVAL);
-        
-        {% endif %}
-
-        // Create background particles spread across the screen
-        for (let i = 0; i < 50; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
-            p.style.left = x + 'px';
-            p.style.top = y + 'px';
-            p.style.opacity = Math.random() * 0.3;
-            universe.appendChild(p);
-            particles.push({
-                element: p,
-                x: x,
-                y: y,
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: (Math.random() - 0.5) * 0.3
-            });
-        }
-        
-        updateScrollIndicator();
-
-        // Mouse tracking
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            // Reset idle timer on mouse movement
-            resetIdleTimer();
-            
-            presence.style.left = mouseX + 'px';
-            presence.style.top = mouseY + 'px';
-
-            // Create trail
-            if (trails.length < 15) {
-                const trail = document.createElement('div');
-                trail.className = 'trail';
-                trail.style.left = mouseX + 'px';
-                trail.style.top = mouseY + 'px';
-                document.body.appendChild(trail);
-                trails.push(trail);
-                
-                setTimeout(() => {
-                    trail.style.opacity = '0';
-                    setTimeout(() => {
-                        trail.remove();
-                        trails.shift();
-                    }, 500);
-                }, 100);
-            }
-        });
-
-        // Hover effects on nodes
-        document.querySelectorAll('.thought-node').forEach(node => {
-            node.addEventListener('mouseenter', () => {
-                presenceAura.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                presenceAura.style.borderColor = 'rgba(255, 214, 10, 0.5)';
-            });
-            node.addEventListener('mouseleave', () => {
-                presenceAura.style.transform = 'translate(-50%, -50%) scale(1)';
-                presenceAura.style.borderColor = 'rgba(240, 230, 219, 0.2)';
-            });
-        });
-
-        // Close revelation
-        closeBtn.addEventListener('click', () => {
-            window.location.href = '/';
-        });
-
-        // Keyboard controls
-        document.addEventListener('keydown', (e) => {
-            resetIdleTimer(); // Reset idle timer on any key press
-            if (e.code === 'Space') {
-                e.preventDefault();
-                document.body.classList.add('glitch-active');
-                setTimeout(() => document.body.classList.remove('glitch-active'), 100);
-            }
-            if (e.code === 'Escape') {
-                if (revelation.classList.contains('active')) {
-                    window.location.href = '/';
-                }
-            }
-        });
-        
-        // Also reset on any click anywhere
-        document.addEventListener('click', () => {
-            resetIdleTimer();
-        });
-
-        // Draw connections between nearby nodes
-        function drawConnections() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // First, draw parent-child edges (hierarchy)
-            nodes.forEach(node => {
-                if (node.parent) {
-                    const parentNode = nodes.find(n => n.path === node.parent);
-                    if (parentNode) {
-                        ctx.beginPath();
-                        ctx.moveTo(parentNode.x + 5, parentNode.y + 5);
-                        ctx.lineTo(node.x + 3, node.y + 3);
-                        ctx.strokeStyle = 'rgba(255, 45, 85, 0.4)';
-                        ctx.lineWidth = 1.5;
-                        ctx.stroke();
-                    }
-                }
-            });
-            
-            // Draw faint connections between nearby sibling nodes
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    // Only connect nodes at the same level (both folders or both have same parent)
-                    const sameLevel = (nodes[i].parent === nodes[j].parent) || 
-                                     (!nodes[i].parent && !nodes[j].parent && nodes[i].isFolder && nodes[j].isFolder);
-                    
-                    if (sameLevel) {
-                        const dx = nodes[i].x - nodes[j].x;
-                        const dy = nodes[i].y - nodes[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (dist < 200) {
-                            ctx.beginPath();
-                            ctx.moveTo(nodes[i].x + 4, nodes[i].y + 4);
-                            ctx.lineTo(nodes[j].x + 4, nodes[j].y + 4);
-                            ctx.strokeStyle = `rgba(94, 92, 230, ${0.15 * (1 - dist / 200)})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.stroke();
-                        }
-                    }
-                }
-
-                // Draw connection to mouse if close
-                const mx = mouseX - nodes[i].x;
-                const my = mouseY - nodes[i].y;
-                const mouseDist = Math.sqrt(mx * mx + my * my);
-                
-                if (mouseDist < 150) {
-                    ctx.beginPath();
-                    ctx.moveTo(nodes[i].x + 4, nodes[i].y + 4);
-                    ctx.lineTo(mouseX, mouseY);
-                    ctx.strokeStyle = `rgba(255, 214, 10, ${0.3 * (1 - mouseDist / 150)})`;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-            }
-        }
-
-        // Force-directed collision avoidance with wraparound
-        function applyCollisionForces() {
-            const MIN_SEPARATION = 150; // Minimum distance between nodes (accounts for labels)
-            const REPULSION_STRENGTH = 1.5; // How strongly nodes push apart
-            const DAMPING = 0.9; // Velocity damping for smooth movement
-            const SPRING_STRENGTH = 0.02; // Strength of spring pulling children to parent
-            const MAX_CHILD_DISTANCE = 250; // Max distance before spring kicks in
-            
-            const padding = 100;
-            const minX = -padding;
-            const maxX = window.innerWidth + padding;
-            const minY = -padding;
-            const maxY = window.innerHeight + padding;
-            
-            // Apply spring forces to keep children near their parent
-            nodes.forEach(node => {
-                if (node.parent) {
-                    const parentNode = nodes.find(n => n.path === node.parent);
-                    if (parentNode) {
-                        const dx = parentNode.x - node.x;
-                        const dy = parentNode.y - node.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        
-                        // Apply spring force if child is too far from parent
-                        if (dist > MAX_CHILD_DISTANCE) {
-                            const excess = dist - MAX_CHILD_DISTANCE;
-                            const force = excess * SPRING_STRENGTH;
-                            const nx = dx / dist;
-                            const ny = dy / dist;
-                            node.vx += nx * force;
-                            node.vy += ny * force;
-                        }
-                    }
-                }
-            });
-            
-            // Calculate repulsion forces between all pairs of nodes
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const nodeA = nodes[i];
-                    const nodeB = nodes[j];
-                    
-                    const dx = nodeB.x - nodeA.x;
-                    const dy = nodeB.y - nodeA.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < MIN_SEPARATION && dist > 0) {
-                        // Calculate repulsion force
-                        const overlap = MIN_SEPARATION - dist;
-                        const force = (overlap / MIN_SEPARATION) * REPULSION_STRENGTH;
-                        
-                        // Normalize direction
-                        const nx = dx / dist;
-                        const ny = dy / dist;
-                        
-                        // Apply forces in opposite directions
-                        nodeA.vx -= nx * force;
-                        nodeA.vy -= ny * force;
-                        nodeB.vx += nx * force;
-                        nodeB.vy += ny * force;
-                    }
-                }
-            }
-            
-            // Track folders that need to collapse
-            const foldersToCollapse = [];
-            
-            // Update positions and apply damping
-            nodes.forEach(node => {
-                // Apply velocity with damping
-                node.vx *= DAMPING;
-                node.vy *= DAMPING;
-                
-                const oldX = node.x;
-                const oldY = node.y;
-                
-                // Update position
-                node.x += node.vx;
-                node.y += node.vy;
-                
-                // Check if this folder node is about to wrap
-                if (node.isFolder && expandedFolders.has(node.path)) {
-                    const willWrapX = (node.x < minX && oldX >= minX) || (node.x >= maxX && oldX < maxX);
-                    const willWrapY = (node.y < minY && oldY >= minY) || (node.y >= maxY && oldY < maxY);
-                    
-                    if (willWrapX || willWrapY) {
-                        foldersToCollapse.push(node.path);
-                    }
-                }
-                
-                // Wrap around screen edges
-                node.x = wrapValue(node.x, minX, maxX);
-                node.y = wrapValue(node.y, minY, maxY);
-                
-                // Update DOM element position
-                node.element.style.left = node.x + 'px';
-                node.element.style.top = node.y + 'px';
-            });
-            
-            // Collapse folders that wrapped
-            foldersToCollapse.forEach(path => {
-                collapseFolder(path);
-            });
-        }
-
-        // Animate - collision avoidance, draw connections and move particles
-        function animate() {
-            // Apply collision avoidance forces
-            applyCollisionForces();
-            
-            // Move particles slowly with wraparound
-            particles.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-                // Wrap around screen edges
-                if (p.x < 0) p.x = window.innerWidth;
-                if (p.x > window.innerWidth) p.x = 0;
-                if (p.y < 0) p.y = window.innerHeight;
-                if (p.y > window.innerHeight) p.y = 0;
-                p.element.style.left = p.x + 'px';
-                p.element.style.top = p.y + 'px';
-            });
-
-            drawConnections();
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // Time display
-        function updateTime() {
-            const now = new Date();
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            const s = String(now.getSeconds()).padStart(2, '0');
-            temporal.textContent = `${h}:${m}:${s}`;
-        }
-        setInterval(updateTime, 1000);
-        updateTime();
-
-        // Breathing effect for origin based on time
-        const origin = document.getElementById('origin');
-        setInterval(() => {
-            const scale = 1 + Math.sin(Date.now() / 2000) * 0.02;
-            origin.style.transform = `translate(-50%, -50%) scale(${scale})`;
-        }, 50);
-    });
-    </script>
 </body>
 </html>
