@@ -19,7 +19,7 @@ $$
 
 ## 一致性
 ### 外部一致性 (External Consistency)
-每个 ACL / 内容变更都有时间戳 T 使得
+每个 ACL / 内容变更都有时间戳 T 使得因果关系成立。
 
 $$
 T_x < T_y \implies x \prec y
