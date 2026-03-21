@@ -40,4 +40,4 @@ zookie 传递。
 
 ACL check 时，携带 zookie。
 
-如果不懈怠 zookie，服务端默认策略，例如最近 10s。
+如果不携带 zookie，服务端默认策略，例如最近 10s。
