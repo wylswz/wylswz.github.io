@@ -22,22 +22,21 @@ $$
 
 ## 一致性
 ### 外部一致性 (External Consistency)
-每个 ACL / 内容变更都有时间戳 T 使得因果关系成立。
+每个 ACL / 内容变更有 zookie（时间戳）$T$；因果序与之一致：
 
 $$
-T_x < T_y \implies x \prec y
+x \prec y \implies T_x < T_y
 $$
 
 ### 有界陈旧快照读（Snapshot Read with Bounded Staleness）
 
-当 ACL check 时，保证所读的快照时间戳 $T > T_{contentUpdate}$, 就是所谓的 “有界”。
+当 ACL check 时，快照 $T$ 不早于内容读时的 zookie，即 $T \ge T_{\mathrm{content}}$，就是所谓的 “有界”。
 
 ### 机制
 
 zookie 传递。
 
-客户端创建资源时，获得 zookie，并通资源一起存储。
+客户端创建资源时，获得 zookie，并与资源一起存储。
 
 ACL check 时，携带 zookie。
-
-如果不携带 zookie，服务端默认策略，例如最近 10s。
+如果不携带 zookie，由服务端默认策略决定新鲜度。
