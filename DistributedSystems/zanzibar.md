@@ -12,9 +12,9 @@ Zanzibar ACL Check 方式
 
 $$
 CHECK(U, <obj, rel>) = \\
-\exist{<obj\#rel@U>} \\
+\exists{<obj\#rel@U>} \\
 \lor 
-\exist{
+\exists{
     <obj\#rel@R>
 }, \\
 where \ {CHECK(U, R)}
