@@ -7,6 +7,9 @@ Zanzibar ACL Check 方式
 - 对象 $obj$
 - 关系 $rel$
 - 用户 $U$
+
+递归检查
+
 $$
 CHECK(U, <obj, rel>) = \\
 \exist{<obj\#rel@U>} \\
