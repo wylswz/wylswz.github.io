@@ -4,9 +4,12 @@
 Agent Client Protocol，用于编辑器和 Agent 之间的协作。
 
 ## 为什么 ACP？
-如果没有 ACP，每种编辑器只能支持自己实现对接的 Agent。如果 M 个编辑器要对接 N 个 Agent，那么就需要 M * N 种对接的实现。而如果一起对接共有的协议，则只需要 M + N 种对接的实现。
+如果没有 ACP，每种编辑器只能支持自己实现对接的 Agent。如果 M 个编辑器要对接 N 个 Agent，那么就需要 $M * N$ 种对接的实现。而如果一起对接共有的协议，则只需要 $M + N$ 种对接的实现。
 
 除了协议的标准化，ACP 还为 Client 定义了一些 Capability，使得不同的 Agent 可以用相似的方法获取到上下文。
+
+## ACP 意味着什么？
+ACP 意味着完全的解耦。Client 侧专注于提供环境，Agent 侧专注于提供推理能力，中间可以有一个适配层撮合两方，也就是上面说的 $M + N$。
 
 ## 协议内容
 
@@ -45,3 +48,32 @@ Terminal 允许 Agent 使用 Client 的终端能力，包括输入和输出。
 
 ### Plan
 Agent 可以通过 `session/update` 向 Client 发送计划。计划可以随着执行的过程而改变。每个计划包含了优先级，状态，描述等。
+
+### Permission
+Permission 可以控制工具执行权限，也就是 `Human-in-the-Loop`. Agent 向客户端发送权限请求
+
+```
+{
+  "jsonrpc": "2.0",
+  "id": 5,
+  "method": "session/request_permission",
+  "params": {
+    "sessionId": "sess_abc123def456",
+    "toolCall": {
+      "toolCallId": "call_001"
+    },
+    "options": [
+      {
+        "optionId": "allow-once",
+        "name": "Allow once",
+        "kind": "allow_once"
+      },
+      {
+        "optionId": "reject-once",
+        "name": "Reject",
+        "kind": "reject_once"
+      }
+    ]
+  }
+}
+```
