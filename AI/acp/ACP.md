@@ -6,6 +6,8 @@ Agent Client Protocol，用于编辑器和 Agent 之间的协作。
 ## 为什么 ACP？
 如果没有 ACP，每种编辑器只能支持自己实现对接的 Agent。如果 M 个编辑器要对接 N 个 Agent，那么就需要 M * N 种对接的实现。而如果一起对接共有的协议，则只需要 M + N 种对接的实现。
 
+除了协议的标准化，ACP 还为 Client 定义了一些 Capability，使得不同的 Agent 可以用相似的方法获取到上下文。
+
 ## 协议内容
 
 ### Initialize
