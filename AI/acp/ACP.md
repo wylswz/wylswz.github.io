@@ -42,4 +42,4 @@ FS 允许 Agent 读写 Client 文件系统中的内容，也包括未存储的�
 Terminal 允许 Agent 使用 Client 的终端能力，包括输入和输出。
 
 ### Plan
-Agent 可以通过 `session/update` 向 Client 发送计划。计划可以随着执行的过程而改变。
+Agent 可以通过 `session/update` 向 Client 发送计划。计划可以随着执行的过程而改变。每个计划包含了优先级，状态，描述等。
