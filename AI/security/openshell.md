@@ -1,3 +1,5 @@
+# Nvidia OpenShell
+
 ## 架构
 
 - Gateway：控制面，负责认证、API、持久化、策略下发、凭据解析和 supervisor relay 协调。
