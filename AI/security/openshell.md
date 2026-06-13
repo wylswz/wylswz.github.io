@@ -35,3 +35,24 @@
 ### 凭据
 1. 环境变量注入：凭据存在 Gateway，Supervisor 运行时获取。注入 Agent 和 SSH 子进程环境变量，环境变量值为 placeholder
 2. placeholder：请求默认带 placeholder，例如 `Authorization: Bearer {{openshell:resolve:env:KEY_NAME}}`，由 proxy 在允许的目标端点上解析替换
+
+### 自定义工具凭据注入示例
+
+以 Tavily Search API 为例，展示如何将外部 SaaS API 集成到 OpenShell providers：
+
+**关键对象：**
+
+- **Provider Profile**：定义外部服务的配置，包括 API 端点、凭据结构、允许访问的二进制程序（如 curl、python3）
+- **Provider Instance**：基于 Profile 创建的具体实例，绑定实际的 API key 或 OAuth token
+- **网络策略**：Profile 中定义的允许访问的目标域名（如 api.tavily.com）
+- **二进制限制**：仅允许指定的二进制程序获取凭据，防止未授权进程访问
+
+**工作流程：**
+
+1. 定义 Provider Profile 配置文件
+2. 导入 Profile 到 OpenShell
+3. 使用真实凭据创建 Provider Instance
+4. 沙盒挂载 Provider 时，OpenShell 自动注入 placeholder 环境变量
+5. Policy Proxy 在出站请求中解析 placeholder 并注入真实凭据
+
+该模式适用于任何使用 API key 或 OAuth token 的 SaaS 服务。
