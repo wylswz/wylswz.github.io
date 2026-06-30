@@ -11,6 +11,42 @@
 - Policy Proxy: 强制出站路径，执行目标、二进制身份、SSRF、TLS/L7、凭据注入和推理拦截。
 - Inference router: 沙盒内拦截 `https://inference.local` 转发至模型后端。
 
+```mermaid
+flowchart TB
+    subgraph CP["控制面 Gateway"]
+        API["API / 认证"]
+        Policy["策略下发"]
+        Creds["Credentials subsystem<br/>凭据解析"]
+        Compute["Compute subsystem<br/>沙盒生命周期"]
+        Relay["Supervisor relay 协调"]
+    end
+
+    Vault[("密钥库")]
+    Backend["模型后端 / 外部 SaaS"]
+
+    subgraph SB["沙盒 Sandbox"]
+        direction TB
+        Supervisor["Supervisor (root)<br/>隔离 / 注入凭据 / relay"]
+        Proxy["Policy Proxy<br/>目标 / 二进制身份 / SSRF / TLS-L7 / 凭据注入"]
+        IR["Inference router<br/>inference.local"]
+        Agent["受限 Agent (non-root)<br/>Landlock / Seccomp / netns"]
+    end
+
+    API --> Compute
+    Policy -->|"策略 + Provider Profile"| Supervisor
+    Creds --> Vault
+    Creds -->|"运行时解析凭据"| Supervisor
+    Compute -->|"启动工作负载 + 沙盒身份"| Supervisor
+    Supervisor -->|"逆向 session"| Relay
+
+    Supervisor --> Proxy
+    Supervisor -->|"placeholder 环境变量"| Agent
+    Agent -->|"egress 强制经过"| Proxy
+    Proxy -->|"解析 placeholder 注入真实凭据"| Backend
+    Agent -.->|"https://inference.local"| IR
+    IR --> Backend
+```
+
 ## OpenShell 安全模型
 
 ### 运行时模型
