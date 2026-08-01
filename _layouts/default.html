@@ -11,6 +11,21 @@
         });
     </script>
 
+    <script type="module">
+        // kramdown 把 ```mermaid 渲染成 <pre><code class="language-mermaid">，
+        // mermaid.js 默认只识别 .mermaid 元素，这里做转换。
+        document.querySelectorAll('pre code.language-mermaid').forEach((codeEl) => {
+            const pre = codeEl.parentElement;
+            const div = document.createElement('div');
+            div.className = 'mermaid';
+            div.textContent = codeEl.textContent;
+            pre.replaceWith(div);
+        });
+
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
     {% if site.google_analytics %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
     <script>
