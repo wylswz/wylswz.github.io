@@ -1,0 +1,26 @@
+services:
+  ebpf:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ebpf-python:dev
+    container_name: ebpf-python
+    # eBPF 需要访问内核,必须以特权模式运行
+    # (macOS 上 Docker Desktop 运行在 LinuxKit VM 中,实际操作的是 VM 内核)
+    privileged: true
+    # 挂载宿主机内核调试与 trace 文件系统
+    # 注意:不要挂载 /lib/modules 和 /usr/src,否则会覆盖容器内自带的
+    # Ubuntu 内核头文件,导致 bcc 找不到头文件无法编译。
+    volumes:
+      - ./src:/workspace
+    # 需要的内核能力
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
+      - SYS_PTRACE
+      - PERFMON
+      - BPF
+    pid: host
+    network_mode: host
+    stdin_open: true
+    tty: true

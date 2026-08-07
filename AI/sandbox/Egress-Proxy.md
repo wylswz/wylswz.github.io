@@ -169,3 +169,7 @@ flowchart TD
 3. 如果想窥探应用层数据，需要解析数据包，比较复杂。
 4. 凭据注入需要选择性 MITM（终止 TLS），只对需要注入的域名生效，否则纯 L4 无法改写加密载荷。
 5. ECH (Encrypted ClientHello) 会加密 SNI，导致域名策略失效，需配合 DNS 劫持兜底。
+6. **同容器内 session 凭据隔离/注入困难**。L4 透明代理对应用不可见，应用不会主动携带 `Proxy-Authorization` 头，代理也无法区分同一容器内不同进程/用户的 session。L7 方案天然支持 proxy authentication（如 `Proxy-Authorization: Basic/Bearer`），可按 session 注入不同凭据。L4 的折中方案：
+   - **按 UID/进程区分**：nftables 规则可按 `--uid-owner` 匹配不同用户，为不同 UID 的流量打上不同 mark，代理侧按 mark 映射到不同凭据池。但要求应用以不同 UID 运行，容器内多租户场景不现实。
+   - **SO_ORIGINAL_DST + 源端口启发**：理论上可按连接四元组做 session 映射，但缺乏应用层语义，无法可靠关联到逻辑 session。
+   - **Envoy Istio AuthN 模式**：sidecar 在 L4 拦截后，由 Envoy 做 L7 认证（JWT mTLS 等），实质是 L4 拦截 + L7 策略的混合架构，已不是纯 L4。
