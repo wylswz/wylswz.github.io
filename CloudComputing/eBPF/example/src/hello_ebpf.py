@@ -31,9 +31,9 @@ if __name__ == "__main__":
             copied.items(), key = lambda item: item[1].value, reverse=True
         )
         i = 0
-        print("=========")
+        print("=====mmap 名人堂====")
         for item in sorted_items:
-            if i > 5:
+            if i > 10:
                 break
             print(f"{item[0].decode()} - {item[1].value}")
             i += 1
