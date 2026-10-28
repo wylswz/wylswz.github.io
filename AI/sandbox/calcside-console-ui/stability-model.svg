@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" font-family="Inter, 'PingFang SC', 'Noto Sans SC', sans-serif">
+  <rect width="960" height="440" fill="#f7f8fa"/>
+  <g font-size="13" fill="#5b6472">
+    <text x="40" y="40">三种感受</text>
+    <text x="330" y="40">四组规则</text>
+    <text x="680" y="40">四层保障机制</text>
+  </g>
+  <g stroke="#c6ccd6" stroke-width="1.5" fill="none">
+    <path d="M260 100 C 290 100, 290 90, 330 90"/>
+    <path d="M260 100 C 290 100, 290 330, 330 330"/>
+    <path d="M260 210 C 290 210, 290 90, 330 90"/>
+    <path d="M260 210 C 290 210, 290 170, 330 170"/>
+    <path d="M260 320 C 290 320, 290 90, 330 90"/>
+    <path d="M260 320 C 290 320, 290 250, 330 250"/>
+  </g>
+  <g>
+    <rect x="40" y="70" width="220" height="60" rx="10" fill="#fff" stroke="#d9dde4"/>
+    <text x="60" y="97" font-size="16" font-weight="600" fill="#1d2430">安全感 Safety</text>
+    <text x="60" y="117" font-size="12" fill="#5b6472">危险操作有确认或可以撤销</text>
+    <rect x="40" y="180" width="220" height="60" rx="10" fill="#fff" stroke="#d9dde4"/>
+    <text x="60" y="207" font-size="16" font-weight="600" fill="#1d2430">连续感 Continuity</text>
+    <text x="60" y="227" font-size="12" fill="#5b6472">操作之后能从原处继续</text>
+    <rect x="40" y="290" width="220" height="60" rx="10" fill="#fff" stroke="#d9dde4"/>
+    <text x="60" y="317" font-size="16" font-weight="600" fill="#1d2430">可预测感 Predictability</text>
+    <text x="60" y="337" font-size="12" fill="#5b6472">知道会发生什么，也看得到结果</text>
+  </g>
+  <g>
+    <rect x="330" y="65" width="300" height="50" rx="10" fill="#fff" stroke="#2f6fed"/>
+    <text x="348" y="88" font-size="15" font-weight="600" fill="#2f6fed">S 空间位置</text>
+    <text x="348" y="106" font-size="12" fill="#5b6472">状态样式、浮层位置、轮询列表</text>
+    <rect x="330" y="145" width="300" height="50" rx="10" fill="#fff" stroke="#d9dde4"/>
+    <text x="348" y="168" font-size="15" font-weight="600" fill="#1d2430">C 上下文</text>
+    <text x="348" y="186" font-size="12" fill="#5b6472">焦点、未保存的输入、视图状态</text>
+    <rect x="330" y="225" width="300" height="50" rx="10" fill="#fff" stroke="#d9dde4"/>
+    <text x="348" y="248" font-size="15" font-weight="600" fill="#1d2430">P 因果</text>
+    <text x="348" y="266" font-size="12" fill="#5b6472">反馈时机、统一组件、结果位置</text>
+    <rect x="330" y="305" width="300" height="50" rx="10" fill="#fff" stroke="#d9dde4"/>
+    <text x="348" y="328" font-size="15" font-weight="600" fill="#1d2430">F 出错</text>
+    <text x="348" y="346" font-size="12" fill="#5b6472">误触、删除确认与撤销、状态显示</text>
+  </g>
+  <g>
+    <rect x="680" y="65" width="240" height="56" rx="10" fill="#1d2430"/>
+    <text x="698" y="89" font-size="15" font-weight="600" fill="#fff">1 组件</text>
+    <text x="698" y="108" font-size="12" fill="#c6ccd6">Button / Menu / Modal / SwapLabel</text>
+    <rect x="680" y="135" width="240" height="56" rx="10" fill="#3a4352"/>
+    <text x="698" y="159" font-size="15" font-weight="600" fill="#fff">2 静态检查</text>
+    <text x="698" y="178" font-size="12" fill="#c6ccd6">lint 时扫描 CSS 和 TSX</text>
+    <rect x="680" y="205" width="240" height="56" rx="10" fill="#5b6472"/>
+    <text x="698" y="229" font-size="15" font-weight="600" fill="#fff">3 浏览器测试</text>
+    <text x="698" y="248" font-size="12" fill="#e4e7ec">逐帧位置、焦点、输入是否保留</text>
+    <rect x="680" y="275" width="240" height="56" rx="10" fill="#8a93a2"/>
+    <text x="698" y="299" font-size="15" font-weight="600" fill="#fff">4 代码评审</text>
+    <text x="698" y="318" font-size="12" fill="#f1f3f6">同一问题出现两次，挪到前三层</text>
+        <text x="680" y="360" font-size="12" fill="#5b6472">从上到下，优先级依次降低</text>
+  </g>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a93a2"/></marker></defs>
+</svg>
