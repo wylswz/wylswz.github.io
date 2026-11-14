@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="554" viewBox="0 0 1240 554">
+<rect width="1240" height="554" fill="#FAF6EC"/>
+<text x="24" y="30" font-size="17" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Model comparison — observed tokens and model calls</text>
+<text x="24" y="48" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Task set B · 9 trials per model/interface configuration</text>
+<text x="24" y="62" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">deepseek-flash vs gpt-6.1-sol generation configurations differ (Responses API, reasoning_effort medium, 16,384-token output cap incl. reasoning, temperature omitted vs temperature 0,</text>
+<text x="24" y="76" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">1,200-token cap) — not an intrinsic MCP-overhead measure</text>
+<text x="24" y="90" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Input includes cached context; output already includes reasoning.</text>
+<text x="210" y="130" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Observed tokens</text>
+<text x="210" y="146" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">tokens</text>
+<text x="880" y="130" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Model calls</text>
+<text x="880" y="146" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">calls</text>
+<text x="30" y="208" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">deepseek-flash</text>
+<text x="30" y="222" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">uniform execute_code</text>
+<rect x="210" y="219" width="46.62656874593288" height="22" fill="#0F766E"/>
+<rect x="256.6265687459329" y="219" width="6.872444816295332" height="22" fill="#D97706"/>
+<text x="271.49901356222824" y="229" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">136,300 tokens</text>
+<text x="271.49901356222824" y="243" font-size="9" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">in 118,791 · out 17,509</text>
+<rect x="880" y="223" width="150.69767441860466" height="14" fill="#B7A98C"/>
+<text x="1038.6976744186047" y="234" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">54 calls</text>
+<line x1="30" y1="246" x2="1216" y2="246" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="288" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">deepseek-flash</text>
+<text x="30" y="302" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">native MCP</text>
+<rect x="210" y="299" width="367.04954913079854" height="22" fill="#0F766E"/>
+<rect x="577.0495491307986" y="299" width="12.95045086920145" height="22" fill="#D97706"/>
+<text x="598.0" y="309" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">968,130 tokens</text>
+<text x="598.0" y="323" font-size="9" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">in 935,136 · out 32,994</text>
+<rect x="880" y="303" width="240.0" height="14" fill="#B7A98C"/>
+<text x="1128.0" y="314" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">86 calls</text>
+<line x1="30" y1="326" x2="1216" y2="326" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="368" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">gpt-6.1-sol</text>
+<text x="30" y="382" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">uniform execute_code</text>
+<rect x="210" y="379" width="13.063886048361274" height="22" fill="#0F766E"/>
+<rect x="223.06388604836127" y="379" width="1.4216685775670623" height="22" fill="#D97706"/>
+<text x="232.48555462592833" y="389" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">36,905 tokens</text>
+<text x="232.48555462592833" y="403" font-size="9" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">in 33,283 · out 3,622</text>
+<rect x="880" y="383" width="89.30232558139535" height="14" fill="#B7A98C"/>
+<text x="977.3023255813954" y="394" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">32 calls</text>
+<line x1="30" y1="406" x2="1216" y2="406" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="448" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">gpt-6.1-sol</text>
+<text x="30" y="462" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">native MCP</text>
+<rect x="210" y="459" width="61.85592843936248" height="22" fill="#0F766E"/>
+<rect x="271.85592843936246" y="459" width="1.9064175265718446" height="22" fill="#D97706"/>
+<text x="281.7623459659343" y="469" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">162,448 tokens</text>
+<text x="281.7623459659343" y="483" font-size="9" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">in 157,591 · out 4,857</text>
+<rect x="880" y="463" width="114.4186046511628" height="14" fill="#B7A98C"/>
+<text x="1002.4186046511628" y="474" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">41 calls</text>
+<line x1="30" y1="486" x2="1216" y2="486" stroke="#E3DAC6" stroke-width="1"/>
+<rect x="210" y="521" width="12" height="12" fill="#0F766E"/>
+<text x="226" y="531" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">input tokens (incl. cache reads)</text>
+<rect x="460" y="521" width="12" height="12" fill="#D97706"/>
+<text x="476" y="531" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">output tokens (incl. reasoning)</text>
+</svg>

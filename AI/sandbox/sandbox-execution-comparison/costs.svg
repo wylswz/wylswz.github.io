@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="730" viewBox="0 0 1240 730">
+<rect width="1240" height="730" fill="#FAF6EC"/>
+<text x="24" y="30" font-size="17" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Cost and latency — loop seconds and observed tokens</text>
+<text x="24" y="48" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">results/v3-agentic · frozen audit view (report-data.json) · loop_s p50/p95 nearest-rank, seconds shown as ms · tokens are provider-observed totals, not normalized per trial</text>
+<text x="24" y="62" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">calcside_mcp is the separate native-MCP integration</text>
+<text x="24" y="76" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Lower rows: gpt-6.1-sol replication of the same tasks on the two Calcside interfaces only (results/openai-sol-agentic, different generation configuration); the other backends were not</text>
+<text x="24" y="90" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">rerun</text>
+<text x="210" y="130" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Agent loop latency (p50 / p95)</text>
+<text x="210" y="146" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">ms</text>
+<text x="715" y="130" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Observed tokens (input + output)</text>
+<text x="715" y="146" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">tokens</text>
+<text x="30" y="202" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">calcside</text>
+<rect x="210" y="179" width="72.79760550743374" height="12" fill="#0F766E"/>
+<text x="288.79760550743373" y="189" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 10389.38 ms</text>
+<rect x="210" y="205" width="188.1455834388127" height="12" fill="#D97706"/>
+<text x="404.1455834388127" y="215" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 26851.36 ms</text>
+<text x="637" y="182" font-size="9" fill="#6E6455" text-anchor="end" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">n=9</text>
+<rect x="715" y="190" width="57.01868550711165" height="16" fill="#0F766E" opacity="0.85"/>
+<text x="780.0186855071116" y="202" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">136,300</text>
+<line x1="30" y1="228" x2="1216" y2="228" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="264" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">docker</text>
+<rect x="210" y="241" width="75.95742063639997" height="12" fill="#0F766E"/>
+<text x="291.9574206364" y="251" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 10840.33 ms</text>
+<rect x="210" y="267" width="84.027141563187" height="12" fill="#D97706"/>
+<text x="300.027141563187" y="277" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 11992.01 ms</text>
+<text x="637" y="244" font-size="9" fill="#6E6455" text-anchor="end" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">n=9</text>
+<rect x="715" y="252" width="34.98094264200056" height="16" fill="#0F766E" opacity="0.85"/>
+<text x="757.9809426420005" y="264" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">83,620</text>
+<line x1="30" y1="290" x2="1216" y2="290" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="326" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">e2b</text>
+<rect x="210" y="303" width="62.1392041527236" height="12" fill="#0F766E"/>
+<text x="278.1392041527236" y="313" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 8868.25 ms</text>
+<rect x="210" y="329" width="95.18471296949227" height="12" fill="#D97706"/>
+<text x="311.18471296949224" y="339" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 13584.37 ms</text>
+<text x="637" y="306" font-size="9" fill="#6E6455" text-anchor="end" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">n=9</text>
+<rect x="715" y="314" width="29.981035604722507" height="16" fill="#0F766E" opacity="0.85"/>
+<text x="752.9810356047225" y="326" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">71,668</text>
+<line x1="30" y1="352" x2="1216" y2="352" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="388" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">openshell</text>
+<rect x="210" y="365" width="57.424061472650365" height="12" fill="#0F766E"/>
+<text x="273.42406147265035" y="375" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 8195.33 ms</text>
+<rect x="210" y="391" width="97.66830348182454" height="12" fill="#D97706"/>
+<text x="313.6683034818245" y="401" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 13938.82 ms</text>
+<text x="637" y="368" font-size="9" fill="#6E6455" text-anchor="end" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">n=9</text>
+<rect x="715" y="376" width="36.194524495677236" height="16" fill="#0F766E" opacity="0.85"/>
+<text x="759.1945244956772" y="388" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">86,521</text>
+<line x1="30" y1="414" x2="1216" y2="414" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="450" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">python</text>
+<rect x="210" y="427" width="60.47186501797022" height="12" fill="#0F766E"/>
+<text x="276.47186501797023" y="437" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 8630.30 ms</text>
+<rect x="210" y="453" width="87.23471942441782" height="12" fill="#D97706"/>
+<text x="303.2347194244178" y="463" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 12449.78 ms</text>
+<text x="637" y="430" font-size="9" fill="#6E6455" text-anchor="end" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">n=9</text>
+<rect x="715" y="438" width="31.368643673886773" height="16" fill="#0F766E" opacity="0.85"/>
+<text x="754.3686436738868" y="450" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">74,985</text>
+<line x1="30" y1="476" x2="1216" y2="476" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="512" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">calcside_mcp · native MCP</text>
+<rect x="210" y="489" width="149.72569122890482" height="12" fill="#0F766E"/>
+<text x="365.7256912289048" y="499" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 21368.24 ms</text>
+<rect x="210" y="515" width="378.26086956521743" height="12" fill="#D97706"/>
+<text x="594.2608695652175" y="525" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 53983.84 ms</text>
+<text x="637" y="492" font-size="9" fill="#6E6455" text-anchor="end" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">n=9</text>
+<rect x="715" y="500" width="405.0" height="16" fill="#0F766E" opacity="0.85"/>
+<text x="1128.0" y="512" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">968,130</text>
+<line x1="30" y1="538" x2="1216" y2="538" stroke="#E3DAC6" stroke-width="1"/>
+<line x1="30" y1="548" x2="1216" y2="548" stroke="#6E6455" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="30" y="576" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">calcside</text>
+<text x="30" y="590" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">gpt-6.1-sol</text>
+<rect x="210" y="559" width="89.61497642671277" height="12" fill="#0F766E"/>
+<text x="305.61497642671276" y="569" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 12789.48 ms</text>
+<rect x="210" y="585" width="133.09496122070814" height="12" fill="#D97706"/>
+<text x="349.0949612207081" y="595" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 18994.77 ms</text>
+<text x="637" y="562" font-size="9" fill="#6E6455" text-anchor="end" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">n=9</text>
+<rect x="715" y="570" width="15.438551640792042" height="16" fill="#0F766E" opacity="0.85"/>
+<text x="738.4385516407921" y="582" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">36,905</text>
+<line x1="30" y1="608" x2="1216" y2="608" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="638" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">calcside_mcp · native MCP</text>
+<text x="30" y="652" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">gpt-6.1-sol</text>
+<rect x="210" y="621" width="106.05579356934881" height="12" fill="#0F766E"/>
+<text x="322.0557935693488" y="631" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 15135.85 ms</text>
+<rect x="210" y="647" width="183.05276440859592" height="12" fill="#D97706"/>
+<text x="399.0527644085959" y="657" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 26124.54 ms</text>
+<text x="637" y="624" font-size="9" fill="#6E6455" text-anchor="end" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">n=9</text>
+<rect x="715" y="632" width="67.9572371479037" height="16" fill="#0F766E" opacity="0.85"/>
+<text x="790.9572371479037" y="644" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">162,448</text>
+<line x1="30" y1="670" x2="1216" y2="670" stroke="#E3DAC6" stroke-width="1"/>
+<rect x="210" y="697" width="12" height="12" fill="#0F766E"/>
+<text x="226" y="707" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 / tokens</text>
+<rect x="320" y="697" width="12" height="12" fill="#D97706"/>
+<text x="336" y="707" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95</text>
+</svg>

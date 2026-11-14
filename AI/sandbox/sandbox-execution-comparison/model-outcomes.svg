@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="678" viewBox="0 0 1240 678">
+<rect width="1240" height="678" fill="#FAF6EC"/>
+<text x="24" y="30" font-size="17" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Task outcomes and loop latency — gpt-6.1-sol vs deepseek-flash</text>
+<text x="24" y="48" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Task set B · 9 trials per model/interface configuration · artifact = persisted artifact validates · normal termination = no setup/agent error</text>
+<text x="24" y="62" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Wilson 95% whiskers on artifact bars only; loop p50/p95 are nearest-rank over 9 trials, so p95 equals the largest observation</text>
+<text x="24" y="76" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Generation configurations differ between the two models — see PROTOCOL_OPENAI_SOL.md; this is not a matched-budget comparison</text>
+<text x="210" y="116" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Artifact validation</text>
+<text x="210" y="132" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">trials</text>
+<text x="690" y="116" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Agent loop latency</text>
+<text x="690" y="132" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">seconds</text>
+<text x="30" y="178" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">deepseek-flash</text>
+<text x="30" y="194" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">uniform execute_code</text>
+<rect x="210" y="176" width="390.0" height="15" fill="#0F766E"/>
+<line x1="381.0161576155323" y1="183.5" x2="600" y2="183.5" stroke="#2A241B" stroke-width="1.6"/>
+<rect x="210" y="198" width="390.0" height="15" fill="#D97706"/>
+<text x="608" y="185" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">9/9 · 100%</text>
+<text x="608" y="209" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">9/9 · 100%</text>
+<rect x="690" y="172" width="90.97798974596732" height="10" fill="#0F766E"/>
+<text x="787.9779897459673" y="180.5" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 10.39 s</text>
+<rect x="690" y="190" width="235.13282945958198" height="10" fill="#D97706"/>
+<text x="932.132829459582" y="198.5" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 26.85 s</text>
+<line x1="30" y1="222" x2="1216" y2="222" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="248" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">deepseek-flash</text>
+<text x="30" y="264" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">native MCP</text>
+<rect x="210" y="246" width="390.0" height="15" fill="#0F766E"/>
+<line x1="381.0161576155323" y1="253.5" x2="600" y2="253.5" stroke="#2A241B" stroke-width="1.6"/>
+<rect x="210" y="268" width="390.0" height="15" fill="#D97706"/>
+<text x="608" y="255" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">9/9 · 100%</text>
+<text x="608" y="279" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">9/9 · 100%</text>
+<rect x="690" y="242" width="187.11800074166158" height="10" fill="#0F766E"/>
+<text x="884.1180007416616" y="250.5" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 21.37 s</text>
+<rect x="690" y="260" width="472.7272727272727" height="10" fill="#D97706"/>
+<text x="1169.7272727272727" y="268.5" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 53.98 s</text>
+<line x1="30" y1="292" x2="1216" y2="292" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="318" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">gpt-6.1-sol</text>
+<text x="30" y="334" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">uniform execute_code</text>
+<rect x="210" y="316" width="390.0" height="15" fill="#0F766E"/>
+<line x1="381.0161576155323" y1="323.5" x2="600" y2="323.5" stroke="#2A241B" stroke-width="1.6"/>
+<rect x="210" y="338" width="390.0" height="15" fill="#D97706"/>
+<text x="608" y="325" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">9/9 · 100%</text>
+<text x="608" y="349" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">9/9 · 100%</text>
+<rect x="690" y="312" width="111.99531014247486" height="10" fill="#0F766E"/>
+<text x="808.9953101424749" y="320.5" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 12.79 s</text>
+<rect x="690" y="330" width="166.33393272723816" height="10" fill="#D97706"/>
+<text x="863.3339327272381" y="338.5" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 18.99 s</text>
+<line x1="30" y1="362" x2="1216" y2="362" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="388" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">gpt-6.1-sol</text>
+<text x="30" y="404" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">native MCP</text>
+<rect x="210" y="386" width="390.0" height="15" fill="#0F766E"/>
+<line x1="381.0161576155323" y1="393.5" x2="600" y2="393.5" stroke="#2A241B" stroke-width="1.6"/>
+<rect x="210" y="408" width="390.0" height="15" fill="#D97706"/>
+<text x="608" y="395" font-size="10.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">9/9 · 100%</text>
+<text x="608" y="419" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">9/9 · 100%</text>
+<rect x="690" y="382" width="132.54203668645889" height="10" fill="#0F766E"/>
+<text x="829.5420366864589" y="390.5" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p50 15.14 s</text>
+<rect x="690" y="400" width="228.7681360843058" height="10" fill="#D97706"/>
+<text x="925.7681360843058" y="408.5" font-size="9.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">p95 26.12 s</text>
+<line x1="30" y1="432" x2="1216" y2="432" stroke="#E3DAC6" stroke-width="1"/>
+<text x="30" y="490" font-size="12" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">By task (artifact successes/attempts)</text>
+<text x="210" y="518" font-size="11" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">task</text>
+<text x="335.75" y="518" font-size="9" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">deepseek-flash · uniform execute_code</text>
+<text x="587.25" y="518" font-size="9" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">deepseek-flash · native MCP</text>
+<text x="838.75" y="518" font-size="9" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">gpt-6.1-sol · uniform execute_code</text>
+<text x="1090.25" y="518" font-size="9" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">gpt-6.1-sol · native MCP</text>
+<text x="214" y="548" font-size="11" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">triage</text>
+<text x="335.75" y="548" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="587.25" y="548" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="838.75" y="548" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="1090.25" y="548" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="214" y="578" font-size="11" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">reconcile</text>
+<text x="335.75" y="578" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="587.25" y="578" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="838.75" y="578" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="1090.25" y="578" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="214" y="608" font-size="11" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">series</text>
+<text x="335.75" y="608" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="587.25" y="608" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="838.75" y="608" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="1090.25" y="608" font-size="10" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<rect x="30" y="643" width="12" height="12" fill="#0F766E"/>
+<text x="46" y="653" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">artifact validated / p50</text>
+<rect x="250" y="643" width="12" height="12" fill="#D97706"/>
+<text x="266" y="653" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">normal termination / p95</text>
+</svg>

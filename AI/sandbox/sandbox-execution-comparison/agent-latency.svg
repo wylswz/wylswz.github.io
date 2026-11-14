@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="592" viewBox="0 0 980 592">
+<rect width="980" height="592" fill="#FAF6EC"/>
+<text x="24" y="30" font-size="17" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Agent loop latency — mean seconds per trial (stacked)</text>
+<text x="24" y="48" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">results/v2-agent · latency_s means: model events + tool events + residual orchestration · setup shown separately, not in loop</text>
+<text x="210" y="78" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">s</text>
+<text x="24" y="126" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">calcside</text>
+<rect x="210" y="112" width="311.7817963115868" height="20" fill="#0F766E"/>
+<rect x="521.7817963115867" y="112" width="12.705803461371058" height="20" fill="#D97706"/>
+<text x="542.8134095854334" y="126" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">5.72 s</text>
+<rect x="210" y="144" width="1.6613226967603216" height="8" fill="#FFFDF8" stroke="#6E6455" stroke-width="0.8"/>
+<text x="210" y="164" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">setup μ=0.03 s (outside loop)</text>
+<line x1="24" y1="170" x2="956" y2="170" stroke="#E3DAC6" stroke-width="1"/>
+<text x="24" y="210" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">docker</text>
+<rect x="210" y="196" width="286.7454071567221" height="20" fill="#0F766E"/>
+<rect x="496.7454071567221" y="196" width="256.3347486267428" height="20" fill="#D97706"/>
+<text x="761.4792035134976" y="210" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">9.57 s</text>
+<rect x="210" y="228" width="20.83305775842393" height="8" fill="#FFFDF8" stroke="#6E6455" stroke-width="0.8"/>
+<text x="210" y="248" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">setup μ=0.37 s (outside loop)</text>
+<line x1="24" y1="254" x2="956" y2="254" stroke="#E3DAC6" stroke-width="1"/>
+<text x="24" y="294" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">e2b</text>
+<rect x="210" y="280" width="238.86903976479417" height="20" fill="#0F766E"/>
+<rect x="448.86903976479414" y="280" width="24.9810199057257" height="20" fill="#D97706"/>
+<text x="482.2339927359773" y="294" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">4.65 s</text>
+<rect x="210" y="312" width="55.488185494364345" height="8" fill="#FFFDF8" stroke="#6E6455" stroke-width="0.8"/>
+<text x="210" y="332" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">setup μ=0.98 s (outside loop)</text>
+<line x1="24" y1="338" x2="956" y2="338" stroke="#E3DAC6" stroke-width="1"/>
+<text x="24" y="378" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">openshell</text>
+<rect x="210" y="364" width="280.2183155057693" height="20" fill="#0F766E"/>
+<rect x="490.2183155057693" y="364" width="91.15776162274267" height="20" fill="#D97706"/>
+<text x="589.8271161010574" y="378" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">6.55 s</text>
+<rect x="210" y="396" width="638.8888888888889" height="8" fill="#FFFDF8" stroke="#6E6455" stroke-width="0.8"/>
+<text x="210" y="416" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">setup μ=11.25 s (outside loop)</text>
+<line x1="24" y1="422" x2="956" y2="422" stroke="#E3DAC6" stroke-width="1"/>
+<text x="24" y="462" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">python</text>
+<rect x="210" y="448" width="224.31479095541252" height="20" fill="#0F766E"/>
+<rect x="434.3147909554125" y="448" width="7.585566783213692" height="20" fill="#D97706"/>
+<text x="450.16161039841614" y="462" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">4.09 s</text>
+<rect x="210" y="480" width="1" height="8" fill="#FFFDF8" stroke="#6E6455" stroke-width="0.8"/>
+<text x="210" y="500" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">setup μ=0.00 s (outside loop)</text>
+<line x1="24" y1="506" x2="956" y2="506" stroke="#E3DAC6" stroke-width="1"/>
+<rect x="210" y="553" width="12" height="12" fill="#0F766E"/>
+<text x="226" y="563" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">model events</text>
+<rect x="340" y="553" width="12" height="12" fill="#D97706"/>
+<text x="356" y="563" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">tool events</text>
+<rect x="460" y="553" width="12" height="12" fill="#B7A98C"/>
+<text x="476" y="563" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">residual</text>
+</svg>

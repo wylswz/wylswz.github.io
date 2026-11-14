@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="594" viewBox="0 0 1240 594">
+<rect width="1240" height="594" fill="#FAF6EC"/>
+<text x="24" y="30" font-size="17" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Observed effects at execution boundaries</text>
+<text x="24" y="48" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Boundary observations; allocation-cap row uses a separate explicit 256 MiB configuration.</text>
+<text x="30" y="122" font-size="11" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">probe</text>
+<text x="339.1666666666667" y="122" font-size="10" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Host Python</text>
+<text x="497.50000000000006" y="122" font-size="10" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Calcside: no policy</text>
+<text x="655.8333333333334" y="122" font-size="10" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Calcside: private block</text>
+<text x="814.1666666666666" y="122" font-size="10" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Docker</text>
+<text x="972.5" y="122" font-size="10" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">E2B</text>
+<text x="1130.8333333333335" y="122" font-size="10" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">OpenShell</text>
+<line x1="30" y1="130" x2="1210" y2="130" stroke="#2A241B" stroke-width="1"/>
+<text x="30" y="155" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Read /etc/passwd</text>
+<rect x="263.0" y="133" width="152.33333333333334" height="28" rx="5" fill="#F9E3E0"/>
+<rect x="294.1666666666667" y="148" width="8" height="8" rx="1.5" fill="#B3261E"/>
+<text x="307.1666666666667" y="155" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">host file read</text>
+<rect x="421.33333333333337" y="133" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="458.00000000000006" y="148" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="471.00000000000006" y="155" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">VFS rejected</text>
+<rect x="579.6666666666667" y="133" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="616.3333333333334" y="148" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="629.3333333333334" y="155" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">VFS rejected</text>
+<rect x="738.0" y="133" width="152.33333333333334" height="28" rx="5" fill="#E4ECF7"/>
+<rect x="766.4166666666666" y="148" width="8" height="8" rx="1.5" fill="#2B5EA7"/>
+<text x="779.4166666666666" y="155" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">guest file read</text>
+<rect x="896.3333333333334" y="133" width="152.33333333333334" height="28" rx="5" fill="#E4ECF7"/>
+<rect x="924.75" y="148" width="8" height="8" rx="1.5" fill="#2B5EA7"/>
+<text x="937.75" y="155" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">guest file read</text>
+<rect x="1054.6666666666667" y="133" width="152.33333333333334" height="28" rx="5" fill="#E4ECF7"/>
+<rect x="1083.0833333333335" y="148" width="8" height="8" rx="1.5" fill="#2B5EA7"/>
+<text x="1096.0833333333335" y="155" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">guest file read</text>
+<text x="30" y="189" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">SSH key existence only</text>
+<rect x="263.0" y="167" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="288.6666666666667" y="182" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="301.6666666666667" y="189" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">exists; not read</text>
+<rect x="421.33333333333337" y="167" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="458.00000000000006" y="182" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="471.00000000000006" y="189" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">VFS rejected</text>
+<rect x="579.6666666666667" y="167" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="616.3333333333334" y="182" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="629.3333333333334" y="189" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">VFS rejected</text>
+<rect x="738.0" y="167" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="758.1666666666666" y="182" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="771.1666666666666" y="189" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">absent; not denied</text>
+<rect x="896.3333333333334" y="167" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="916.5" y="182" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="929.5" y="189" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">absent; not denied</text>
+<rect x="1054.6666666666667" y="167" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="1074.8333333333335" y="182" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="1087.8333333333335" y="189" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">absent; not denied</text>
+<text x="30" y="223" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">127.0.0.1:18787</text>
+<rect x="263.0" y="201" width="152.33333333333334" height="28" rx="5" fill="#F9E3E0"/>
+<rect x="310.6666666666667" y="216" width="8" height="8" rx="1.5" fill="#B3261E"/>
+<text x="323.6666666666667" y="223" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">HTTP 200</text>
+<rect x="421.33333333333337" y="201" width="152.33333333333334" height="28" rx="5" fill="#F9E3E0"/>
+<rect x="469.00000000000006" y="216" width="8" height="8" rx="1.5" fill="#B3261E"/>
+<text x="482.00000000000006" y="223" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">HTTP 200</text>
+<rect x="579.6666666666667" y="201" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="613.5833333333334" y="216" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="626.5833333333334" y="223" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">policy denied</text>
+<rect x="738.0" y="201" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="766.4166666666666" y="216" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="779.4166666666666" y="223" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">refused (guest)</text>
+<rect x="896.3333333333334" y="201" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="924.75" y="216" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="937.75" y="223" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">refused (guest)</text>
+<rect x="1054.6666666666667" y="201" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="1083.0833333333335" y="216" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="1096.0833333333335" y="223" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">refused (guest)</text>
+<text x="30" y="257" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">169.254.169.254 HTTP</text>
+<rect x="263.0" y="235" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="307.9166666666667" y="250" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="320.9166666666667" y="257" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">host down</text>
+<rect x="421.33333333333337" y="235" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="466.25000000000006" y="250" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="479.25000000000006" y="257" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">host down</text>
+<rect x="579.6666666666667" y="235" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="613.5833333333334" y="250" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="626.5833333333334" y="257" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">policy denied</text>
+<rect x="738.0" y="235" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="763.6666666666666" y="250" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="776.6666666666666" y="257" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">timeout; unknown</text>
+<rect x="896.3333333333334" y="235" width="152.33333333333334" height="28" rx="5" fill="#F9E3E0"/>
+<rect x="919.25" y="250" width="8" height="8" rx="1.5" fill="#B3261E"/>
+<text x="932.25" y="257" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">HTTP 401; no data</text>
+<rect x="1054.6666666666667" y="235" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="1107.8333333333335" y="250" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="1120.8333333333335" y="257" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">EACCES</text>
+<text x="30" y="291" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Write /tmp</text>
+<rect x="263.0" y="269" width="152.33333333333334" height="28" rx="5" fill="#F9E3E0"/>
+<rect x="305.1666666666667" y="284" width="8" height="8" rx="1.5" fill="#B3261E"/>
+<text x="318.1666666666667" y="291" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">host write</text>
+<rect x="421.33333333333337" y="269" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="458.00000000000006" y="284" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="471.00000000000006" y="291" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">VFS rejected</text>
+<rect x="579.6666666666667" y="269" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="616.3333333333334" y="284" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="629.3333333333334" y="291" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">VFS rejected</text>
+<rect x="738.0" y="269" width="152.33333333333334" height="28" rx="5" fill="#E4ECF7"/>
+<rect x="777.4166666666666" y="284" width="8" height="8" rx="1.5" fill="#2B5EA7"/>
+<text x="790.4166666666666" y="291" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">guest write</text>
+<rect x="896.3333333333334" y="269" width="152.33333333333334" height="28" rx="5" fill="#E4ECF7"/>
+<rect x="935.75" y="284" width="8" height="8" rx="1.5" fill="#2B5EA7"/>
+<text x="948.75" y="291" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">guest write</text>
+<rect x="1054.6666666666667" y="269" width="152.33333333333334" height="28" rx="5" fill="#E4ECF7"/>
+<rect x="1094.0833333333335" y="284" width="8" height="8" rx="1.5" fill="#2B5EA7"/>
+<text x="1107.0833333333335" y="291" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">guest write</text>
+<text x="30" y="325" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Infinite loop</text>
+<rect x="263.0" y="303" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="291.4166666666667" y="318" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="304.4166666666667" y="325" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">harness timeout</text>
+<rect x="421.33333333333337" y="303" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="463.50000000000006" y="318" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="476.50000000000006" y="325" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">step limit</text>
+<rect x="579.6666666666667" y="303" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="621.8333333333334" y="318" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="634.8333333333334" y="325" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">step limit</text>
+<rect x="738.0" y="303" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="766.4166666666666" y="318" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="779.4166666666666" y="325" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">harness timeout</text>
+<rect x="896.3333333333334" y="303" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="911.0" y="318" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="924.0" y="325" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">SDK timeout; unknown</text>
+<rect x="1054.6666666666667" y="303" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="1083.0833333333335" y="318" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="1096.0833333333335" y="325" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">harness timeout</text>
+<text x="30" y="359" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Large allocation</text>
+<rect x="263.0" y="337" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="291.4166666666667" y="352" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="304.4166666666667" y="359" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">1 GiB succeeded</text>
+<rect x="421.33333333333337" y="337" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="449.75000000000006" y="352" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="462.75000000000006" y="359" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">repeat rejected</text>
+<rect x="579.6666666666667" y="337" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="608.0833333333334" y="352" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="621.0833333333334" y="359" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">repeat rejected</text>
+<rect x="738.0" y="337" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="766.4166666666666" y="352" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="779.4166666666666" y="359" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">1 GiB succeeded</text>
+<rect x="896.3333333333334" y="337" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="922.0" y="352" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="935.0" y="359" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">timeout; unknown</text>
+<rect x="1054.6666666666667" y="337" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="1083.0833333333335" y="352" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="1096.0833333333335" y="359" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">1 GiB succeeded</text>
+<text x="30" y="393" font-size="11.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">256 MiB cap / 768 MiB request</text>
+<rect x="263.0" y="371" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="305.1666666666667" y="386" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="318.1666666666667" y="393" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">not tested</text>
+<rect x="421.33333333333337" y="371" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="463.50000000000006" y="386" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="476.50000000000006" y="393" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">not tested</text>
+<rect x="579.6666666666667" y="371" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="621.8333333333334" y="386" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="634.8333333333334" y="393" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">not tested</text>
+<rect x="738.0" y="371" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="774.6666666666666" y="386" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="787.6666666666666" y="393" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">OOM enforced</text>
+<rect x="896.3333333333334" y="371" width="152.33333333333334" height="28" rx="5" fill="#ECE7DC"/>
+<rect x="938.5" y="386" width="8" height="8" rx="1.5" fill="#6E6455"/>
+<text x="951.5" y="393" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">not tested</text>
+<rect x="1054.6666666666667" y="371" width="152.33333333333334" height="28" rx="5" fill="#E2F2E8"/>
+<rect x="1091.3333333333335" y="386" width="8" height="8" rx="1.5" fill="#1E7A46"/>
+<text x="1104.3333333333335" y="393" font-size="10" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">OOM enforced</text>
+<text x="30" y="426" font-size="11" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Cell color — per-probe observation category (not a security rating):</text>
+<rect x="30.0" y="436" width="10" height="10" rx="2" fill="#1E7A46"/>
+<text x="45.0" y="444" font-size="10.5" fill="#1E7A46" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">enforced</text>
+<text x="105.8" y="444" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">policy/VFS/step/memory-limit rejection</text>
+<rect x="340.8" y="436" width="10" height="10" rx="2" fill="#B3261E"/>
+<text x="355.8" y="444" font-size="10.5" fill="#B3261E" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">reached</text>
+<text x="410.0" y="444" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">reached host/external resource</text>
+<rect x="601.0" y="436" width="10" height="10" rx="2" fill="#2B5EA7"/>
+<text x="616.0" y="444" font-size="10.5" fill="#2B5EA7" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">guest</text>
+<text x="657.0" y="444" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">confined to guest filesystem</text>
+<rect x="837.0" y="436" width="10" height="10" rx="2" fill="#6E6455"/>
+<text x="852.0" y="444" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">unknown</text>
+<text x="906.2" y="444" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">inconclusive observation</text>
+<text x="30" y="464" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Color describes this probe only, not overall security.</text>
+<text x="30" y="478" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">&#x27;repeat rejected&#x27; does not imply a general memory bound — each label describes only its own probe.</text>
+<text x="30" y="492" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Allocation completion does not establish absence of a memory limit.</text>
+<rect x="26" y="497" width="10" height="10" rx="2" fill="#B3261E"/>
+<text x="40" y="506" font-size="11" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Additional observation: </text>
+<text x="198.39999999999998" y="506" font-size="11" fill="#B3261E" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Docker host.docker.internal:18787 returned HTTP 200</text>
+<text x="30" y="522" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Different destination from container loopback. Not a container escape.</text>
+<text x="30" y="546" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Not tested: Kernel or interpreter escapes; Cross-tenant access; Prompt injection attack success rate; Secret exfiltration and encoded/redirection variants; Signed or complete audit evidence;</text>
+<text x="30" y="560" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">Effect-level HTTP success for all backends; General memory bounds beyond the explicit capped probe</text>
+</svg>

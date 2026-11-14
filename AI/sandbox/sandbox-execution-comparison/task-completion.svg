@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="588" viewBox="0 0 980 588">
+<rect width="980" height="588" fill="#FAF6EC"/>
+<text x="24" y="30" font-size="17" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">Task artifact validation</text>
+<text x="24" y="48" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">results/v2-agent · Wilson 95% interval (z=1.959963984540054) · descriptive only; tasks are clustered, not independent</text>
+<text x="24" y="62" font-size="11.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">fetch validates public fields, not HTTP provenance</text>
+<text x="24" y="112" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">calcside</text>
+<text x="24" y="126" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">11/12</text>
+<rect x="250" y="99" width="284.16666666666663" height="18" fill="#0F766E"/>
+<line x1="450.2972275462537" y1="108" x2="555.3918207344757" y2="108" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="450.2972275462537" y1="103" x2="450.2972275462537" y2="113" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="555.3918207344757" y1="103" x2="555.3918207344757" y2="113" stroke="#2A241B" stroke-width="1.4"/>
+<text x="572" y="112" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">92%</text>
+<text x="572" y="126" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">[65–99%]</text>
+<line x1="24" y1="128" x2="956" y2="128" stroke="#E3DAC6" stroke-width="1"/>
+<text x="24" y="158" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">docker</text>
+<text x="24" y="172" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">12/12</text>
+<rect x="250" y="145" width="310.0" height="18" fill="#0F766E"/>
+<line x1="484.82685793687534" y1="154" x2="560" y2="154" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="484.82685793687534" y1="149" x2="484.82685793687534" y2="159" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="560" y1="149" x2="560" y2="159" stroke="#2A241B" stroke-width="1.4"/>
+<text x="572" y="158" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">100%</text>
+<text x="572" y="172" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">[76–100%]</text>
+<line x1="24" y1="174" x2="956" y2="174" stroke="#E3DAC6" stroke-width="1"/>
+<text x="24" y="204" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">e2b</text>
+<text x="24" y="218" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">12/12</text>
+<rect x="250" y="191" width="310.0" height="18" fill="#0F766E"/>
+<line x1="484.82685793687534" y1="200" x2="560" y2="200" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="484.82685793687534" y1="195" x2="484.82685793687534" y2="205" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="560" y1="195" x2="560" y2="205" stroke="#2A241B" stroke-width="1.4"/>
+<text x="572" y="204" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">100%</text>
+<text x="572" y="218" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">[76–100%]</text>
+<line x1="24" y1="220" x2="956" y2="220" stroke="#E3DAC6" stroke-width="1"/>
+<text x="24" y="250" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">openshell</text>
+<text x="24" y="264" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">12/12</text>
+<rect x="250" y="237" width="310.0" height="18" fill="#0F766E"/>
+<line x1="484.82685793687534" y1="246" x2="560" y2="246" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="484.82685793687534" y1="241" x2="484.82685793687534" y2="251" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="560" y1="241" x2="560" y2="251" stroke="#2A241B" stroke-width="1.4"/>
+<text x="572" y="250" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">100%</text>
+<text x="572" y="264" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">[76–100%]</text>
+<line x1="24" y1="266" x2="956" y2="266" stroke="#E3DAC6" stroke-width="1"/>
+<text x="24" y="296" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">python</text>
+<text x="24" y="310" font-size="10.5" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">12/12</text>
+<rect x="250" y="283" width="310.0" height="18" fill="#0F766E"/>
+<line x1="484.82685793687534" y1="292" x2="560" y2="292" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="484.82685793687534" y1="287" x2="484.82685793687534" y2="297" stroke="#2A241B" stroke-width="1.4"/>
+<line x1="560" y1="287" x2="560" y2="297" stroke="#2A241B" stroke-width="1.4"/>
+<text x="572" y="296" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">100%</text>
+<text x="572" y="310" font-size="10" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">[76–100%]</text>
+<line x1="24" y1="312" x2="956" y2="312" stroke="#E3DAC6" stroke-width="1"/>
+<text x="24" y="406" font-size="12.5" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif" font-weight="600">By task (successes/attempts)</text>
+<text x="24" y="432" font-size="11" fill="#6E6455" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">task</text>
+<text x="186.0" y="432" font-size="10.5" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">calcside</text>
+<text x="294.0" y="432" font-size="10.5" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">docker</text>
+<text x="402.0" y="432" font-size="10.5" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">e2b</text>
+<text x="510.0" y="432" font-size="10.5" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">openshell</text>
+<text x="618.0" y="432" font-size="10.5" fill="#6E6455" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">python</text>
+<text x="28" y="458" font-size="11" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">fetch</text>
+<text x="186.0" y="458" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">2/3</text>
+<text x="294.0" y="458" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="402.0" y="458" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="510.0" y="458" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="618.0" y="458" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="28" y="484" font-size="11" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">file</text>
+<text x="186.0" y="484" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="294.0" y="484" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="402.0" y="484" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="510.0" y="484" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="618.0" y="484" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="28" y="510" font-size="11" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">join</text>
+<text x="186.0" y="510" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="294.0" y="510" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="402.0" y="510" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="510.0" y="510" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="618.0" y="510" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="28" y="536" font-size="11" fill="#2A241B" text-anchor="start" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">stats</text>
+<text x="186.0" y="536" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="294.0" y="536" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="402.0" y="536" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="510.0" y="536" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+<text x="618.0" y="536" font-size="10.5" fill="#2A241B" text-anchor="middle" font-family="IBM Plex Sans, -apple-system, &#x27;Segoe UI&#x27;, sans-serif">3/3</text>
+</svg>
